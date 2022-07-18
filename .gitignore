@@ -2,3 +2,5 @@
 !secuter/*.lua
 !expansions/SecuterCards.cdb
 !config/strings.conf
+/puzzles/Canon collection
+/repositories/lflists
