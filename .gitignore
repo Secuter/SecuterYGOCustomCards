@@ -1,2 +1,4 @@
 *.*
-!*.lua
+!secuter/*.lua
+!expansions/SecuterCards.cdb
+!config/strings.conf
