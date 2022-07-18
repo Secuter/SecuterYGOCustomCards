@@ -1,0 +1,94 @@
+--D.D. Invader Link
+--Scripted by Secuter
+local s,id=GetID()
+function s.initial_effect(c)
+	c:EnableReviveLimit()
+	Link.AddProcedure(c,nil,2,3,s.lcheck)
+	--link summon
+	local e1=Effect.CreateEffect(c)
+	e1:SetDescription(aux.Stringid(id,0))
+	e1:SetType(EFFECT_TYPE_IGNITION)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetCountLimit(1,id)
+	e1:SetTarget(s.target)
+	e1:SetOperation(s.operation)
+	c:RegisterEffect(e1)
+	--add
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e2:SetCode(EVENT_REMOVE)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetCountLimit(1,{id,1})
+	e2:SetCondition(s.spcon)
+	e2:SetTarget(s.sptg)
+	e2:SetOperation(s.spop)
+	c:RegisterEffect(e2)
+end
+s.listed_names={id}
+s.listed_series={0x215}
+s.material_setcode={0x215}
+function s.lcheck(g,lc,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,0x215,lc,SUMMON_TYPE_LINK,tp)
+end
+
+function s.lkfilter(c,mg)
+	return c:IsSetCard(0x215) and not c:IsCode(id) and c:IsLinkSummonable(nil,mg,2,2)
+end
+function s.mfilter(tc,c,tp,lg)
+	local mg=Group.FromCards(c,tc)
+	return lg:IsContains(tc) and tc:IsFaceup() and tc:IsCanBeLinkMaterial() and Duel.IsExistingMatchingCard(s.lkfilter,tp,LOCATION_EXTRA,0,1,nil,mg)
+end
+function s.chainlimit(sc)
+	return	function(e,rp,tp)
+				return tp==rp or not sc:GetLinkedGroup():IsContains(e:GetHandler())
+			end
+end
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local lg=e:GetHandler():GetLinkedGroup()
+	if chk==0 then return Duel.IsExistingMatchingCard(s.mfilter,tp,0,LOCATION_MZONE,1,nil,e:GetHandler(),tp,lg) end
+	Duel.SetChainLimit(s.chainlimit(e:GetHandler()))
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+end
+function s.operation(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if not c:IsFaceup() then return end
+	local lg=c:GetLinkedGroup()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+	local tc=Duel.SelectMatchingCard(tp,s.mfilter,tp,0,LOCATION_MZONE,1,1,nil,c,tp,lg):GetFirst()
+	if tc and not tc:IsImmuneToEffect(e)then
+		local mg=Group.FromCards(c,tc)
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local g=Duel.SelectMatchingCard(tp,s.lkfilter,tp,LOCATION_EXTRA,0,1,1,nil,mg)
+		local sc=g:GetFirst()
+		if sc then
+			Duel.LinkSummon(tp,sc,nil,mg,2,2)
+		end
+	end
+end
+
+function s.filter(c)
+	return not c:IsType(TYPE_TOKEN)
+end
+function s.spcon(e,tp,eg,ep,ev,re,r,rp)
+	return eg:IsExists(s.filter,1,nil)
+end
+function s.spfilter(c,e,tp)
+	return c:IsSetCard(0x215) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+end
+function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp) end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
+end
+function s.spop(e,tp,eg,ep,ev,re,r,rp)
+	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 or not e:GetHandler():IsRelateToEffect(e) then return end
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local g=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	if #g>0 then
+		Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
+	end
+end
