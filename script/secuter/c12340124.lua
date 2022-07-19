@@ -67,7 +67,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) and c:IsLocation(LOCATION_HAND) and tc:IsRelateToEffect(e) and tc:IsFaceup() then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local mg=Group.FromCards(tc)
-		Duel.EchoSummon(c,tp,mg,mg)
+		Duel.EchoSummon(tp,c,mg,mg)
 	end
 end
 --destroy replace

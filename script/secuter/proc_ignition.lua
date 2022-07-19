@@ -158,7 +158,7 @@ function Ignition.FilterMustBeMat(mg1,mg2,mustg)
 	end
 	return true
 end
-function Duel.IgnitionSummon(c,tp,mustg,mg)
+function Duel.IgnitionSummon(tp,c,mustg,mg)
 	local mt=c:GetMetatable()
 	local f1=mt.ignition_parameters[2]
 	local f2=mt.ignition_parameters[3]

@@ -14,7 +14,7 @@ function s.initial_effect(c)
 	e1:SetCost(s.setcost)
 	e1:SetTarget(s.settg)
 	e1:SetOperation(s.setop)
-	c:RegisterEffect(e1)
+	c:RegisterEffect(e1,false,REGISTER_FLAG_DETACH_XMAT)
 	--xyz summon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))

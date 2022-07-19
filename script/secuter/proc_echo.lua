@@ -179,7 +179,7 @@ function Echo.FilterMustBeMat(mg,mustg)
 	end
 	return true
 end
-function Duel.EchoSummon(c,tp,mustg,mg)
+function Duel.EchoSummon(tp,c,mustg,mg)
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return end
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft<=-1 then return end

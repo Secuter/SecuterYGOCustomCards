@@ -78,6 +78,11 @@ if not Armorizing then
 	Armorizing = aux.ArmorizingProcedure
 end
 function Armorizing.AddProcedure(c,f1,min,f2)
+	if c.armorizing_type==nil then
+		local mt=c:GetMetatable()
+		mt.armorizing_type=1
+		mt.armorizing_parameters={c,f1,min,f2}
+	end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetDescription(1184)
@@ -145,4 +150,50 @@ function Armorizing.Operation(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	c:SetMaterial(g)
 	Duel.SendtoGrave(g,REASON_MATERIAL+REASON_ARMORIZING)
 	g:DeleteGroup()
+end
+-- Armorizing Summon by card effect
+function Card.IsArmorizingSummonable(c,e,tp,must_use,mg,min,max)
+	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
+		and c.IsArmorizing and c:ArmorizingRule(e,tp,must_use,mg,min,max)
+end
+function Card.ArmorizingRule(c,e,tp,mustg,g,minc=0,maxc=99)		
+	if c==nil then return true end
+	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
+	local mt=c:GetMetatable()
+	local f1=mt.armorizing_parameters[2]
+	local min=mt.armorizing_parameters[3]
+	local f2=mt.armorizing_parameters[4]
+	
+	if not g then
+		g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,nil)
+	end	
+	return g:IsExists(Armorizing.MatFilter,1,nil,c,tp,f1,min,f2)
+end
+function Armorizing.FilterMustBeMat(mg1,mg2,mustg)
+	local tc=mustg:GetFirst()
+	while tc do
+		if not mg1:IsContains(tc) and not mg2:IsContains(tc) then return false end
+		tc=mustg:GetNext()
+	end
+	return true
+end
+function Duel.ArmorizingSummon(tp,c,mustg,g,minc=0,maxc=99)
+	local mt=c:GetMetatable()
+	local f1=mt.armorizing_parameters[2]
+	local min=mt.armorizing_parameters[3]
+	local f2=mt.armorizing_parameters[4]
+		
+    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_AMATERIAL)
+	if not g then
+		g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,nil)
+	end
+	local rg=g:Filter(Armorizing.MatFilter,nil,c,tp,f1,min,f2)
+	local mg=aux.SelectUnselectGroup(rg,e,tp,1,1,nil,1,tp,HINTMSG_SELECT,nil,nil,true,c)
+               
+	if #mg>0 then
+		local sg=mg:GetFirst():GetOverlayGroup()
+		sg:Merge(mg)
+		c:SetMaterial(sg)
+		Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_ARMORIZING)
+	end
 end
