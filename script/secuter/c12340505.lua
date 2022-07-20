@@ -71,7 +71,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
     local tc=Duel.GetFirstTarget()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectMatchingCard(tp,s.desfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,e:GetHandler(),tc)
-	if g:GetCount()>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
+	if #g>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
         if tc:IsRelateToEffect(e) and tc:IsFaceup() then
             local e1=Effect.CreateEffect(e:GetHandler())
             e1:SetType(EFFECT_TYPE_SINGLE)

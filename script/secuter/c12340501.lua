@@ -44,7 +44,7 @@ end
 function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
+	if #g>0 then
 		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end
@@ -68,7 +68,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectMatchingCard(tp,s.desfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,e:GetHandler())
-	if g:GetCount()>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
+	if #g>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
         if re:GetHandler():IsRelateToEffect(re) then
             Duel.Destroy(eg,REASON_EFFECT)
         end

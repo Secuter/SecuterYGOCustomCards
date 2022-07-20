@@ -65,7 +65,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsRelateToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
 		local g=Duel.SelectMatchingCard(tp,s.matfilter,tp,LOCATION_DECK,0,1,1,nil)
-		if g:GetCount()>0 then
+		if #g>0 then
 			Duel.Overlay(e:GetHandler(),g)
 		end
 	end
@@ -105,7 +105,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 			local sc=Duel.SelectMatchingCard(tp,s.filter,tp,0,LOCATION_ONFIELD,1,1,nil):GetFirst()
             if sc:IsImmuneToEffect(e) then return end
 			local og=sc:GetOverlayGroup()
-			if og:GetCount()>0 then
+			if o#g>0 then
 				Duel.SendtoGrave(og,REASON_RULE)
 			end
 			Duel.Overlay(tc,sc)

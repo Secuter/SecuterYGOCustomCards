@@ -61,7 +61,7 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 		local sc=Duel.SelectMatchingCard(tp,s.atfilter,tp,0,LOCATION_ONFIELD,1,1,nil):GetFirst()
         if sc:IsImmuneToEffect(e) then return end
 		local og=sc:GetOverlayGroup()
-		if og:GetCount()>0 then
+		if o#g>0 then
 			Duel.SendtoGrave(og,REASON_RULE)
 		end
 		Duel.Overlay(c,sc)

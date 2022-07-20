@@ -40,7 +40,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,1,e:GetHandler())
-	if g:GetCount()>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
+	if #g>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
         local g1=Duel.GetFieldGroup(tp,0,LOCATION_ONFIELD)
         local g2=Duel.GetFieldGroup(tp,0,LOCATION_HAND)
         local opt=0
@@ -56,7 +56,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
         elseif opt==2 then
             g=g2:RandomSelect(tp,1)
         end
-		if g:GetCount()>0 then
+		if #g>0 then
             Duel.Destroy(g,REASON_EFFECT)
             local tc=g:GetFirst()
             if tc:IsType(TYPE_MONSTER) then

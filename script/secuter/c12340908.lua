@@ -39,14 +39,14 @@ function s.ntcon(e,c,minc)
 		and Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
 end
 
-function s.cfilter(c,tp)
+function s.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x218)
 end
 function s.atfilter(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK)
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.cfilter,1,nil,tp)
+	return eg:IsExists(s.cfilter,1,nil)
 	  and not Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler())
 end
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -58,7 +58,7 @@ end
 function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() and not tc:IsDisabled() then
+	if tc and tc:IsRelateToEffect(e) and aux.disfilter3(tc) then
 		Duel.NegateRelatedChain(tc,RESET_TURN_SET)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)

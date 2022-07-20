@@ -19,20 +19,20 @@ function s.initial_effect(c)
 	e2:SetTarget(s.thtg)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
-	--spsummon itself
+	--reunion summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetCategory(CATEGORY_SUMMON)
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_FREE_CHAIN)
 	e3:SetRange(LOCATION_GRAVE+LOCATION_MZONE+LOCATION_HAND)
 	e3:SetHintTiming(0,TIMINGS_CHECK_MONSTER_E)
 	e3:SetCountLimit(1,{id,1})
-	e3:SetCondition(s.sumcon)
+	e3:SetCondition(s.recon)
 	e3:SetCost(aux.bfgcost)
-	e3:SetTarget(s.sumtg)
-	e3:SetOperation(s.sumop)
+	e3:SetTarget(s.retg)
+	e3:SetOperation(s.reop)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
@@ -54,7 +54,7 @@ end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK,0,1,1,nil)
-	if g:GetCount()>0 then
+	if #g>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)		
 		if not g:GetFirst():IsLocation(LOCATION_HAND) then return end
@@ -68,22 +68,29 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 end
---normal summon
-function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
+--reunion summon
+function s.recon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
-function s.sumfilter(c)
-	return c:IsSetCard(0x218) and c:IsSummonable(true,nil)
+function s.mfilter(c)
+	return c:IsFaceup() and c:IsLevelAbove(7) and not c:IsType(TYPE_TOKEN)
 end
-function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil) end
-	local g=Duel.GetMatchingGroup(s.sumfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,nil)
-	Duel.SetOperationInfo(0,CATEGORY_SUMMON,g,1,0,0)
+function s.refilter(c,e,tp,mg)
+	return c:IsReunionSummonable(e,tp,nil,mg)
 end
-function s.sumop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SUMMON)
-	local tc=Duel.SelectMatchingCard(tp,s.sumfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,1,nil):GetFirst()
-	if tc then
-		Duel.Summon(tp,tc,true,nil)
+function s.retg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		local mg=Duel.GetMatchingGroup(s.mfilter,tp,LOCATION_MZONE,0,nil)
+		return Duel.IsExistingMatchingCard(s.refilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,mg)
+	end
+	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
+end
+function s.reop(e,tp,eg,ep,ev,re,r,rp)
+	local mg=Duel.GetMatchingGroup(s.mfilter,tp,LOCATION_MZONE,0,nil)		
+	local g=Duel.GetMatchingGroup(s.refilter,tp,LOCATION_EXTRA,0,nil,e,tp,mg)
+	if #g>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+		local tg=g:Select(tp,1,1,nil)
+		Duel.ReunionSummon(tp,tg:GetFirst(),nil,mg)
 	end
 end

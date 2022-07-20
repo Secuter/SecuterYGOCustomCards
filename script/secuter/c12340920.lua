@@ -64,11 +64,11 @@ function s.matcheck(e,c)
 	end
 end
 --additional summon
-function s.cfilter(c,tp)
+function s.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(0x218)
 end
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.cfilter,1,nil,tp)
+	return eg:IsExists(s.cfilter,1,nil)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsPlayerCanSummon(tp) end

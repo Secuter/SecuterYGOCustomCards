@@ -36,7 +36,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	for tc in aux.Next(mg) do
 		g:Merge(tc:GetOverlayGroup())   
 	end
-	if chk==0 then return g:GetCount()>0 end
+	if chk==0 then return #g>0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVEXYZ)
 	local sg=g:Select(tp,1,1,nil)
 	Duel.SendtoGrave(sg,REASON_COST)

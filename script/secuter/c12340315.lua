@@ -51,7 +51,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	if _replace_count<=_replace_max and c:IsRelateToEffect(e) and Duel.SendtoHand(c,nil,REASON_EFFECT)~=0 then
         Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
         local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-        if g:GetCount()>0 then
+        if #g>0 then
             Duel.SendtoHand(g,nil,REASON_EFFECT)
             Duel.ConfirmCards(1-tp,g)
         end

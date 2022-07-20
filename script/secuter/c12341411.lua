@@ -88,7 +88,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetOperatedGroup()
 	local ct=g:FilterCount(s.filter,nil)
 	local dg=Duel.GetMatchingGroup(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,nil)
-	if ct~=0 and dg:GetCount()>0 then --and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+	if ct~=0 and d#g>0 then --and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
 		local sdg=dg:Select(tp,1,ct,nil)
@@ -111,7 +111,7 @@ function s.op2(e,tp,eg,ep,ev,re,r,rp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)
 	Duel.Hint(HINT_SELECTMSG,p,HINTMSG_TODECK)
 	local g=Duel.SelectMatchingCard(p,s.drfilter,p,LOCATION_HAND,0,1,63,nil)
-	if g:GetCount()>0 then
+	if #g>0 then
 		Duel.ConfirmCards(1-p,g)
 		local ct=Duel.SendtoDeck(g,nil,2,REASON_EFFECT)
 		Duel.ShuffleDeck(p)

@@ -61,7 +61,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	if d>0 and Duel.Draw(p,d,REASON_EFFECT)==d then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 		local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,LOCATION_HAND,0,1,1,nil)
-		if g:GetCount()>0 then
+		if #g>0 then
 			Duel.BreakEffect()
 			if Duel.SelectOption(tp,aux.Stringid(id,2),aux.Stringid(id,3))==0 then
 				Duel.SendtoDeck(g,nil,0,REASON_EFFECT)

@@ -152,11 +152,11 @@ function Armorizing.Operation(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	g:DeleteGroup()
 end
 -- Armorizing Summon by card effect
-function Card.IsArmorizingSummonable(c,e,tp,must_use,mg,min,max)
+function Card.IsArmorizingSummonable(c,e,tp,must_use,mg)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
-		and c.IsArmorizing and c:ArmorizingRule(e,tp,must_use,mg,min,max)
+		and c.IsArmorizing and c:ArmorizingRule(e,tp,must_use,mg)
 end
-function Card.ArmorizingRule(c,e,tp,mustg,g,minc=0,maxc=99)		
+function Card.ArmorizingRule(c,e,tp,mustg,g)
 	if c==nil then return true end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local mt=c:GetMetatable()
@@ -177,7 +177,7 @@ function Armorizing.FilterMustBeMat(mg1,mg2,mustg)
 	end
 	return true
 end
-function Duel.ArmorizingSummon(tp,c,mustg,g,minc=0,maxc=99)
+function Duel.ArmorizingSummon(tp,c,mustg,g)
 	local mt=c:GetMetatable()
 	local f1=mt.armorizing_parameters[2]
 	local min=mt.armorizing_parameters[3]

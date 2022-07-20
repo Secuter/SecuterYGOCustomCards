@@ -676,7 +676,7 @@ function Card.IsReunionSummonable(c,e,tp,must_use,mg,min,max)
 end
 function Card.ReunionRule(c,e,tp,mustg,g,minc,maxc)
 	if c==nil then return true end
-	if minc==nil then minc=0 end
+	if minc==nil then minc=1 end
 	if maxc==nil then maxc=99 end
 	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 	local mt=c:GetMetatable()
@@ -745,7 +745,7 @@ function Reunion.FilterMustBeMat(mg1,mg2,mustg)
 	return true
 end
 function Duel.ReunionSummon(tp,c,mustg,g,minc,maxc)
-	if minc==nil then minc=0 end
+	if minc==nil then minc=1 end
 	if maxc==nil then maxc=99 end
 	local mt=c:GetMetatable()
 	local f=mt.reunion_parameters[2]

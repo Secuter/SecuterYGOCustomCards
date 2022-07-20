@@ -59,7 +59,7 @@ function s.adtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.adop(e,tp,eg,ep,ev,re,r,rp)
     local sg=Duel.GetMatchingGroup(s.adfilter,tp,LOCATION_MZONE,0,nil,e)
-	if sg:GetCount()>0 then
+	if s#g>0 then
         local tc=sg:GetFirst()
         while tc do
             local e1=Effect.CreateEffect(e:GetHandler())

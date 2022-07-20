@@ -38,7 +38,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	for tc in aux.Next(mg) do
 		g:Merge(tc:GetOverlayGroup())   
 	end
-	return g:GetCount()>0
+	return #g>0
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Group.CreateGroup()

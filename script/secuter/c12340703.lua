@@ -61,9 +61,9 @@ end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectMatchingCard(tp,s.thfilter1,tp,LOCATION_DECK,0,1,1,nil,tp)
-	if g:GetCount()>0 then
+	if #g>0 then
 		local mg=Duel.GetMatchingGroup(s.thfilter2,tp,LOCATION_DECK,0,nil,g:GetFirst():GetCode())
-		if mg:GetCount()>0 then
+		if m#g>0 then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 			local sg=mg:Select(tp,1,1,nil)
 			g:Merge(sg)

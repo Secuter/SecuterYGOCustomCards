@@ -59,7 +59,7 @@ function s.adjustop(e,tp,eg,ep,ev,re,r,rp)
 			race=race*2
 		end
 	end
-	if sg:GetCount()>0 then
+	if s#g>0 then
 		Duel.SendtoGrave(sg,REASON_RULE)
 		Duel.Readjust()
 	end

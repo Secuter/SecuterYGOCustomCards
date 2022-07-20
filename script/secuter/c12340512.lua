@@ -43,7 +43,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	if ct>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,ct,nil)
-		if g:GetCount()>0 then
+		if #g>0 then
 			Duel.Destroy(g,REASON_EFFECT)
 		end
 	end
