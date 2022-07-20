@@ -1,7 +1,4 @@
-*.*
-!secuter/*.lua
+*
+!secuter/*
 !expansions/SecuterCards.cdb
 !config/strings.conf
-/puzzles/Canon collection
-/repositories/lflists
-repositories/delta-utopia/
