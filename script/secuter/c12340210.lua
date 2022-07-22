@@ -177,7 +177,7 @@ end
 function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local tg=g:Filter(Card.IsRelateToEffect,nil,e)
-	if t#g>0 then
+	if #tg>0 then
 		Duel.Destroy(tg,REASON_EFFECT)
 	end
 end

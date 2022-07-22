@@ -88,7 +88,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local sg=g:Filter(Card.IsRelateToEffect,nil,e)
-	if s#g>0 then
+	if #sg>0 then
 		Duel.Overlay(c,sg)
 		Duel.SetLP(tp,Duel.GetLP(tp)-sg:GetCount()*500)
 	end

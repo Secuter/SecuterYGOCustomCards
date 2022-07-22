@@ -42,7 +42,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_DECK,0,1,1,nil,tp)
 	if #g>0 then
 		local mg=Duel.GetMatchingGroup(s.filter2,tp,LOCATION_DECK,0,nil,g:GetFirst())
-		if m#g>0 then
+		if #mg>0 then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 			local sg=mg:Select(tp,1,1,nil)
 			g:Merge(sg)

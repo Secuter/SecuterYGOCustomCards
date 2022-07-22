@@ -89,7 +89,7 @@ end
 function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tg=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
 	local rg=tg:Filter(Card.IsRelateToEffect,nil,e)
-	if r#g>0 then 
+	if #rg>0 then 
 		Duel.Destroy(rg,REASON_EFFECT)
 	end
 end

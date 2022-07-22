@@ -105,7 +105,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 			local sc=Duel.SelectMatchingCard(tp,s.filter,tp,0,LOCATION_ONFIELD,1,1,nil):GetFirst()
             if sc:IsImmuneToEffect(e) then return end
 			local og=sc:GetOverlayGroup()
-			if o#g>0 then
+			if #og>0 then
 				Duel.SendtoGrave(og,REASON_RULE)
 			end
 			Duel.Overlay(tc,sc)

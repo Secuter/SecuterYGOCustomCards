@@ -41,7 +41,7 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
 		Duel.Remove(eg,POS_FACEUP,REASON_EFFECT)
 		local sg=Duel.GetMatchingGroup(s.sfilter,tp,LOCATION_DECK,0,nil)
-		if s#g>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
+		if #sg>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 			Duel.BreakEffect()
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SET)
 			local setg=sg:Select(tp,1,1,nil)

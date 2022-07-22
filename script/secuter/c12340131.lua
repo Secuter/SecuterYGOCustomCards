@@ -66,7 +66,7 @@ function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
     local tg=Duel.GetTargetCards(e)
-    if t#g>0 then
+    if #tg>0 then
 		Duel.SendtoGrave(tg,REASON_EFFECT)
     end
 end
