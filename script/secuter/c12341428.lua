@@ -1,4 +1,4 @@
---Ancient Oracle Extra
+--Ancient Oracle Spear Master
 --Scripted by Secuter
 local s,id=GetID()
 function s.initial_effect(c)

@@ -50,17 +50,17 @@ function s.condition(e,c)
 end
 --normal summon itself
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x218),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return c:CanSummon(true,nil) end
+	if chk==0 then return c:CanSummonOrSet(true,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_SUMMON,c,1,tp,LOCATION_HAND)
 end
 function s.sumop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.Summon(tp,sc,true,nil) 
+		Duel.Summon(tp,c,true,nil) 
 	end
 end
 --normal summon

@@ -1,9 +1,10 @@
---Asura Reunion
+--Vritra - Asura of Thousand Dragons
 --Scripted by Secuter
 local s,id=GetID()
 s.IsReunion=true
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
+	--reunion summon0
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x218),2,99)
 	--gain attributes

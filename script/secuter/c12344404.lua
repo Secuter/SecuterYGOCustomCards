@@ -34,10 +34,6 @@ function s.initial_effect(c)
 end
 s.listed_series={0x3204}
 function s.efilter(c,sc,sumtype,tp)
-	--if c:IsType(TYPE_XYZ) then
-	--	Debug.Message("Check Fluidsphere Huntress: "..c:GetCode())
-	--	Debug.Message("-  ATTRIBUTE_WATER= "..tostring(c:IsAttribute(ATTRIBUTE_WATER,sc,sumtype,tp)).." TYPE_XYZ= "..tostring(c:IsType(TYPE_XYZ,sc,sumtype,tp)).." Rank 4= "..tostring(c:IsRankAbove(4)))
-	--end
 	return c:IsAttribute(ATTRIBUTE_WATER,sc,sumtype,tp) and c:IsType(TYPE_XYZ,sc,sumtype,tp) and c:IsRankAbove(4)
 end
 --spsummon

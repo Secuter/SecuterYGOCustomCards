@@ -702,6 +702,9 @@ function Card.ReunionRule(c,e,tp,mustg,g,minc,maxc)
 	if max and max > maxc then return false end
 	min = min or minc
 	max = max or maxc
+	if not mustg then
+		mustg=Group.CreateGroup()
+	end
 	if mustg:IsExists(aux.NOT(Reunion.ConditionFilter),1,nil,f,c,tp,send,locsend) or #mustg>max then return false end
 	local emt,tg=aux.GetExtraMaterials(tp,mustg+mg,c,SUMMON_TYPE_REUNION)
 	local res=(mg+tg):Includes(mustg) and #mustg<=max
@@ -770,6 +773,9 @@ function Duel.ReunionSummon(tp,c,mustg,g,minc,maxc)
 	if max and max > maxc then return false end
 	min = min or minc
 	max = max or maxc
+	if not mustg then
+		mustg=Group.CreateGroup()
+	end
 	local emt,tg=aux.GetExtraMaterials(tp,mustg+mg,c,SUMMON_TYPE_REUNION)
 	tg=tg:Filter(Reunion.ConditionFilter,nil,f,c,tp,send,locsend)
 	local sg=Group.CreateGroup()
