@@ -41,7 +41,7 @@ end
 function s.acop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local tc=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.acfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,1,nil,tp):GetFirst()
-	aux.PlayFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
+	Duel.ActivateFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

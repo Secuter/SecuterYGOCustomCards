@@ -94,7 +94,7 @@ function s.actop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.SelectMatchingCard(tp,s.actfilter,tp,LOCATION_DECK,0,1,1,nil,tp):GetFirst()
 	if tc then
 		if tc:IsType(TYPE_FIELD) then
-			aux.PlayFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
+			Duel.ActivateFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
 			--local fc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
 			--if fc then
 			--	Duel.SendtoGrave(fc,REASON_RULE)

@@ -32,7 +32,7 @@ function s.xyzfilter(c,tp,lc)
 	return c:IsFaceup() and c:IsType(TYPE_XYZ,lc,SUMMON_TYPE_XYZ,tp) and c:IsAttribute(ATTRIBUTE_WATER,lc,SUMMON_TYPE_XYZ,tp) and not c:IsCode(id)
 end
 function s.xyzop(e,tp,chk)
-	if chk==0 then return Duel.GetFlagEffect(tp,id)==0 and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,3,nil) end
+	if chk==0 then return Duel.GetFlagEffect(tp,id)==0 and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,3,nil) end
 	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1)
 	return true
 end

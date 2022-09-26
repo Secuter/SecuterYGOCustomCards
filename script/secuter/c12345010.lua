@@ -44,7 +44,7 @@ function s.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e5:SetCode(EVENT_SUMMON_SUCCESS)
 	e5:SetRange(LOCATION_MZONE)
-	e5:SetCondition(aux.zptcon(aux.disfilter1))
+	e5:SetCondition(aux.zptcon(Card.IsNegatableMonster))
 	e5:SetOperation(s.disop)
 	c:RegisterEffect(e5)
 end
@@ -75,7 +75,7 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=eg:GetFirst()
 	while tc do
-		if tc and tc:IsRelateToEffect(e) and aux.disfilter1(c) then
+		if tc and tc:IsRelateToEffect(e) and Card.IsNegatableMonster(c) then
 			tc:UpdateAttack(-500)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)

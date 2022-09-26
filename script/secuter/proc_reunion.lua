@@ -194,33 +194,35 @@ function Reunion.CheckGoal2(tp,sg,sc,min,max,mustlvl,mustcount,inclf,locsend,max
 		and sg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl,math.max(0,#sg-mustcount),#sg-mustcount)
 		and Duel.GetLocationCountFromEx(tp,tp,sg,sc)>0
 end
-function Reunion.CheckTypeInclude(mg,tp,min,max,inclf,mustg,mustlvl,mustcount)
+function Reunion.CheckTypeInclude(mg,tp,sc,min,max,inclf,mustg,mustlvl,mustcount)
 	local res=false
-	if #mustg>0 and mustg:IsExists(inclf,1,nil,c,SUMMON_TYPE_SPECIAL,tp) then
-		res=g2:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
+	if #mustg>0 and mustg:IsExists(inclf,1,nil,sc,SUMMON_TYPE_SPECIAL,tp) then
+		res=g2:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
 	end
 	if not res then
-		local g1=mg:Filter(inclf,nil,c,SUMMON_TYPE_SPECIAL,tp)
+		local g1=mg:Filter(inclf,nil,sc,SUMMON_TYPE_SPECIAL,tp)
 		if #g1>0 then
 			local tc=g1:GetFirst()
 			while tc and not res do
 				COUNT_R1=COUNT_R1+1
 				local g2=mg:Clone()
 				g2:RemoveCard(tc)
-				res=g2:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl-tc:GetReunionCount(),min-mustcount-1,max-mustcount-1)
+				res=g2:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl-tc:GetReunionCount(),min-mustcount-1,max-mustcount-1)
 				tc=g1:GetNext()
 			end
 		end
 	end
 	return res
 end
-function Reunion.CheckTypeMaxSend(mg,tp,min,max,inclf,mustg,mustlvl,mustcount)
+function Reunion.CheckTypeMaxSend(mg,tp,sc,min,max,locsend,mustg,mustlvl,mustcount)
 	local res=false
-	local gs=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
-	local gn=mg:Filter(aux.NOT(Card.IsLocation),nil,LOCATION_MZONE)
+	--local gs=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
+	--local gn=mg:Filter(aux.NOT(Card.IsLocation),nil,LOCATION_MZONE)
+	local gs=mg:Filter(aux.NOT(Card.IsLocation),nil,locsend)
+	local gn=mg:Filter(Card.IsLocation,nil,locsend)
 	if #mustg>0 then
 		if mustg:IsExists(aux.NOT(Card.IsLocation),1,nil,LOCATION_MZONE) then
-			res=gs:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
+			res=gs:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
 		end
 	end
 	if #gs>0 then
@@ -230,31 +232,33 @@ function Reunion.CheckTypeMaxSend(mg,tp,min,max,inclf,mustg,mustlvl,mustcount)
 				COUNT_R1=COUNT_R1+1
 				local g2=gn:Clone()
 				g2:RemoveCard(tc)
-				res=gs:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl-tc:GetReunionCount(),min-mustcount-1,max-mustcount-1)
+				res=gs:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl-tc:GetReunionCount(),min-mustcount-1,max-mustcount-1)
 				tc=gn:GetNext()
 			end
 		end
 	end
 	return res
 end
-function Reunion.CheckTypeIncludeMaxSend(mg,tp,min,max,inclf,mustg,mustlvl,mustcount)
+function Reunion.CheckTypeIncludeMaxSend(mg,tp,sc,min,max,inclf,locsend,mustg,mustlvl,mustcount)
 	local res=false
-	local gs=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
-	local gn=mg:Filter(aux.NOT(Card.IsLocation),nil,LOCATION_MZONE)
-	if mustg:IsExists(inclf,1,nil,c,SUMMON_TYPE_SPECIAL,tp) then
-		res=gs:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
+	--local gs=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
+	--local gn=mg:Filter(aux.NOT(Card.IsLocation),nil,LOCATION_MZONE)
+	local gs=mg:Filter(aux.NOT(Card.IsLocation),nil,locsend)
+	local gn=mg:Filter(Card.IsLocation,nil,locsend)
+	if mustg:IsExists(inclf,1,nil,sc,SUMMON_TYPE_SPECIAL,tp) then
+		res=gs:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
 		if not res then
 			local tc=gn:GetFirst()
 			while tc and not res do
 				COUNT_R1=COUNT_R1+1
-				res=gs:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl-tc:GetReunionCount(),min-mustcount-1,max-mustcount-1)
+				res=gs:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl-tc:GetReunionCount(),min-mustcount-1,max-mustcount-1)
 				tc=gn:GetNext()
 			end
 		end
 	end
 	if #gs>0 then
 		if not res then
-			local g1=mg:Filter(inclf,nil,c,SUMMON_TYPE_SPECIAL,tp)
+			local g1=mg:Filter(inclf,nil,sc,SUMMON_TYPE_SPECIAL,tp)
 			if #g1>0 then
 				local tc1=g1:GetFirst()
 				while tc1 and not res do
@@ -263,12 +267,12 @@ function Reunion.CheckTypeIncludeMaxSend(mg,tp,min,max,inclf,mustg,mustlvl,mustc
 					local gn2=gn:Clone()
 					gs2:RemoveCard(tc1)
 					gn2:RemoveCard(tc1)
-					res=gs2:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl-tc1:GetReunionCount(),min-mustcount-1,max-mustcount-1)
+					res=gs2:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl-tc1:GetReunionCount(),min-mustcount-1,max-mustcount-1)
 					if not res and tc1:IsLocation(LOCATION_MZONE) then
 						local tc2=gn2:GetFirst()
 						while tc2 and not res do
 							COUNT_R1=COUNT_R1+1
-							res=gs2:CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl-tc1:GetReunionCount()-tc2:GetReunionCount(),min-mustcount-2,max-mustcount-2)
+							res=gs2:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl-tc1:GetReunionCount()-tc2:GetReunionCount(),min-mustcount-2,max-mustcount-2)
 							tc2=gn2:GetNext()
 						end
 					end
@@ -279,13 +283,13 @@ function Reunion.CheckTypeIncludeMaxSend(mg,tp,min,max,inclf,mustg,mustlvl,mustc
 	end
 	return res
 end
-function Reunion.CheckNotRecursive(c,mg,sg,tp,sc,f,min,max)
+function Reunion.CheckNotRecursive(c,mg,sg,tp,sc,min,max)
 	local lvlsum=sg:GetReunionSum()+c:GetReunionCount()
 	local tg=mg:Clone()
 	tg=tg:RemoveCard(c)
 	return tg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-lvlsum,math.max(0,min-#sg-1),max-#sg-1)
 end
-function Reunion.CheckTypeInclude2(mg,sg,tp,sc,f,min,max,inclf)
+function Reunion.CheckTypeInclude2(mg,sg,tp,sc,min,max,inclf)
 	local lvlsum=sg:GetReunionSum()
 	local count=#sg
 	local rg=Group.CreateGroup()
@@ -342,7 +346,7 @@ function Reunion.CheckTypeInclude2(mg,sg,tp,sc,f,min,max,inclf)
 	end
 	return rg
 end
-function Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,f,min,max,locsend,maxsend)
+function Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,min,max,locsend,maxsend)
 	local lvlsum=sg:GetReunionSum()
 	local count=#sg
 	local rg=Group.CreateGroup()
@@ -399,19 +403,19 @@ function Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,f,min,max,locsend,maxsend)
 	end
 	return rg
 end	
-function Reunion.CheckTypeIncludeMaxSend2(mg,sg,tp,sc,f,min,max,inclf,locsend,maxsend)
+function Reunion.CheckTypeIncludeMaxSend2(mg,sg,tp,sc,min,max,inclf,locsend,maxsend)
 	if DEBUG then Debug.Message("---------------------------------") end
 	mg=mg:Remove(Reunion.Remove,nil,sg)
 	local rg=Group.CreateGroup()
 	if sg:IsExists(inclf,1,nil,sc,SUMMON_TYPE_SPECIAL,tp) then
 		if DEBUG then Debug.Message("CheckTypeMaxSend") end
-		rg=Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,f,min,max,locsend,maxsend)
+		rg=Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,min,max,locsend,maxsend)
 	else
 		local mgs=mg:Filter(aux.NOT(Card.IsLocation),nil,locsend)
 		local mgn=mg:Filter(Card.IsLocation,nil,locsend)	
 		if sg:IsExists(Card.IsLocation,1,nil,locsend) then
 			if DEBUG then Debug.Message("CheckTypeInclude") end
-			rg=Reunion.CheckTypeInclude2(mgs,sg,tp,sc,f,min,max,inclf)
+			rg=Reunion.CheckTypeInclude2(mgs,sg,tp,sc,min,max,inclf)
 		else
 			local lvlsum=sg:GetReunionSum()
 			local count=#sg	
@@ -501,13 +505,13 @@ function Reunion.Condition(f,minc,maxc,specialchk,opp,loc,send,locsend,maxsend,i
 						if r_type==REUNION_TYPE_NONE or r_type==REUNION_TYPE_LOCATION then
 							res=(mg+tg):CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
 						elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE then
-							res=Reunion.CheckTypeInclude((mg+tg),sg,tp,c,f,min,max,inclf)
+							res=Reunion.CheckTypeInclude((mg+tg),tp,c,min,max,inclf,mustg,mustlvl,mustcount)
 						elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_MAXSEND then
-							res=Reunion.CheckTypeMaxSend((mg+tg),sg,tp,c,f,min,max,locsend,maxsend)
+							res=Reunion.CheckTypeMaxSend((mg+tg),tp,c,min,max,locsend,mustg,mustlvl,mustcount)
 						elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND then
-							res=Reunion.CheckTypeIncludeMaxSend((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+							res=Reunion.CheckTypeIncludeMaxSend((mg+tg),tp,c,min,max,inclf,locsend,mustg,mustlvl,mustcount)
 						else
-							res=Reunion.CheckTypeIncludeMaxSend((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+							res=Reunion.CheckTypeIncludeMaxSend((mg+tg),tp,c,min,max,inclf,locsend,mustg,mustlvl,mustcount)
 						end
 					else
 						if #mustg==max then
@@ -552,15 +556,15 @@ function Reunion.Target(f,minc,maxc,specialchk,opp,loc,send,locsend,maxsend,incl
 					while #sg<max do
 						local cg
 						if r_type==REUNION_TYPE_NONE or r_type==REUNION_TYPE_LOCATION then
-							cg=(mg+tg):Filter(Reunion.CheckNotRecursive,nil,(mg+tg),sg,tp,c,f,min,max)
+							cg=(mg+tg):Filter(Reunion.CheckNotRecursive,nil,(mg+tg),sg,tp,c,min,max)
 						elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE then
-							cg=Reunion.CheckTypeInclude2((mg+tg),sg,tp,c,f,min,max,inclf)
+							cg=Reunion.CheckTypeInclude2((mg+tg),sg,tp,c,min,max,inclf)
 						elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_MAXSEND then
-							cg=Reunion.CheckTypeMaxSend2((mg+tg),sg,tp,c,f,min,max,locsend,maxsend)
+							cg=Reunion.CheckTypeMaxSend2((mg+tg),sg,tp,c,min,max,locsend,maxsend)
 						elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND then
-							cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+							cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,min,max,inclf,locsend,maxsend)
 						else
-							cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+							cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,min,max,inclf,locsend,maxsend)
 						end						
 						if #cg==0 then break end
 						finish=#sg>=min and #sg<=max and Reunion.CheckGoal2(tp,sg,c,min,max,mustlvl,mustcount,inclf,locsend,maxsend)
@@ -717,13 +721,13 @@ function Card.ReunionRule(c,e,tp,mustg,g,minc,maxc)
 			if r_type==REUNION_TYPE_NONE or r_type==REUNION_TYPE_LOCATION then
 				res=(mg+tg):CheckWithSumEqual(Reunion.GetReunionCount,c:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
 			elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE then
-				res=Reunion.CheckTypeInclude((mg+tg),sg,tp,c,f,min,max,inclf)
+				res=Reunion.CheckTypeInclude((mg+tg),tp,c,min,max,inclf,mustg,mustlvl,mustcount)
 			elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_MAXSEND then
-				res=Reunion.CheckTypeMaxSend((mg+tg),sg,tp,c,f,min,max,locsend,maxsend)
+				res=Reunion.CheckTypeMaxSend((mg+tg),tp,min,c,max,locsend,mustg,mustlvl,mustcount)
 			elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND then
-				res=Reunion.CheckTypeIncludeMaxSend((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+				res=Reunion.CheckTypeIncludeMaxSend((mg+tg),tp,c,min,max,inclf,locsend,mustg,mustlvl,mustcount)
 			else
-				res=Reunion.CheckTypeIncludeMaxSend((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+				res=Reunion.CheckTypeIncludeMaxSend((mg+tg),tp,c,min,max,inclf,locsend,mustg,mustlvl,mustcount)
 			end
 		else
 			if #mustg==max then
@@ -790,15 +794,15 @@ function Duel.ReunionSummon(tp,c,mustg,g,minc,maxc)
 		while #sg<max do
 			local cg
 			if r_type==REUNION_TYPE_NONE or r_type==REUNION_TYPE_LOCATION then
-				cg=(mg+tg):Filter(Reunion.CheckNotRecursive,nil,(mg+tg),sg,tp,c,f,min,max)
+				cg=(mg+tg):Filter(Reunion.CheckNotRecursive,nil,(mg+tg),sg,tp,c,min,max)
 			elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE then
-				cg=Reunion.CheckTypeInclude2((mg+tg),sg,tp,c,f,min,max,inclf)
+				cg=Reunion.CheckTypeInclude2((mg+tg),sg,tp,c,min,max,inclf)
 			elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_MAXSEND then
-				cg=Reunion.CheckTypeMaxSend2((mg+tg),sg,tp,c,f,min,max,locsend,maxsend)
+				cg=Reunion.CheckTypeMaxSend2((mg+tg),sg,tp,c,min,max,locsend,maxsend)
 			elseif r_type&REUNION_TYPES_MAIN==REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND then
-				cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+				cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,min,max,inclf,locsend,maxsend)
 			else
-				cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,f,min,max,inclf,locsend,maxsend)
+				cg=Reunion.CheckTypeIncludeMaxSend2((mg+tg),sg,tp,c,min,max,inclf,locsend,maxsend)
 			end			
 			if #cg==0 then break end
 			finish=#sg>=min and #sg<=max and Reunion.CheckGoal2(tp,sg,c,min,max,mustlvl,mustcount,inclf,locsend,maxsend)

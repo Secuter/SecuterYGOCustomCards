@@ -60,7 +60,7 @@ function s.updowntg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_POSITION,nil,1,0,0)
 end
 function s.updownop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.SelectMatchingCard(tp,aux.FilterFaceupFunction(s.filter2),tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,aux.FaceupFilter(s.filter2),tp,LOCATION_MZONE,0,1,1,nil)
 	if #g>0 then
 		Duel.HintSelection(g)
 		Duel.ChangePosition(g,POS_FACEDOWN_DEFENSE)

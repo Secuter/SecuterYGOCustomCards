@@ -66,9 +66,9 @@ end
 --to hand
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsLocation(LOCATION_ONFIELD) end
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,1,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,1,nil)
 		and Duel.IsExistingTarget(Card.IsAbleToHand,tp,0,LOCATION_ONFIELD,1,nil) end
-	local ct=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,nil):GetCount()
+	local ct=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,nil):GetCount()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local tg=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_ONFIELD,1,ct,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,#tg,1,0,0)

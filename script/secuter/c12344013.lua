@@ -60,7 +60,7 @@ function s.atkfilter(e,te)
 end
 function s.atkval(e,c)
 	local tp=e:GetHandlerPlayer()
-	local ct=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsAttribute,ATTRIBUTE_WATER),tp,LOCATION_MZONE,0,nil):GetClassCount(Card.GetRace)
+	local ct=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsAttribute,ATTRIBUTE_WATER),tp,LOCATION_MZONE,0,nil):GetClassCount(Card.GetRace)
 	return ct*200
 end
 -- negate

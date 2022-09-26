@@ -31,10 +31,10 @@ function s.thfilter(c)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
-        and (not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+        and (not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
         or Duel.IsPlayerCanDiscardDeck(tp,2)) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
-    if Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
+    if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
         Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,tp,2)
     end
 end
@@ -45,7 +45,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
     local tc=g:GetFirst()
 	if tc and Duel.SendtoHand(tc,nil,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_HAND) then
 		Duel.ConfirmCards(1-tp,c)
-        if Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
+        if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
 			Duel.BreakEffect()
             Duel.DiscardDeck(tp,2,REASON_EFFECT)
         end

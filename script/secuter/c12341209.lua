@@ -72,7 +72,7 @@ end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
 	return tp~=ep and Duel.GetCurrentChain()==0 and eg:IsExists(s.negfilter,1,nil)
-        and (#g==0 or (#g>0 and g:FilterCount(aux.FilterFaceupFunction(Card.IsSetCard,0x215),nil)==#g))
+        and (#g==0 or (#g>0 and g:FilterCount(aux.FaceupFilter(Card.IsSetCard,0x215),nil)==#g))
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost()

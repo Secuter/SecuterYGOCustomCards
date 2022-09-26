@@ -36,15 +36,15 @@ function s.thfilter(c)
 	return ((c:IsSetCard(0x10c) and c:IsType(TYPE_MONSTER)) or c:IsSetCard(0xfe)) and c:IsFaceup() and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and aux.disfilter1(chkc) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsNegatableMonster() end
 	if chk==0 then return true end
-	if Duel.IsExistingTarget(aux.disfilter1,tp,0,LOCATION_MZONE,1,nil)
+	if Duel.IsExistingTarget(Card.IsNegatableMonster,tp,0,LOCATION_MZONE,1,nil)
 		and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		e:SetCategory(CATEGORY_DISABLE)
 		e:SetProperty(EFFECT_FLAG_CARD_TARGET)
 		e:SetOperation(s.activate)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
-		local g=Duel.SelectTarget(tp,aux.disfilter1,tp,0,LOCATION_MZONE,1,1,nil)
+		local g=Duel.SelectTarget(tp,Card.IsNegatableMonster,tp,0,LOCATION_MZONE,1,1,nil)
 		Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,1,0,0)
 	else
 		e:SetCategory(0)

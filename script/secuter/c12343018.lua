@@ -91,5 +91,5 @@ function s.acfilter(c,tp)
 end
 function s.acop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstMatchingCard(s.acfilter,tp,LOCATION_DECK,0,nil,tp)
-	aux.PlayFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
+	Duel.ActivateFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
 end

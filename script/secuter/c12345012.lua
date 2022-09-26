@@ -54,13 +54,13 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return tc:IsFaceup() and tc:IsSummonPlayer(1-tp)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return aux.disfilter1(eg:GetFirst()) end
+	if chk==0 then return Card.IsNegatableMonster(eg:GetFirst()) end
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=eg:GetFirst()
-	if tc and aux.disfilter1(tc) and not tc:IsImmuneToEffect(e) then
+	if tc and tc:IsNegatableMonster() and not tc:IsImmuneToEffect(e) then
 		Duel.NegateRelatedChain(tc,RESET_TURN_SET)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)

@@ -53,10 +53,10 @@ function s.actlimit(e,te,tp)
 end
 --to grave
 function s.ignitioncon(e,tp,eg,ep,ev,re,r,rp)
-    return not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+    return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.quickcon(e,tp,eg,ep,ev,re,r,rp)
-    return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsAbleToGrave() end

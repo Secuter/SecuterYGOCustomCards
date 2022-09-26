@@ -33,7 +33,7 @@ s.listed_series={0x228}
 --destroy mon
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
-	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x228),tp,LOCATION_MZONE,0,1,nil)
+	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x228),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end

@@ -49,7 +49,7 @@ end
 --atk up
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	if re:IsActiveType(TYPE_MONSTER) and re:IsHasType(EFFECT_TYPE_FLIP) then
-		local tg=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_FLIP),tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+		local tg=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_FLIP),tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 		if #tg>0 then
 			local c=e:GetHandler()
 			for sc in aux.Next(tg) do

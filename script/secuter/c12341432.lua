@@ -60,7 +60,7 @@ function s.matcheck(g,lc,sumtype,tp)
 end
 function s.immcon(e,tp,eg,ep,ev,re,r,rp)
 	if not tp then tp=e:GetHandlerPlayer() end
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.immfilter(e,re)
 	return re:GetOwnerPlayer()~=e:GetHandlerPlayer()

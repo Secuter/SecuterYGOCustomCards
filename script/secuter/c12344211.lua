@@ -24,14 +24,14 @@ end
 s.listed_series={0x230}
 --disable
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x230),tp,LOCATION_MZONE,0,1,nil)
-		and Duel.IsExistingMatchingCard(aux.disfilter3,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x230),tp,LOCATION_MZONE,0,1,nil)
+		and Duel.IsExistingMatchingCard(Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,nil) end
     Duel.SetOperationInfo(0,CATEGORY_DISABLE,nil,1,0,0)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsSetCard,0x230),tp,LOCATION_MZONE,0,nil)
-	local cg=Duel.GetMatchingGroup(aux.disfilter3,tp,0,LOCATION_ONFIELD,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,0x230),tp,LOCATION_MZONE,0,nil)
+	local cg=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
 	if #g>0 and #cg>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
 		local sg=cg:Select(tp,1,#g,nil)

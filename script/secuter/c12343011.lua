@@ -47,9 +47,10 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if not tc then return end
-	if Duel.SendtoHand(tc,tp,REASON_EFFECT)>0 and Duel.GetOperatedGroup():GetFirst():IsLocation(LOCATION_HAND) then
-		Duel.SpecialSummon(e:GetHandler(),SUMMON_TYPE_EXCHANGE,tp,tp,false,false,POS_FACEUP_DEFENSE)
+	if tc and tc:IsRelateToEffect(e) then
+		if Duel.SendtoHand(tc,tp,REASON_EFFECT)>0 and Duel.GetOperatedGroup():GetFirst():IsLocation(LOCATION_HAND) then
+			Duel.SpecialSummon(e:GetHandler(),SUMMON_TYPE_EXCHANGE,tp,tp,false,false,POS_FACEUP_DEFENSE)
+		end
 	end
 end
 --exchange summon

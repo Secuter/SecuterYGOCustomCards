@@ -65,7 +65,7 @@ function s.atlimit(e,c)
 	return c:IsLinked() and c:GetAttack()<s.atkval(e:GetHandlerPlayer())
 end
 function s.atkval(tp)
-	local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsLinked),tp,LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsLinked),tp,LOCATION_MZONE,0,nil)
 	local _,val=g:GetMaxGroup(Card.GetAttack)
 	return val
 end

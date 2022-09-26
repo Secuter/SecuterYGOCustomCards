@@ -101,7 +101,7 @@ function s.eqlimit(e,c)
 	return e:GetOwner()==c
 end
 function s.equipop(c,e,tp,tc)
-	aux.EquipByEffectAndLimitRegister(c,e,tp,tc,nil,true)
+	c:EquipByEffectAndLimitRegister(e,tp,tc,nil,true)
 end
 
 

@@ -72,7 +72,7 @@ function s.splimit(e,c,tp,sumtp,sumpos)
 end
 
 function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 		and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
 function s.cfilter2(c,tp)

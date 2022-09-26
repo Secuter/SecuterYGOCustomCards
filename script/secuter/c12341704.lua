@@ -102,7 +102,7 @@ function s.eqop(e,tp,eg,ep,ev,re,r,rp)
 	s.equipop(c,e,tp,tc)
 end
 function s.equipop(c,e,tp,tc)
-	aux.EquipByEffectAndLimitRegister(c,e,tp,tc,nil,true)
+	c:EquipByEffectAndLimitRegister(e,tp,tc,nil,true)
 end
 
 function s.cfilter(c)

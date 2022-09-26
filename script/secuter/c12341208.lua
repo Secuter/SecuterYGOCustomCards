@@ -74,7 +74,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
 	return Duel.GetCurrentPhase()~=PHASE_DRAW and eg:IsExists(s.tdfilter,1,nil,1-tp)
 		and Duel.GetFieldGroupCount(1-tp,LOCATION_ONFIELD+LOCATION_HAND,0)>0
-        and (#g==0 or (#g>0 and g:FilterCount(aux.FilterFaceupFunction(Card.IsSetCard,0x215),nil)==#g))
+        and (#g==0 or (#g>0 and g:FilterCount(aux.FaceupFilter(Card.IsSetCard,0x215),nil)==#g))
 end
 function s.tdcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost()

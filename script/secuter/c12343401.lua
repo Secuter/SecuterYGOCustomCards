@@ -35,7 +35,7 @@ s.listed_series={0x227}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
-	return #g==0 or (#g>0 and g:FilterCount(aux.FilterFaceupFunction(Card.IsRace,RACE_INSECT),nil)==#g)
+	return #g==0 or (#g>0 and g:FilterCount(aux.FaceupFilter(Card.IsRace,RACE_INSECT),nil)==#g)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

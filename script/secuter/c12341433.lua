@@ -61,7 +61,7 @@ end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
-    if Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
+    if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
         Duel.DiscardDeck(tp,10,REASON_EFFECT)
     else
         Duel.DiscardDeck(tp,5,REASON_EFFECT)
@@ -80,10 +80,10 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.ignitioncon(e,tp,eg,ep,ev,re,r,rp)
-    return not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+    return not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.quickcon(e,tp,eg,ep,ev,re,r,rp)
-    return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+    return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.cfilter(c)
 	return c:IsSetCard(0x211) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)

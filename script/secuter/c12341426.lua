@@ -77,7 +77,7 @@ end
 function s.acop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local tc=Duel.GetFirstMatchingCard(s.acfilter,tp,LOCATION_DECK,0,nil,tp)
-	if aux.PlayFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp) then
+	if Duel.ActivateFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp) then
         Duel.BreakEffect()
         Duel.DiscardDeck(tp,2,REASON_EFFECT)
 	end

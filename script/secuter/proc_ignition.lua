@@ -64,10 +64,10 @@ function Ignition.Condition(f1,f2,min,max)
 				if c==nil then return true end
 				local tp=c:GetControler()
                 
-                if not Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Ignition.Filter),tp,LOCATION_MZONE,0,1,nil,f1,c,tp)
+                if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,1,nil,f1,c,tp)
                     or not Duel.IsExistingMatchingCard(Ignition.Filter,tp,LOCATION_HAND,0,min,nil,f2,c,tp) then return false end
                 
-                local mg1=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
+                local mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
                 local mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
                 
                 if #mg1<=0 or #mg2<=0 then return false end
@@ -78,7 +78,7 @@ end
 function Ignition.Target(f1,f2,min,max)
 	return function(e,tp,eg,ep,ev,re,r,rp,chk,c,must,mg1,mg2)
                 if not mg1 then
-                    mg1=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
+                    mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
                 end
                 if not mg2 then
                     mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
@@ -139,10 +139,10 @@ function Card.IgnitionRule(c,e,tp,mustg,mg)
     local mg1=nil
     local mg2=nil
 	if mg then
-		mg1=mg:Filter(aux.FilterFaceupFunction(Card.IsLocation,LOCATION_MZONE),nil):Filter(Ignition.Filter,nil,f1,c,tp)
+		mg1=mg:Filter(aux.FaceupFilter(Card.IsLocation,LOCATION_MZONE),nil):Filter(Ignition.Filter,nil,f1,c,tp)
 		mg2=mg:Filter(Card.IsLocation,nil,LOCATION_HAND):Filter(Ignition.Filter,nil,f2,c,tp)
 	else
-		mg1=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
+		mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
 		mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
 	end
     if #mg1<=0 or #mg2<=0 then return false end
@@ -167,10 +167,10 @@ function Duel.IgnitionSummon(tp,c,mustg,mg)
     local mg1=nil
     local mg2=nil
 	if mg then
-		mg1=mg:Filter(aux.FilterFaceupFunction(Card.IsLocation,LOCATION_MZONE),nil):Filter(Ignition.Filter,nil,f1,c,tp)
+		mg1=mg:Filter(aux.FaceupFilter(Card.IsLocation,LOCATION_MZONE),nil):Filter(Ignition.Filter,nil,f1,c,tp)
 		mg2=mg:Filter(Card.IsLocation,nil,LOCATION_HAND):Filter(Ignition.Filter,nil,f2,c,tp)
 	else
-		mg1=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
+		mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
 		mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
 	end
 	

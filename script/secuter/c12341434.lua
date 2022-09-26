@@ -57,7 +57,7 @@ function s.drop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SendtoDeck(g,nil,0,REASON_EFFECT)
 		end
 	end
-	if Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+	if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 	and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 then
 		local sg=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.spfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp)
 		if #sg>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then

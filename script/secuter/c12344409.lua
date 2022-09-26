@@ -67,7 +67,7 @@ end
 s.listed_series={0x3204}
 function s.con(ct)
 	return function (e,tp,eg,ep,ev,re,r,rp)
-		local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_CONTINUOUS),e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)
+		local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)
 		return g:GetClassCount(Card.GetCode)>=ct
 	end
 end

@@ -20,7 +20,7 @@ end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
-	local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_EFFECT),tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_EFFECT),tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 	if #g>0 then
 		Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,#g,0,0)
 	end
@@ -29,7 +29,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=re:GetHandler()
 	if not tc:IsDisabled() then
 		if Duel.NegateEffect(ev) and tc:IsRelateToEffect(re) then
-			local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsType,TYPE_EFFECT),tp,LOCATION_MZONE,LOCATION_MZONE,nil)
+			local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_EFFECT),tp,LOCATION_MZONE,LOCATION_MZONE,nil)
 			if #g>0 then
 				Duel.Destroy(g,REASON_EFFECT)
 			end

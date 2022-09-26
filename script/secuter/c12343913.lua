@@ -16,7 +16,7 @@ s.listed_series={0x22C}
 --excavate
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
-		local ct=Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsSetCard,0x22C),tp,LOCATION_ONFIELD,0,e:GetHandler())+3
+		local ct=Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsSetCard,0x22C),tp,LOCATION_ONFIELD,0,e:GetHandler())+3
 		if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<ct then return false end
 		local g=Duel.GetDecktopGroup(tp,ct)
 		return g:FilterCount(Card.IsAbleToHand,nil)>0
@@ -24,7 +24,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,LOCATION_DECK)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	local ct=Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsSetCard,0x22C),tp,LOCATION_ONFIELD,0,e:GetHandler())+3
+	local ct=Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsSetCard,0x22C),tp,LOCATION_ONFIELD,0,e:GetHandler())+3
 	if Duel.IsPlayerAffectedByEffect(tp,12343916) then ct=ct+2 end
 	if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<ct then return end
 	Duel.ConfirmDecktop(tp,ct)

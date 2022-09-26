@@ -69,7 +69,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
 	return rp~=tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
 		and re and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
-        and (#g==0 or (#g>0 and g:FilterCount(aux.FilterFaceupFunction(Card.IsSetCard,0x215),nil)==#g))
+        and (#g==0 or (#g>0 and g:FilterCount(aux.FaceupFilter(Card.IsSetCard,0x215),nil)==#g))
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToRemoveAsCost()

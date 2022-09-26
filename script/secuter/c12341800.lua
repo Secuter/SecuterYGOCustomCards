@@ -102,7 +102,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
         Duel.ShuffleHand(tp)
 		local rg=Duel.SelectMatchingCard(tp,Card.IsAbleToRemove,tp,LOCATION_HAND,0,1,1,nil)
 		if #rg>0 and Duel.Remove(rg,POS_FACEDOWN,REASON_EFFECT)>0
-            and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(s.rfilter),tp,LOCATION_MZONE,0,1,nil) then
+            and Duel.IsExistingMatchingCard(aux.FaceupFilter(s.rfilter),tp,LOCATION_MZONE,0,1,nil) then
             Duel.BreakEffect()
             Duel.Draw(tp,1,REASON_EFFECT)
         end

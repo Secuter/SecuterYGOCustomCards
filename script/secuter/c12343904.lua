@@ -35,7 +35,7 @@ s.listed_series={0x22C}
 --extra summon
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsPlayerCanAdditionalSummon(tp)
-		and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x22C),tp,LOCATION_ONFIELD,0,1,nil)
+		and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x22C),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.sumcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

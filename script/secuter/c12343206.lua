@@ -49,7 +49,7 @@ function s.initial_effect(c)
 end
 function s.incon(e)
 	return e:GetHandler():GetLinkedGroupCount()>0 
-	and e:GetHandler():GetLinkedGroup():IsExists(aux.FilterFaceupFunction(Card.IsType,TYPE_SYNCHRO),1,nil)
+	and e:GetHandler():GetLinkedGroup():IsExists(aux.FaceupFilter(Card.IsType,TYPE_SYNCHRO),1,nil)
 end
 --check materials
 function s.valcheck(e,c)

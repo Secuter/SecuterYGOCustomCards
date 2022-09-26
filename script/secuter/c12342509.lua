@@ -39,10 +39,10 @@ function s.initial_effect(c)
 end
 s.listed_series={0x21D}
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.disfilter1,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsNegatableMonster,tp,0,LOCATION_ONFIELD,1,nil) end
 end
 function s.disop(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(aux.disfilter1,tp,0,LOCATION_ONFIELD,nil)
+	local g=Duel.GetMatchingGroup(Card.IsNegatableMonster,tp,0,LOCATION_ONFIELD,nil)
 	local tc=g:GetFirst()
 	if not tc then return end
 	local c=e:GetHandler()

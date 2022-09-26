@@ -18,7 +18,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0x217}
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     local g=Duel.GetDecktopGroup(tp,3)
@@ -28,12 +28,12 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     Duel.Remove(g,POS_FACEDOWN,REASON_COST)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and aux.disfilter1(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(aux.disfilter1,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsNegatableMonster() end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsNegatableMonster,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
-	local g=Duel.SelectTarget(tp,aux.disfilter1,tp,0,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,Card.IsNegatableMonster,tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,1,0,0)
-	local g=Duel.GetMatchingGroup(aux.FilterFaceupFunction(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,nil)
 	if g:GetClassCount(Card.GetCode)>=3 and e:IsHasType(EFFECT_TYPE_ACTIVATE) then
 		Duel.SetChainLimit(s.chainlm)
 	end

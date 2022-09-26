@@ -142,7 +142,7 @@ function Echo.EquipOperation(tc,op)
 			end
 end
 function Echo.EquipEquip(c,e,tp,tc,op)
-	if not aux.EquipByEffectAndLimitRegister(c,e,tp,tc,nil,true) then return false end
+	if not c:EquipByEffectAndLimitRegister(e,tp,tc,nil,true) then return false end
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_EQUIP_LIMIT)

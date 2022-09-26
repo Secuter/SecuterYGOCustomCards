@@ -96,7 +96,7 @@ end
 function s.postg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and s.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(s.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil)
-		and Duel.IsExistingMatchingCard(aux.disfilter3,tp,0,LOCATION_ONFIELD,1,nil) end	
+		and Duel.IsExistingMatchingCard(Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,nil) end	
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_POSCHANGE)
 	Duel.SelectTarget(tp,s.filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil)
 end
@@ -104,7 +104,7 @@ function s.posop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and not tc:IsPosition(POS_FACEUP_DEFENSE) and Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)>0 and tc:IsPosition(POS_FACEUP_DEFENSE) then
-		local g=Duel.GetMatchingGroup(aux.disfilter3,tp,0,LOCATION_ONFIELD,nil)
+		local g=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
 		if #g>0 then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
 			local dc=g:Select(tp,1,1,nil):GetFirst()

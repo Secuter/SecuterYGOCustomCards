@@ -28,7 +28,7 @@ function s.tfop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local tc=Duel.SelectMatchingCard(tp,s.tffilter,tp,LOCATION_DECK,0,1,1,nil,tp):GetFirst()
 	if tc and Duel.MoveToField(tc,tp,tp,LOCATION_SZONE,POS_FACEUP,true) then
-		local ct=Duel.GetMatchingGroupCount(aux.FilterFaceupFunction(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,nil)
+		local ct=Duel.GetMatchingGroupCount(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),tp,LOCATION_SZONE,0,nil)
 		if ct>=1 then
 			--atk gain
 			Duel.BreakEffect()			

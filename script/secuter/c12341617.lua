@@ -108,7 +108,7 @@ function s.thfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 end
 function s.thchk(c)
 	return c:IsSetCard(0x216) and not c:IsCode(id) and c:IsAbleToHand()

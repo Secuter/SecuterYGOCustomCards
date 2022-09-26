@@ -26,7 +26,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0x224}
 function s.cond1(e)
-	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.IsExistingMatchingCard(aux.FilterFaceupFunction(Card.IsSetCard,0x224),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x224),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function s.cond2(e)
 	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0)==0

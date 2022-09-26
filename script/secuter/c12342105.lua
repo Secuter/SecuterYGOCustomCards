@@ -68,16 +68,16 @@ end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	if #eg~=1 then return false end
 	local tc=eg:GetFirst()
-	return aux.disfilter1(tc) and tc:IsSummonPlayer(1-tp)
+	return tc:IsNegatableMonster() and tc:IsSummonPlayer(1-tp)
 end
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return aux.disfilter1(eg:GetFirst()) end
+	if chk==0 then return Card.IsNegatableMonster(eg:GetFirst()) end
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,eg:GetFirst():GetAttack())
 end
 function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
-	if tc:IsRelateToEffect(e) and aux.disfilter1(tc) then
+	if tc:IsRelateToEffect(e) and tc:IsNegatableMonster() then
 		Duel.NegateRelatedChain(tc,RESET_TURN_SET)
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_SINGLE)
