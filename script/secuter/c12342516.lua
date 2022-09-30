@@ -60,7 +60,7 @@ function s.igop(e,tp,eg,ep,ev,re,r,rp)
 	if #g>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local sg=g:Select(tp,1,1,nil)
-		Duel.IgnitionSummon(sg:GetFirst(),tp)
+		Duel.IgnitionSummon(tp,sg:GetFirst())
 	end
 end
 --send + extra normal
