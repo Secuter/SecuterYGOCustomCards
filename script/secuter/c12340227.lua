@@ -56,6 +56,17 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SendtoDeck(dg,nil,SEQ_DECKBOTTOM,REASON_EFFECT)
 		end
 	end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetDescription(aux.Stringid(id,1))
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(s.splimit)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+end
+function s.splimit(e,c)
+	return not c:IsAttribute(ATTRIBUTE_WATER)
 end
 
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
