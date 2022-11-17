@@ -3,7 +3,8 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x216))
+	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x216))
+	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,0x216)})
 	--add
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))

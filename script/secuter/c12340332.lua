@@ -3,7 +3,8 @@
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	Ritual.AddProcGreater(c,s.rfilter,nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),nil,LOCATION_HAND|LOCATION_DECK)
+	--Ritual.AddProcGreater(c,s.rfilter,nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),nil,LOCATION_HAND|LOCATION_DECK)
+	Ritual.AddProcGreater({handler=c,filter=s.rfilter,matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_HAND|LOCATION_DECK})
 end
 s.listed_series={0x205}
 function s.rfilter(c)

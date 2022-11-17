@@ -5,7 +5,10 @@ function s.initial_effect(c)
 	--ritual material from grave
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetCode(EFFECT_EXTRA_RITUAL_MATERIAL)
+	e1:SetRange(LOCATION_GRAVE)
+	e1:SetCondition(s.excon)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
 	--special summon
@@ -35,6 +38,10 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
+function s.excon(e)
+	return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(),69832741)
+end
+
 function s.spcon(e,c)
 	if c==nil then return true end
 	return Duel.IsExistingMatchingCard(Card.IsAttribute,c:GetControler(),LOCATION_HAND,0,1,c,ATTRIBUTE_DARK)

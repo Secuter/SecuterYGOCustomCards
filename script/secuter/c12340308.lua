@@ -5,7 +5,10 @@ function s.initial_effect(c)
 	--ritual material from grave
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetCode(EFFECT_EXTRA_RITUAL_MATERIAL)
+	e1:SetRange(LOCATION_GRAVE)
+	e1:SetCondition(s.excon)
 	e1:SetValue(1)
 	c:RegisterEffect(e1)
 	--to hand
@@ -22,6 +25,9 @@ function s.initial_effect(c)
 end
 s.listed_names={id}
 s.listed_series={0x1205}
+function s.excon(e)
+	return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(),69832741)
+end
 
 function s.thfilter(c)
 	return c:IsSetCard(0x1205) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()

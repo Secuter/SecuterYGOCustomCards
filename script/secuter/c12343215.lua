@@ -49,7 +49,7 @@ function s.spcon1(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and (r==REASON_LINK or r==REASON_SYNCHRO) and e:GetHandler():GetReasonCard():IsAttribute(ATTRIBUTE_WATER)
 end
 function s.spfilter1(c,e,tp)
-	return c:IsRace(RACE_SEA_SERPENT) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsRace(RACE_SEASERPENT) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
