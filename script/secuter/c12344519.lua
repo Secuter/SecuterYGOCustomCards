@@ -6,7 +6,7 @@ function s.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_DISABLE+CATEGORY_DESTROY+CATEGORY_ATKCHANGE+CATEGORY_DEFCHANGE)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
-	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_CHAINING)
 	e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
 	e1:SetCondition(s.condition)
@@ -35,11 +35,11 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup()
-	and tc:UpdateAttack(-1000,RESET_EVENT+RESETS_STANDARD,c)==-1000
-	and tc:UpdateDefense(-1000,RESET_EVENT+RESETS_STANDARD,c)==-1000 then
-		if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then
-			Duel.Destroy(eg,REASON_EFFECT)
-		end
+	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() then
+		tc:UpdateAttack(-1000,RESET_EVENT+RESETS_STANDARD,c)
+		tc:UpdateDefense(-1000,RESET_EVENT+RESETS_STANDARD,c)
+	end
+	if Duel.NegateEffect(ev) and re:GetHandler():IsRelateToEffect(re) then
+		Duel.Destroy(eg,REASON_EFFECT)
 	end
 end
