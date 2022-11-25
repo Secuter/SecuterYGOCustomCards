@@ -30,8 +30,7 @@ end
 s.listed_names={id}
 --spsummon
 function s.thfilter(c,ft)
-	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToHand()
-		and (ft>0 or c:IsLocation(LOCATION_MZONE))
+	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToHand() and (ft>0 or c:GetSequence()<5)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
