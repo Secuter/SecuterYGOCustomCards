@@ -7,7 +7,6 @@ deck/
 *.log
 expansions/
 !expansions/SecuterCards.cdb
-!expansions/strings.conf
 *.otf
 *.dll
 pics/
