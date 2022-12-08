@@ -5,10 +5,10 @@ deck/
 *.txt
 *.exe
 *.log
-expansions/
-!expansions/SecuterCards.cdb
 *.otf
 *.dll
+*.cdb
+!*SecuterCards.cdb
 pics/
 puzzles/
 replay/
