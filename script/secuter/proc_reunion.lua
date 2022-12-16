@@ -862,20 +862,22 @@ function Duel.ReunionSummon(tp,c,mustg,g,minc,maxc)
 			sg2:DeleteGroup()
 		end		
 		if send==REUNION_MAT_TOGRAVE then
-			Duel.SendtoGrave(g,REASON_MATERIAL+REASON_REUNION)
+			Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_REUNION)
 		elseif send==REUNION_MAT_REMOVE then
-			Duel.Remove(g,POS_FACEUP,REASON_MATERIAL+REASON_REUNION)
+			Duel.Remove(sg,POS_FACEUP,REASON_MATERIAL+REASON_REUNION)
 		elseif send==REUNION_MAT_REMOVE_FACEDOWN then
-			Duel.Remove(g,POS_FACEDOWN,REASON_MATERIAL+REASON_REUNION)
+			Duel.Remove(sg,POS_FACEDOWN,REASON_MATERIAL+REASON_REUNION)
 		elseif send==REUNION_MAT_TOHAND then
-			Duel.SendtoHand(g,nil,REASON_MATERIAL+REASON_REUNION)
+			Duel.SendtoHand(sg,nil,REASON_MATERIAL+REASON_REUNION)
 		elseif send==REUNION_MAT_TODECK then
-			Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_MATERIAL+REASON_REUNION)
+			Duel.SendtoDeck(sg,nil,SEQ_DECKSHUFFLE,REASON_MATERIAL+REASON_REUNION)
 		elseif send==REUNION_MAT_DESTROY then
-			Duel.Destroy(g,REASON_MATERIAL+REASON_REUNION)
+			Duel.Destroy(sg,REASON_MATERIAL+REASON_REUNION)
 		else
-			Duel.SendtoGrave(g,REASON_MATERIAL+REASON_REUNION)
+			Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_REUNION)
 		end
 		aux.DeleteExtraMaterialGroups(emt)
+		Duel.SpecialSummon(c,SUMMON_TYPE_REUNION,tp,tp,false,false,POS_FACEUP)
+		c:CompleteProcedure()
 	end
 end

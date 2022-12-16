@@ -189,11 +189,13 @@ function Duel.ArmorizingSummon(tp,c,mustg,g)
 	end
 	local rg=g:Filter(Armorizing.MatFilter,nil,c,tp,f1,min,f2)
 	local mg=aux.SelectUnselectGroup(rg,e,tp,1,1,nil,1,tp,HINTMSG_SELECT,nil,nil,true,c)
-               
+	
 	if #mg>0 then
 		local sg=mg:GetFirst():GetOverlayGroup()
 		sg:Merge(mg)
 		c:SetMaterial(sg)
 		Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_ARMORIZING)
+		Duel.SpecialSummon(c,SUMMON_TYPE_ARMORIZING,tp,tp,false,false,POS_FACEUP)
+		c:CompleteProcedure()
 	end
 end

@@ -23,21 +23,14 @@ function s.initial_effect(c)
     --additional summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
-	e3:SetCode(EVENT_SUMMON_SUCCESS)
-	e3:SetProperty(EFFECT_FLAG_DELAY)
-	e3:SetRange(LOCATION_MZONE)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
 	e3:SetCountLimit(1,id)
-	e3:SetCondition(s.sumcon)
+	e1:SetCondition(s.sumcon)
 	e3:SetTarget(s.sumtg)
 	e3:SetOperation(s.sumop)
 	c:RegisterEffect(e3)
-	local e4=e3:Clone()
-	e4:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
-	c:RegisterEffect(e4)
-	local e5=e3:Clone()
-	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
-	c:RegisterEffect(e5)
 end
 s.listed_names={id}
 s.listed_series={0x218}
@@ -64,11 +57,8 @@ function s.matcheck(e,c)
 	end
 end
 --additional summon
-function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x218)
-end
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.cfilter,1,nil)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsPlayerCanSummon(tp) end

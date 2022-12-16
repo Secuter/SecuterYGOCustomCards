@@ -32,6 +32,7 @@ function s.initial_effect(c)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetHintTiming(0,TIMINGS_CHECK_MONSTER_E)
 	e3:SetCountLimit(1,{id,1})
+	e3:SetCondition(s.sumcon)
 	e3:SetTarget(s.sumtg)
 	e3:SetOperation(s.sumop)
 	c:RegisterEffect(e3)
@@ -71,6 +72,9 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 --tribute summon
+function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.GetTurnPlayer()~=tp
+end
 function s.sumfilter(c)
 	return c:IsSetCard(0x218) and c:IsSummonable(true,nil,1)
 end
