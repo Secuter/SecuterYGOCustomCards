@@ -11,9 +11,10 @@ MSE : https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp
 
 # Autosync with Github
 
-You can also edit your config.json file in EDOPro to automatically download the new cards from this repository to EDOPro! It's located in the ProjectIgnis\config folder.
+Edopro has a feature to sync cards with github, which is used to add new cards but can also be configured to work with custom cards!
+To enable this for my custom cards you have to edit your config.json file in EDOPro, it's located in the ProjectIgnis\config folder.
 
-The config.json is structured this
+The config.json is structured like this
 {
 	"repos": [
    ...
