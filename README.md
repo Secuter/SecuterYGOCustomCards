@@ -15,16 +15,17 @@ Edopro has a feature to sync cards with github, which is used to add new cards b
 To enable this for my custom cards you have to edit your config.json file in EDOPro, it's located in the ProjectIgnis\config folder.
 
 The config.json is structured like this
-```json
+```
 {
-	"repos": [
-   ...
+  "repos": [
+  
  ],
-	"urls": [
-   ...
+  "urls": [
+  
  ],
  ...
- ```
+}
+```
 
 You need to add this to 'repos' to download card data and scripts.
 ```json
