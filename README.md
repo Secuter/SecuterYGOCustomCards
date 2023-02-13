@@ -24,6 +24,7 @@ The config.json is structured this
  ...
 
 You need to add this to 'repos' to download card data and scripts.
+```json
 		{
 			"url": "https://github.com/Secuter/SecuterYGOCustomCards",
 			"repo_name": "Secuter Custom Cards",
@@ -33,8 +34,10 @@ You need to add this to 'repos' to download card data and scripts.
 			"should_update": true,
 			"should_read": true
 		}
+```
 
 And these in 'urls' to download card images.
+```json
 		{
 			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/{}.png",
 			"type": "pic"
@@ -43,5 +46,6 @@ And these in 'urls' to download card images.
 			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.png",
 			"type": "field"
 		}
+```
 
 PS: Images are not updated if there is a change in the card, you have to manually delete the old image to automatically download the new one.
