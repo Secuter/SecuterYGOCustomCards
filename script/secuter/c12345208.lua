@@ -3,6 +3,7 @@
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
+	c:SetUniqueOnField(1,0,id)
 	--splimit
 	c:SetSPSummonOnce(id)
 	--Link summon
