@@ -14,7 +14,7 @@ This summon method is unique to Morhais, but they could teach it to others as we
 - Armorizing: Extra Deck monsters related with armor cards, they are summoned using 1 monster that has X or more armors, eg. 1 Dragon monsters with 3+ armors
 The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (a monster with 2 Shields and 4 stars require 2+ armors, its' also considered as level 6). Armorizing monsters can be also Armor monsters.
 
-### Downloads
+## Downloads
 Zip file with cards for EDOPro : https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
 
 Replays with the basic combo for some of my archetypes: [url]https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing[/url]
