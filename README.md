@@ -1,6 +1,17 @@
 # SecuterYGOCustomCards
 Cards preview : https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro
 
+### Downloads
+Zip file with cards for EDOPro : https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
+
+Replays with the basic combo for some of my archetypes: [url]https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing[/url]
+
+Example decks : [url]https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing[/url]
+
+strings.conf file : https://drive.google.com/file/d/1veZA7dNbbDxV6sJXJqtuhn4JkzM5jHpr/view?usp=sharing
+
+Custom MSE : https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
+
 ## Original summoning mechanics
 ![customtypes](https://imgur.com/06v8wHv.png)
 - Reverse-Xyz: similar to Xyz Monster but uses subtraction between the monster levels.
@@ -13,17 +24,6 @@ This summon method is unique to Morhais, but they could teach it to others as we
 - Armor: Can be any type of cards. They have a ATK/DEF bonus and an additinal effect when used as armor. Attaching an armor target the monster and the armor go under the monster like Xyz materials, bacause of this they are incompatible with Xyz monsters, armor cards cannot be attached to Xyz monsters. An Xyz monster can be summoned with an Armor monster but it not gain any of its Armor effects.
 - Armorizing: Extra Deck monsters related with armor cards, they are summoned using 1 monster that has X or more armors, eg. 1 Dragon monsters with 3+ armors
 The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (a monster with 2 Shields and 4 stars require 2+ armors, its' also considered as level 6). Armorizing monsters can be also Armor monsters.
-
-## Downloads
-Zip file with cards for EDOPro : https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
-
-Replays with the basic combo for some of my archetypes: [url]https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing[/url]
-
-Example decks : [url]https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing[/url]
-
-strings.conf file : https://drive.google.com/file/d/1veZA7dNbbDxV6sJXJqtuhn4JkzM5jHpr/view?usp=sharing
-
-Custom MSE : https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
 
 # Autosync with Github
 
