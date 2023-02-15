@@ -4,9 +4,9 @@ Cards preview : https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-cus
 ### Downloads
 Zip file with cards for EDOPro : https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
 
-Replays with the basic combo for some of my archetypes: https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing[/url]
+Replays with the basic combo for some of my archetypes: https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing
 
-Example decks : https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing[/url]
+Example decks : https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
 
 strings.conf file : https://drive.google.com/file/d/1veZA7dNbbDxV6sJXJqtuhn4JkzM5jHpr/view?usp=sharing
 
