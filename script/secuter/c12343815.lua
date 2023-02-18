@@ -98,14 +98,14 @@ function s.atcheck(sg,e,tp,mg)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(s.atfilter,tp,LOCATION_HAND+LOCATION_EXTRA+LOCATION_GRAVE,0,nil,e:GetHandler())
-	if chk==0 then return aux.SelectUnselectGroup(g,e,tp,3,3,s.atcheck,0) end
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,nil,3,tp,LOCATION_HAND+LOCATION_EXTRA+LOCATION_GRAVE)
+	if chk==0 then return aux.SelectUnselectGroup(g,e,tp,1,3,s.atcheck,0) end
+	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,nil,1,tp,LOCATION_HAND+LOCATION_EXTRA+LOCATION_GRAVE)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c and c:IsRelateToEffect(e) then
 		local g=Duel.GetMatchingGroup(s.atfilter,tp,LOCATION_HAND+LOCATION_EXTRA+LOCATION_GRAVE,0,nil,c)
-		local sg=aux.SelectUnselectGroup(g,e,tp,3,3,s.atcheck,1,tp,HINTMSG_ATTACHARMOR)
+		local sg=aux.SelectUnselectGroup(g,e,tp,1,3,s.atcheck,1,tp,HINTMSG_ATTACHARMOR)
 		if #sg>0 then
 			Armor.Attach(c,sg)
 		end
