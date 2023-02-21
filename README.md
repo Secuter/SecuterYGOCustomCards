@@ -15,19 +15,24 @@ This summon method is unique to Morhais, but they could teach it to others as we
 The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (a monster with 2 Shields and 4 stars require 2+ armors, its' also considered as level 6). Armorizing monsters can be also Armor monsters.
 
 ## Downloads
-Zip file with cards for EDOPro : https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
+Zip archive with cards for EDOPro: https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
+(The archive will be updated only when I release new archetypes, it won't be updated for the fix of just a couple of cards. To get all the updates and fixes immediately, I recommend to configure the auto sync.)
+
+strings.conf file: https://drive.google.com/file/d/1veZA7dNbbDxV6sJXJqtuhn4JkzM5jHpr/view?usp=sharing
+
+Replays and decks are NOT downloaded by the autosync feature in EDOPro, you have to download them manually if you want them.
 
 Replays with the basic combo for some of my archetypes: https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing
 
 Example decks: https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
 
-strings.conf file: https://drive.google.com/file/d/1veZA7dNbbDxV6sJXJqtuhn4JkzM5jHpr/view?usp=sharing
-
-Custom MSE: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
+Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing 
 
 # Autosync with Github
 
 Edopro has a feature to sync cards with github, which is used to add new cards but can also be configured to work with custom cards!
+Only the database and script will be sync every time you start EDOPro (it's less the 7 MB), the images are downloaded only 1 time, the first time you view them in the simulator.
+
 To enable this for my custom cards you have to edit your config.json file in EDOPro, it's located in the ProjectIgnis\config folder.
 
 First make a backup of the config.json file, so you can restore it if you do something wrong.
@@ -36,10 +41,10 @@ The config.json is structured like this
 ```
 {
   "repos": [
-  
+    { ... }
  ],
   "urls": [
-  
+    { ... }
  ],
  ...
 }
