@@ -36,10 +36,10 @@ The config.json is structured like this
 ```
 {
   "repos": [
-  
+    { ... }
  ],
   "urls": [
-  
+    { ... }
  ],
  ...
 }
