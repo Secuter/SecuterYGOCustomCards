@@ -75,16 +75,16 @@ function s.eqop(e,tp,eg,ep,ev,re,r,rp)
 	local ft=Duel.GetLocationCount(tp,LOCATION_SZONE)
 	if ft>0 then
 		local g=Duel.GetMatchingGroup(s.eqfilter,tp,LOCATION_GRAVE,0,nil,c)
-		if ft>#g then ft=#g end
-		if ft==0 then return end
-		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
-		local sg=g:Select(tp,1,ft,nil)
-		local tc=sg:GetFirst()
-		while tc do
-			Duel.Equip(tp,tc,c,true,true)
-			tc=sg:GetNext()
+		if #g>0 then
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EQUIP)
+			local sg=g:Select(tp,math.min(#g,ft),math.min(#g,ft),nil)
+			local tc=sg:GetFirst()
+			while tc do
+				Duel.Equip(tp,tc,c,true,true)
+				tc=sg:GetNext()
+			end
+			Duel.EquipComplete()
 		end
-		Duel.EquipComplete()
 	end
 end
 --negate
