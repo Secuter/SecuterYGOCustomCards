@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	--xyz negate
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,1))
-	e4:SetCategory(CATEGORY_DISABLE)
+	e4:SetCategory(CATEGORY_NEGATE)
 	e4:SetType(EFFECT_TYPE_XMATERIAL+EFFECT_TYPE_QUICK_O)
 	e4:SetCode(EVENT_CHAINING)
 	e4:SetCondition(s.discon)
@@ -53,11 +53,13 @@ end
 
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
+	local tg=Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS)
 	return c:GetOriginalRace()==RACE_REPTILE
 		and not c:IsStatus(STATUS_BATTLE_DESTROYED) and ep==1-tp
-		and re:IsActiveType(TYPE_TRAP) and Duel.IsChainNegatable(ev)
+		and Duel.IsChainNegatable(ev)
+		and re and re:IsActiveType(TYPE_SPELL)
 		and re:IsHasProperty(EFFECT_FLAG_CARD_TARGET)
-		and Duel.GetChainInfo(ev,CHAININFO_TARGET_CARDS):IsContains(c)
+		and tg and tg:IsContains(c)
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
@@ -66,7 +68,7 @@ end
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.Hint(HINT_OPSELECTED,1-tp,e:GetDescription())
-	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
 function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:GetHandler():IsRelateToEffect(re) then

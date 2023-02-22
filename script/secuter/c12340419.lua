@@ -13,6 +13,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+function s.cfilter(c)
+	return c:IsRace(RACE_REPTILE) and not c:IsType(TYPE_XYZ)
+end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroupCost(tp,Card.IsRace,1,nil,nil,nil,RACE_REPTILE) end
 	local g=Duel.SelectReleaseGroupCost(tp,Card.IsRace,1,1,nil,nil,nil,RACE_REPTILE)

@@ -72,7 +72,7 @@ function s.activate1(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.filter2(c)
-	return not c:IsPosition(POS_FACEUP_ATTACK) or c:IsCanTurnSet()
+	return c:IsAbleToRemove()
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ct=e:GetLabel()
