@@ -51,7 +51,7 @@ end
 --spsummon
 function s.filter(c,ft)
 	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(0x210))
-		and (ft>0 or not c:IsLocation(LOCATION_MZONE))
+		and (ft>0 or c:IsLocation(LOCATION_MZONE))
 end
 function s.spfilter(c,e,tp)
 	return c:IsSetCard(0x210) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
