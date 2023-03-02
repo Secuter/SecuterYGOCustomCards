@@ -52,7 +52,7 @@ function s.indtg(e,c)
 	return c:GetOverlayCount()>0 and not c:IsType(TYPE_XYZ)
 end
 
-function s.tfilter(c,e)
+function s.tfilter(c,e,tp)
 	return Duel.IsExistingTarget(s.afilter,tp,LOCATION_GRAVE,0,1,e:GetHandler(),c) 
 end
 function s.afilter(c,tc)
@@ -60,9 +60,9 @@ function s.afilter(c,tc)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
-	if chk==0 then return Duel.IsExistingTarget(s.tfilter,tp,LOCATION_MZONE,0,1,nil,e) end
+	if chk==0 then return Duel.IsExistingTarget(s.tfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local g1=Duel.SelectTarget(tp,s.tfilter,tp,LOCATION_MZONE,0,1,1,nil,e)
+	local g1=Duel.SelectTarget(tp,s.tfilter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 	e:SetLabelObject(g1:GetFirst())
 	local g2=Duel.SelectTarget(tp,s.afilter,tp,LOCATION_GRAVE,0,1,1,e:GetHandler(),g1:GetFirst())

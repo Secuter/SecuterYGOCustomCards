@@ -44,17 +44,17 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function s.cfilter(c)
+function s.cfilter(c,tp)
 	return c:GetOverlayCount()>=2 and not c:IsType(TYPE_XYZ)
 		and c:CheckRemoveOverlayCard(tp,2,REASON_COST)
 end
 function s.spcon(e,c)
 	if c==nil then return true end
 	return Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.cfilter,c:GetControler(),LOCATION_MZONE,0,1,nil)
+		and Duel.IsExistingMatchingCard(s.cfilter,c:GetControler(),LOCATION_MZONE,0,1,nil,tp)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
-	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
 	g:GetFirst():RemoveOverlayCard(tp,2,2,REASON_COST)
 end
 

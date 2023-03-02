@@ -33,7 +33,7 @@ function s.initial_effect(c)
 end
 s.listed_names={id}
 
-function s.tfilter(c)
+function s.tfilter(c,tp)
 	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_XYZ)
 		and Duel.IsExistingTarget(s.afilter,tp,LOCATION_GRAVE,0,1,nil,c) 
 end
@@ -42,9 +42,9 @@ function s.afilter(c,tc)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
-	if chk==0 then return Duel.IsExistingTarget(s.tfilter,tp,LOCATION_MZONE,0,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(s.tfilter,tp,LOCATION_MZONE,0,1,nil,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local g1=Duel.SelectTarget(tp,s.tfilter,tp,LOCATION_MZONE,0,1,1,nil)
+	local g1=Duel.SelectTarget(tp,s.tfilter,tp,LOCATION_MZONE,0,1,1,nil,tp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 	e:SetLabelObject(g1:GetFirst())
 	local g2=Duel.SelectTarget(tp,s.afilter,tp,LOCATION_GRAVE,0,1,2,nil,g1:GetFirst())

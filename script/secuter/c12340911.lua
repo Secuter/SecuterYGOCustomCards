@@ -15,9 +15,9 @@ function s.initial_effect(c)
     --immune
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_QUICK_O)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetRange(LOCATION_FZONE)
+	e2:SetRange(LOCATION_MZONE)
 	e2:SetCost(s.immcost)
 	e2:SetOperation(s.immop)
 	c:RegisterEffect(e2)
@@ -81,7 +81,7 @@ function s.immop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e1,true)
 end
 function s.immfilter(c,te)
-	return te:IsActiveType(e:GetLabel())
+	return te:IsActiveType(c:GetLabel())
 end
 
 function s.con(e)
@@ -112,7 +112,7 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ct=0
 	for i=0,10 do
 		local t=2^i
-		if bit.ban(t,attr)==t then ct=ct+1 end
+		if t&attr==t then ct=ct+1 end
 	end
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,ct) end
 	Duel.SetTargetPlayer(tp)

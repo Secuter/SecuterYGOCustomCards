@@ -1,4 +1,4 @@
---Magic Tower Emperess
+--Magic Tower Empress
 --Scripted by Secuter
 local s,id=GetID()
 function s.initial_effect(c)
