@@ -36,12 +36,12 @@ function s.initial_effect(c)
 	e4:SetTarget(s.leavetg)
 	e4:SetOperation(s.leaveop)
 	c:RegisterEffect(e4)
-    --by "Fluid Manipulation"
+    --destroy
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,0))
 	e5:SetCategory(CATEGORY_DESTROY)
 	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e5:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DELAY)
+	e5:SetProperty(EFFECT_FLAG_DELAY)
 	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e5:SetCondition(s.con)
 	e5:SetTarget(s.tg)
@@ -125,8 +125,8 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function s.leavecon(e,se,sp,st)
-	return e:GetHandler():IsPreviousLocation(LOCATION_FIELD) and bit.band(r,0x4040)==0x4040 and rp~=tp
+function s.leavecon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD) and bit.band(r,0x4040)==0x4040 and rp~=tp
 		and e:GetHandler():GetPreviousControler()==tp
 end
 function s.filter(c)
@@ -164,20 +164,18 @@ function s.leaveop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function s.con(e,se,sp,st)
+function s.con(e)
 	return e:GetHandler():GetFlagEffect(id)~=0
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() end
-	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-	local g=Duel.SelectTarget(tp,aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,2,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) end
+	local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_ONFIELD,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DESTROY,g,g:GetCount(),0,0)
 end
 function s.op(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetChainInfo(0,CHAININFO_TARGET_CARDS)
-	local tg=g:Filter(Card.IsRelateToEffect,nil,e)
-	if #tg>0 then
-		Duel.Destroy(tg,REASON_EFFECT)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
+	local g=Duel.SelectMatchingCard(tp,nil,tp,0,LOCATION_ONFIELD,1,3,nil)
+	if #g>0 then
+		Duel.Destroy(g,REASON_EFFECT)
 	end
 end

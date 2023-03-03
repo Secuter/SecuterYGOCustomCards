@@ -55,7 +55,8 @@ function s.eqop(e,tp,eg,ep,ev,re,r,rp)
 	if not c:IsRelateToEffect(e) then return end
 	local ft=Duel.GetLocationCount(tp,LOCATION_SZONE)
 	if ft<1 or not c:IsFaceup() then return end
-	local g=aux.SelectUnselectGroup(Duel.GetMatchingGroup(aux.NecroValleyFilter(s.eqfilter),tp,LOCATION_GRAVE,0,nil),e,tp,1,math.min(ft,3),aux.dncheck,1,tp,HINTMSG_EQUIP)
+	local sg=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.eqfilter),tp,LOCATION_GRAVE,0,nil)
+	local g=aux.SelectUnselectGroup(sg,e,tp,1,math.min(ft,#sg),aux.dncheck,1,tp,HINTMSG_EQUIP)
 	for eqc in aux.Next(g) do
 		Duel.Equip(tp,eqc,c,true,true)
 		--atkup

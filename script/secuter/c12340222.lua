@@ -5,12 +5,13 @@ function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--immune
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(LOCATION_MZONE,0)
 	e1:SetCondition(s.con)
-	e1:SetValue(1)
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x204))
+	e1:SetValue(aux.tgoval)
 	c:RegisterEffect(e1)
 	--special summon
 	local e2=Effect.CreateEffect(c)
@@ -115,11 +116,11 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function s.con(e,se,sp,st)
+function s.con(e)
 	return e:GetHandler():GetFlagEffect(id)~=0
 end
 
-function s.thcon(e,se,sp,st)
+function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)~=0
 	   and Duel.IsExistingTarget(aux.TRUE,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil)
 end

@@ -4,11 +4,12 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--immune
 	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
+	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_IMMUNE_EFFECT)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(LOCATION_MZONE,0)
 	e1:SetCondition(s.con)
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x204))
 	e1:SetValue(s.efilter)
 	c:RegisterEffect(e1)
 	--special summon
@@ -103,9 +104,9 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
-function s.con(e,se,sp,st)
+function s.con(e)
 	return e:GetHandler():GetFlagEffect(id)~=0
 end
 function s.efilter(e,te)
-	return te:IsActiveType(TYPE_TRAP) and not te:GetHandler():IsSetCard(0x204)
+	return te:IsActiveType(TYPE_TRAP) and te:GetOwnerPlayer()~=e:GetHandlerPlayer()
 end

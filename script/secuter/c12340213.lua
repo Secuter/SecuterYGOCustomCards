@@ -25,6 +25,32 @@ function s.initial_effect(c)
 end
 s.listed_series={0x204}
 
+function s.shfilter(c,e,tp)
+	return c:GetLevel()>0 and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
+        and Duel.IsExistingMatchingCard(s.upfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,c:GetLevel())
+end
+function s.upfilter(c,e,tp,lv)
+	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==lv+2
+end
+function s.uptarget(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.shfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
+    local g=Duel.SelectMatchingCard(tp,s.shfilter,tp,LOCATION_MZONE,0,1,1,nil,e,tp):GetFirst()
+	Duel.SendtoDeck(g,nil,0,REASON_COST)
+    e:SetLabelObject(g)
+end
+function s.upactivate(e,tp,eg,ep,ev,re,r,rp)
+	local tg=e:GetLabelObject()
+	local lv=tg:GetLevel()
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+	local tc=Duel.SelectMatchingCard(tp,s.upfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,lv):GetFirst()
+	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,true,true,POS_FACEUP) then
+		--Duel.SpecialSummon(tc,0,tp,tp,true,true,POS_FACEUP)
+		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
+        Duel.SpecialSummonComplete()
+		tc:CompleteProcedure()
+	end
+end
+
 function s.filter(c,g,e,tp)
 	return c:GetLevel()>0 and c:IsSetCard(0x204) and g:CheckWithSumEqual(Card.GetLevel,c:GetLevel(),2,99) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
@@ -53,31 +79,5 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
             g:RegisterFlagEffect(g:GetCode(),RESET_EVENT+0x16e0000,0,0)
             Duel.SpecialSummonComplete()
 		end
-	end
-end
-
-function s.shfilter(c,e,tp)
-	return c:GetLevel()>0 and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
-        and Duel.IsExistingTarget(s.upfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,c:GetLevel())
-end
-function s.upfilter(c,e,tp,lv)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==lv+2
-end
-function s.uptarget(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingTarget(s.shfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
-    local g=Duel.SelectMatchingCard(tp,s.shfilter,tp,LOCATION_MZONE,0,1,1,nil,e,tp):GetFirst()
-	Duel.SendtoDeck(g,nil,0,REASON_COST)
-    e:SetLabelObject(g)
-end
-function s.upactivate(e,tp,eg,ep,ev,re,r,rp)
-	local tg=e:GetLabelObject()
-	local lv=tg:GetLevel()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tc=Duel.SelectMatchingCard(tp,s.upfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,lv):GetFirst()
-	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,true,true,POS_FACEUP) then
-		--Duel.SpecialSummon(tc,0,tp,tp,true,true,POS_FACEUP)
-		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
-        Duel.SpecialSummonComplete()
-		tc:CompleteProcedure()
 	end
 end
