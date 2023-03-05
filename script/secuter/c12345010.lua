@@ -47,6 +47,9 @@ function s.initial_effect(c)
 	e5:SetCondition(aux.zptcon(Card.IsNegatableMonster))
 	e5:SetOperation(s.disop)
 	c:RegisterEffect(e5)
+	local e6=e5:Clone()
+	e5:SetCode(EVENT_SPSUMMON_SUCCESS)
+	c:RegisterEffect(e6)
 end
 function Card.IsCracking(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) end
 function Card.IsCrackingOrWyvern(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) or c:IsCode(23850421) end
@@ -75,8 +78,8 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=eg:GetFirst()
 	while tc do
-		if tc and tc:IsRelateToEffect(e) and Card.IsNegatableMonster(c) then
-			tc:UpdateAttack(-500)
+		if tc and Card.IsNegatableMonster(tc) then
+			tc:UpdateAttack(-500,nil,c)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_DISABLE)

@@ -21,7 +21,6 @@ function Card.IsCrackingOrWyvern(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,su
 --destroy
 function s.cfilter(c,tp)
 	return c:IsMonster() and c:IsCracking() and c:GetTextAttack()>=500
-		and Duel.IsExistingTarget(Card.IsType,tp,0,LOCATION_ONFIELD,1,nil,TYPE_SPELL+TYPE_TRAP)
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroupCost(tp,s.cfilter,1,false,nil,nil,nil,tp) end
@@ -47,8 +46,8 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 		local tg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_HAND,0,nil,e,tp)
 		if #tg>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-			local sg=tg:Select(tp,1,ft,nil)
-			Duel.SpecialSummonStep(sg,0,tp,tp,false,false,POS_FACEUP)
+			local tc=tg:Select(tp,1,1,nil):GetFirst()
+			Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP)
 		end
 	end
 end

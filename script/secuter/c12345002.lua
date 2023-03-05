@@ -64,12 +64,12 @@ function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
 function s.spop2(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=eg:GetFirst()
 	if tc:IsFaceup() and tc:IsLocation(LOCATION_MZONE) and not tc:IsImmuneToEffect(e) then
-		tc:UpdateAttack(tc:GetLevel()*200)
+		tc:UpdateAttack(tc:GetLevel()*200,nil,c)
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	local c=e:GetHandler()
 	local g=Duel.GetMatchingGroup(s.setfilter,tp,LOCATION_DECK,0,nil)
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0
 	and #g>0 and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then

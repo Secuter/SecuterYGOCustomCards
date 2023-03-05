@@ -5,11 +5,11 @@ function s.initial_effect(c)
 	--banish cards sent to the gy
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
+	e1:SetProperty(EFFECT_FLAG_SET_AVAILABLE+EFFECT_FLAG_IGNORE_RANGE+EFFECT_FLAG_IGNORE_IMMUNE)
 	e1:SetCode(EFFECT_TO_GRAVE_REDIRECT)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetTarget(s.rmtarget)
 	e1:SetTargetRange(0xff,0xff)
+	e1:SetTarget(s.rmtarget)
 	e1:SetValue(LOCATION_REMOVED)
 	c:RegisterEffect(e1)
 	--spsummon
