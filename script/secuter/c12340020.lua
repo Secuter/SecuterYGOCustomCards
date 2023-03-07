@@ -24,7 +24,6 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTarget(s.reptg)
-	e2:SetOperation(s.repop)
 	c:RegisterEffect(e2)
 end
 s.listed_series={0x201}
@@ -57,19 +56,12 @@ function s.repfilter(c)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return not c:IsReason(REASON_REPLACE) and c:IsOnField() and c:IsFaceup()
+	if chk==0 then return not c:IsReason(REASON_REPLACE)
 		and Duel.IsExistingMatchingCard(s.repfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_EXTRA,0,2,c) end
-	if Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
+	if Duel.SelectEffectYesNo(tp,c,96) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESREPLACE)
 		local g=Duel.SelectMatchingCard(tp,s.repfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_EXTRA,0,2,2,c)
-		e:SetLabelObject(g:GetFirst())
-		Duel.HintSelection(g)
-		g:GetFirst():SetStatus(STATUS_DESTROY_CONFIRMED,true)
+		Duel.Remove(g,POS_FACEUP,REASON_EFFECT+REASON_REPLACE)
 		return true
 	else return false end
-end
-function s.repop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=e:GetLabelObject()
-	tc:SetStatus(STATUS_DESTROY_CONFIRMED,false)
-	Duel.Remove(tc,POS_FACEUP,REASON_EFFECT+REASON_REPLACE)
 end

@@ -40,11 +40,6 @@ function s.initial_effect(c)
 end
 s.listed_series={0x208}
 s.material_setcode={0x208}
-function s.rcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x208,lc,sumtype,tp)
-		and g:IsExists(Card.IsAttribute,1,nil,ATTRIBUTE_WIND)
-        and g:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)<=1
-end
 function s.mfilter(c,sc,sumtype,tp)
 	return c:IsSetCard(0x208,sc,sumtype,tp)
 end
@@ -62,12 +57,12 @@ function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsAbleToRemove() and chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToRemove,tp,0,LOCATION_GRAVE,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local tc=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_GRAVE,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,tc,1,tp,LOCATION_GRAVE)
+	local g=Duel.SelectTarget(tp,Card.IsAbleToRemove,tp,0,LOCATION_GRAVE,1,2,nil)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,#g,tp,LOCATION_GRAVE)
 end
 function s.rmop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()	
-	if tc and tc:IsRelateToEffect(e) then
+	local g=Duel.GetTargetCards(e)
+	if #g>0 then
 		Duel.Remove(tc,POS_FACEUP,REASON_EFFECT)
 	end
 end

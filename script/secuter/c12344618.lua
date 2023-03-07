@@ -1,4 +1,4 @@
---Anuak Dragonvoid
+--Anuak Dragonflare
 --Scripted by Secuter
 local s,id=GetID()
 s.IsReunion=true
@@ -6,14 +6,14 @@ if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--reunion summon
-	Reunion.AddProcedure(c,nil,2,99,s.rcheck)
-	--is also LIGHT
+	Reunion.AddProcedure(c,s.mfilter,2,99,nil,nil,LOCATION_MZONE+LOCATION_GRAVE,REUNION_MAT_REMOVE,LOCATION_GRAVE,false,s.mfilter)
+	--gain attributes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
 	e1:SetCode(EFFECT_ADD_ATTRIBUTE)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetValue(ATTRIBUTE_LIGHT)
+	e1:SetValue(ATTRIBUTE_EARTH|ATTRIBUTE_WATER|ATTRIBUTE_FIRE|ATTRIBUTE_WIND)
 	c:RegisterEffect(e1)
 	--ATK/DEF increase
 	local e2=Effect.CreateEffect(c)
@@ -26,20 +26,18 @@ function s.initial_effect(c)
 	local e3=e2:Clone()
 	e3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e3)
-	--negate
-	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,0))
-	e4:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
-	e4:SetType(EFFECT_TYPE_QUICK_O)
-	e4:SetCode(EVENT_CHAINING)
-	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DAMAGE_CAL)
-	e4:SetRange(LOCATION_MZONE)
-	e4:SetCountLimit(1,id)
-	e4:SetCondition(s.negcon)
-	e4:SetCost(s.negcost)
-	e4:SetTarget(s.negtg)
-	e4:SetOperation(s.negop)
-	c:RegisterEffect(e4)
+	--shuffle into deck
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetCategory(CATEGORY_TODECK)
+	e3:SetType(EFFECT_TYPE_QUICK_O)
+	e3:SetCode(EVENT_FREE_CHAIN)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetHintTiming(0,TIMINGS_CHECK_MONSTER_E)
+	e3:SetCountLimit(1,id)
+	e3:SetTarget(s.tdtg)
+	e3:SetOperation(s.tdop)
+	c:RegisterEffect(e3)
 	--spsummon
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,1))
@@ -55,18 +53,14 @@ function s.initial_effect(c)
 end
 s.listed_names={id}
 s.material_setcode={0x208}
-function s.matfilter(c)
-	return c.IsReunion
-end
-function s.rcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x208,lc,sumtype,tp)
-		and g:IsExists(s.matfilter,1,nil)
+function s.mfilter(c,sc,sumtype,tp)
+	return c.IsReunion and (c:IsLocation(LOCATION_MZONE) or c:IsSetCard(0x208,sc,sumtype,tp))
 end
 --atk increase
 function s.atkval(e,c)
 	local tp=e:GetHandlerPlayer()
 	local att=0
-	local g=Duel.GetMatchingGroup(nil,tp,LOCATION_GRAVE,0,nil)
+	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_REMOVED,0,nil)
 	local tc=g:GetFirst()
 	for tc in aux.Next(g) do
 		att=(att|tc:GetAttribute())
@@ -78,31 +72,25 @@ function s.atkval(e,c)
 	end
 	return ct*300
 end
---negate
-function s.negcon(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if c:IsStatus(STATUS_BATTLE_DESTROYED) then return false end
-	return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainNegatable(ev)
+--to deck
+function s.tdfilter1(c)
+	return c.IsReunion and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToDeck()
 end
-function s.cfilter(c)
-	return c.IsReunion and c:IsAbleToExtraAsCost()
+function s.tdfilter2(c,att)
+	return c:IsFaceup() and c:IsAttribute(att) and c:IsAbleToDeck()
 end
-function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
+function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.tdfilter1,tp,LOCATION_GRAVE|LOCATION_REMOVED,0,1,nil) end
+	local g=Duel.GetMatchingGroup(s.tdfilter1,tp,LOCATION_GRAVE|LOCATION_REMOVED,0,1,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
+end
+function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_GRAVE,0,1,1,nil)
-	Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_COST)
-end
-function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return true end
-	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
-	if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then
-		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
-	end
-end
-function s.negop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
-		Duel.Destroy(eg,REASON_EFFECT)
+	local g1=Duel.SelectMatchingCard(tp,s.tdfilter1,tp,LOCATION_GRAVE|LOCATION_REMOVED,0,1,1,nil)
+	if #g1>0 then
+		local g2=Duel.GetMatchingGroup(s.tdfilter2,tp,0,LOCATION_MZONE,nil,g1:GetFirst():GetAttribute())
+		g1:Merge(g2)
+		Duel.SendtoDeck(g1,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
 	end
 end
 --spsummon

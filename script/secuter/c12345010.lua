@@ -79,7 +79,7 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc and Card.IsNegatableMonster(tc) then
-			tc:UpdateAttack(-500,nil,c)
+			tc:UpdateAttack(-500,RESET_EVENT|RESETS_STANDARD,c)
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)
 			e1:SetCode(EFFECT_DISABLE)

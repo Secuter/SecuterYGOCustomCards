@@ -54,7 +54,7 @@ function s.sfilter(c)
 end
 --immune
 function s.immfilter1(e,te)
-	return te:IsActiveType(TYPE_MONSTER) and te:GetHandler():IsReunion()
+	return te:IsActiveType(TYPE_MONSTER) and te:GetHandler().IsReunion
 end
 function s.immfilter2(e,te)
 	return te:GetOwnerPlayer()~=e:GetHandlerPlayer()

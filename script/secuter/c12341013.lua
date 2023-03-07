@@ -55,8 +55,8 @@ function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) then
-		e:GetHandler():UpdateAttack(500)
-		e:GetHandler():UpdateDefense(500)
+		e:GetHandler():UpdateAttack(500,RESET_EVENT|RESETS_STANDARD,e:GetHandler())
+		e:GetHandler():UpdateDefense(500,RESET_EVENT|RESETS_STANDARD,e:GetHandler())
 	end
 end
 --spsummon

@@ -4,8 +4,8 @@ if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	c:EnableCounterPermit(0x1305)
-	c:SetCounterLimit(0x1305,3)
+	c:EnableCounterPermit(0x305)
+	c:SetCounterLimit(0x305,3)
 	Pendulum.AddProcedure(c)
 	--cannot pendulum summon
 	local e1=Effect.CreateEffect(c)
@@ -68,7 +68,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_series={0x224}
-s.counter_place_list={0x1305}
+s.counter_place_list={0x305}
 --cannot pendulum summon
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
 	return (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
@@ -81,14 +81,14 @@ function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.ctfilter,1,nil,tp)
 end
 function s.cttg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return e:GetHandler():IsCanAddCounter(0x1305,1) end
+	if chk==0 then return e:GetHandler():IsCanAddCounter(0x305,1) end
 end
 function s.ctop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():AddCounter(0x1305,1)
+	e:GetHandler():AddCounter(0x305,1)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetCounter(0x1305)==3
+	return e:GetHandler():GetCounter(0x305)==3
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,true) end

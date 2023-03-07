@@ -51,9 +51,9 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 		local choice=Duel.AnnounceNumber(tp,table.unpack(t))
-		if choice and tc:UpdateAttack(-choice,nil,c)==-choice and c:IsRelateToEffect(e) then
+		if choice and tc:UpdateAttack(-choice,RESET_EVENT|RESETS_STANDARD,c)==-choice and c:IsRelateToEffect(e) then
 			Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
-			c:UpdateLevel(choice//500,nil,c)
+			c:UpdateLevel(choice//500,RESET_EVENT|RESETS_STANDARD,c)
 		end
 	end
 end

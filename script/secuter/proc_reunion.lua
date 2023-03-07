@@ -125,6 +125,7 @@ function Reunion.SendFilter(c,send,locsend)
 	return true
 end
 function Reunion.CheckRecursive(c,tp,sg,mg,sc,minc,maxc,f,specialchk,og,emt,filt)
+	if DEBUG then Debug.Message("CheckRecursive") end
 	COUNT_R1=COUNT_R1+1
 	if #sg>maxc then return false end
 	filt=filt or {}
@@ -148,6 +149,7 @@ function Reunion.CheckRecursive(c,tp,sg,mg,sc,minc,maxc,f,specialchk,og,emt,filt
 	return res
 end
 function Reunion.CheckRecursive2(c,tp,sg,sg2,secondg,mg,sc,minc,maxc,f,specialchk,og,emt,filt)
+	if DEBUG then Debug.Message("CheckRecursive2") end
 	COUNT_R2=COUNT_R2+1
 	if #sg>maxc then return false end
 	sg:AddCard(c)
@@ -180,6 +182,7 @@ function Reunion.CheckRecursive2(c,tp,sg,sg2,secondg,mg,sc,minc,maxc,f,specialch
 	return res
 end
 function Reunion.CheckGoal(tp,sg,sc,minc,f,specialchk,filt)
+	if DEBUG then Debug.Message("CheckGoal") end
 	for _,filt in ipairs(filt) do
 		if not sg:IsExists(filt[2],1,nil,filt[3],tp,sg,Group.CreateGroup(),sc,filt[1],1) then
 			return false
@@ -195,6 +198,7 @@ function Reunion.CheckGoal2(tp,sg,sc,min,max,mustlvl,mustcount,inclf,locsend,max
 		and Duel.GetLocationCountFromEx(tp,tp,sg,sc)>0
 end
 function Reunion.CheckTypeInclude(mg,tp,sc,min,max,inclf,mustg,mustlvl,mustcount)
+	if DEBUG then Debug.Message("CheckTypeInclude") end
 	local res=false
 	if #mustg>0 and mustg:IsExists(inclf,1,nil,sc,SUMMON_TYPE_SPECIAL,tp) then
 		res=g2:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-mustlvl,min-mustcount,max-mustcount)
@@ -215,6 +219,7 @@ function Reunion.CheckTypeInclude(mg,tp,sc,min,max,inclf,mustg,mustlvl,mustcount
 	return res
 end
 function Reunion.CheckTypeMaxSend(mg,tp,sc,min,max,locsend,mustg,mustlvl,mustcount)
+	if DEBUG then Debug.Message("CheckTypeMaxSend") end
 	local res=false
 	--local gs=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
 	--local gn=mg:Filter(aux.NOT(Card.IsLocation),nil,LOCATION_MZONE)
@@ -240,6 +245,7 @@ function Reunion.CheckTypeMaxSend(mg,tp,sc,min,max,locsend,mustg,mustlvl,mustcou
 	return res
 end
 function Reunion.CheckTypeIncludeMaxSend(mg,tp,sc,min,max,inclf,locsend,mustg,mustlvl,mustcount)
+	if DEBUG then Debug.Message("CheckTypeIncludeMaxSend") end
 	local res=false
 	--local gs=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE)
 	--local gn=mg:Filter(aux.NOT(Card.IsLocation),nil,LOCATION_MZONE)
@@ -284,12 +290,19 @@ function Reunion.CheckTypeIncludeMaxSend(mg,tp,sc,min,max,inclf,locsend,mustg,mu
 	return res
 end
 function Reunion.CheckNotRecursive(c,mg,sg,tp,sc,min,max)
+	if DEBUG then Debug.Message("CheckNotRecursive") end
 	local lvlsum=sg:GetReunionSum()+c:GetReunionCount()
 	local tg=mg:Clone()
 	tg=tg:RemoveCard(c)
+	local tc=sg:GetFirst()
+	while tc do
+		tg:RemoveCard(tc)
+		tc=sg:GetNext()
+	end
 	return tg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-lvlsum,math.max(0,min-#sg-1),max-#sg-1)
 end
 function Reunion.CheckTypeInclude2(mg,sg,tp,sc,min,max,inclf)
+	if DEBUG then Debug.Message("CheckTypeInclude2") end
 	local lvlsum=sg:GetReunionSum()
 	local count=#sg
 	local rg=Group.CreateGroup()
@@ -301,6 +314,11 @@ function Reunion.CheckTypeInclude2(mg,sg,tp,sc,min,max,inclf)
 			COUNT_R1=COUNT_R1+1
 			local tg=mg:Clone()
 			tg=tg:RemoveCard(c)
+			local tc=sg:GetFirst()
+			while tc do
+				tg:RemoveCard(tc)
+				tc=sg:GetNext()
+			end
 			if tg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-lvlsum-c:GetReunionCount(),math.max(0,min-count-1),max-count-1) then
 				if DEBUG then Debug.Message(c:GetCode()..str2.." >> ? include"..str.." + field") end
 				rg:AddCard(c)
@@ -317,6 +335,11 @@ function Reunion.CheckTypeInclude2(mg,sg,tp,sc,min,max,inclf)
 			COUNT_R1=COUNT_R1+1
 			local tg=mg:Clone()
 			tg=tg:RemoveCard(c)
+			local tc=sg:GetFirst()
+			while tc do
+				tg:RemoveCard(tc)
+				tc=sg:GetNext()
+			end
 			if tg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-lvlsum-c:GetReunionCount(),math.max(0,min-count-1),max-count-1) then
 				if DEBUG then Debug.Message(c:GetCode()..str2.." >> include"..str.." + field") end
 				rg:AddCard(c)
@@ -336,6 +359,11 @@ function Reunion.CheckTypeInclude2(mg,sg,tp,sc,min,max,inclf)
 			while c2 and not res do
 				COUNT_R1=COUNT_R1+1
 				tg=tg:RemoveCard(c2)
+				local tc=sg:GetFirst()
+				while tc do
+					tg:RemoveCard(tc)
+					tc=sg:GetNext()
+				end
 				res=tg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-lvlsum-c1:GetReunionCount()-c2:GetReunionCount(),math.max(0,min-count-2),max-count-2)
 				if DEBUG and res then Debug.Message(c1:GetCode()..str2.." >> not include"..str.." + include["..c2:GetReunionCount().."] + field") end
 				c2=mgs:GetNext()
@@ -347,6 +375,7 @@ function Reunion.CheckTypeInclude2(mg,sg,tp,sc,min,max,inclf)
 	return rg
 end
 function Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,min,max,locsend,maxsend)
+	if DEBUG then Debug.Message("CheckTypeMaxSend2") end
 	local lvlsum=sg:GetReunionSum()
 	local count=#sg
 	local rg=Group.CreateGroup()
@@ -361,6 +390,11 @@ function Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,min,max,locsend,maxsend)
 			COUNT_R1=COUNT_R1+1
 			local tg=mgs:Clone()
 			tg=tg:RemoveCard(c)
+			local tc=sg:GetFirst()
+			while tc do
+				tg:RemoveCard(tc)
+				tc=sg:GetNext()
+			end
 			if tg:CheckWithSumEqual(Reunion.GetReunionCount,sc:GetReunionCount()*2-lvlsum-c:GetReunionCount(),math.max(0,min-count-1),max-count-1) then
 				if DEBUG then Debug.Message(c:GetCode()..str2.." >> field"..str.." + field") end
 				rg:AddCard(c)
@@ -408,13 +442,11 @@ function Reunion.CheckTypeIncludeMaxSend2(mg,sg,tp,sc,min,max,inclf,locsend,maxs
 	mg=mg:Remove(Reunion.Remove,nil,sg)
 	local rg=Group.CreateGroup()
 	if sg:IsExists(inclf,1,nil,sc,SUMMON_TYPE_SPECIAL,tp) then
-		if DEBUG then Debug.Message("CheckTypeMaxSend") end
 		rg=Reunion.CheckTypeMaxSend2(mg,sg,tp,sc,min,max,locsend,maxsend)
 	else
 		local mgs=mg:Filter(aux.NOT(Card.IsLocation),nil,locsend)
 		local mgn=mg:Filter(Card.IsLocation,nil,locsend)	
 		if sg:IsExists(Card.IsLocation,1,nil,locsend) then
-			if DEBUG then Debug.Message("CheckTypeInclude") end
 			rg=Reunion.CheckTypeInclude2(mgs,sg,tp,sc,min,max,inclf)
 		else
 			local lvlsum=sg:GetReunionSum()

@@ -24,7 +24,7 @@ function s.initial_effect(c)
     local p3=p2:Clone()
 	p3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(p3)
-	--add
+	--search ST
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)

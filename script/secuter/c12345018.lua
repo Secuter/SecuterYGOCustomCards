@@ -9,7 +9,7 @@ function s.initial_effect(c)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCost(s.spcost1)
 	e1:SetTarget(s.sptg1)
-	e1:SetOperation(s.soop1)
+	e1:SetOperation(s.spop1)
 	c:RegisterEffect(e1)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	e2:SetCountLimit(1,id)
 	e2:SetCost(aux.bfgcost)
 	e2:SetTarget(s.sptg2)
-	e2:SetOperation(s.soop2)
+	e2:SetOperation(s.spop2)
 	c:RegisterEffect(e2)
 end
 s.listed_names={60349525}

@@ -40,11 +40,6 @@ function s.initial_effect(c)
 end
 s.listed_series={0x208}
 s.material_setcode={0x208}
-function s.rcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x208,lc,sumtype,tp)
-		and g:IsExists(Card.IsAttribute,1,nil,ATTRIBUTE_WATER)
-        and g:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)<=1
-end
 function s.mfilter(c,sc,sumtype,tp)
 	return c:IsSetCard(0x208,sc,sumtype,tp)
 end
