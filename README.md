@@ -1,5 +1,9 @@
 # SecuterYGOCustomCards
-Cards preview: https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro
+For a cards preview you can go to the ygopro forum post or the github wiki!
+
+Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro
+
+Github Wiki -> https://github.com/Secuter/SecuterYGOCustomCards/wiki
 
 ## Original summoning mechanics
 ![customtypes](https://imgur.com/06v8wHv.png)
