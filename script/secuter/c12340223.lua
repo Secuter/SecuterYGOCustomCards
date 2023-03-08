@@ -46,8 +46,8 @@ function s.mfilter(c)
 	return c:IsSetCard(0x204)
 end
 
-function s.costfilter(c,e,tp,sc)
-    return (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE))
+function s.costfilter(c,e,tp,sc,ft)
+    return (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE)) and (ft>0 or c:IsLocation(LOCATION_MZONE))
         and c:IsSetCard(0x204) and c:GetLevel()>0 and c:IsAbleToDeckOrExtraAsCost()
         and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetLevel())
 end
@@ -56,9 +56,10 @@ function s.spfilter(c,e,tp,lvl)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
     local c=e:GetHandler()
-	if chk==0 then return Duel.IsExistingMatchingCard(s.costfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_HAND,0,1,c,e,tp,c) end
+	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.costfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_HAND,0,1,c,e,tp,c,ft) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local g=Duel.SelectMatchingCard(tp,s.costfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_HAND,0,1,1,c,e,tp,c)
+	local g=Duel.SelectMatchingCard(tp,s.costfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_HAND,0,1,1,c,e,tp,c,ft)
 	Duel.SendtoDeck(g,nil,2,REASON_COST)
 	e:SetLabel(g:GetFirst():GetLevel())
 end
