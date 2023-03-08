@@ -1,4 +1,4 @@
---D.D. Invader
+--D.D. Invader Sponge
 --Scripted by Secuter
 local s,id=GetID()
 function s.initial_effect(c)
@@ -73,7 +73,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
         c:RegisterFlagEffect(id,RESET_EVENT+0x1fe1000+RESET_PHASE+PHASE_STANDBY,0,1)
 	end
 end
-
+--negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
 	return rp~=tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
@@ -93,8 +93,23 @@ function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.NegateActivation(ev)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetDescription(aux.Stringid(id,3))
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(s.splimit)
+	e1:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN,Duel.IsTurnPlayer(tp) and 2 or 1)
+	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
-
+function s.splimit(e,c)
+	return not c:IsSetCard(0x215) and c:IsLocation(LOCATION_EXTRA)
+end
+function s.lizfilter(e,c)
+	return not c:IsSetCard(0x215)
+end
+--spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnCount()==e:GetHandler():GetTurnID()+1
         and e:GetHandler():GetFlagEffect(id)>0
@@ -110,7 +125,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 end
-
+--excavate
 function s.thfilter(c,e,tp)
 	return c:IsSetCard(0x215) and c:IsAbleToHand()
 end

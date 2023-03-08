@@ -1,4 +1,4 @@
---D.D. Invader
+--D.D. Invader Psychic
 --Scripted by Secuter
 local s,id=GetID()
 function s.initial_effect(c)
@@ -75,7 +75,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
         c:RegisterFlagEffect(id,RESET_EVENT+0x1fe1000+RESET_PHASE+PHASE_STANDBY,0,1)
 	end
 end
-
+--to deck
 function s.tdfilter(c,tp)
 	return c:IsControler(tp) and c:IsPreviousLocation(LOCATION_DECK)
 end
@@ -102,8 +102,23 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 		local sg=hg:RandomSelect(tp,1)
 		Duel.SendtoDeck(sg,nil,1,REASON_EFFECT)
 	end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetDescription(aux.Stringid(id,4))
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(s.splimit)
+	e1:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN,Duel.IsTurnPlayer(tp) and 2 or 1)
+	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
-
+function s.splimit(e,c)
+	return not c:IsSetCard(0x215) and c:IsLocation(LOCATION_EXTRA)
+end
+function s.lizfilter(e,c)
+	return not c:IsSetCard(0x215)
+end
+--spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnCount()==e:GetHandler():GetTurnID()+1
         and e:GetHandler():GetFlagEffect(id)>0
@@ -119,7 +134,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 end
-
+--to hand
 function s.thfilter(c,e,tp)
 	return c:IsSetCard(0x215) and c:GetCode()~=id and c:IsAbleToHand() and c:IsFaceup()
 end
