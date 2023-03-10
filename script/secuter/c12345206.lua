@@ -26,8 +26,9 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 		and rp~=tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.CheckLPCost(tp,2000) end
+	if chk==0 then return Duel.CheckLPCost(tp,2000) and Duel.GetFlagEffect(tp,id)==0 end
 	Duel.PayLPCost(tp,2000)
+	Duel.RegisterFlagEffect(tp,id,RESET_CHAIN,0,1)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return e:GetHandler():GetFlagEffect(id)==0

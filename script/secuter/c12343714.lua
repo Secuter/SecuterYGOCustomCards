@@ -1,4 +1,4 @@
---Soul Drain Herald
+--Soulbound Herald
 --Scripted by Secuter
 local s,id=GetID()
 s.IsIgnition=true
