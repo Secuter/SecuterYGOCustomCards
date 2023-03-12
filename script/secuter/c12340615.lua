@@ -71,7 +71,7 @@ end
 
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_SZONE) and c:GetPreviousSequence()==5 and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_DESTROY)
+	return c:IsPreviousLocation(LOCATION_FZONE) and c:GetPreviousSequence()==5 and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_DESTROY)
 end
 function s.filter(c)
 	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
