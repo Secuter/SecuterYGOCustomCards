@@ -67,7 +67,7 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=eg:GetFirst()
 	if tc:IsFaceup() and tc:IsLocation(LOCATION_MZONE) and not tc:IsImmuneToEffect(e) then
-		tc:UpdateAttack(tc:GetLevel()*200,RESET_EVENT|RESETS_STANDARD,c)
+		tc:UpdateAttack(tc:GetLevel()*-200,RESET_EVENT|RESETS_STANDARD,c)
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
 	local g=Duel.GetMatchingGroup(s.setfilter,tp,LOCATION_DECK,0,nil)
