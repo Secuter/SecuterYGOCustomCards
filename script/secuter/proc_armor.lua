@@ -8,6 +8,7 @@ HINTMSG_REMOVEARMOR     = 603
 HINTMSG_REMOVEARMORFROM = 604
 HINTMSG_ARMORTARGET     = 605
 HINTMSG_ATTACHARMOR     = 606
+armor_log_only_once		= true
 if not aux.ArmorProcedure then
 	aux.ArmorProcedure = {}
 	Armor = aux.ArmorProcedure
@@ -52,6 +53,11 @@ function Armor.AddProcedure(c,s)
 		a2:SetCode(EFFECT_UPDATE_DEFENSE)
 		a2:SetValue(s.ArmorDef)
 		c:RegisterEffect(a2)
+	else
+		if armor_log_only_once then
+			Debug.Message("proc_armor.lua has been updated!\nNow you have to use Armor.AddProcedure(c,s) instead of Armor.AddProcedure(c) and the ATK/DEF boost armor effects are added directly by the AddProcedure, you don't have to put them into the card effect anymore otherwise they get duplicated.")
+			armor_log_only_once = false
+		end
 	end
 end
 function Armor.Filter(c,e,tp)
