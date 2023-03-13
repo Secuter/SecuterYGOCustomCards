@@ -15,6 +15,7 @@ replay/
 repositories/
 script/*
 !script/secuter/
+script/secuter/c9999*
 skin/
 sound/
 textures/

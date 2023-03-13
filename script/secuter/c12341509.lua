@@ -9,18 +9,7 @@ s.ArmorDef=200
 s.IsArmor=true
 function s.initial_effect(c)
 	--Armor
-	Armor.AddProcedure(c)
-	local a1=Effect.CreateEffect(c)
-	a1:SetType(EFFECT_TYPE_XMATERIAL)
-	a1:SetCode(EFFECT_UPDATE_ATTACK)
-	a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	a1:SetCondition(Armor.Condition)
-	a1:SetValue(s.ArmorAtk)
-	c:RegisterEffect(a1)
-	local a2=a1:Clone()
-	a2:SetCode(EFFECT_UPDATE_DEFENSE)
-	a2:SetValue(s.ArmorDef)
-	c:RegisterEffect(a2)
+	Armor.AddProcedure(c,s)
 	--sp summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)

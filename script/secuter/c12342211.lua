@@ -7,7 +7,7 @@ s.ArmorDef=0
 s.IsArmor=true
 function s.initial_effect(c)
 	--Armor
-	Armor.AddProcedure(c)
+	Armor.AddProcedure(c,s)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))

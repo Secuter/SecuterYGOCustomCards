@@ -29,7 +29,7 @@ function Armor.Attach(c,ar)
 	Duel.Overlay(c,ar)
 end
 --add procedure to armor cards
-function Armor.AddProcedure(c)
+function Armor.AddProcedure(c,s)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1183)
 	e1:SetCategory(CATEGORY_ATTACH_ARMOR)
@@ -40,6 +40,19 @@ function Armor.AddProcedure(c)
 	e1:SetTarget(Armor.Target)
 	e1:SetOperation(Armor.Operation)
 	c:RegisterEffect(e1)
+	if s then
+		local a1=Effect.CreateEffect(c)
+		a1:SetType(EFFECT_TYPE_XMATERIAL)
+		a1:SetCode(EFFECT_UPDATE_ATTACK)
+		a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+		a1:SetCondition(Armor.Condition)
+		a1:SetValue(s.ArmorAtk)
+		c:RegisterEffect(a1)
+		local a2=a1:Clone()
+		a2:SetCode(EFFECT_UPDATE_DEFENSE)
+		a2:SetValue(s.ArmorDef)
+		c:RegisterEffect(a2)
+	end
 end
 function Armor.Filter(c,e,tp)
 	return not c:IsType(TYPE_XYZ) and c:IsFaceup()

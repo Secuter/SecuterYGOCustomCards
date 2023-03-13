@@ -8,18 +8,10 @@ s.IsArmor=true
 s.IsArmorizing=true
 function s.initial_effect(c)
 	--armor
-	Armor.AddProcedure(c)
+	Armor.AddProcedure(c,s)
 	--armorizing summon
 	Armorizing.AddProcedure(c,s.matfilter,2)
 	c:EnableReviveLimit()
-	--atk
-	local e1=Effect.CreateEffect(c)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetType(EFFECT_TYPE_XMATERIAL)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetCondition(Armor.Condition)
-	e1:SetValue(s.ArmorAtk)
-	c:RegisterEffect(e1)
 	--spsummon
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))

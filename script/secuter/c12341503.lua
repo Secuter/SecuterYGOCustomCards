@@ -7,7 +7,7 @@ s.ArmorDef=0
 s.IsArmor=true
 function s.initial_effect(c)
 	--Armor
-	Armor.AddProcedure(c)
+	Armor.AddProcedure(c,s)
 	local a1=Effect.CreateEffect(c)
 	a1:SetType(EFFECT_TYPE_XMATERIAL)
 	a1:SetCode(EFFECT_INDESTRUCTABLE_BATTLE)

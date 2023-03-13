@@ -7,18 +7,7 @@ s.ArmorDef=-200
 s.IsArmor=true
 function s.initial_effect(c)
 	--Armor
-	Armor.AddProcedure(c)
-	local a1=Effect.CreateEffect(c)
-	a1:SetType(EFFECT_TYPE_XMATERIAL)
-	a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	a1:SetCode(EFFECT_UPDATE_ATTACK)
-	a1:SetCondition(Armor.Condition)
-	a1:SetValue(s.ArmorAtk)
-	c:RegisterEffect(a1)
-	local a2=a1:Clone()
-	a2:SetCode(EFFECT_UPDATE_DEFENSE)
-	a2:SetValue(s.ArmorDef)
-	c:RegisterEffect(a2)
+	Armor.AddProcedure(c,s)
 	local a3=Effect.CreateEffect(c)
 	a3:SetType(EFFECT_TYPE_XMATERIAL)
 	a3:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
@@ -60,9 +49,9 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsOnField() and chkc:IsAbleToHand() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler()) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,1,e:GetHandler())
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)

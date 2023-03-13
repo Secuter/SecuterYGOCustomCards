@@ -7,15 +7,7 @@ s.ArmorDef=0
 s.IsArmor=true
 function s.initial_effect(c)
 	--Armor
-	Armor.AddProcedure(c)
-	local a1=Effect.CreateEffect(c)
-	a1:SetType(EFFECT_TYPE_XMATERIAL)
-	a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	a1:SetCode(EFFECT_UPDATE_ATTACK)
-	a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	a1:SetCondition(Armor.Condition)
-	a1:SetValue(s.ArmorAtk)
-	c:RegisterEffect(a1)
+	Armor.AddProcedure(c,s)
 	--add
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
