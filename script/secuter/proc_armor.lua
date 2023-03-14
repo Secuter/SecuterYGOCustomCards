@@ -65,10 +65,10 @@ function Armor.Filter(c,e,tp)
 		and (e:GetHandler().AttachFilter == nil or e:GetHandler().AttachFilter(c))
 end
 function Armor.Target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and Armor.Filter(chkc,e,tp) end
-	if chk==0 then return Duel.IsExistingTarget(Armor.Filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,e,tp) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and chkc:IsController(tp) and Armor.Filter(chkc,e,tp) end
+	if chk==0 then return Duel.IsExistingTarget(Armor.Filter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local g=Duel.SelectTarget(tp,Armor.Filter,tp,LOCATION_MZONE,LOCATION_MZONE,1,1,nil,e,tp)
+	local g=Duel.SelectTarget(tp,Armor.Filter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 end
 function Armor.Operation(e,tp,eg,ep,ev,re,r,rp)
