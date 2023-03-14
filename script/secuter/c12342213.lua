@@ -66,7 +66,7 @@ function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,e:GetHandler()) end
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,nil,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,nil,1,tp,LOCATION_DECK)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
