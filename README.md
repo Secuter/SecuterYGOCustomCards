@@ -76,6 +76,10 @@ And these in 'urls' to download card images.
 		{
 			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.png",
 			"type": "field"
+		},
+		{
+			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.jpg",
+			"type": "field"
 		}
 ```
 
