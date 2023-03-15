@@ -30,7 +30,7 @@ function Armor.Attach(c,ar)
 	Duel.Overlay(c,ar)
 end
 --add procedure to armor cards
-function Armor.AddProcedure(c,s)
+function Armor.AddProcedure(c,s,opp)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1183)
 	e1:SetCategory(CATEGORY_ATTACH_ARMOR)
@@ -38,7 +38,7 @@ function Armor.AddProcedure(c,s)
 	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetTarget(Armor.Target)
+	e1:SetTarget(Armor.Target(opp))
 	e1:SetOperation(Armor.Operation)
 	c:RegisterEffect(e1)
 	if s then
@@ -64,12 +64,15 @@ function Armor.Filter(c,e,tp)
 	return not c:IsType(TYPE_XYZ) and c:IsFaceup()
 		and (e:GetHandler().AttachFilter == nil or e:GetHandler().AttachFilter(c))
 end
-function Armor.Target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and chkc:IsController(tp) and Armor.Filter(chkc,e,tp) end
-	if chk==0 then return Duel.IsExistingTarget(Armor.Filter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local g=Duel.SelectTarget(tp,Armor.Filter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
+function Armor.Target(opp)
+	return function(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+		local oppzone = opp and LOCATION_MZONE or 0
+		if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and (opp or chkc:IsController(tp)) and Armor.Filter(chkc,e,tp) end
+		if chk==0 then return Duel.IsExistingTarget(Armor.Filter,tp,LOCATION_MZONE,oppzone,1,nil,e,tp) end
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
+		local g=Duel.SelectTarget(tp,Armor.Filter,tp,LOCATION_MZONE,oppzone,1,1,nil,e,tp)
+		Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
+	end
 end
 function Armor.Operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

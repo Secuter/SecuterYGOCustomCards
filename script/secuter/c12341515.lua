@@ -7,7 +7,7 @@ function s.initial_effect(c)
 	--armorizing summon
 	Armorizing.AddProcedure(c,s.exfilter,3)
 	c:EnableReviveLimit()
-	--todeck
+	--to deck + draw
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TODECK+CATEGORY_DRAW)
