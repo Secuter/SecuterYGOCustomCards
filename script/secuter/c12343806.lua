@@ -76,8 +76,8 @@ end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and c:IsRelateToEffect(e) then
-		Armor.Attach(tc,c)
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(tc,c,e)
 	end
 end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)

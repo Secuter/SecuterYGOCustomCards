@@ -150,7 +150,7 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 		local sg=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_DECK,0,1,1,nil,tc)
 		local ec=sg:GetFirst()
 		if ec and Armor.AttachCheck(ec,tc) then
-			Armor.Attach(tc,ec)
+			Armor.Attach(tc,ec,e)
 		end
 	end
 end

@@ -67,8 +67,9 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Armor.Attach(e:GetHandler(),tc)
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(c,tc,e)
 	end
 end

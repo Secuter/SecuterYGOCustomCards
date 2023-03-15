@@ -62,6 +62,6 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local ex,g=Duel.GetOperationInfo(0,CATEGORY_ATTACH_ARMOR)
 	local tc2=g:GetFirst()
 	if tc1:IsRelateToEffect(e) and tc2:IsRelateToEffect(e) then
-		Armor.Attach(tc1,tc2)
+		Armor.Attach(tc1,tc2,e)
 	end
 end

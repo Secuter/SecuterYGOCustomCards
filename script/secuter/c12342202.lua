@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e4:SetDescription(aux.Stringid(id,1))
 	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e4:SetCode(EVENT_CHAINING)
+	e4:SetCode(EVENT_ATTACH_ARMOR)
 	e4:SetProperty(EFFECT_FLAG_DELAY)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1,{id,1})
@@ -54,8 +54,7 @@ function s.thfilter(c)
 	return c:IsSetCard(0x21a) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and e:GetHandler():IsRelateToEffect(re)
-		and re:IsHasCategory(CATEGORY_ATTACH_ARMOR)
+	return e:GetHandler():GetFieldID() == ev
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

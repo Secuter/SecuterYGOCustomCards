@@ -35,7 +35,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 		if #g>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 			local sg=g:Select(tp,1,1,nil)
-			Armor.Attach(c,sg)
+			Armor.Attach(c,sg,e)
 		end
 	end
 end

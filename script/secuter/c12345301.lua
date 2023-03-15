@@ -45,9 +45,10 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Armor.Attach(tc,e:GetHandler())
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(tc,c,e)
 	end
 end
 --search

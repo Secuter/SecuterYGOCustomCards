@@ -7,7 +7,7 @@ s.ArmorDef=0
 s.IsArmor=true
 function s.initial_effect(c)
 	--armor
-	Armor.AddProcedure(c,s)
+	Armor.AddProcedure(c,s,nil,true)
 	--xyz summon
 	Xyz.AddProcedure(c,nil,2,2)
 	c:EnableReviveLimit()
@@ -43,17 +43,6 @@ function s.initial_effect(c)
 	e4:SetTarget(s.attg3)
 	e4:SetOperation(s.atop3)
 	c:RegisterEffect(e4)
-	--attach itself #2
-	local e5=Effect.CreateEffect(c)
-	e5:SetDescription(aux.Stringid(id,4))
-	e5:SetCategory(CATEGORY_ATTACH_ARMOR)
-	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e5:SetCode(EVENT_DESTROYED)
-	e5:SetProperty(EFFECT_FLAG_DELAY)
-	e5:SetTarget(s.atcon2)
-	e5:SetTarget(s.attg2)
-	e5:SetOperation(s.atop2)
-	c:RegisterEffect(e5)
 end
 s.listed_series={0x22B}
 --move armor
@@ -73,12 +62,14 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	local mg=c:GetOverlayGroup()
-	if tc and tc:IsRelateToEffect(e) and c:IsRelateToEffect(e) and c:GetOverlayCount()>0 then
+	if tc:IsRelateToEffect(e) and c:IsRelateToEffect(e) and c:GetOverlayCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local mg=c:GetOverlayGroup():FilterSelect(tp,Armor.AttachCheck,1,1,false,nil,tc)
-		local oc=mg:GetFirst():GetOverlayTarget()
-		Armor.Attach(tc,mg)
-		Duel.RaiseSingleEvent(oc,EVENT_DETACH_MATERIAL,e,0,0,0,0)
+		if #mg>0 then
+			local oc=mg:GetFirst():GetOverlayTarget()
+			Armor.Attach(tc,mg,e)
+			Duel.RaiseSingleEvent(oc,EVENT_DETACH_MATERIAL,e,0,0,0,0)
+		end
 	end
 end
 --spsummon
@@ -131,25 +122,7 @@ end
 function s.atop3(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and c:IsRelateToEffect(e) then
-		Armor.Attach(tc,c)
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(tc,c,e)
 	end
-end
---attach itself #2
-function s.atcon2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
-end
-function s.atfilter2(c,ar)
-	return Armor.AttachCheck(ar,c)
-end
-function s.attg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_MZONE,0,1,nil,e:GetHandler()) end
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,e:GetHandler(),1,0,0)
-end
-function s.atop2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local tc=Duel.SelectMatchingCard(tp,s.atfilter2,tp,LOCATION_MZONE,0,1,1,nil,c):GetFirst()
-	Armor.Attach(tc,c)
 end

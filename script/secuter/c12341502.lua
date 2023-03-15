@@ -30,13 +30,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 
-function s.filter(c)
+function s.cfilter(c)
 	return c:IsFaceup() and c.IsArmorizing
 end
 function s.spcon(e,c)
 	if c==nil then return true end
 	return Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)>0 and
-		Duel.IsExistingMatchingCard(s.filter,c:GetControler(),LOCATION_MZONE,0,1,nil)
+		Duel.IsExistingMatchingCard(s.cfilter,c:GetControler(),LOCATION_MZONE,0,1,nil)
 end
 
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
@@ -53,8 +53,9 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Armor.Attach(tc,e:GetHandler())
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(tc,c,e)
 	end
 end

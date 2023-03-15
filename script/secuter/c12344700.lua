@@ -83,7 +83,7 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and not tc:IsPosition(POS_FACEUP_DEFENSE) and Duel.ChangePosition(tc,POS_FACEUP_DEFENSE)>0 and tc:IsType(TYPE_FLIP) and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
 		local c=e:GetHandler()
-		if c and c:IsRelateToEffect(e) then
+		if c:IsRelateToEffect(e) then
 			Duel.SpecialSummon(c,0,tp,tp,false,false,POS_DEFENSE)
 		end
 	end

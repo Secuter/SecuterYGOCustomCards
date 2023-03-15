@@ -82,7 +82,7 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.atfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,c)
 		if #g>0 then
-			Armor.Attach(c,g)
+			Armor.Attach(c,g,e)
 		end
 	end
 end

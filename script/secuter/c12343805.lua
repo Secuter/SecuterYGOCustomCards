@@ -64,14 +64,14 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
+	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
 		local tc=Duel.GetFirstTarget()
 		if tc and tc:IsRelateToEffect(e) then
 			Duel.BreakEffect()
 			if tc:GetOverlayCount()>0 then
 				Duel.SendtoGrave(tc:GetOverlayGroup(),REASON_RULE)
 			end
-			Armor.Attach(c,tc)
+			Armor.Attach(c,tc,e)
 		end
 	end
 end
@@ -115,8 +115,8 @@ end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc and tc:IsRelateToEffect(e) and c:IsRelateToEffect(e) then
-		Armor.Attach(tc,c)
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(tc,c,e)
 	end
 end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)

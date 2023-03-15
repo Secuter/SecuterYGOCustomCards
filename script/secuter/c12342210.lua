@@ -91,9 +91,10 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Armor.Attach(e:GetHandler(),tc)
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(c,tc,e)
 	end
 end
 
@@ -117,7 +118,7 @@ function s.atop2(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=aux.SelectUnselectGroup(rg,e,tp,1,5,s.rescon,1,tp,HINTMSG_SELECT,nil,nil,true)
 		if #g>0 then
-			Armor.Attach(c,g)
+			Armor.Attach(c,g,e)
 		end
 	end
 end
@@ -149,9 +150,10 @@ function s.attg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 end
 function s.atop3(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Armor.Attach(tc,e:GetHandler())
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+		Armor.Attach(tc,c,e)
 	end
 end
 
@@ -185,9 +187,9 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		tc:CompleteProcedure()
 		local c=e:GetHandler()
-		if c and c:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and Armor.AttachCheck(c,tc) then
+		if c:IsRelateToEffect(e) and c:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and Armor.AttachCheck(c,tc) then
 			Duel.BreakEffect()
-			Armor.Attach(tc,c)
+			Armor.Attach(tc,c,e)
 		end
 	end
 end

@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	Armor.AddProcedure(c,s)
 	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,1))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	c:RegisterEffect(e1)
@@ -29,7 +29,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--add
 	local e4=Effect.CreateEffect(c)
-	e4:SetDescription(aux.Stringid(id,2))
+	e4:SetDescription(aux.Stringid(id,1))
 	e4:SetCategory(CATEGORY_TOHAND)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_FZONE)
@@ -41,19 +41,20 @@ function s.initial_effect(c)
 	--add counter
 	local e5=Effect.CreateEffect(c)
 	e5:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e5:SetCode(EVENT_CHAIN_SOLVED)
+	e5:SetCode(EVENT_ATTACH_ARMOR)
 	e5:SetRange(LOCATION_FZONE)
+	e5:SetCondition(s.ctcon)
 	e5:SetOperation(s.ctop)
 	c:RegisterEffect(e5)
 end
-function s.cfilter1(c,re)
-	return c:IsRelateToEffect(re) --and c:GetFlagEffect(FLAG_ARMOR_RESOLVED)==1
+function s.cfilter(c,ev)
+	return c:GetFieldID() == ev
+end
+function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
+	return rp==tp and Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,ev)
 end
 function s.ctop(e,tp,eg,ep,ev,re,r,rp)
-	if rp==tp and re:IsHasCategory(CATEGORY_ATTACH_ARMOR)
-	and Duel.IsExistingMatchingCard(s.cfilter1,tp,LOCATION_MZONE,LOCATION_MZONE,1,nil,re) then
-		e:GetHandler():AddCounter(0x304,1)
-	end
+	e:GetHandler():AddCounter(0x304,1)
 end
 
 function s.target(e,c)

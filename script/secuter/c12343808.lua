@@ -7,7 +7,7 @@ s.ArmorDef=0
 s.IsArmor=true
 function s.initial_effect(c)
 	--armor
-	Armor.AddProcedure(c,s)
+	Armor.AddProcedure(c,s,nil,true)
 	--link summon
 	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x22B),2,2)
 	c:EnableReviveLimit()
@@ -50,17 +50,6 @@ function s.initial_effect(c)
 	local e6=e4:Clone()
 	e6:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e6)
-	--attach itself
-	local e7=Effect.CreateEffect(c)
-	e7:SetDescription(aux.Stringid(id,2))
-	e7:SetCategory(CATEGORY_ATTACH_ARMOR)
-	e7:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e7:SetCode(EVENT_DESTROYED)
-	e7:SetProperty(EFFECT_FLAG_DELAY)
-	e7:SetTarget(s.atcon2)
-	e7:SetTarget(s.attg2)
-	e7:SetOperation(s.atop2)
-	c:RegisterEffect(e7)
 end
 s.listed_series={0x22B}
 s.material_setcode={0x22B}
@@ -78,11 +67,11 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c and c:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,LOCATION_DECK,0,1,1,nil,c)
 		if #g>0 then
-			Armor.Attach(c,g)
+			Armor.Attach(c,g,e)
 		end
 	end
 end
@@ -107,25 +96,7 @@ function s.atop3(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,LOCATION_GRAVE,0,1,1,nil,tc)
 		if #g>0 then
-			Armor.Attach(tc,g)
+			Armor.Attach(tc,g,e)
 		end
 	end
-end
---attach itself
-function s.atcon2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
-end
-function s.atfilter2(c,ar)
-	return Armor.AttachCheck(ar,c)
-end
-function s.attg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_MZONE,0,1,nil,e:GetHandler()) end
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,e:GetHandler(),1,0,0)
-end
-function s.atop2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local tc=Duel.SelectMatchingCard(tp,s.atfilter2,tp,LOCATION_MZONE,0,1,1,nil,c):GetFirst()
-	Armor.Attach(tc,c)
 end

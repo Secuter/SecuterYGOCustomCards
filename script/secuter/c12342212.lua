@@ -58,7 +58,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 			local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,LOCATION_GRAVE,0,1,1,nil,tc)
 			Duel.BreakEffect()			
 			if #g>0 then
-				Armor.Attach(tc,g)
+				Armor.Attach(tc,g,e)
 			end
 		end
 	end

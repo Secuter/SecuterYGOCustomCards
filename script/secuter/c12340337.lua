@@ -34,7 +34,7 @@ end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	local c=e:GetHandler()
-	if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and c and c:IsRelateToEffect(e) then
+	if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and c:IsRelateToEffect(e) then
 		Duel.SendtoDeck(c,nil,1,REASON_EFFECT)
 	end
 end

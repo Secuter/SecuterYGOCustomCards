@@ -59,7 +59,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if tc and tc:IsRelateToEffect(e) and Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
 		if c:IsRelateToEffect(e) then
 			Duel.BreakEffect()
-			Armor.Attach(tc,c)
+			Armor.Attach(tc,c,e)
 		end
 	end
 end

@@ -14,7 +14,7 @@ function s.initial_effect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_CHAINING)
+	e1:SetCode(EVENT_ATTACH_ARMOR)
 	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetCountLimit(1)
@@ -46,8 +46,7 @@ function s.spfilter(c,e,tp)
 	return c.IsArmor and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and e:GetHandler():IsRelateToEffect(re)
-		and re:IsHasCategory(CATEGORY_ATTACH_ARMOR)
+	return e:GetHandler():GetFieldID() == ev
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end
@@ -79,12 +78,12 @@ end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
 		if c:GetOverlayCount()>0 then
 			Duel.SendtoGrave(c:GetOverlayGroup(),REASON_RULE)
 		end
 		c:CancelToGrave()
-		Armor.Attach(tc,c)
+		Armor.Attach(tc,c,e)
 		tc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,0,1)
 	end
 end

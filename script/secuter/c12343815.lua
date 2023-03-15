@@ -8,7 +8,7 @@ s.IsArmor=true
 s.IsArmorizing=true
 function s.initial_effect(c)
 	--armor
-	Armor.AddProcedure(c,s)
+	Armor.AddProcedure(c,s,nil,true)
 	--armorizing summon
 	Armorizing.AddProcedure(c,s.matfilter,3)
 	c:EnableReviveLimit()
@@ -43,17 +43,6 @@ function s.initial_effect(c)
 	e4:SetTarget(s.reptg)
 	e4:SetValue(s.repval)
 	c:RegisterEffect(e4)
-	--attach itself
-	local e5=Effect.CreateEffect(c)
-	e5:SetDescription(aux.Stringid(id,2))
-	e5:SetCategory(CATEGORY_ATTACH_ARMOR)
-	e5:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
-	e5:SetCode(EVENT_DESTROYED)
-	e5:SetProperty(EFFECT_FLAG_DELAY)
-	e5:SetTarget(s.atcon2)
-	e5:SetTarget(s.attg2)
-	e5:SetOperation(s.atop2)
-	c:RegisterEffect(e5)
 end
 s.listed_series={0x22B}
 function s.matfilter(c,lc,sumtype,tp)
@@ -95,11 +84,11 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c and c:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) then
 		local g=Duel.GetMatchingGroup(s.atfilter,tp,LOCATION_HAND+LOCATION_EXTRA+LOCATION_GRAVE,0,nil,c)
 		local sg=aux.SelectUnselectGroup(g,e,tp,1,3,s.atcheck,1,tp,HINTMSG_ATTACHARMOR)
 		if #sg>0 then
-			Armor.Attach(c,sg)
+			Armor.Attach(c,sg,e)
 		end
 	end
 end
@@ -119,22 +108,4 @@ function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.repval(e,c)
 	return s.repfilter(c,e:GetHandlerPlayer())
-end
---attach itself
-function s.atcon2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
-end
-function s.atfilter2(c,ar)
-	return Armor.AttachCheck(ar,c)
-end
-function s.attg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_MZONE,0,1,nil,e:GetHandler()) end
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,e:GetHandler(),1,0,0)
-end
-function s.atop2(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
-	local tc=Duel.SelectMatchingCard(tp,s.atfilter2,tp,LOCATION_MZONE,0,1,1,nil,c):GetFirst()
-	Armor.Attach(tc,c)
 end

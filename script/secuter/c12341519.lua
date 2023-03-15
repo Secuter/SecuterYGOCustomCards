@@ -45,7 +45,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc2=g:GetFirst()
 	while tc2 do
 		if tc1:IsRelateToEffect(e) and tc2:IsRelateToEffect(e) then
-			Armor.Attach(tc1,tc2)
+			Armor.Attach(tc1,tc2,e)
 		end
 		tc2=g:GetNext()
 	end

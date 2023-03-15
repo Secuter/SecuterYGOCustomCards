@@ -27,7 +27,7 @@ function s.initial_effect(c)
 	e3:SetDescription(aux.Stringid(id,0))
 	e3:SetCategory(CATEGORY_DRAW+CATEGORY_HANDES)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e3:SetCode(EVENT_CHAINING)
+	e3:SetCode(EVENT_ATTACH_ARMOR)
 	e3:SetProperty(EFFECT_FLAG_DELAY)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1,{id,1})
@@ -62,8 +62,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and e:GetHandler():IsRelateToEffect(re)
-		and re:IsHasCategory(CATEGORY_ATTACH_ARMOR)
+	return e:GetHandler():GetFieldID() == ev
 end
 function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end

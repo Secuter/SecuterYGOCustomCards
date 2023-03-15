@@ -62,7 +62,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 				Duel.SendtoGrave(tc:GetOverlayGroup(),REASON_RULE)
 			end
 			tc:CancelToGrave()
-			Armor.Attach(c,tc)
+			Armor.Attach(c,tc,e)
 		end
 	end
 end

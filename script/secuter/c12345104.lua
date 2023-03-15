@@ -76,7 +76,7 @@ function s.xyzop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(tc),tp,nil,nil,REASON_XYZ)
-	if c and c:IsRelateToEffect(e) and tc and tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and tc and tc:IsRelateToEffect(e) then
 		tc:SetMaterial(c)
 		Duel.Overlay(tc,c)
 		Duel.SpecialSummon(tc,SUMMON_TYPE_XYZ,tp,tp,false,false,POS_FACEUP)

@@ -8,7 +8,9 @@ HINTMSG_REMOVEARMOR     = 603
 HINTMSG_REMOVEARMORFROM = 604
 HINTMSG_ARMORTARGET     = 605
 HINTMSG_ATTACHARMOR     = 606
+EVENT_ATTACH_ARMOR		= 1300
 armor_log_only_once		= true
+attach_log_only_once	= true
 if not aux.ArmorProcedure then
 	aux.ArmorProcedure = {}
 	Armor = aux.ArmorProcedure
@@ -17,20 +19,38 @@ if not Armor then
 	Armor = aux.ArmorProcedure
 end
 --[[
-add at the start of the script to add Armor/Armorizing procedure
+Add this at the start of the card script to add Armor/Armorizing procedure and constants
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
-condition if Armorizing summoned
+Condition if Armorizing summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+Condition if card is related with an effect triggered by EVENT_ATTACH_ARMOR
+	e:GetHandler():GetFieldID() == ev
 ]]
---attach armor function
+-- attach armor function
 function Armor.AttachCheck(ar,c)
 	return ar.IsArmor and not c:IsType(TYPE_XYZ) and (ar.AttachFilter == nil or ar.AttachFilter(c))
 end
-function Armor.Attach(c,ar)
+function Armor.Attach(c,ar,e)
+	-- Armor.Attach(Card target, Card|Group armor, Effect e)
+	if not e and attach_log_only_once then
+		Debug.Message("proc_armor.lua has been updated!\nNow you have to call Armor.Attach passing the effect as well, eg. Armor.Attach(tc,c,e) instead of Armor.Attach(tc,c).\nThe new function is Armor.Attach(Card target, Card|Group armor, Effect e)")
+		attach_log_only_once = false
+	end
+	local tp=e:GetHandlerPlayer()
 	Duel.Overlay(c,ar)
+	if c and (ar or #ar) and e then
+		Duel.RaiseEvent(c,EVENT_ATTACH_ARMOR,e,0,tp,tp,c:GetFieldID())
+	end
+end
+function Card.AttachArmor(c,ar,e)
+	Armor.Attach(c,ar,e)
 end
 --add procedure to armor cards
-function Armor.AddProcedure(c,s,opp)
+function Armor.AddProcedure(c,s,opp,attach_when_des)
+	-- c => the card
+	-- s => the card script, obtained with "local s,id=GetID()" (for now, if not set, gives a warning and doesn't activate the update atk/def effects)
+	-- opp (optional) => if true it can attach itself to opponent's monsters with the default procedure
+	-- attach_when_des (optional) => if true activates the effect to attach the monster as armor when it's destroyed (used in Extra Deck Armor monsters)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1183)
 	e1:SetCategory(CATEGORY_ATTACH_ARMOR)
@@ -59,6 +79,18 @@ function Armor.AddProcedure(c,s,opp)
 			armor_log_only_once = false
 		end
 	end
+	if attach_when_des then
+		local e2=Effect.CreateEffect(c)
+		e2:SetDescription(1187)
+		e2:SetCategory(CATEGORY_ATTACH_ARMOR)
+		e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+		e2:SetCode(EVENT_DESTROYED)
+		e2:SetProperty(EFFECT_FLAG_DELAY)
+		e2:SetTarget(Armor.AttWDesCondition)
+		e2:SetTarget(Armor.AttWDesTarget)
+		e2:SetOperation(Armor.AttWDesOperation)
+		c:RegisterEffect(e2)
+	end
 end
 function Armor.Filter(c,e,tp)
 	return not c:IsType(TYPE_XYZ) and c:IsFaceup()
@@ -79,11 +111,33 @@ function Armor.Operation(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
 		if c:IsType(TYPE_SPELL+TYPE_TRAP) then c:CancelToGrave() end
-		Armor.Attach(tc,Group.FromCards(c))
+		Armor.Attach(tc,Group.FromCards(c),e)
 	end
 end
 function Armor.Condition(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsType(TYPE_XYZ)
+end
+-- Attach itself to a monster as armor when destroyed (used in Extra Deck Armor monsters)
+function Armor.AttWDesCondition(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsFaceup()
+end
+function Armor.AttWDesFilter(c,ar)
+	return Armor.AttachCheck(ar,c)
+end
+function Armor.AttWDesTarget(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(Armor.AttWDesFilter,tp,LOCATION_MZONE,0,1,nil,e:GetHandler()) end
+	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,e:GetHandler(),1,0,0)
+end
+function Armor.AttWDesOperation(e,tp,eg,ep,ev,re,r,rp)
+	local c=e:GetHandler()
+	if c:IsRelateToEffect(e) then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
+		local tc=Duel.SelectMatchingCard(tp,Armor.AttWDesFilter,tp,LOCATION_MZONE,0,1,1,nil,c):GetFirst()
+		if tc then
+			Armor.Attach(tc,c,e)
+		end
+	end
 end
 
 --Armorizing Summon
