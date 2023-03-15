@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_ATTACH_ARMOR)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
-	e2:SetCode(EVENT_CHAINING)
+	e2:SetCode(EVENT_ATTACH_ARMOR)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1,{id,1})
 	e2:SetCondition(s.atcon)
@@ -74,7 +74,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --attach
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and re:GetHandler():IsSetCard(0x1098)
+	return e:GetHandler():GetFieldID() == ev
 end
 function s.atfilter(c,tc)
 	return c:IsSetCard(0x1098) and not c:IsCode(id) and Armor.AttachCheck(c,tc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))

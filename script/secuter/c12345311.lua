@@ -15,7 +15,7 @@ function s.initial_effect(c)
 	Armorizing.AddProcedure(c,s.matfilter,4)
 	--search
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,1))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_IGNITION)
 	e1:SetRange(LOCATION_MZONE)
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 	--negate
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,3))
+	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_NEGATE+CATEGORY_REMOVE)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
 	e3:SetCode(EVENT_CHAINING)
@@ -79,7 +79,7 @@ function s.thspop(e,tp,eg,ep,ev,re,r,rp)
 			function()
 				Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 			end,
-			aux.Stringid(id,2)
+			aux.Stringid(id,1)
 		)
 	end
 end

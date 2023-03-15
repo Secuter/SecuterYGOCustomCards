@@ -14,7 +14,7 @@ function s.initial_effect(c)
 	Armorizing.AddProcedure(c,s.matfilter,2)
 	--banish
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,1))
+	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_REMOVE)
 	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_ATTACH_ARMOR)
@@ -27,7 +27,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--negate
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,2))
+	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_NEGATE+CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_CHAINING)
@@ -47,7 +47,7 @@ function s.matfilter(c,lc,sumtype,tp)
 end
 --banish
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and e:GetHandler():GetFieldID() == ev
+	return e:GetHandler():GetFieldID() == ev
 end
 function s.rmfilter(c,tp)
 	return c:IsFaceup() and c:IsAbleToRemove()
