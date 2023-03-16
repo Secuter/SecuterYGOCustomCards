@@ -35,13 +35,16 @@ function s.initial_effect(c)
 end
 s.listed_series={0x1098}
 --spsummon itself
-function s.cfilter(c)
+function s.filter(c)
 	return c:IsFaceup() and c:IsSetCard(0x1098)
+end
+function s.cfilter(c)
+	return c:IsFaceup() and c:IsRace(RACE_SPELLCASTER)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetFieldGroup(tp,LOCATION_MZONE,0)
-	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and #g>0 and g:FilterCount(s.cfilter,nil)==#g
+	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil)
+		and g:FilterCount(s.cfilter,nil)==#g
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
