@@ -65,7 +65,7 @@ function s.condition2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)
 end
 function s.thfilter2(c,t)
-	return c:IsSetCard(0x222) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(0x222) and c:IsSpellTrap() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end
