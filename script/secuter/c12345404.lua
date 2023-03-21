@@ -71,6 +71,9 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTarget(s.splimit)
 	Duel.RegisterEffect(e1,tp)
 end
+function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return c:IsCode(id) and sumtype&SUMMON_TYPE_LINK==SUMMON_TYPE_LINK
+end
 --indes
 function s.cfilter(c)
 	return c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()

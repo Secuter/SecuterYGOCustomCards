@@ -48,6 +48,9 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTarget(s.splimit)
 	Duel.RegisterEffect(e1,tp)
 end
+function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return c:IsCode(id) and sumtype&SUMMON_TYPE_LINK==SUMMON_TYPE_LINK
+end
 --spsummon token
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return e:GetHandler():IsReleasable() end

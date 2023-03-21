@@ -71,6 +71,9 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTarget(s.splimit)
 	Duel.RegisterEffect(e1,tp)
 end
+function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return c:IsCode(id) and sumtype&SUMMON_TYPE_LINK==SUMMON_TYPE_LINK
+end
 --to deck+draw
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
