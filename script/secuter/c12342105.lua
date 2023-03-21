@@ -5,7 +5,7 @@ s.IsReunion=true
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,s.rfilter,2,99,s.rcheck)
+	Reunion.AddProcedure(c,s.rfilter,2,99,s.rcheck,true)
 	--indes battle
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -55,7 +55,7 @@ function s.rfilter(c,sc)
 	return (c:IsCode(60349525) and c:IsControler(sc:GetControler())) or c:IsType(TYPE_LINK)
 end
 function s.rcheck(g,lc,sumtype,tp)
-	return g:Filter(Card.IscCode,nil,60349525):GetCount() == 1
+	return g:Filter(Card.IsCode,nil,60349525):GetCount() == 1
 end
 --indes
 function s.indval(e,c)

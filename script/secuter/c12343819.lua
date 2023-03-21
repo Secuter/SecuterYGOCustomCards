@@ -1,4 +1,4 @@
---Crearmor Infinite Aegis
+--Crearmor Atomic Beam
 --Scripted by Secuter
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
