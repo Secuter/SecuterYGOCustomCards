@@ -46,7 +46,7 @@ function s.cfilter(c)
 	return c:IsSetCard(0x20F) and c:IsPreviousLocation(LOCATION_DECK|LOCATION_HAND)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.filter,1,nil)
+	return eg:IsExists(s.cfilter,1,nil)
 end
 function s.filter(c)
 	return c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()

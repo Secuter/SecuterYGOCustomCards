@@ -12,15 +12,18 @@ function s.initial_effect(c)
 	e1:SetTarget(s.actg)
 	e1:SetOperation(s.acop)
 	c:RegisterEffect(e1)
-	--search
+	--to deck
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e2:SetType(EFFECT_TYPE_ACTIVATE)
+	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetCategory(CATEGORY_TODECK)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
-	e2:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
-	e2:SetTarget(s.sptg)
-	e2:SetOperation(s.spop)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e2:SetRange(LOCATION_GRAVE)
+	e2:SetCountLimit(1)
+	e2:SetCondition(s.tdcon)
+	e2:SetTarget(s.tdtg)
+	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
@@ -48,26 +51,35 @@ function s.acop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.DiscardDeck(tp,3,REASON_EFFECT)
 	end
 end
---spsummon
-function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+--to deck
+function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsTurnPlayer(tp) and Duel.IsMainPhase() and aux.exccon(e)
 end
-function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e,tp) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE+LOCATION_REMOVED)
+function s.tdfilter(c,e)
+	return c:IsSetCard(0x20F) and c:IsType(TYPE_MONSTER|TYPE_SPELL) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
-function s.spop(e,tp,eg,ep,ev,re,r,rp)
-	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.spfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,e,tp)
-	local tc=g:GetFirst()
-	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP)~=0 then
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_UPDATE_ATTACK)
-		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
-		e1:SetValue(1000)
-		tc:RegisterEffect(e1)
+function s.class(c)
+	return c:GetType()&0x3
+end
+function s.check(sg,e,tp)
+	return sg:GetClassCount(s.class)==#sg
+end
+function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+	if chkc then return false end
+	local sg=Duel.GetMatchingGroup(s.tdfilter,tp,LOCATION_GRAVE|LOCATION_REMOVED,0,nil,e)
+	if chk==0 then return c:IsAbleToDeck() and #sg>0
+		and aux.SelectUnselectGroup(sg,e,tp,2,2,s.check,0) end
+	local g=aux.SelectUnselectGroup(sg,e,tp,2,2,s.check,1,tp,HINTMSG_TODECK)
+	Duel.SetTargetCard(g)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,2,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,c,1,0,0)
+end
+function s.tdop(e,tp,eg,ep,ev,re,r,rp)	
+	local c=e:GetHandler()
+	local tg=Duel.GetTargetCards(e)
+	if c:IsRelateToEffect(e) or #tg>0 then
+		if c:IsRelateToEffect(e) then tg:AddCard(c) end
+		Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)
 	end
 end

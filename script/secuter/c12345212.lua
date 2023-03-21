@@ -4,11 +4,17 @@ local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
-	--splimit
-	c:SetSPSummonOnce(id)
 	--Link summon
 	Link.AddProcedure(c,s.matfilter,2,99)
 	c:EnableReviveLimit()
+	--splimit
+	local e0=Effect.CreateEffect(c)
+	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e0:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e0:SetCode(EVENT_SPSUMMON_SUCCESS)
+	e0:SetCondition(s.regcon)
+	e0:SetOperation(s.regop)
+	c:RegisterEffect(e0)
 	--to deck+draw
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -47,6 +53,23 @@ s.listed_series={0x20E}
 --material
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsSetCard(0x20E,scard,sumtype,tp)
+end
+--splimit
+function s.spcheck(g,lc,tp)
+	return g:CheckSameProperty(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)
+end
+function s.regcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
+end
+function s.regop(e,tp,eg,ep,ev,re,r,rp)
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
+	e1:SetTargetRange(1,0)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTarget(s.splimit)
+	Duel.RegisterEffect(e1,tp)
 end
 --to deck+draw
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)

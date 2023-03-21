@@ -13,6 +13,19 @@ function s.initial_effect(c)
 	e1:SetTarget(s.negtg)
 	e1:SetOperation(s.negop)
 	c:RegisterEffect(e1)
+	--to deck
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetCategory(CATEGORY_TODECK)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetCode(EVENT_FREE_CHAIN)
+	e2:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e2:SetRange(LOCATION_GRAVE)
+	e2:SetCountLimit(1)
+	e2:SetCondition(s.tdcon)
+	e2:SetTarget(s.tdtg)
+	e2:SetOperation(s.tdop)
+	c:RegisterEffect(e2)
 end
 s.listed_names={id}
 s.listed_series={0x20F}
@@ -41,4 +54,36 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.filter(c)
 	return c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
+end
+--to deck
+function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsTurnPlayer(tp) and Duel.IsMainPhase() and aux.exccon(e)
+end
+function s.tdfilter(c,e)
+	return c:IsSetCard(0x20F) and c:IsType(TYPE_MONSTER|TYPE_SPELL) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+end
+function s.class(c)
+	return c:GetType()&0x3
+end
+function s.check(sg,e,tp)
+	return sg:GetClassCount(s.class)==#sg
+end
+function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	local c=e:GetHandler()
+	if chkc then return false end
+	local sg=Duel.GetMatchingGroup(s.tdfilter,tp,LOCATION_GRAVE|LOCATION_REMOVED,0,nil,e)
+	if chk==0 then return c:IsAbleToDeck() and #sg>0
+		and aux.SelectUnselectGroup(sg,e,tp,2,2,s.check,0) end
+	local g=aux.SelectUnselectGroup(sg,e,tp,2,2,s.check,1,tp,HINTMSG_TODECK)
+	Duel.SetTargetCard(g)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,2,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,c,1,0,0)
+end
+function s.tdop(e,tp,eg,ep,ev,re,r,rp)	
+	local c=e:GetHandler()
+	local tg=Duel.GetTargetCards(e)
+	if c:IsRelateToEffect(e) or #tg>0 then
+		if c:IsRelateToEffect(e) then tg:AddCard(c) end
+		Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)
+	end
 end

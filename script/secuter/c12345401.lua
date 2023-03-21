@@ -42,7 +42,7 @@ end
 function s.check(sg,e,tp)
 	return sg:GetClassCount(s.class)==#sg
 end
-function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
+function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	local sg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_REMOVED,0,nil,e)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
