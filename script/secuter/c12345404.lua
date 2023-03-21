@@ -106,7 +106,7 @@ end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return (c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT)) and c:IsSummonType(SUMMON_TYPE_LINK) and c:GetPreviousControler()==tp
+	return c:GetReasonPlayer()~=tp and c:IsSummonType(SUMMON_TYPE_LINK) and c:GetPreviousControler()==tp
 end
 function s.spfilter(c,e,tp)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x20F) and c:IsLevelBelow(3) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
