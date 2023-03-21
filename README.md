@@ -1,6 +1,6 @@
 # SecuterYGOCustomCards
-I've created a simple site on Github Pages to provide a quick preview of the cards.
-It doesn't load all 1000+ card images right away on page load but only downloads the needed ones when an archetype is selected, depending on your connection speed it may take a while if you click multiple archetypes quickly. :D
+I've created a simple site on Github Pages to provide a quick preview of the cards.<br>
+It doesn't load all 1000+ card images right away on page load but only downloads the needed ones when an archetype is selected, depending on your connection speed it may take a bit if you click multiple archetypes quickly. :D
 
 Card preview site -> https://secuter.github.io/SecuterYGOCustomCards-search/
 
