@@ -70,7 +70,7 @@ function s.con(e,tp)
 	return e:GetHandler():GetFlagEffect(id)~=0
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e,0,tp,true,true,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(0x204) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end

@@ -115,7 +115,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	local sg=Duel.GetTargetCards(e)
 	if #sg>0 then
-		Duel.SpecialSummon(sg,0,tp,tp,true,false,POS_FACEUP_DEFENSE)
+		Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	end
 end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)

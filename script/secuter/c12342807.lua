@@ -102,7 +102,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()	
 	if tc:IsAttribute(ATTRIBUTE_WIND) and tc:IsType(TYPE_MONSTER) and tc:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) then
 		Duel.DisableShuffleCheck()
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)		
+		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 	else
 		Duel.MoveSequence(tc,1)
 	end

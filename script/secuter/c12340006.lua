@@ -47,7 +47,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(Card.IsSetCard,tp,LOCATION_PZONE,0,1,e:GetHandler(),0x201)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x201) and c:IsFaceup() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x201) and c:IsFaceup() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDestructable() and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -62,7 +62,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_REMOVED,0,1,1,nil,e,tp)
 		if #g>0 then
-			Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP)
+			Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		end
 	end
 end
@@ -90,8 +90,8 @@ end
 function s.reto(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ReturnToField(e:GetLabelObject())
 end
-function s.filter2(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and not c:IsCode(id)
+function s.filter2(c,e,tp)
+	return c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

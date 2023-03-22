@@ -23,7 +23,7 @@ end
 s.listed_names={id}
 s.listed_series={0x206}
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x206) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x206) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_HAND) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end

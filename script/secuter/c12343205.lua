@@ -101,5 +101,5 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	and e:GetHandler():IsCanBeSpecialSummoned(e,0,e:GetHandlerPlayer(),false,false,POS_FACEUP_DEFENSE)
 end
 function s.spop2(e,tp,eg,ep,ev,re,r,rp)
-	Duel.SpecialSummon(e:GetHandler(),0,tp,tp,true,true,POS_FACEUP_DEFENSE)
+	Duel.SpecialSummon(e:GetHandler(),0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 end

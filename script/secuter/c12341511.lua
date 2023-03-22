@@ -43,7 +43,7 @@ function s.ArmorValue(e,c)
 end
 
 function s.spfilter(c,e,tp)
-	return c.IsArmor and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,false)
+	return c.IsArmor and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP_DEFENSE)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev

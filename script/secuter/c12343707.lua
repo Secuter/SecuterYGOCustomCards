@@ -112,7 +112,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
 	if ft>1 and Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) then ft=1 end
 	if ft<#sg then return end
-	Duel.SpecialSummon(sg,0,tp,tp,true,false,POS_FACEUP_DEFENSE)
+	Duel.SpecialSummon(sg,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsRace(RACE_FAIRY)

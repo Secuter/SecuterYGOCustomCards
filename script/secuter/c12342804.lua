@@ -83,7 +83,7 @@ end
 function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetTargetCards(e)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<#g or Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) then return end
-	Duel.SpecialSummon(g,0,tp,tp,true,false,POS_FACEUP_DEFENSE)
+	Duel.SpecialSummon(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
 end
 --negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)

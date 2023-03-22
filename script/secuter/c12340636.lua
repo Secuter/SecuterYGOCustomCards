@@ -68,7 +68,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.spfilter(c,e,tp,sc)
 	local mg=Group.FromCards(c,sc)
-	return c:IsSetCard(0x208) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x208) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and Duel.IsExistingMatchingCard(s.scfilter,tp,LOCATION_EXTRA,0,1,nil,tp,mg)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
