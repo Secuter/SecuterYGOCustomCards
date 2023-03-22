@@ -10,10 +10,7 @@ function s.initial_effect(c)
 	e0:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
 	e0:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CANNOT_NEGATE)
 	e0:SetTargetRange(1,0)
-	e0:SetTarget(cid
-function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
-end.splimit)
+	e0:SetTarget(s.splimit)
 	c:RegisterEffect(e0)
 	--destroy & summon
 	local e1=Effect.CreateEffect(c)
