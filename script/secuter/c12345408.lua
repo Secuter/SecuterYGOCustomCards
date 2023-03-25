@@ -24,7 +24,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_names={id}
 s.listed_series={0x20F}
 --send to grave
 function s.thfilter(c)

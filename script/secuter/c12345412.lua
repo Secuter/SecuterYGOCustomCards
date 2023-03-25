@@ -27,7 +27,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-s.listed_names={id}
 s.listed_series={0x20F}
 --negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)

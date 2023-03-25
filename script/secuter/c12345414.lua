@@ -39,9 +39,6 @@ function s.initial_effect(c)
 	e3:SetTarget(s.thtg)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
-	local e4=e3:Clone()
-	e4:SetCode(EVENT_REMOVE)
-	c:RegisterEffect(e4)
 end
 s.listed_names={id}
 s.listed_series={0x20F}
@@ -97,7 +94,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetPreviousLocation()==LOCATION_HAND and (r&REASON_DISCARD)~=0
+	return e:GetHandler():IsPreviousLocation(LOCATION_HAND|LOCATION_DECK)
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,e:GetHandler(),tp) end

@@ -27,7 +27,6 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-s.listed_names={id}
 s.listed_series={0x20F}
 --activate field
 function s.acfilter(c,tp)

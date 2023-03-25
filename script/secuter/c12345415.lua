@@ -30,7 +30,6 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x20F}
 function s.rfilter(c,lc,sumtype,tp)
 	return c:IsRace(RACE_DRAGON,lc,sumtype,tp)
 end
@@ -50,7 +49,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:GetReasonPlayer()~=tp and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION and c:GetPreviousControler()==tp
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and not c:IsCode(id)
+	return c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

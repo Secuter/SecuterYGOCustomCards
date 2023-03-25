@@ -48,7 +48,6 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_names={id}
 s.listed_series={0x20F}
 function s.rfilter(c,lc,sumtype,tp)
 	return c:IsType(ATTRIBUTE_DARK,lc,sumtype,tp)

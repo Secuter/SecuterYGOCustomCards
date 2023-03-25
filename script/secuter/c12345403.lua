@@ -1,4 +1,4 @@
---Worldless Prospector Dragon
+--Worldless Magic Dragon
 --Scripted by Secuter
 local s,id=GetID()
 function s.initial_effect(c)
@@ -39,7 +39,6 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-s.listed_names={id}
 s.listed_series={0x20F}
 --sp procedure
 function s.cfilter(c)
