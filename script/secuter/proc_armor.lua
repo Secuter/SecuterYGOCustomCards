@@ -279,7 +279,7 @@ end
 --Exarmorizing Summon
 --Parameters:
 -- c: card
--- ct: number of materials (min 2)
+-- ct: number of materials
 -- f1: optional, filter for monster material
 -- min: min number of armors for each material
 -- f2: optional, filter for armor materials
