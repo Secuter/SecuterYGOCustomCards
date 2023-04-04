@@ -39,7 +39,7 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local rc=re:GetHandler()
 	local loc=Duel.GetChainInfo(ev,CHAININFO_TRIGGERING_LOCATION)
-	return re:IsActiveType(TYPE_MONSTER) and rc~=c and rc:IsLevelAbove(5) and loc==LOCATION_MZONE
+	return re:IsActiveType(TYPE_MONSTER) and rc~=c and loc==LOCATION_MZONE
 		and not c:IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -50,6 +50,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
+	local tc=eg:GetFirst()
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) and tc:IsFaceup() and tc:IsLocation(LOCATION_MZONE) and not tc:IsImmuneToEffect(e) then
 		local atk=tc:GetAttack()
 		local e1=Effect.CreateEffect(e:GetHandler())
