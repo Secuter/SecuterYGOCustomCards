@@ -1,9 +1,9 @@
---General Gradius
+--Victory Gradius
 --Scripted by Secuter
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Link.AddProcedure(c,s.mfilter,1,1)
+	Link.AddProcedure(c,s.mfilter,2,2)
 	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -32,7 +32,7 @@ function s.initial_effect(c)
 end
 s.listed_names={12342111}
 function s.mfilter(c,lc,sumtype,tp)
-	return c:IsLevelBelow(4) and c:IsAttribute(ATTRIBUTE_LIGHT,scard,sumtype,tp) and c:IsRace(RACE_MACHINE,scard,sumtype,tp)
+	return c:IsAttribute(ATTRIBUTE_LIGHT,scard,sumtype,tp) and c:IsRace(RACE_MACHINE,scard,sumtype,tp)
 end
 
 function s.accon(e,tp,eg,ep,ev,re,r,rp)
