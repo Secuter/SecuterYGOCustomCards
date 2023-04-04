@@ -275,3 +275,92 @@ function Duel.ArmorizingSummon(tp,c,mustg,g)
 		c:CompleteProcedure()
 	end
 end
+
+--Exarmorizing Summon
+--Parameters:
+-- c: card
+-- ct: number of materials (min 2)
+-- f1: optional, filter for monster material
+-- min: min number of armors for each material
+-- f2: optional, filter for armor materials
+if not aux.ExarmorizingProcedure then
+	aux.ExarmorizingProcedure = {}
+	Exarmorizing = aux.ExarmorizingProcedure
+end
+if not Exarmorizing then
+	Exarmorizing = aux.ExarmorizingProcedure
+end
+function Exarmorizing.AddProcedure(c,ct,f1,min,f2)
+	if c.armorizing_type==nil then
+		local mt=c:GetMetatable()
+		mt.armorizing_type=1
+		mt.armorizing_parameters={c,ct,f1,min,f2}
+	end
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetDescription(1185)
+	e1:SetCode(EFFECT_SPSUMMON_PROC)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_UNCOPYABLE)
+	e1:SetRange(LOCATION_EXTRA)
+	e1:SetCondition(Exarmorizing.Condition(ct,f1,min,f2))
+	e1:SetTarget(Exarmorizing.Target(ct,f1,min,f2))
+	e1:SetOperation(Exarmorizing.Operation)
+	e1:SetValue(SUMMON_TYPE_ARMORIZING)
+	c:RegisterEffect(e1)
+	--remove fusion type
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetCode(EFFECT_REMOVE_TYPE)
+	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
+	e0:SetRange(LOCATION_ALL)
+	e0:SetValue(TYPE_FUSION)
+	c:RegisterEffect(e0)
+end
+
+function Exarmorizing.MatFilter(c,sc,tp,f1,min,f2)
+	local g=Group.CreateGroup()
+	g:AddCard(c)
+	return c:IsFaceup() and not c:IsType(TYPE_XYZ)
+		and c:GetOverlayCount()>=min
+		and (not f2 or c:GetOverlayGroup():IsExists(f2,min,nil,e,tp))
+		and (not f1 or f1(c,sc,SUMMON_TYPE_SPECIAL,tp))
+        and Duel.GetLocationCountFromEx(tp,tp,g,sc)>0
+end
+function Exarmorizing.Condition(ct,f1,min,f2)
+	return	function(e,c)
+				if c==nil then return true end
+				if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
+				local tp=c:GetControler()
+				
+				return Duel.IsExistingMatchingCard(Exarmorizing.MatFilter,tp,LOCATION_MZONE,0,ct,nil,c,tp,f1,mina,f2)
+				--local g=Duel.GetMatchingGroup(Exarmorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,mina,f2)
+				--return aux.SelectUnselectGroup(g,e,tp,1,1,nil,0,c)
+            end
+end
+function Exarmorizing.Target(ct,f1,min,f2)
+	return	function(e,tp,eg,ep,ev,re,r,rp,chk)
+                local c=e:GetHandler()
+				local tp=e:GetHandlerPlayer()
+                
+                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_AMATERIAL)
+				local rg=Duel.GetMatchingGroup(Exarmorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,mina,f2)
+				local mg=aux.SelectUnselectGroup(rg,e,tp,ct,ct,nil,1,tp,HINTMSG_SELECT,nil,nil,true,c)
+                
+				if #mg>0 then
+					local sg=mg:GetFirst():GetOverlayGroup()
+					sg:Merge(mg)
+							  
+					sg:KeepAlive()
+					e:SetLabelObject(sg)
+					return true
+				else
+					return false
+				end
+            end
+end
+function Exarmorizing.Operation(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
+	local g=e:GetLabelObject()
+	c:SetMaterial(g)
+	Duel.SendtoGrave(g,REASON_MATERIAL+REASON_ARMORIZING)
+	g:DeleteGroup()
+end
