@@ -7,7 +7,7 @@
 *.bat
 *.cdb
 !*SecuterCards.cdb
-*.Secuter.lflist.conf
+Secuter.lflist.conf
 .vs/
 config/
 lflists/
