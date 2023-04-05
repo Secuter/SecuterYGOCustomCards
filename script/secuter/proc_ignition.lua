@@ -2,6 +2,14 @@ REASON_IGNITION		 = 0x80000000
 SUMMON_TYPE_IGNITION = 0x20
 HINTMSG_IMATERIAL	 = 601
 IGNITION_IMPORTED    = true
+
+--[[
+add at the start of the script to add Ingition procedure
+if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
+condition if Ignition summoned
+    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+]]
+
 if not aux.IgnitionProcedure then
 	aux.IgnitionProcedure = {}
 	Ignition = aux.IgnitionProcedure
@@ -9,12 +17,7 @@ end
 if not Ignition then
 	Ignition = aux.IgnitionProcedure
 end
---[[
-add at the start of the script to add Ingition procedure
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
-condition if Ignition summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
-]]
+
 --Ignition Summon
 function Ignition.AddProcedure(c,f1,f2,min,max)
 	if c.ignition_type==nil then

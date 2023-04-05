@@ -1,4 +1,10 @@
 REVERSE_XYZ_IMPORTED=true
+
+--[[
+add at the start of the script to add Ingition procedure
+if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
+]]
+
 if not aux.ReverseXyzProcedure then
 	aux.ReverseXyzProcedure = {}
 	ReverseXyz = aux.ReverseXyzProcedure
@@ -6,10 +12,7 @@ end
 if not ReverseXyz then
 	ReverseXyz = aux.ReverseXyzProcedure
 end
---[[
-add at the start of the script to add Ingition procedure
-if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
-]]
+
 --ReverseXyz Summon
 --Parameters:
 -- c: card

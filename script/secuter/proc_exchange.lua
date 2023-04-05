@@ -1,5 +1,13 @@
 SUMMON_TYPE_EXCHANGE= 0x80
 EXCHANGE_IMPORTED	= true
+
+--[[
+add at the start of the script to add Exchange procedure
+if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+condition if Exchange summoned
+    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+]]
+
 if not aux.ExchangeProcedure then
 	aux.ExchangeProcedure = {}
 	Exchange = aux.ExchangeProcedure
@@ -7,12 +15,7 @@ end
 if not Exchange then
 	Exchange = aux.ExchangeProcedure
 end
---[[
-add at the start of the script to add Exchange procedure
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
-condition if Exchange summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
-]]
+
 --Exchange Summon
 --Parameters:
 -- c: card

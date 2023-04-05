@@ -11,13 +11,7 @@ HINTMSG_ATTACHARMOR     = 606
 EVENT_ATTACH_ARMOR		= 1300
 armor_log_only_once		= true
 attach_log_only_once	= true
-if not aux.ArmorProcedure then
-	aux.ArmorProcedure = {}
-	Armor = aux.ArmorProcedure
-end
-if not Armor then
-	Armor = aux.ArmorProcedure
-end
+
 --[[
 Add this at the start of the card script to add Armor/Armorizing procedure and constants
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
@@ -26,6 +20,33 @@ Condition if Armorizing summoned
 Condition if card is related with an effect triggered by EVENT_ATTACH_ARMOR
 	e:GetHandler():GetFieldID() == ev
 ]]
+
+if not aux.ArmorProcedure then
+	aux.ArmorProcedure = {}
+	Armor = aux.ArmorProcedure
+end
+if not Armor then
+	Armor = aux.ArmorProcedure
+end
+
+-- utility functions
+function Card.IsArmor(c)
+	return c.Armor
+end
+function Card.IsArmorizing(c)
+	return c.Armorizing
+end
+function Card.IsExrmorizing(c)
+	return c.Exrmorizing
+end
+function Card.GetShell(c)
+	if c:IsArmorizing() then
+		return c.Shells
+	else
+		return 0
+	end
+end
+
 -- attach armor function
 function Armor.AttachCheck(ar,c)
 	return ar.IsArmor and not c:IsType(TYPE_XYZ) and (ar.AttachFilter == nil or ar.AttachFilter(c))
@@ -45,7 +66,8 @@ end
 function Card.AttachArmor(c,ar,e)
 	Armor.Attach(c,ar,e)
 end
---add procedure to armor cards
+
+-- add procedure to armor cards
 function Armor.AddProcedure(c,s,opp,attach_when_des)
 	-- c => the card
 	-- s => the card script, obtained with "local s,id=GetID()" (for now, if not set, gives a warning and doesn't activate the update atk/def effects)
@@ -143,9 +165,10 @@ end
 --Armorizing Summon
 --Parameters:
 -- c: card
--- f1: optional, filter for monster material
+-- s: script of the card created by 'local s,id=GetID()'
+-- f1 (optional): filter for monster material
 -- min: min number of armor materials
--- f2: optional, filter for armor materials
+-- f2 (optional): filter for armor materials
 if not aux.ArmorizingProcedure then
 	aux.ArmorizingProcedure = {}
 	Armorizing = aux.ArmorizingProcedure
@@ -154,6 +177,15 @@ if not Armorizing then
 	Armorizing = aux.ArmorizingProcedure
 end
 function Armorizing.AddProcedure(c,f1,min,f2)
+	--remove fusion type
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetCode(EFFECT_REMOVE_TYPE)
+	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
+	e0:SetRange(LOCATION_ALL)
+	e0:SetValue(TYPE_FUSION)
+	c:RegisterEffect(e0)
+	--summoning
 	if c.armorizing_type==nil then
 		local mt=c:GetMetatable()
 		mt.armorizing_type=1
@@ -170,14 +202,6 @@ function Armorizing.AddProcedure(c,f1,min,f2)
 	e1:SetOperation(Armorizing.Operation)
 	e1:SetValue(SUMMON_TYPE_ARMORIZING)
 	c:RegisterEffect(e1)
-	--remove fusion type
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_SINGLE)
-	e0:SetCode(EFFECT_REMOVE_TYPE)
-	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
-	e0:SetRange(LOCATION_ALL)
-	e0:SetValue(TYPE_FUSION)
-	c:RegisterEffect(e0)
 end
 
 function Armorizing.MatFilter(c,sc,tp,f1,min,f2)
@@ -279,10 +303,10 @@ end
 --Exarmorizing Summon
 --Parameters:
 -- c: card
--- ct: number of monster materials XY
--- f1: optional, filter for monster material
+-- ct: number of monster materials
+-- f1 (optional): filter for monster material
 -- min: min number of armors for each material
--- f2: optional, filter for armor materials
+-- f2 (optional): filter for armor materials
 if not aux.ExarmorizingProcedure then
 	aux.ExarmorizingProcedure = {}
 	Exarmorizing = aux.ExarmorizingProcedure
@@ -291,6 +315,15 @@ if not Exarmorizing then
 	Exarmorizing = aux.ExarmorizingProcedure
 end
 function Exarmorizing.AddProcedure(c,ct,f1,min,f2)
+	--remove fusion type
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetCode(EFFECT_REMOVE_TYPE)
+	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
+	e0:SetRange(LOCATION_ALL)
+	e0:SetValue(TYPE_FUSION)
+	c:RegisterEffect(e0)
+	--summoning
 	if c.armorizing_type==nil then
 		local mt=c:GetMetatable()
 		mt.armorizing_type=1
@@ -307,14 +340,6 @@ function Exarmorizing.AddProcedure(c,ct,f1,min,f2)
 	e1:SetOperation(Exarmorizing.Operation)
 	e1:SetValue(SUMMON_TYPE_ARMORIZING)
 	c:RegisterEffect(e1)
-	--remove fusion type
-	local e0=Effect.CreateEffect(c)
-	e0:SetType(EFFECT_TYPE_SINGLE)
-	e0:SetCode(EFFECT_REMOVE_TYPE)
-	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE+EFFECT_FLAG_CANNOT_DISABLE)
-	e0:SetRange(LOCATION_ALL)
-	e0:SetValue(TYPE_FUSION)
-	c:RegisterEffect(e0)
 end
 
 function Exarmorizing.MatFilter(c,sc,tp,f1,min,f2)

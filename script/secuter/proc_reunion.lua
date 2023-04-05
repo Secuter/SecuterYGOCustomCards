@@ -14,7 +14,15 @@ REUNION_TYPE_INCLUDE	= 0x2
 REUNION_TYPE_MAXSEND	= 0x4
 REUNION_TYPE_LOCATION	= 0X8
 REUNION_TYPES_MAIN		= REUNION_TYPE_CHECK+REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND
-REUNION_IMPORTED	= true
+REUNION_IMPORTED		= true
+
+--[[
+add at the start of the script to add Reunion procedure
+if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
+condition if Reunion summoned
+    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+]]
+
 if not aux.ReunionProcedure then
 	aux.ReunionProcedure = {}
 	Reunion = aux.ReunionProcedure
@@ -25,12 +33,7 @@ end
 DEBUG=false
 COUNT_R1=0
 COUNT_R2=0
---[[
-add at the start of the script to add Reunion procedure
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
-condition if Reunion summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
-]]
+
 --Reunion Summon
 --Parameters:
 -- c: card

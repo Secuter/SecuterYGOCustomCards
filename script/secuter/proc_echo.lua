@@ -1,15 +1,9 @@
-ECHO_IMPORTED		= true
 REASON_ECHO			= 0x40000000
 SUMMON_TYPE_ECHO	= 0x40
 HINTMSG_EMATERIAL	= 602
 EFFECT_FLAG_ECHO_EQUIPPED = 12349900
-if not aux.EchoProcedure then
-	aux.EchoProcedure = {}
-	Echo = aux.EchoProcedure
-end
-if not Echo then
-	Echo = aux.EchoProcedure
-end
+ECHO_IMPORTED		= true
+
 --[[
  - Add at the start of the script to add Echo procedure
 if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
@@ -28,6 +22,12 @@ function s.eop(c,e,tp,tc)
 	end
 end
 ]]
+
+if not aux.EchoProcedure then
+	aux.EchoProcedure = {}
+	Echo = aux.EchoProcedure
+end
+
 --Echo Summon
 --Parameters:
 -- c: card

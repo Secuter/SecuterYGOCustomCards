@@ -1,4 +1,9 @@
 SYNCHRO_EXTRA_MATERIAL_IMPORTED=true
+
+--[[
+if not SYNCHRO_EXTRA_MATERIAL_IMPORTED then Duel.LoadScript("proc_synchro_extra_material.lua") end
+]]
+
 if not aux.SynchroProcedure then
 	aux.SynchroProcedure = {}
 	Synchro = aux.SynchroProcedure
@@ -6,9 +11,7 @@ end
 if not Synchro then
 	Synchro = aux.SynchroProcedure
 end
---[[
-if not SYNCHRO_EXTRA_MATERIAL_IMPORTED then Duel.LoadScript("proc_synchro_extra_material.lua") end
-]]
+
 Synchro.CheckAdditional=nil
 --Synchro monster, m-n tuners + m-n monsters
 function Synchro.AddProcedureExtra(c,...)
