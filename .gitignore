@@ -1,6 +1,3 @@
-.vs/
-config/
-deck/
 *.pem
 *.txt
 *.exe
@@ -10,6 +7,10 @@ deck/
 *.bat
 *.cdb
 !*SecuterCards.cdb
+.vs/
+config/
+lflists/
+deck/
 pics/
 puzzles/
 replay/
