@@ -3,6 +3,7 @@
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.IsArmorizing=true
+s.Shells=3
 function s.initial_effect(c)
 	--armorizing summon
 	Armorizing.AddProcedure(c,s.exfilter,3)

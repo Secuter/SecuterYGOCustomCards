@@ -1,4 +1,5 @@
 SUMMON_TYPE_EXCHANGE= 0x80
+HINTMSG_EXSUMMON	= 607
 EXCHANGE_IMPORTED	= true
 
 --[[
@@ -91,7 +92,7 @@ function Exchange.Operation(c,f,sp,location,extraop)
 		local c=e:GetHandler()
 		if c:IsRelateToEffect(e) and Duel.SendtoHand(c,nil,REASON_EFFECT)~=0 and c:IsLocation(LOCATION_HAND) then
 			local g=Duel.GetMatchingGroup(Exchange.Filter,tp,location,0,nil,f,c,tp,c:GetOriginalCode())
-			if sp and #g>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.SelectYesNo(tp,607) then
+			if sp and #g>0 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.SelectYesNo(tp,HINTMSG_EXSUMMON) then
 				Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 				local tc=g:Select(tp,1,1,nil)
 				if tc then

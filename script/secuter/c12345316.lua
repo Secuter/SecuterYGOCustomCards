@@ -6,6 +6,7 @@ s.ArmorAtk=0
 s.ArmorDef=0
 s.IsArmor=true
 s.IsArmorizing=true
+s.Shells=4
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)

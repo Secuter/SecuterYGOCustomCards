@@ -6,6 +6,7 @@ s.ArmorAtk=500
 s.ArmorDef=500
 s.IsArmor=true
 s.IsArmorizing=true
+s.Shells=2
 function s.initial_effect(c)
 	--armorizing summon
 	Armorizing.AddProcedure(c,s.exfilter,2)

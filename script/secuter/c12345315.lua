@@ -5,7 +5,6 @@ if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.IsArmor=true
-s.IsArmorizing=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)

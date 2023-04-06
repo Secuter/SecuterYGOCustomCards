@@ -2,12 +2,14 @@ ARMOR_IMPORTED			= true
 CATEGORY_ATTACH_ARMOR	= 0x20000000
 REASON_ARMORIZING		= 0x40000000
 SUMMON_TYPE_ARMORIZING	= 0x40
+SUMMON_TYPE_EXARMORIZING= 0x160
 EFFECT_FLAG2_ARMOR		= 0x20000000
 HINTMSG_AMATERIAL       = 602
 HINTMSG_REMOVEARMOR     = 603
 HINTMSG_REMOVEARMORFROM = 604
 HINTMSG_ARMORTARGET     = 605
 HINTMSG_ATTACHARMOR     = 606
+HINTMSG_EXAMATERIAL     = 608
 EVENT_ATTACH_ARMOR		= 1300
 armor_log_only_once		= true
 attach_log_only_once	= true
@@ -30,21 +32,17 @@ if not Armor then
 end
 
 -- utility functions
-function Card.IsArmor(c)
-	return c.Armor
-end
-function Card.IsArmorizing(c)
-	return c.Armorizing
-end
-function Card.IsExrmorizing(c)
-	return c.Exrmorizing
-end
 function Card.GetShell(c)
-	if c:IsArmorizing() then
-		return c.Shells
-	else
-		return 0
-	end
+	return c.IsArmorizing and c.Shells or 0
+end
+function Card.IsShell(c,val)
+	return c.IsArmorizing and c:GetShell()==val
+end
+function Card.IsShellAbove(c,val)
+	return c.IsArmorizing and c:GetShell()>=val
+end
+function Card.IsShellBelow(c,val)
+	return c.IsArmorizing and c:GetShell()<=val
 end
 
 -- attach armor function
@@ -342,23 +340,14 @@ function Exarmorizing.AddProcedure(c,ct,f1,min,f2)
 	c:RegisterEffect(e1)
 end
 
-function Exarmorizing.MatFilter(c,sc,tp,f1,min,f2)
-	local g=Group.CreateGroup()
-	g:AddCard(c)
-	return c:IsFaceup() and not c:IsType(TYPE_XYZ)
-		and c:GetOverlayCount()>=min
-		and (not f2 or c:GetOverlayGroup():IsExists(f2,min,nil,e,tp))
-		and (not f1 or f1(c,sc,SUMMON_TYPE_SPECIAL,tp))
-        and Duel.GetLocationCountFromEx(tp,tp,g,sc)>0
-end
 function Exarmorizing.Condition(ct,f1,min,f2)
 	return	function(e,c)
 				if c==nil then return true end
 				if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 				local tp=c:GetControler()
 				
-				return Duel.IsExistingMatchingCard(Exarmorizing.MatFilter,tp,LOCATION_MZONE,0,ct,nil,c,tp,f1,mina,f2)
-				--local g=Duel.GetMatchingGroup(Exarmorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,mina,f2)
+				return Duel.IsExistingMatchingCard(Armorizing.MatFilter,tp,LOCATION_MZONE,0,ct,nil,c,tp,f1,min,f2)
+				--local g=Duel.GetMatchingGroup(Armorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,min,f2)
 				--return aux.SelectUnselectGroup(g,e,tp,1,1,nil,0,c)
             end
 end
@@ -367,13 +356,17 @@ function Exarmorizing.Target(ct,f1,min,f2)
                 local c=e:GetHandler()
 				local tp=e:GetHandlerPlayer()
                 
-                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_AMATERIAL)
-				local rg=Duel.GetMatchingGroup(Exarmorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,mina,f2)
+                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EXAMATERIAL)
+				local rg=Duel.GetMatchingGroup(Armorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,min,f2)
 				local mg=aux.SelectUnselectGroup(rg,e,tp,ct,ct,nil,1,tp,HINTMSG_SELECT,nil,nil,true,c)
                 
 				if #mg>0 then
-					local sg=mg:GetFirst():GetOverlayGroup()
-					sg:Merge(mg)
+					local sg=mg:Clone()
+					local tc=mg:GetFirst()
+					while tc do
+						sg:Merge(tc:GetOverlayGroup())
+						tc=mg:GetNext()
+					end
 							  
 					sg:KeepAlive()
 					e:SetLabelObject(sg)
@@ -388,4 +381,59 @@ function Exarmorizing.Operation(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	c:SetMaterial(g)
 	Duel.SendtoGrave(g,REASON_MATERIAL+REASON_ARMORIZING)
 	g:DeleteGroup()
+end
+-- Exarmorizing Summon by card effect
+function Card.IsExarmorizingSummonable(c,e,tp,must_use,mg)
+	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
+		and c.IsExarmorizing and c:ExarmorizingRule(e,tp,must_use,mg)
+end
+function Card.ExarmorizingRule(c,e,tp,mustg,g)
+	if c==nil then return true end
+	if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
+	local mt=c:GetMetatable()
+	local ct=mt.Exarmorizing_parameters[2]
+	local f1=mt.Exarmorizing_parameters[3]
+	local min=mt.Exarmorizing_parameters[4]
+	local f2=mt.Exarmorizing_parameters[5]
+	
+	if not g then
+		g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,nil)
+	end	
+	return g:IsExists(Armorizing.MatFilter,ct,nil,c,tp,f1,min,f2)
+end
+function Exarmorizing.FilterMustBeMat(mg1,mg2,mustg)
+	local tc=mustg:GetFirst()
+	while tc do
+		if not mg1:IsContains(tc) and not mg2:IsContains(tc) then return false end
+		tc=mustg:GetNext()
+	end
+	return true
+end
+function Duel.ExExarmorizingSummon(tp,c,mustg,g)
+	local mt=c:GetMetatable()
+	local ct=mt.Exarmorizing_parameters[2]
+	local f1=mt.Exarmorizing_parameters[3]
+	local min=mt.Exarmorizing_parameters[4]
+	local f2=mt.Exarmorizing_parameters[5]
+		
+    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EXAMATERIAL)
+	if not g then
+		g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,nil)
+	end
+	local rg=g:Filter(Armorizing.MatFilter,nil,c,tp,f1,min,f2)
+	local mg=aux.SelectUnselectGroup(rg,e,tp,ct,ct,nil,1,tp,HINTMSG_SELECT,nil,nil,true,c)
+	
+	if #mg>0 then
+		local sg=mg:Clone()
+		local tc=mg:GetFirst()
+		while tc do
+			sg:Merge(tc:GetOverlayGroup())
+			tc=mg:GetNext()
+		end
+		
+		c:SetMaterial(sg)
+		Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_ARMORIZING)
+		Duel.SpecialSummon(c,SUMMON_TYPE_ARMORIZING+SUMMON_TYPE_EXARMORIZING,tp,tp,false,false,POS_FACEUP)
+		c:CompleteProcedure()
+	end
 end

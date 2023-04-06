@@ -1,4 +1,4 @@
---Super Armorizing Dragon
+--Ultime Armorizing Dragon Emperor
 --Scripted by Secuter
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
@@ -6,6 +6,7 @@ s.ArmorAtk=1000
 s.ArmorDef=0
 s.IsArmor=true
 s.IsArmorizing=true
+s.Shells=4
 function s.initial_effect(c)
 	--armorizing summon
 	Armorizing.AddProcedure(c,s.exfilter,4)

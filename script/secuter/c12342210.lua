@@ -6,6 +6,7 @@ s.ArmorAtk=600
 s.ArmorDef=0
 s.IsArmor=true
 s.IsArmorizing=true
+s.Shells=2
 function s.initial_effect(c)
 	--armorizing summon
 	c:EnableReviveLimit()

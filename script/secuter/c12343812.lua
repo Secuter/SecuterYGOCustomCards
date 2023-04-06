@@ -6,6 +6,7 @@ s.ArmorAtk=300
 s.ArmorDef=0
 s.IsArmor=true
 s.IsArmorizing=true
+s.Shells=1
 function s.initial_effect(c)
 	--armor
 	Armor.AddProcedure(c,s,nil,true)

@@ -3,6 +3,7 @@
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.IsArmorizing=true
+s.Shells=1
 function s.initial_effect(c)
 	--armorizing summon
 	c:EnableReviveLimit()
