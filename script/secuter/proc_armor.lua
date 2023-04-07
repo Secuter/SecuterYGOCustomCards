@@ -2,15 +2,17 @@ ARMOR_IMPORTED			= true
 CATEGORY_ATTACH_ARMOR	= 0x20000000
 REASON_ARMORIZING		= 0x40000000
 SUMMON_TYPE_ARMORIZING	= 0x40
-SUMMON_TYPE_EXARMORIZING= 0x160
 EFFECT_FLAG2_ARMOR		= 0x20000000
 HINTMSG_AMATERIAL       = 602
 HINTMSG_REMOVEARMOR     = 603
 HINTMSG_REMOVEARMORFROM = 604
 HINTMSG_ARMORTARGET     = 605
 HINTMSG_ATTACHARMOR     = 606
-HINTMSG_EXAMATERIAL     = 608
 EVENT_ATTACH_ARMOR		= 1300
+EFFECT_ARMORATK_UPD		= 12349901
+EFFECT_ARMORATK_REP		= 12349902
+EFFECT_ARMORDEF_UPD		= 12349903
+EFFECT_ARMORDEF_REP		= 12349904
 armor_log_only_once		= true
 attach_log_only_once	= true
 
@@ -21,6 +23,8 @@ Condition if Armorizing summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 Condition if card is related with an effect triggered by EVENT_ATTACH_ARMOR
 	e:GetHandler():GetFieldID() == ev
+Use RegisterFlagEffect to update/replace the Armor ATK/DEF of a card
+	c:RegisterFlagEffect(EFFECT_ARMORATK_REP,RESET_EVENT|RESETS_STANDARD,0,1,1500)
 ]]
 
 if not aux.ArmorProcedure then
@@ -32,6 +36,15 @@ if not Armor then
 end
 
 -- utility functions
+--[[function Card.IsArmor(c)
+	return c.Armor
+end
+function Card.IsArmorizing(c)
+	return c.Armorizing
+end
+function Card.IsExarmorizing(c)
+	return c.Exarmorizing
+end]]
 function Card.GetShell(c)
 	return c.IsArmorizing and c.Shells or 0
 end
@@ -43,6 +56,32 @@ function Card.IsShellAbove(c,val)
 end
 function Card.IsShellBelow(c,val)
 	return c.IsArmorizing and c:GetShell()<=val
+end
+function Armor.GetArmorAtk(tc)
+	return function(e,c)
+		local tp=e:GetHandlerPlayer()
+		local eu=Duel.IsPlayerAffectedByEffect(tp,EFFECT_ARMORATK_REP)
+		if eu then return eu:GetValue() end
+		if tc:GetFlagEffect(EFFECT_ARMORATK_REP)~=0 then return tc:GetFlagEffectLabel(EFFECT_ARMORATK_REP) end
+		local atk=tc.ArmorAtk or 0
+		local er=Duel.IsPlayerAffectedByEffect(tp,EFFECT_ARMORATK_UPD)
+		if er then atk=atk+er:GetLabel() end
+		if tc:GetFlagEffect(EFFECT_ARMORATK_REP)~=0 then atk=atk+tc:GetFlagEffectLabel(EFFECT_ARMORATK_UPD) end
+		return atk
+	end
+end
+function Armor.GetArmorDef(tc)
+	return function(e,c)
+		local tp=e:GetHandlerPlayer()
+		local eu=Duel.IsPlayerAffectedByEffect(tp,EFFECT_ARMORDEF_REP)
+		if eu then return eu:GetValue() end
+		if tc:GetFlagEffect(EFFECT_ARMORDEF_REP)~=0 then return tc:GetFlagEffectLabel(EFFECT_ARMORDEF_REP) end
+		local def=tc.ArmorDef or 0
+		local er=Duel.IsPlayerAffectedByEffect(tp,EFFECT_ARMORDEF_UPD)
+		if er then def=def+er:GetValue() end
+		if tc:GetFlagEffect(EFFECT_ARMORDEF_UPD)~=0 then def=def+tc:GetFlagEffectLabel(EFFECT_ARMORDEF_UPD) end
+		return def
+	end
 end
 
 -- attach armor function
@@ -87,11 +126,11 @@ function Armor.AddProcedure(c,s,opp,attach_when_des)
 		a1:SetCode(EFFECT_UPDATE_ATTACK)
 		a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		a1:SetCondition(Armor.Condition)
-		a1:SetValue(s.ArmorAtk)
+		a1:SetValue(Armor.GetArmorAtk(c))
 		c:RegisterEffect(a1)
 		local a2=a1:Clone()
 		a2:SetCode(EFFECT_UPDATE_DEFENSE)
-		a2:SetValue(s.ArmorDef)
+		a2:SetValue(Armor.GetArmorDef(c))
 		c:RegisterEffect(a2)
 	else
 		if armor_log_only_once then
@@ -356,7 +395,7 @@ function Exarmorizing.Target(ct,f1,min,f2)
                 local c=e:GetHandler()
 				local tp=e:GetHandlerPlayer()
                 
-                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EXAMATERIAL)
+                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_AMATERIAL)
 				local rg=Duel.GetMatchingGroup(Armorizing.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,f1,min,f2)
 				local mg=aux.SelectUnselectGroup(rg,e,tp,ct,ct,nil,1,tp,HINTMSG_SELECT,nil,nil,true,c)
                 
@@ -416,7 +455,7 @@ function Duel.ExExarmorizingSummon(tp,c,mustg,g)
 	local min=mt.Exarmorizing_parameters[4]
 	local f2=mt.Exarmorizing_parameters[5]
 		
-    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EXAMATERIAL)
+    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_AMATERIAL)
 	if not g then
 		g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,nil)
 	end
@@ -433,7 +472,7 @@ function Duel.ExExarmorizingSummon(tp,c,mustg,g)
 		
 		c:SetMaterial(sg)
 		Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_ARMORIZING)
-		Duel.SpecialSummon(c,SUMMON_TYPE_ARMORIZING+SUMMON_TYPE_EXARMORIZING,tp,tp,false,false,POS_FACEUP)
+		Duel.SpecialSummon(c,SUMMON_TYPE_ARMORIZING,tp,tp,false,false,POS_FACEUP)
 		c:CompleteProcedure()
 	end
 end

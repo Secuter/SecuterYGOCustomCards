@@ -1,7 +1,7 @@
 REASON_ECHO			= 0x40000000
 SUMMON_TYPE_ECHO	= 0x40
 HINTMSG_EMATERIAL	= 602
-EFFECT_FLAG_ECHO_EQUIPPED = 12349900
+EFFECT_ECHO_EQUIPPED= 12349900
 ECHO_IMPORTED		= true
 
 --[[
@@ -128,7 +128,7 @@ function Echo.EquipCon(eff)
 			end
 end
 function Echo.EquipVal(ec,c,tp)
-	if e:GetHandler():GetFlagEffect(EFFECT_FLAG_ECHO_EQUIPPED)~=0 then return false end
+	if e:GetHandler():GetFlagEffect(EFFECT_ECHO_EQUIPPED)~=0 then return false end
 	local mt=c:GetMetatable()
 	local f=mt.echo_parameters[2]
 	return ec:IsControler(tp) and (not f or f(ec,c,SUMMON_TYPE_SPECIAL,tp))
@@ -136,7 +136,7 @@ end
 function Echo.EquipOperation(tc,op)
 	return	function(e,tp,eg,ep,ev,re,r,rp)
 				local c=e:GetHandler()
-				c:RegisterFlagEffect(EFFECT_FLAG_ECHO_EQUIPPED,RESET_EVENT,0,0)
+				c:RegisterFlagEffect(EFFECT_ECHO_EQUIPPED,RESET_EVENT,0,0)
 				if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 or c:IsFacedown() then return end
 				Echo.EquipEquip(c,e,tp,tc,op)
 			end

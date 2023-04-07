@@ -34,13 +34,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.atop)
 	c:RegisterEffect(e2)
 end
-function s.ArmorValue(e,c)
+--[[function s.ArmorValue(e,c)
 	if e:GetHandler():GetFlagEffect(id)~=0 then
 		return 1500
 	else
 		return s.ArmorAtk --500
 	end
-end
+end]]
 
 function s.spfilter(c,e,tp)
 	return c.IsArmor and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP_DEFENSE)
@@ -69,8 +69,8 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and s.filter(chkc,c) end
 	if chk==0 then return Duel.IsExistingTarget(s.filter,tp,LOCATION_MZONE,0,1,c,c)
-		and e:GetHandler():GetFlagEffect(c)==0 end
-	e:GetHandler():RegisterFlagEffect(c,RESET_CHAIN,0,1)
+		and e:GetHandler():GetFlagEffect(id)==0 end
+	e:GetHandler():RegisterFlagEffect(id,RESET_CHAIN,0,1)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
 	local g=Duel.SelectTarget(tp,s.filter,tp,LOCATION_MZONE,0,1,1,c,c)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
@@ -84,6 +84,6 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 		end
 		c:CancelToGrave()
 		Armor.Attach(tc,c,e)
-		tc:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000,0,1)
+		c:RegisterFlagEffect(EFFECT_ARMORATK_REP,RESET_EVENT|RESETS_STANDARD,0,1,1500)
 	end
 end
