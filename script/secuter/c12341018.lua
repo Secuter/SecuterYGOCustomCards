@@ -23,7 +23,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.matfilter(c,scard,sumtype,tp)
-	return and c:IsType(TYPE_LINK,scard,sumtype,tp) and not c:IsLocation(LOCATION_EMZONE)
+	Debug.Message(c:IsType(TYPE_LINK,scard,sumtype,tp) and not c:IsLocation(LOCATION_EMZONE))
+	return c:IsType(TYPE_LINK,scard,sumtype,tp) and not c:IsLocation(LOCATION_EMZONE)
 end
 --immune
 function s.econ(e)
