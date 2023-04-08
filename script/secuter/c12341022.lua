@@ -2,8 +2,8 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
-s.ArmorAtk=1000
-s.ArmorDef=1000
+s.ArmorAtk=700
+s.ArmorDef=700
 s.Armor=true
 s.Armorizing=true
 s.Exarmorizing=true
