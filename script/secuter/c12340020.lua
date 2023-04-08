@@ -28,6 +28,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0x201}
 s.material_setcode={0x201}
+s.synchro_nt_required=1
 function s.matfilter1(c,syncard)
 	return c:IsSetCard(0x201)
 end

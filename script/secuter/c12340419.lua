@@ -22,7 +22,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.xyzfilter(c,e,tp)
-	return c:IsType(TYPE_XYZ) and c:IsRace(RACE_REPTILE) and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
+	return c:IsType(TYPE_XYZ) and c:IsRace(RACE_REPTILE) and c:IsRankBelow(6) and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
         and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)

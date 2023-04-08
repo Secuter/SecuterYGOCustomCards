@@ -23,7 +23,6 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.matfilter(c,scard,sumtype,tp)
-	Debug.Message(c:IsType(TYPE_LINK,scard,sumtype,tp) and not c:IsLocation(LOCATION_EMZONE))
 	return c:IsType(TYPE_LINK,scard,sumtype,tp) and not c:IsLocation(LOCATION_EMZONE)
 end
 --immune
@@ -36,11 +35,15 @@ end
 --atk
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsSummonType(SUMMON_TYPE_LINK) then return end
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetCode(EFFECT_SET_BASE_ATTACK)
-	e1:SetValue(c:GetLink()*1000)
-	e1:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
-	c:RegisterEffect(e1)
+	if c:IsSummonType(SUMMON_TYPE_LINK) then
+		local tc=c:GetMaterial():GetFirst()
+		if tc then
+			local e1=Effect.CreateEffect(c)
+			e1:SetType(EFFECT_TYPE_SINGLE)
+			e1:SetCode(EFFECT_SET_BASE_ATTACK)
+			e1:SetValue(tc:GetLink()*1000)
+			e1:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
+			c:RegisterEffect(e1)
+		end
+	end
 end

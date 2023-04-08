@@ -56,7 +56,6 @@ end
 s.listed_series={0x204}
 
 function s.elimit(e,se,sp,st)
-	Debug.Message(se:GetHandler():IsSetCard(0x204))
 	return se:GetHandler():IsSetCard(0x204)
 end
 

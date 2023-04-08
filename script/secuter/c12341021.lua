@@ -10,7 +10,7 @@ s.Exarmorizing=true
 s.Shells=2
 function s.initial_effect(c)
 	Armor.AddProcedure(c,s,nil,true)
-	Exarmorizing.AddProcedure(c,2,s.matfilter,1)
+	Armorizing.AddProcedure(c,s.matfilter,1,nil,2)
 	c:EnableReviveLimit()
 	--attacks twice
 	local a1=Effect.CreateEffect(c)

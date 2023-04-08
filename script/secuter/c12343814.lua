@@ -94,10 +94,11 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
-	local g=Duel.GetTargetCards(e)
-	if #g>0 then
-		Armor.Attach(c,g,e)
+	if c:IsRelateToEffect(e) then
+		local g=Duel.GetTargetCards(e)
+		if #g>0 then
+			Armor.Attach(c,g,e)
+		end
 	end
 end
 --negate

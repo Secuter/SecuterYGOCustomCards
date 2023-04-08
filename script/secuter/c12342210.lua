@@ -11,14 +11,8 @@ function s.initial_effect(c)
 	--armorizing summon
 	c:EnableReviveLimit()
 	Armorizing.AddProcedure(c,s.matfilter,2)
-	--atk
-	local e1=Effect.CreateEffect(c)
-	e1:SetCode(EFFECT_UPDATE_ATTACK)
-	e1:SetType(EFFECT_TYPE_XMATERIAL)
-	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetCondition(Armor.Condition)
-	e1:SetValue(s.ArmorAtk)
-	c:RegisterEffect(e1)
+	--armor
+	Armor.AddProcedure(c,s
 	--lv
 	local e2=Effect.CreateEffect(c)
 	e2:SetCode(EFFECT_UPDATE_LEVEL)
@@ -94,7 +88,7 @@ end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) and tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
 		Armor.Attach(c,tc,e)
 	end
 end
@@ -114,7 +108,7 @@ function s.rescon(sg,e,tp,mg)
 end
 function s.atop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
+	if c:IsRelateToEffect(e) then
 		local rg=Duel.GetMatchingGroup(s.atfilter2,tp,LOCATION_GRAVE,0,nil,c)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=aux.SelectUnselectGroup(rg,e,tp,1,5,s.rescon,1,tp,HINTMSG_SELECT,nil,nil,true)

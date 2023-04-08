@@ -88,7 +88,7 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
+	if c:IsRelateToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.atfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,c)
 		if #g>0 then

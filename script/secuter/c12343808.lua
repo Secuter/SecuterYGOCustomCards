@@ -55,19 +55,19 @@ s.listed_series={0x22B}
 s.material_setcode={0x22B}
 --attach
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()&SUMMON_TYPE_LINK>0
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.atfilter(c,sc)
 	return c:IsSetCard(0x22B) and Armor.AttachCheck(c,sc)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_MZONE,0,1,nil,c) end
+	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,c) end
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,nil,1,tp,LOCATION_DECK)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
+	if c:IsRelateToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,LOCATION_DECK,0,1,1,nil,c)
 		if #g>0 then
@@ -92,7 +92,7 @@ function s.attg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.atop3(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
+	if tc:IsRelateToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,LOCATION_GRAVE,0,1,1,nil,tc)
 		if #g>0 then
