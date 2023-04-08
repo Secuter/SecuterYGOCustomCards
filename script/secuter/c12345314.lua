@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -90,7 +90,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.cfilter(c,tp)
-	return c:IsFaceup() and c.IsArmorizing and c:IsSummonPlayer(tp)
+	return c:IsFaceup() and c:IsArmorizing() and c:IsSummonPlayer(tp)
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)

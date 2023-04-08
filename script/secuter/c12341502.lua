@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=300
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 end
 
 function s.cfilter(c)
-	return c:IsFaceup() and c.IsArmorizing
+	return c:IsFaceup() and c:IsArmorizing()
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -43,7 +43,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and bit.band(r,REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.filter(c,ar)
-	return c:IsFaceup() and c.IsArmorizing and Armor.AttachCheck(ar,c)
+	return c:IsFaceup() and c:IsArmorizing() and Armor.AttachCheck(ar,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and s.filter(chkc) end

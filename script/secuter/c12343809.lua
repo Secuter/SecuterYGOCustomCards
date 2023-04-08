@@ -4,7 +4,7 @@ if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--armor
 	Armor.AddProcedure(c,s,nil,true)

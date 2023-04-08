@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 s.AttachFilter=function(c) return c:IsRace(RACE_WARRIOR) end
 function s.initial_effect(c)
 	--Armor
@@ -55,7 +55,7 @@ function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,500)
 end
 function s.atfilter(c,sc)
-	return c:IsFaceup() and c.IsArmorizing and Armor.AttachCheck(sc,c)
+	return c:IsFaceup() and c:IsArmorizing() and Armor.AttachCheck(sc,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and s.filter(chkc) end

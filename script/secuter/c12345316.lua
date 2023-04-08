@@ -4,8 +4,8 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
-s.IsArmor=true
-s.IsArmorizing=true
+s.Armor=true
+s.Armorizing=true
 s.Shells=4
 function s.initial_effect(c)
 	--Armor
@@ -34,7 +34,7 @@ s.listed_names={id}
 s.listed_series={0x1098}
 --negate
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1098) and c.IsArmorizing
+	return c:IsFaceup() and c:IsSetCard(0x1098) and c:IsArmorizing()
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil) then return false end

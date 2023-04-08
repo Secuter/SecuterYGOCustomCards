@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--synchro summon
 	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTuner(nil),1,99)
@@ -46,7 +46,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.exfilter(c)
-	return c.IsArmor
+	return c:IsArmor()
 end
 
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)

@@ -4,9 +4,9 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=1000
 s.ArmorDef=1000
-s.IsArmor=true
-s.IsArmorizing=true
-s.IsExarmorizing=true
+s.Armor=true
+s.Armorizing=true
+s.Exarmorizing=true
 s.Shells=3
 function s.initial_effect(c)
 	Armor.AddProcedure(c,s,nil,true)
@@ -46,27 +46,32 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.matfilter(c)
-	return c.IsArmor
+	return c:IsArmor()
 end
 --attach
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXARMORIZING
+	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.atfilter(c,sc)
 	return Armor.AttachCheck(c,sc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.atfilter(chkc,e:GetHandler()) end
-	if chk==0 then return Duel.IsExistingTarget(s.atfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e:GetHandler()) end
+	local mg=e:GetHandler():GetMaterialGroup()
+	Debug.Message(#mg)
+	local ct=e:GetHandler():GetMaterialGroup():FilterCount(Card.IsArmorizing,nil)
+	if chk==0 then return ct>0 and Duel.IsExistingTarget(s.atfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e:GetHandler()) end
+	local ct=e:GetHandler():GetMaterialGroup():FilterCount(Card.IsArmorizing,nil)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
-	local g=Duel.SelectTarget(tp,s.atfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
+	local g=Duel.SelectTarget(tp,s.atfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,ct,nil,e:GetHandler())
+	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,#g,0,0)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
-		Armor.Attach(c,tc,e)
+	if not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
+	local g=Duel.GetTargetCards(e)
+	if #g>0 then
+		Armor.Attach(c,g,e)
 	end
 end
 --negate

@@ -4,8 +4,8 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=1000
 s.ArmorDef=0
-s.IsArmor=true
-s.IsArmorizing=true
+s.Armor=true
+s.Armorizing=true
 s.Shells=4
 function s.initial_effect(c)
 	--armorizing summon
@@ -47,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 function s.exfilter(c)
-	return c.IsArmorizing
+	return c:IsArmorizing()
 end
 function s.incon(e)
 	return e:GetHandler():GetOverlayCount()>0

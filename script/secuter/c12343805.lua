@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -66,7 +66,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
 		local tc=Duel.GetFirstTarget()
-		if tc and tc:IsRelateToEffect(e) then
+		if tc and tc:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
 			Duel.BreakEffect()
 			if tc:GetOverlayCount()>0 then
 				Duel.SendtoGrave(tc:GetOverlayGroup(),REASON_RULE)

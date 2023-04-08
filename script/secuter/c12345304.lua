@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -55,7 +55,7 @@ s.listed_names={id}
 s.listed_series={0x1098}
 --spsummon itself
 function s.cfilter(c,tp)
-	return c:IsPreviousLocation(LOCATION_OVERLAY) and c.IsArmor and c:IsReason(REASON_EFFECT|REASON_COST)
+	return c:IsPreviousLocation(LOCATION_OVERLAY) and c:IsArmor() and c:IsReason(REASON_EFFECT|REASON_COST)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==tp and re and not re:IsActiveType(TYPE_XYZ) and eg:IsExists(s.cfilter,1,nil,tp)
@@ -88,7 +88,7 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.atfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,1,nil,c)
 		if #g>0 then

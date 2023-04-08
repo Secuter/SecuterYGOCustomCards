@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=500
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Armor
@@ -43,7 +43,7 @@ end
 end]]
 
 function s.spfilter(c,e,tp)
-	return c.IsArmor and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP_DEFENSE)
+	return c:IsArmor() and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,false,POS_FACEUP_DEFENSE)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev

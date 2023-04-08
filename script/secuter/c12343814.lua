@@ -4,8 +4,8 @@ if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
-s.IsArmor=true
-s.IsArmorizing=true
+s.Armor=true
+s.Armorizing=true
 s.Shells=3
 function s.initial_effect(c)
 	--armor
@@ -93,7 +93,8 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,#g,0,0)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
-	if not c:IsRelateToEffect(e) then return end
+	local c=e:GetHandler()
+	if not c:IsRelateToEffect(e) or c:IsImmuneToEffect(e) then return end
 	local g=Duel.GetTargetCards(e)
 	if #g>0 then
 		Armor.Attach(c,g,e)

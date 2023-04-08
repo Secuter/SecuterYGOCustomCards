@@ -2,7 +2,7 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
-s.IsArmorizing=true
+s.Armorizing=true
 s.Shells=3
 function s.initial_effect(c)
 	--armorizing summon
@@ -60,7 +60,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.filter(c)
-	return c.IsArmor and c:IsAbleToDeck()
+	return c:IsArmor() and c:IsAbleToDeck()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc) end

@@ -4,8 +4,8 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=600
 s.ArmorDef=0
-s.IsArmor=true
-s.IsArmorizing=true
+s.Armor=true
+s.Armorizing=true
 s.Shells=2
 function s.initial_effect(c)
 	--armorizing summon
@@ -94,7 +94,7 @@ end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) and tc:IsRelateToEffect(e) then
 		Armor.Attach(c,tc,e)
 	end
 end
@@ -114,7 +114,7 @@ function s.rescon(sg,e,tp,mg)
 end
 function s.atop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
 		local rg=Duel.GetMatchingGroup(s.atfilter2,tp,LOCATION_GRAVE,0,nil,c)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=aux.SelectUnselectGroup(rg,e,tp,1,5,s.rescon,1,tp,HINTMSG_SELECT,nil,nil,true)

@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=200
 s.ArmorDef=200
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	c:EnableCounterPermit(0x304)
 	--Armor
@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_FIELD)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
-	e2:SetTargetRange(LOCATION_ONFIELD,LOCATION_ONFIELD)
+	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
 	e2:SetTarget(s.target)
 	e2:SetValue(s.value)
 	c:RegisterEffect(e2)
@@ -58,7 +58,7 @@ function s.ctop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.target(e,c)
-	return c:IsType(TYPE_MONSTER) and c:GetOverlayCount()>0 and not c:IsType(TYPE_XYZ)
+	return c:GetOverlayCount()>0 and not c:IsType(TYPE_XYZ)
 end
 function s.value(e,c)
 	local oc=e:GetHandler()
@@ -71,7 +71,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
     e:GetHandler():RemoveCounter(tp,0x304,4,REASON_COST)
 end
 function s.thfilter(c)
-	return c.IsArmor
+	return c:IsArmor()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil) end

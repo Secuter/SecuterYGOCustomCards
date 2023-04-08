@@ -4,7 +4,7 @@ if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--armor
 	Armor.AddProcedure(c,s,nil,true)
@@ -105,7 +105,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.actlimit(e,re,rp)
 	local rc=re:GetHandler()
-	return re:IsActiveType(TYPE_MONSTER) and not rc.IsArmor
+	return re:IsActiveType(TYPE_MONSTER) and not rc:IsArmor()
 end
 --attach itself
 function s.atfilter3(c,ar)

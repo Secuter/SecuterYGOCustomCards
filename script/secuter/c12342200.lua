@@ -41,7 +41,7 @@ function s.lvlval(e,c)
 end
 
 function s.cfilter(c)
-	return c.IsArmor and c:IsDiscardable()
+	return c:IsArmor() and c:IsDiscardable()
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

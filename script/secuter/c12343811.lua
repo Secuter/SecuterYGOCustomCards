@@ -5,7 +5,7 @@ if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 local s,id=GetID()
 s.ArmorAtk=600
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 s.IsReunion=true
 function s.initial_effect(c)
 	--armor
@@ -61,7 +61,7 @@ end
 s.listed_series={0x22B}
 s.material_setcode={0x22B}
 function s.rfilter2(c)
-	return c.IsArmorizing and c:IsSetCard(0x22B)
+	return c:IsArmorizing() and c:IsSetCard(0x22B)
 end
 --destroy
 function s.descon(e,tp,eg,ep,ev,re,r,rp)

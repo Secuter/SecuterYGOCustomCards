@@ -4,9 +4,9 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=700
 s.ArmorDef=700
-s.IsArmor=true
-s.IsArmorizing=true
-s.IsExarmorizing=true
+s.Armor=true
+s.Armorizing=true
+s.Exarmorizing=true
 s.Shells=2
 function s.initial_effect(c)
 	Armor.AddProcedure(c,s,nil,true)
@@ -39,7 +39,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.matfilter(c)
-	return c.IsArmor
+	return c:IsArmor()
 end
 --multi attack
 function s.raval(e,c)
@@ -47,7 +47,7 @@ function s.raval(e,c)
 end
 --banish
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXARMORIZING
+	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.rmfilter(c)
 	return c:IsSpellTrap() and c:IsAbleToRemove()

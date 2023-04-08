@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=-300
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -38,10 +38,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.thfilter1(c,ctype)
-	return c.IsArmor and c:IsType(ctype) and c:IsAbleToHand()
+	return c:IsArmor() and c:IsType(ctype) and c:IsAbleToHand()
 end
 function s.cfilter1(c,tp)
-	if not c.IsArmor or c:IsPublic() then return false end
+	if not c:IsArmor() or c:IsPublic() then return false end
 	local ctype=bit.band(c:GetType(),TYPE_MONSTER+TYPE_SPELL+TYPE_TRAP)
 	return ctype~=0 and Duel.IsExistingMatchingCard(s.thfilter1,tp,LOCATION_DECK,0,1,nil,ctype)
 end
@@ -73,7 +73,7 @@ function s.con2(e,c)
 	return Duel.IsExistingMatchingCard(s.cfilter2,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function s.thfilter2(c)
-	return c.IsArmor and c:IsAbleToHand()
+	return c:IsArmor() and c:IsAbleToHand()
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

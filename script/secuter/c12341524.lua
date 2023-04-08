@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.exfilter(c)
-	return c.IsArmor
+	return c:IsArmor()
 end
 function s.lcheck(g,lc)
 	return g:IsExists(s.exfilter,1,nil)
@@ -48,13 +48,13 @@ end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
-	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) and tc:IsRelateToEffect(e) then
 		Armor.Attach(c,tc,e)
 	end
 end
 
 function s.thfilter(c)
-	return c.IsArmor and (c:GetType()==TYPE_SPELL or c:GetType()==TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsArmor() and (c:GetType()==TYPE_SPELL or c:GetType()==TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev

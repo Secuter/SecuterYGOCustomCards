@@ -2,7 +2,7 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
-s.IsArmorizing=true
+s.Armorizing=true
 s.Shells=1
 function s.initial_effect(c)
 	--armorizing summon
@@ -76,7 +76,7 @@ function s.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function s.tgtg(e,c)
-	return c:IsSetCard(0x21a) and c.IsArmorizing
+	return c:IsSetCard(0x21a) and c:IsArmorizing()
 end
 
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
@@ -95,7 +95,7 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) then
+	if c:IsRelateToEffect(e) and not c:IsImmuneToEffect(e) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
 		local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,LOCATION_DECK,0,1,1,nil,c)
 		if #g>0 then

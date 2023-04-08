@@ -4,8 +4,8 @@ if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 local s,id=GetID()
 s.ArmorAtk=600
 s.ArmorDef=0
-s.IsArmor=true
-s.IsArmorizing=true
+s.Armor=true
+s.Armorizing=true
 s.Shells=4
 function s.initial_effect(c)
 	--armor
@@ -47,7 +47,7 @@ function s.initial_effect(c)
 end
 s.listed_series={0x22B}
 function s.matfilter(c,lc,sumtype,tp)
-	return c.IsArmorizing
+	return c:IsArmorizing()
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)

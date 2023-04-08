@@ -4,8 +4,8 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=500
-s.IsArmor=true
-s.IsArmorizing=true
+s.Armor=true
+s.Armorizing=true
 s.Shells=2
 function s.initial_effect(c)
 	--armorizing summon
@@ -52,11 +52,11 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 function s.exfilter(c)
-	return c.IsArmor
+	return c:IsArmor()
 end
 
 function s.thfilter(c)
-	return c.IsArmor and c:IsAbleToHand()
+	return c:IsArmor() and c:IsAbleToHand()
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev

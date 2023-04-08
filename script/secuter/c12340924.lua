@@ -65,7 +65,7 @@ function s.indval(e,c)
 	if not ec or not e:GetHandler():HasEquip(ec) then return false end
 	if ec.IsReunion then return c.IsReunion end
 	if ec.IsIgnition then return c.IsIgnition end
-	if ec.IsArmorizing then return c.IsArmorizing end
+	if ec:IsArmorizing() then return c:IsArmorizing() end
 	return c:IsType(ec:GetType()&(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ+TYPE_LINK))
 end
 --mat check

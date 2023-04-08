@@ -36,7 +36,7 @@ if not Armor then
 end
 
 -- utility functions
---[[function Card.IsArmor(c)
+function Card.IsArmor(c)
 	return c.Armor
 end
 function Card.IsArmorizing(c)
@@ -44,18 +44,18 @@ function Card.IsArmorizing(c)
 end
 function Card.IsExarmorizing(c)
 	return c.Exarmorizing
-end]]
+end
 function Card.GetShell(c)
-	return c.IsArmorizing and c.Shells or 0
+	return c:IsArmorizing() and c.Shells or 0
 end
 function Card.IsShell(c,val)
-	return c.IsArmorizing and c:GetShell()==val
+	return c:IsArmorizing() and c:GetShell()==val
 end
 function Card.IsShellAbove(c,val)
-	return c.IsArmorizing and c:GetShell()>=val
+	return c:IsArmorizing() and c:GetShell()>=val
 end
 function Card.IsShellBelow(c,val)
-	return c.IsArmorizing and c:GetShell()<=val
+	return c:IsArmorizing() and c:GetShell()<=val
 end
 function Armor.GetArmorAtk(tc)
 	return function(e,c)
@@ -86,7 +86,7 @@ end
 
 -- attach armor function
 function Armor.AttachCheck(ar,c)
-	return ar.IsArmor and not c:IsType(TYPE_XYZ) and (ar.AttachFilter == nil or ar.AttachFilter(c))
+	return ar:IsArmor() and not c:IsType(TYPE_XYZ) and (ar.AttachFilter == nil or ar.AttachFilter(c))
 end
 function Armor.Attach(c,ar,e)
 	-- Armor.Attach(Card target, Card|Group armor, Effect e)
@@ -105,11 +105,11 @@ function Card.AttachArmor(c,ar,e)
 end
 
 -- add procedure to armor cards
+-- c => the card
+-- s => the card script, obtained with "local s,id=GetID()" (for now, if not set, gives a warning and doesn't activate the update atk/def effects)
+-- opp (optional) => if true it can attach itself to opponent's monsters with the default procedure
+-- attach_when_des (optional) => if true activates the effect to attach the monster as armor when it's destroyed (used in Extra Deck Armor monsters)
 function Armor.AddProcedure(c,s,opp,attach_when_des)
-	-- c => the card
-	-- s => the card script, obtained with "local s,id=GetID()" (for now, if not set, gives a warning and doesn't activate the update atk/def effects)
-	-- opp (optional) => if true it can attach itself to opponent's monsters with the default procedure
-	-- attach_when_des (optional) => if true activates the effect to attach the monster as armor when it's destroyed (used in Extra Deck Armor monsters)
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1183)
 	e1:SetCategory(CATEGORY_ATTACH_ARMOR)
@@ -202,7 +202,6 @@ end
 --Armorizing Summon
 --Parameters:
 -- c: card
--- s: script of the card created by 'local s,id=GetID()'
 -- f1 (optional): filter for monster material
 -- min: min number of armor materials
 -- f2 (optional): filter for armor materials
@@ -291,7 +290,7 @@ end
 -- Armorizing Summon by card effect
 function Card.IsArmorizingSummonable(c,e,tp,must_use,mg)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
-		and c.IsArmorizing and c:ArmorizingRule(e,tp,must_use,mg)
+		and c:IsArmorizing() and c:ArmorizingRule(e,tp,must_use,mg)
 end
 function Card.ArmorizingRule(c,e,tp,mustg,g)
 	if c==nil then return true end

@@ -2,7 +2,7 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
-s.IsArmorizing=true
+s.Armorizing=true
 s.Shells=2
 function s.initial_effect(c)
 	--armorizing summon

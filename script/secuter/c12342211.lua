@@ -4,7 +4,7 @@ local s,id=GetID()
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
-s.IsArmor=true
+s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -34,11 +34,11 @@ function s.initial_effect(c)
 end
 s.listed_series={0x21a}
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x21a) and c.IsArmor and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_LINK) --and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(0x21a) and c:IsArmor() and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_LINK) --and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.filter(c,e,tp)
 	local og=c:GetOverlayGroup()
-	return c:IsSetCard(0x21a) and c.IsArmorizing and not c:IsType(TYPE_XYZ)
+	return c:IsSetCard(0x21a) and c:IsArmorizing() and not c:IsType(TYPE_XYZ)
 		and og:IsExists(s.spfilter,1,nil,e,tp)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
