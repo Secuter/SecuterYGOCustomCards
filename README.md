@@ -43,9 +43,9 @@ The minimum number of armors the material must have are also the number of 'Shie
 - Runic:
 Runic cards are divided between Runic Monsters and Runic Spells/Traps.
 Runic Spells/Traps
-A Runic spell/trap has 2 effect:
-- the main card effect that is applied when you activate the card
-- the runic effect (after '◆ Runic Effect: ') which cannot be used directly by the spell/trap but it has to be copied by a Runic Monster
+A Runic spell/trap has 2 effect2:
+the main card effect that is applied when you activate the card
+the runic effect (after '◆ Runic Effect: ') which cannot be used directly by the spell/trap but it has to be copied by a Runic Monster
 Runic Monsters
 Runic monsters has nothing special the only thing is that they can apply the Runic Effect of Runic S/T
 To choose the card from which to take the Runic Effect you have to send it to the grave, discard it or banish it as a cost depending on what indicated in the monster effect
