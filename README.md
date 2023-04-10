@@ -6,6 +6,25 @@ Card preview site -> https://secuter.github.io/SecuterYGOCustomCards-search/
 
 Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro
 
+## Server to play with my cards
+Add this in servers in your configs.json file
+```
+		{
+			"name": "Secuter Custom Cards",
+			"address": "20.84.55.1",
+			"duelport": 7820,
+			"roomaddress": "20.84.55.1",
+			"roomlistprotocol": "http",
+			"roomlistport": 7810
+		}
+```
+
+### Custom banlist
+I also created a custom banlist '2023.04 Secuter+TCG' that uses the last TCG as a base adding limits/bans for my cards.
+For now I only limited to 1 'D.D. Invader Gargoyle' and 'Allure of Darkness', to test that the banlist on server and to tweak D.D. Invader a bit.
+On the server it is recommended to play with this banlist and 'Anything goes'. (You must select 'Anything goes' to play with cards with the custom tag.)
+![list](https://imgur.com/PLHi5mS.png)
+
 ## Original summoning mechanics
 ![customtypes](https://imgur.com/YBo3tZU.png)
 - Reverse-Xyz: similar to Xyz Monster but uses subtraction between the monster levels.
@@ -19,6 +38,23 @@ This summon method is unique to Morhais, but they could teach it to others as we
 - Armorizing: Extra Deck monsters related with armor cards, they are summoned using 1 monster that has X or more armors, eg. 1 Dragon monsters with 3+ armors
 The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (A monster that require 2 armors as material will be Shell Rank 2, the yellow shields in the Level. They have both a Shell Rank and a Level, the level is the sum of shields and stars.). Armorizing monsters can be also Armor monsters.
 - Exarmorizing: Extra Deck monsters that share the same Summoning Type as Armorizing, the only difference is that they uses 2 or more monsters as material. There are both Exrmorizing Armor Monsters and non-Armor ones.
+### Other mechanics without a new card type
+- Exchange: They are effect monsters similar to Spirit, they return to the hand during the End Phase and the Exchange Summon and then you can Exchange Summon a monster from hand that meets certain conditions depending on the card, eg. it could be a WATER monster, a Level 4 or a specific archetype. (They don't return to the hand if Exchange Summoned this turn.) Most Echange Monsters have an effect when Exchange Summoned or related to it.
+- Runic:
+Runic cards are divided between Runic Monsters and Runic Spells/Traps.
+Runic Spells/Traps
+A Runic spell/trap has 2 effect:
+- the main card effect that is applied when you activate the card
+- the runic effect (after '◆ Runic Effect: ') which cannot be used directly by the spell/trap but it has to be copied by a Runic Monster
+Runic Monsters
+Runic monsters has nothing special the only thing is that they can apply the Runic Effect of Runic S/T
+To choose the card from which to take the Runic Effect you have to send it to the grave, discard it or banish it as a cost depending on what indicated in the monster effect
+How work Runic Effects?
+Do you know how work Traptrix Rafflesia? Runic effects are the same, the only difference is that while Rafflesia copy the same effect of the card, Runic Monsters copy only the Runic Effect.
+eg. If i activate 'Dark Sovereign Codex' as a Spell card I discard 1 card and search for a 'Dark Sovereign' monster (it's normal effect).
+But if I activate the effect of any Runic monster like 'Dark Sovereign Executioner' by discarding 'Dark Sovereign Codex', in this case I apply the Runic Effect and Special summon 1 Level 4 or lower 'Dark Sovereign' monster from my Deck.
+OPT Clause with Runic Effects
+The S/T Card and the Runic effect have different Once per turn clause, so I can copy the Runic effect of a spell card I already activated this turn. At this time the only Runic deck is 'Dark Sovereign' and all its Runic cards has a OPT both on the card and on the Runic effect, so I can activate both the same turn but each one only once each turn.
 
 ## Downloads
 Zip archive with cards for EDOPro: https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
