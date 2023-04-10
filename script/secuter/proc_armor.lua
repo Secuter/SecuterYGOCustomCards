@@ -208,7 +208,7 @@ end
 -- f1 (optional): filter for monster material
 -- min: min number of armor materials
 -- f2 (optional): filter for armor materials
--- ct (optional): number of monster materials (only for Exarmorizing monsters)
+-- ct (optional): number of monster materials (for Exarmorizing monsters)
 if not aux.ArmorizingProcedure then
 	aux.ArmorizingProcedure = {}
 	Armorizing = aux.ArmorizingProcedure
