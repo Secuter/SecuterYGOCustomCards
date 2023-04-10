@@ -7,7 +7,7 @@ Card preview site -> https://secuter.github.io/SecuterYGOCustomCards-search/
 Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro
 
 ## Original summoning mechanics
-![customtypes](https://imgur.com/06v8wHv.png)
+![customtypes](https://imgur.com/YBo3tZU.png)
 - Reverse-Xyz: similar to Xyz Monster but uses subtraction between the monster levels.
 - Reunion: Extra Deck monsters that are Special Summoned using monsters with a sum of Levels/Ranks/Links equal to its Level x2.
 usually use monsters from your field but there are some that can use monsters from the GY or opponent monsters.
