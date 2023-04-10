@@ -22,12 +22,17 @@ function s.initial_effect(c)
 	e2:SetTarget(s.hdtg)
 	e2:SetOperation(s.hdop)
 	c:RegisterEffect(e2)
-	--cannot be xyz
+	--cannot be material
 	local e3=Effect.CreateEffect(c)
 	e3:SetType(EFFECT_TYPE_SINGLE)
 	e3:SetCode(EFFECT_CANNOT_BE_XYZ_MATERIAL)
 	e3:SetValue(s.xyzlimit)
 	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_SINGLE)
+	e4:SetCode(EFFECT_CANNOT_BE_LINK_MATERIAL)
+	e4:SetValue(s.xyzlimit)
+	c:RegisterEffect(e4)
 end
 
 function s.xyzlimit(e,c)
@@ -59,7 +64,7 @@ function s.hdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.hdop(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    local tg=Group:CreateGroup()
+    local tg=Group.CreateGroup()
     if Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_MZONE,0,1,c) then
         Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
         local tg2=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_MZONE,0,1,1,c)

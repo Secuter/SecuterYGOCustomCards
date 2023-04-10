@@ -65,7 +65,7 @@ function s.desfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
-    local exc=Group:CreateGroup()
+    local exc=Group.CreateGroup()
     exc:AddCard(e:GetHandler())
     if Duel.GetAttacker():GetControler()==tp then
         exc:AddCard(Duel.GetAttacker())
@@ -83,7 +83,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
     else
         tc=Duel.GetAttackTarget()
     end
-    local exc=Group:CreateGroup()
+    local exc=Group.CreateGroup()
     exc:AddCard(e:GetHandler())
     exc:AddCard(tc)
     

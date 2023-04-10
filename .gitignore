@@ -7,10 +7,10 @@
 *.bat
 *.cdb
 !*SecuterCards.cdb
-Secuter.lflist.conf
 .vs/
 config/
-lflists/
+*.lflist.conf
+!SecuterTCG.lflist.conf
 deck/
 pics/
 puzzles/
