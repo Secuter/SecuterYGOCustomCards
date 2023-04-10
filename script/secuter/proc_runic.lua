@@ -7,6 +7,6 @@ if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 ]]
 
 -- utility functions
-function Card:IsRunic(c)
+function Card.IsRunic(c)
 	return c.Runic
 end

@@ -162,7 +162,7 @@ function Echo.EquipEquip(c,e,tp,tc,op)
 	return true
 end
 -- Echo Summon by card effect
-function Card:IsEcho()Summonable(c,e,tp,mustg,mg)
+function Card.IsEchoSummonable(c,e,tp,mustg,mg)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,true,false)
 		and c:IsEcho() and c:EchoRule(e,tp,mustg,mg)
 end

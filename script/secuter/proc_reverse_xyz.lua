@@ -14,7 +14,7 @@ if not ReverseXyz then
 end
 
 -- utility functions
-function Card:IsReverseXyz(c)
+function Card.IsReverseXyz(c)
 	return c.ReverseXyz
 end
 

@@ -135,7 +135,7 @@ function Ignition.Operation(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	g:DeleteGroup()
 end
 -- Ignition Summon by card effect
-function Card:IsIgnition()Summonable(c,e,tp,must_use,mg)
+function Card.IsIgnitionSummonable(c,e,tp,must_use,mg)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
 		and c:IsIgnition() and c:IgnitionRule(e,tp,must_use,mg)
 end

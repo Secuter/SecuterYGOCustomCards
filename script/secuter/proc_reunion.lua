@@ -714,7 +714,7 @@ function Reunion.Operation(f,minc,maxc,specialchk,opp,loc,send,locsend,maxsend,i
 			end
 end
 -- Reunion Summon by card effect
-function Card:IsReunion()Summonable(c,e,tp,must_use,mg,min,max)
+function Card.IsReunionSummonable(c,e,tp,must_use,mg,min,max)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
 		and c:IsReunion() and c:ReunionRule(e,tp,must_use,mg,min,max)
 end
