@@ -17,7 +17,8 @@ This summon method is unique to Morhais, but they could teach it to others as we
 - Echo: Main Deck monsters that replaces Over-Fusion. Uses 1 Extra Deck Monster as material that becomes equipped to the Echo Monster, the type of Extra Deck Monster depends on the Echo Monster (may be an Xyz, a Fusion, etc. ...)
 - Armor: Can be any type of cards. They have a ATK/DEF bonus and an additinal effect when used as armor. Attaching an armor target the monster and the armor go under the monster like Xyz materials, bacause of this they are incompatible with Xyz monsters, armor cards cannot be attached to Xyz monsters. An Xyz monster can be summoned with an Armor monster but it not gain any of its Armor effects.
 - Armorizing: Extra Deck monsters related with armor cards, they are summoned using 1 monster that has X or more armors, eg. 1 Dragon monsters with 3+ armors
-The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (a monster with 2 Shields and 4 stars require 2+ armors, its' also considered as level 6). Armorizing monsters can be also Armor monsters.
+The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (A monster that require 2 armors as material will be Shell Rank 2, the yellow shields in the Level. They have both a Shell Rank and a Level, the level is the sum of shields and stars.). Armorizing monsters can be also Armor monsters.
+- Exarmorizing: Extra Deck monsters that share the same Summoning Type as Armorizing, the only difference is that they uses 2 or more monsters as material. There are both Exrmorizing Armor Monsters and non-Armor ones.
 
 ## Downloads
 Zip archive with cards for EDOPro: https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
