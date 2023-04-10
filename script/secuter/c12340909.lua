@@ -40,17 +40,14 @@ function s.lcheck(g,lc)
 end
 
 function s.matcheck(e,c)
-	local g=c:GetMaterial()
-	for i=0,10 do
-		local t = 2^i
-		if g:IsExists(Card.IsAttribute,1,nil,t) then
-			local e1=Effect.CreateEffect(c)
-			e1:SetType(EFFECT_TYPE_SINGLE)
-			e1:SetCode(EFFECT_ADD_ATTRIBUTE)
-			e1:SetValue(t)
-			e1:SetReset(RESET_EVENT+0xff0000)
-			c:RegisterEffect(e1)
-		end
+	local att=e:GetHandler():GetMaterial():GetBitwiseOr(Card.GetAttribute)
+	if att>0 then
+		local e1=Effect.CreateEffect(e:GetHandler())
+		e1:SetType(EFFECT_TYPE_SINGLE)
+		e1:SetCode(EFFECT_ADD_ATTRIBUTE)
+		e1:SetValue(att)
+		e1:SetReset(RESET_EVENT+0xff0000)
+		c:RegisterEffect(e1)
 	end
 end
 

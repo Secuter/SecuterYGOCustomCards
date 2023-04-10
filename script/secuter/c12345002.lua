@@ -60,7 +60,7 @@ function s.setfilter(c)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) end
+		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) end
 	Duel.SetOperationInfo(0,CATEGORY_ATKCHANGE,eg,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
 end
@@ -84,7 +84,7 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 		if sc:IsType(TYPE_TRAP) then
 			e1:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
 		else
-			e1:SetCode(EFFECT_QP_ACT_IN_SET_TURNcom)
+			e1:SetCode(EFFECT_QP_ACT_IN_SET_TURN)
 		end
 		e1:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
