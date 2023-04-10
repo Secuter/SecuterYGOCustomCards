@@ -1,7 +1,7 @@
 --Dark Sovereign Outbreak
 --Scripted by Secuter
 local s,id=GetID()
-s.IsRunic=true
+s.Runic=true
 s.RunicEffect={}
 function s.initial_effect(c)
 	--Activate

@@ -1,7 +1,7 @@
 --Anuak Dragonvoid
 --Scripted by Secuter
 local s,id=GetID()
-s.IsReunion=true
+s.Reunion=true
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -56,7 +56,7 @@ end
 s.listed_names={id}
 s.material_setcode={0x208}
 function s.matfilter(c)
-	return c.IsReunion
+	return c:IsReunion()
 end
 function s.rcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsSetCard,1,nil,0x208,lc,sumtype,tp)
@@ -85,7 +85,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE)) and Duel.IsChainNegatable(ev)
 end
 function s.cfilter(c)
-	return c.IsReunion and c:IsAbleToExtraAsCost()
+	return c:IsReunion() and c:IsAbleToExtraAsCost()
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
@@ -112,7 +112,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	  and c:IsPreviousLocation(LOCATION_MZONE) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,e,tp)
-	return c.IsReunion and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsReunion() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

@@ -2,7 +2,7 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
-s.IsRunic=true
+s.Runic=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--banish
@@ -91,7 +91,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsSetCard(0x230) and c:IsAbleToRemoveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToRemoveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()

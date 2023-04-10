@@ -1,6 +1,7 @@
 --Dark King's Forgotten Tome
 --Scripted by Secuter
 local s,id=GetID()
+if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--Activate
 	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x205),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),s.stage2)
@@ -41,7 +42,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x230) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsAbleToHand()
+	return c:IsSetCard(0x230) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

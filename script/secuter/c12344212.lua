@@ -1,6 +1,7 @@
 --Dark Sovereign Manor
 --Scripted by Secuter
 local s,id=GetID()
+if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -40,7 +41,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --sp summon
 function s.tdfilter(c,e)
-	return (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsAbleToDeck() and c:IsCanBeEffectTarget(e)
+	return (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToDeck() and c:IsCanBeEffectTarget(e)
 end
 function s.spfilter(c,e,tp)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

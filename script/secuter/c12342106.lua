@@ -1,7 +1,7 @@
 --Raging Fighter
 --Scripted by Secuter
 local s,id=GetID()
-s.IsReverseXyz=true
+s.ReverseXyz=true
 if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()

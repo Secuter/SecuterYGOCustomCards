@@ -128,7 +128,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
 end
 function s.thfilter(c)
-	return c:IsFaceup() and c.IsExchange and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsExchange() and c:IsAbleToHand()
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.thfilter(chkc) end

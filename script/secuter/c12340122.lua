@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 local s,id=GetID()
-s.IsEcho=true
+s.Echo=true
 function s.initial_effect(c)
 	--echo summon
 	Echo.AddProcedure(c,s.efilter,s.eop)

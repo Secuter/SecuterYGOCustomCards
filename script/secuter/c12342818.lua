@@ -1,7 +1,7 @@
 --Wyrmwind Southern Wyvern
 --Scripted by Secuter
 local s,id=GetID()
-s.IsEcho=true
+s.Echo=true
 if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()

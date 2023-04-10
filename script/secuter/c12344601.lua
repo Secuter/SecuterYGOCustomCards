@@ -116,7 +116,7 @@ function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 end
 --negate
 function s.tgfilter(c,tp)
-	return c:IsControler(tp) and c:IsOnField() and c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c.IsReunion))
+	return c:IsControler(tp) and c:IsOnField() and c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion()))
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not (rp==1-tp and re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) and Duel.IsChainNegatable(ev)) then return false end

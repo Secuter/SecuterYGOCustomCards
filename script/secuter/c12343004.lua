@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
-s.IsExchange=true
+s.Exchange=true
 function s.initial_effect(c)
 	Exchange.Enable(c,s,aux.FilterBoolFunctionEx(Card.IsLevelBelow,4))
 	--to hand
@@ -51,7 +51,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.tgfilter(c,e,tp)
-	return c:IsLocation(LOCATION_MZONE) and c:IsControler(tp) and c:IsFaceup() and c.IsExchange and not c:IsCode(id) and c:IsCanBeEffectTarget(e)
+	return c:IsLocation(LOCATION_MZONE) and c:IsControler(tp) and c:IsFaceup() and c:IsExchange() and not c:IsCode(id) and c:IsCanBeEffectTarget(e)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp and eg:IsExists(s.tgfilter,1,nil,e,tp)

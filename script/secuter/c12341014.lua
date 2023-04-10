@@ -1,7 +1,7 @@
 --Chaos-Eyes Ultimate Zenit Dragon
 --Scripted by Secuter
 local s,id=GetID()
-s.IsReverseXyz=true
+s.ReverseXyz=true
 if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 function s.xyzfilter(c,xyz,sumtype,tp)
-	return c:IsType(TYPE_XYZ,xyz,sumtype,tp) and c:IsRank(4) and c:IsRace(RACE_DRAGON,xyz,sumtype,tp) and c.IsReverseXyz
+	return c:IsType(TYPE_XYZ,xyz,sumtype,tp) and c:IsRank(4) and c:IsRace(RACE_DRAGON,xyz,sumtype,tp) and c:IsReverseXyz()
 end
 --negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
@@ -75,7 +75,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_XYZ) and rp==1-tp
 end
 function s.spfilter(c,e,tp)
-	return c:IsType(TYPE_XYZ) and c:IsRace(RACE_DRAGON) and c.IsReverseXyz and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_XYZ) and c:IsRace(RACE_DRAGON) and c:IsReverseXyz() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end

@@ -39,7 +39,7 @@ function s.indcon(e)
 end
 --xyz lv
 function s.xyzlv(e,c,rc)
-	if rc.IsReverseXyz then return 4
+	if rc:IsReverseXyz() then return 4
 	else return e:GetHandler():GetLevel() end
 end
 --send to gy

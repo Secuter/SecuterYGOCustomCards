@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not ECHO_IMPORTED then dofile Duel.LoadScript("proc_echo.lua") end
 local s,id=GetID()
-s.IsEcho=true
+s.Echo=true
 function s.initial_effect(c)
 	--over fusion summon
 	c:EnableReviveLimit()

@@ -40,7 +40,7 @@ end
 s.listed_names={12344600}
 s.listed_series={0x208}
 function s.eqfilter(c)
-	return c:IsCode(12344600) or (c:IsSetCard(0x208) and c.IsReunion)
+	return c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion())
 end
 function s.atkval(e,c)
 	local tp=e:GetHandlerPlayer()

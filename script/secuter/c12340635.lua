@@ -50,11 +50,11 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 function s.sfilter(c)
-	return c.IsReunion
+	return c:IsReunion()
 end
 --immune
 function s.immfilter1(e,te)
-	return te:IsActiveType(TYPE_MONSTER) and te:GetHandler().IsReunion
+	return te:IsActiveType(TYPE_MONSTER) and te:GetHandler():IsReunion()
 end
 function s.immfilter2(e,te)
 	return te:GetOwnerPlayer()~=e:GetHandlerPlayer()
@@ -82,7 +82,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and c:IsPreviousControler(tp) and c:IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function s.spfilter(c,e,tp)
-	return c.IsReunion and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsReunion() and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

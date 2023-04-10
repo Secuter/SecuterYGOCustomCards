@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
-s.IsExchange=true
+s.Exchange=true
 function s.initial_effect(c)
 	Exchange.Enable(c,s,aux.FilterBoolFunctionEx(Card.IsLevelBelow,4))
 	--to gy
@@ -32,7 +32,7 @@ end
 s.listed_names={id}
 --to gy
 function s.tgfilter(c)
-	return c.IsExchange and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsExchange() and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

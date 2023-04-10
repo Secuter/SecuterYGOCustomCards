@@ -18,6 +18,11 @@ if not Ignition then
 	Ignition = aux.IgnitionProcedure
 end
 
+-- utility functions
+function Card.IsIgnition(c)
+	return c.Ignition
+end
+
 --Ignition Summon
 function Ignition.AddProcedure(c,f1,f2,min,max)
 	if c.ignition_type==nil then
@@ -130,9 +135,9 @@ function Ignition.Operation(e,tp,eg,ep,ev,re,r,rp,c,smat,mg)
 	g:DeleteGroup()
 end
 -- Ignition Summon by card effect
-function Card.IsIgnitionSummonable(c,e,tp,must_use,mg)
+function Card:IsIgnition()Summonable(c,e,tp,must_use,mg)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,false,false)
-		and c.IsIgnition and c:IgnitionRule(e,tp,must_use,mg)
+		and c:IsIgnition() and c:IgnitionRule(e,tp,must_use,mg)
 end
 function Card.IgnitionRule(c,e,tp,mustg,mg)
 	local mt=c:GetMetatable()

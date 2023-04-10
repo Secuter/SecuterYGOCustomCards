@@ -2,7 +2,7 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
-s.IsRunic=true
+s.Runic=true
 function s.initial_effect(c)
 	--spsummon itself
 	local e1=Effect.CreateEffect(c)
@@ -95,7 +95,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsSetCard(0x230) and c:IsAbleToRemoveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToRemoveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()
@@ -137,7 +137,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsSetCard(0x230) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToHand()
 		and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)

@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not ECHO_IMPORTED then dofile Duel.LoadScript("proc_echo.lua") end
 local s,id=GetID()
-s.IsEcho=true
+s.Echo=true
 function s.initial_effect(c)
 	--echo summon
 	c:EnableReviveLimit()
@@ -74,7 +74,7 @@ function s.adcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.filter(e,c)
-	return c:IsType(TYPE_FUSION) or c.IsEcho
+	return c:IsType(TYPE_FUSION) or c:IsEcho()
 end
 function s.adop(e,tp,eg,ep,ev,re,r,rp)
 	local e1=Effect.CreateEffect(e:GetHandler())

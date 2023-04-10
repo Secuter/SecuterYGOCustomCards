@@ -13,6 +13,11 @@ if not ReverseXyz then
 	ReverseXyz = aux.ReverseXyzProcedure
 end
 
+-- utility functions
+function Card:IsReverseXyz(c)
+	return c.ReverseXyz
+end
+
 --ReverseXyz Summon
 --Parameters:
 -- c: card

@@ -1,7 +1,7 @@
 --Anuak Genesis Reunion
 --Scripted by Secuter
 local s,id=GetID()
-s.IsReunion=true
+s.Reunion=true
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -42,7 +42,7 @@ function s.rfilter(c)
 	return c:IsSetCard(0x208)
 end
 function s.rfilter2(c)
-	return c.IsReunion
+	return c:IsReunion()
 end
 function s.rcheck(g,lc,sumtype,tp)
 	return g:IsExists(s.rfilter2,1,nil,lc,sumtype,tp)

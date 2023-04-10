@@ -1,7 +1,7 @@
 --Rahu - Asura of Lost Antiquities
 --Scripted by Secuter
 local s,id=GetID()
-s.IsEcho=true
+s.Echo=true
 if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	--fusion summon
@@ -63,8 +63,8 @@ end
 function s.indval(e,c)
 	local ec=e:GetLabelObject()
 	if not ec or not e:GetHandler():HasEquip(ec) then return false end
-	if ec.IsReunion then return c.IsReunion end
-	if ec.IsIgnition then return c.IsIgnition end
+	if ec:IsReunion() then return c:IsReunion() end
+	if ec:IsIgnition() then return c:IsIgnition() end
 	if ec:IsArmorizing() then return c:IsArmorizing() end
 	return c:IsType(ec:GetType()&(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ+TYPE_LINK))
 end

@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
-s.IsExchange=true
+s.Exchange=true
 function s.initial_effect(c)
 	Exchange.Enable(c,s,aux.FilterBoolFunctionEx(Card.IsLevelBelow,4))
 	--cannot be battle target
@@ -28,17 +28,17 @@ end
 s.listed_names={id}
 --battle target
 function s.target(e,c)
-	return c~=e:GetHandler() and c:IsFaceup() and c.IsExchange
+	return c~=e:GetHandler() and c:IsFaceup() and c:IsExchange()
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()
 	local at=Duel.GetAttackTarget()
-	return at and ((a:IsControler(tp) and a.IsExchange)
-		or (at:IsControler(tp) and at:IsFaceup() and at.IsExchange))
+	return at and ((a:IsControler(tp) and a:IsExchange())
+		or (at:IsControler(tp) and at:IsFaceup() and at:IsExchange()))
 end
 function s.thfilter(c,e,tp)
-	return c.IsExchange and not c:IsCode(id) and c:IsAbleToHand() and c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsControler(tp) and c:IsCanBeEffectTarget(e)
+	return c:IsExchange() and not c:IsCode(id) and c:IsAbleToHand() and c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsControler(tp) and c:IsCanBeEffectTarget(e)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()

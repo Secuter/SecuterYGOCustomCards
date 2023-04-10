@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
-s.IsExchange=true
+s.Exchange=true
 function s.initial_effect(c)
 	Exchange.Enable(c,s,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_WATER))
 	--exchange summon
@@ -36,7 +36,7 @@ s.listed_names={id}
 s.listed_series={0x224}
 --spsummon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x224) and c.IsExchange and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(0x224) and c:IsExchange() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -6,7 +6,7 @@ local s,id=GetID()
 s.ArmorAtk=600
 s.ArmorDef=0
 s.Armor=true
-s.IsReunion=true
+s.Reunion=true
 function s.initial_effect(c)
 	--armor
 	Armor.AddProcedure(c,s,nil,true)

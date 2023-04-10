@@ -98,8 +98,8 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	if phase~=PHASE_DAMAGE or Duel.IsDamageCalculated() then return false end
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
-	return d~=nil and d:IsFaceup() and ((a:GetControler()==tp and (a:IsCode(12344600) or (a:IsSetCard(0x208) and a.IsReunion)) and a:IsRelateToBattle())
-		or (d:GetControler()==tp and (d:IsCode(12344600) or (d:IsSetCard(0x208) and d.IsReunion)) and d:IsRelateToBattle()))
+	return d~=nil and d:IsFaceup() and ((a:GetControler()==tp and (a:IsCode(12344600) or (a:IsSetCard(0x208) and a:IsReunion())) and a:IsRelateToBattle())
+		or (d:GetControler()==tp and (d:IsCode(12344600) or (d:IsSetCard(0x208) and d:IsReunion())) and d:IsRelateToBattle()))
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()

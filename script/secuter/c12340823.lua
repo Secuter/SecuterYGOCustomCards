@@ -1,7 +1,7 @@
 --Eagle Overseer Dark Gryphon
 --Scripted by Secuter
 local s,id=GetID()
-s.IsIgnition=true
+s.Ignition=true
 if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon

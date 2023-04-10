@@ -15,7 +15,7 @@ function s.initial_effect(c)
 end
 --negate
 function s.filter(c)
-	return c:IsFaceup() and c.IsReverseXyz
+	return c:IsFaceup() and c:IsReverseXyz()
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)

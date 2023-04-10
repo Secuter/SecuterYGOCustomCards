@@ -16,7 +16,7 @@ s.listed_names={12344600}
 s.listed_series={0x208}
 --spsummon limit
 function s.counterfilter(c)
-	return not c:IsSummonLocation(LOCATION_EXTRA) or c:IsSetCard(0x208) or c.IsReunion
+	return not c:IsSummonLocation(LOCATION_EXTRA) or c:IsSetCard(0x208) or c:IsReunion()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
@@ -33,10 +33,10 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	aux.addTempLizardCheck(c,tp,s.lizfilter)
 end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return not c:IsSetCard(0x208) and not c.IsReunion and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(0x208) and not c:IsReunion() and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x208) and not c.IsReunion
+	return not c:IsSetCard(0x208) and not c:IsReunion()
 end
 --choose effect
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)

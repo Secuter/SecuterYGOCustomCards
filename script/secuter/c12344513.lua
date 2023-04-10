@@ -1,7 +1,7 @@
 --Ghoost Panic Ogre
 --Scripted by Secuter
 local s,id=GetID()
-s.IsReunion=true
+s.Reunion=true
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()

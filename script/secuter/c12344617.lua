@@ -29,7 +29,7 @@ s.listed_names={12344600}
 s.listed_series={0x208}
 --negate
 function s.filter(c)
-	return c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c.IsReunion))
+	return c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion()))
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil) then return false end

@@ -53,7 +53,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 -- to deck
 function s.tdfilter(c)
-	return c:IsFaceup() and c.IsReunion and c:IsAbleToExtra()
+	return c:IsFaceup() and c:IsReunion() and c:IsAbleToExtra()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.tdfilter(chkc) end

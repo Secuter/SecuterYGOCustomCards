@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
-s.IsExchange=true
+s.Exchange=true
 function s.initial_effect(c)
 	Exchange.Enable(c,s,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_WATER))
 	--spsummon itself

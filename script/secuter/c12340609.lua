@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 local s,id=GetID()
-s.IsReunion=true
+s.Reunion=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x208),2,99,s.rcheck)
@@ -78,7 +78,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.spfilter(c,e,tp)
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.CreateGroup(),tp,c,nil,REASON_REUNION)
-	return #pg<=0 and c.IsReunion and c:IsSetCard(0x208) and c:IsLevelBelow(6) and Duel.GetLocationCountFromEx(tp,tp,e:GetHandler(),c)>0
+	return #pg<=0 and c:IsReunion() and c:IsSetCard(0x208) and c:IsLevelBelow(6) and Duel.GetLocationCountFromEx(tp,tp,e:GetHandler(),c)>0
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_REUNION,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

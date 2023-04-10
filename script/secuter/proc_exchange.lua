@@ -17,6 +17,11 @@ if not Exchange then
 	Exchange = aux.ExchangeProcedure
 end
 
+-- utility functions
+function Card.IsExchange(c)
+	return c.Exchange
+end
+
 --Exchange Summon
 --Parameters:
 -- c: card
@@ -69,7 +74,7 @@ function Exchange.SumCheck(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function Exchange.Filter(c,f,lc,tp,id)
-	return c.IsExchange and not c:IsCode(id) and (not f or f(c,lc,SUMMON_TYPE_SPECIAL,tp))
+	return c:IsExchange() and not c:IsCode(id) and (not f or f(c,lc,SUMMON_TYPE_SPECIAL,tp))
 end
 function Exchange.Condition(id)
 	return function(e,tp,eg,ep,ev,re,r,rp)

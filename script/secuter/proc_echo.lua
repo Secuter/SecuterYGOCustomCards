@@ -27,6 +27,14 @@ if not aux.EchoProcedure then
 	aux.EchoProcedure = {}
 	Echo = aux.EchoProcedure
 end
+if not Echo then
+	Echo = aux.EchoProcedure
+end
+
+-- utility functions
+function Card.IsEcho(c)
+	return c.Echo
+end
 
 --Echo Summon
 --Parameters:
@@ -154,9 +162,9 @@ function Echo.EquipEquip(c,e,tp,tc,op)
 	return true
 end
 -- Echo Summon by card effect
-function Card.IsEchoSummonable(c,e,tp,mustg,mg)
+function Card:IsEcho()Summonable(c,e,tp,mustg,mg)
 	return c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL,tp,true,false)
-		and c.IsEcho and c:EchoRule(e,tp,mustg,mg)
+		and c:IsEcho() and c:EchoRule(e,tp,mustg,mg)
 end
 function Card.EchoRule(c,e,tp,mustg,mg)
 	if Duel.GetLocationCount(tp,LOCATION_SZONE)<=0 then return false end

@@ -1,7 +1,7 @@
 --Anuak Dragonflare
 --Scripted by Secuter
 local s,id=GetID()
-s.IsReunion=true
+s.Reunion=true
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -54,7 +54,7 @@ end
 s.listed_names={id}
 s.material_setcode={0x208}
 function s.mfilter(c,sc,sumtype,tp)
-	return c.IsReunion and (c:IsLocation(LOCATION_MZONE) or c:IsSetCard(0x208,sc,sumtype,tp))
+	return c:IsReunion() and (c:IsLocation(LOCATION_MZONE) or c:IsSetCard(0x208,sc,sumtype,tp))
 end
 --atk increase
 function s.atkval(e,c)
@@ -74,7 +74,7 @@ function s.atkval(e,c)
 end
 --to deck
 function s.tdfilter1(c)
-	return c.IsReunion and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToDeck()
+	return c:IsReunion() and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToDeck()
 end
 function s.tdfilter2(c,att)
 	return c:IsFaceup() and c:IsAttribute(att) and c:IsAbleToDeck()
@@ -100,7 +100,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	  and c:IsPreviousLocation(LOCATION_MZONE) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,e,tp)
-	return c.IsReunion and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsReunion() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

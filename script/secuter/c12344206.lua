@@ -1,6 +1,7 @@
 --Dark Sovereign Outer King
 --Scripted by Secuter
 local s,id=GetID()
+if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
@@ -43,7 +44,7 @@ function s.atfilter(c,tp)
 	return c:IsAbleToChangeControler() and not c:IsType(TYPE_TOKEN)
 end
 function s.filter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic()
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,0,LOCATION_ONFIELD,1,nil) end

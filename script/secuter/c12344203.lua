@@ -2,7 +2,7 @@
 --Scripted by Secuter
 local s,id=GetID()
 if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
-s.IsRunic=true
+s.Runic=true
 function s.initial_effect(c)
 	--atk
 	local e1=Effect.CreateEffect(c)
@@ -53,7 +53,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsSetCard(0x230) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -73,7 +73,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsSetCard(0x230) and c:IsAbleToGraveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToGraveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()

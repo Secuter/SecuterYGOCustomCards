@@ -1,7 +1,7 @@
 --Amorphiend Swordsmaster
 --Scripted by Secuter
 local s,id=GetID()
-s.IsEcho=true
+s.Echo=true
 if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	--echo summon
@@ -53,7 +53,7 @@ s.listed_names={12344100}
 s.listed_series={0x22F}
 s.material_setcode={0x22F}
 function s.efilter(c,sc,sumtype,tp)
-	return c:IsSetCard(0x22F,sc,sumtype,tp) and c.IsIgnition
+	return c:IsSetCard(0x22F,sc,sumtype,tp) and c:IsIgnition()
 end
 --atk up
 function s.val(e,c)

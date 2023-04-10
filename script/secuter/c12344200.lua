@@ -1,6 +1,7 @@
 --Runic Encription
 --Scripted by Secuter
 local s,id=GetID()
+if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -14,10 +15,10 @@ function s.initial_effect(c)
 end
 --search
 function s.filter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsAbleToDeck() and not c:IsPublic()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToDeck() and not c:IsPublic()
 end
 function s.thfilter(c)
-	return c:IsAbleToHand() and c:IsType(TYPE_MONSTER) and c.IsRunic
+	return c:IsAbleToHand() and c:IsType(TYPE_MONSTER) and c:IsRunic()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,e:GetHandler())

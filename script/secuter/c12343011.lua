@@ -2,7 +2,7 @@
 --Scripted by Secuter
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 local s,id=GetID()
-s.IsExchange=true
+s.Exchange=true
 function s.initial_effect(c)
 	Exchange.Enable(c,s,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_WATER))
 	--to hand + special summon
@@ -35,7 +35,7 @@ s.listed_names={id}
 s.listed_series={0x224}
 --spsummon
 function s.filter(c)
-	return c:IsSetCard(0x224) and c.IsExchange and c:IsAbleToHand() and c:IsFaceup() and not c:IsCode(id)
+	return c:IsSetCard(0x224) and c:IsExchange() and c:IsAbleToHand() and c:IsFaceup() and not c:IsCode(id)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.filter(chkc) end

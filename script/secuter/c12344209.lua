@@ -1,8 +1,9 @@
 --Dark Sovereign Dominator
 --Scripted by Secuter
 local s,id=GetID()
-s.IsIgnition=true
+s.Ignition=true
 if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
+if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)
@@ -52,7 +53,7 @@ function s.ignfilter1(c,sc,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_DARK,sc,sumtype,tp)
 end
 function s.ignfilter2(c,sc,sumtype,tp)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP,sc,sumtype,tp) and c.IsRunic
+	return c:IsType(TYPE_SPELL+TYPE_TRAP,sc,sumtype,tp) and c:IsRunic()
 end
 --send to gy
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
@@ -83,7 +84,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c.IsRunic and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end
