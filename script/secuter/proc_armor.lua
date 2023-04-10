@@ -94,7 +94,7 @@ function Armor.Attach(c,ar,e)
 		Debug.Message("proc_armor.lua has been updated!\nNow you have to call Armor.Attach passing the effect as well, eg. Armor.Attach(tc,c,e) instead of Armor.Attach(tc,c).\nThe new function is Armor.Attach(Card target, Card|Group armor, Effect e)")
 		attach_log_only_once = false
 	end
-	if c:IsImmuneToEffect(e) or ar:IsImmuneToEffect(e) then return false end
+	if c:IsImmuneToEffect(e) then return false end
 	local tp=e:GetHandlerPlayer()
 	Duel.Overlay(c,ar)
 	if c and (ar or #ar) and e then

@@ -83,7 +83,8 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 			Duel.SendtoGrave(c:GetOverlayGroup(),REASON_RULE)
 		end
 		c:CancelToGrave()
-		Armor.Attach(tc,c,e)
-		c:RegisterFlagEffect(EFFECT_ARMORATK_REP,RESET_EVENT|RESETS_STANDARD,0,1,1500)
+		if Armor.Attach(tc,c,e) then
+			c:RegisterFlagEffect(EFFECT_ARMORATK_REP,RESET_EVENT|RESETS_STANDARD,0,1,1500)
+		end
 	end
 end

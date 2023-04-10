@@ -53,7 +53,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsRelateToEffect(e) then
 		if Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
 			local tc=Duel.GetFirstTarget()
-			if tc:IsRelateToEffect(e) then
+			if tc:IsRelateToEffect(e) and not tc:IsImmuneToEffect(e) then
 				if tc:GetOverlayCount()>0 then
 					Duel.SendtoGrave(tc:GetOverlayGroup(),REASON_RULE)
 				end
