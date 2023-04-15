@@ -42,7 +42,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_RELINQUISHED}
 function s.efilter(c,sc,sumtype,tp)
-	return c:IsLevel(1) or c:IsRank(1) or c:IsLink(1)
+	return (c:IsLevel(1) or c:IsRank(1) or c:IsLink(1)) and c:IsSummonLocation(LOCATION_EXTRA)
 end
 --equip
 function s.eqcon1(e,tp,eg,ep,ev,re,r,rp)
