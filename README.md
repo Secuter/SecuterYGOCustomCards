@@ -6,7 +6,7 @@ Card preview site -> https://secuter.github.io/SecuterYGOCustomCards-search/
 
 Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro
 
-Example decks (last updated 2023/04/10) -> https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
+Example decks -> https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
 
 ## Server to play with my cards (added on 2023/04/10, I'm still testing it)
 Add this in servers in your configs.json file.
