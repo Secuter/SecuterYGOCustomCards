@@ -15,7 +15,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCondition(s.atkcon)
-	e2:SetValue(2)
+	e2:SetValue(1)
 	c:RegisterEffect(e2)
 	--extra summon
 	local e3=Effect.CreateEffect(c)
