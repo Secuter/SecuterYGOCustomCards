@@ -8,14 +8,14 @@ Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-cus
 
 Example decks -> https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
 
-## Server to play with my cards (added on 2023/04/10, I'm still testing it)
-Add this in servers in your configs.json file.
+## Server to play with my cards
+Add this in servers in your configs.json file. !!! Updated from direct ip to use a DNS, the ip may change in the future. !!!
 ```
 		{
 			"name": "Secuter Custom Cards",
-			"address": "20.84.55.1",
+			"address": "duel.secutertools.win",
 			"duelport": 7820,
-			"roomaddress": "20.84.55.1",
+			"roomaddress": "duel.secutertools.win",
 			"roomlistprotocol": "http",
 			"roomlistport": 7810
 		}
