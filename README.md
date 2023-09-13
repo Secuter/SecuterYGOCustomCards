@@ -5,7 +5,8 @@ It doesn't load all 1000+ card images right away on page load but only downloads
 Card preview site -> https://secuter.github.io/SecuterYGOCustomCards-search/
 
 Example decks -> https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
-<!--Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro-->
+
+<!--- Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro -->
 
 ## Server to play with my cards
 Add this in servers in your configs.json file. !!! Updated from direct ip to use a DNS, the ip may change in the future. !!!
