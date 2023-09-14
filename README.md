@@ -46,7 +46,7 @@ The S/T Card and the Runic effect have different Once per turn clause, so I can 
 
 ## Configuration
 
-You can either edit your configs.json to add custom cards repositories and the server, or download the [preconfigured configs.json](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards/main/etc/configs.json) with the server and all the necessary repositories to have all the cards available on the server.<br>
+You can either edit your configs.json to add custom cards repositories and the server, or download the [preconfigured configs.json](etc/configs.json) with the server and all the necessary repositories to have all the cards available on the server.<br>
 Your file is located in the Edopro installation folder -> PATH\ProjectIgnis\config\configs.json<br>
 If you replace the file, check that the default repositories have not changed (the one provided here is automatically updated They usually only change when a major release is released, e.g. when it changes from version 40 to 41.<br>
 Before overwriting the configuration file, check that the default repositories have not changed (the file provided here is automatically updated daily, taking changes from the official Edopro repository, but it's always good to double-check :grinning:). Usually, Edopro repositories are only changed with major releases, eg. when it went from version 39 to 40.<br>
