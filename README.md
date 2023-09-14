@@ -113,7 +113,7 @@ Here is a list of archetypes supported on the server in addition to mine.
 
 ---
 
-### Custom banlist
+## Custom banlist
 I also created a custom banlist '2023.04 Secuter+TCG' that uses the last TCG as a base adding limits/bans for my cards.<br>
 For now I only limited to 1 'D.D. Invader Gargoyle' and 'Allure of Darkness', to test that the banlist on server and to tweak D.D. Invader a bit.
 On the server it is recommended to play with this banlist and 'Anything goes'. (You must select 'Anything goes' to play with cards with the custom tag event if this cards are accepted on the server.)<br>
@@ -141,7 +141,7 @@ Contiene anche alcune altre feature e shortcut per testi usati di freguente nell
 TODO a list of these shortcuts
 ```
 
-# Export cards as a SQL insert
+### Export cards as a SQL insert
 
 You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
 
