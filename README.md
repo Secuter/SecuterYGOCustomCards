@@ -1,31 +1,21 @@
 # SecuterYGOCustomCards
 I've created a simple site on Github Pages to provide a quick preview of the cards.<br>
-It doesn't load all 1000+ card images right away on page load but only downloads the needed ones when an archetype is selected, depending on your connection speed it may take a bit if you click multiple archetypes quickly. :D
+It doesn't load all 1000+ card images right away on page load but only downloads the needed ones when an archetype is selected, depending on your connection speed it may take a bit if you click multiple archetypes quickly. :wink:
 
 Card preview site -> https://secuter.github.io/SecuterYGOCustomCards-search/
 
-Example decks -> https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
+If you can't see custom cards in Edopro you have to check 'Alternate formats', this show all cards including anime and custom cards.
 
-<!--- Ygopro forum -> https://www.ygopro.co/Forum/tabid/95/g/posts/t/49230/Secuter-custom-cards-for-EDOPro -->
+![Alternate formats](https://imgur.com/2YZEFNk.png)
 
-## Server to play with my cards
-Add this in servers in your configs.json file. !!! Updated from direct ip to use a DNS, the ip may change in the future. !!!
-```
-		{
-			"name": "Secuter Custom Cards",
-			"address": "duel.secutertools.win",
-			"duelport": 7820,
-			"roomaddress": "duel.secutertools.win",
-			"roomlistprotocol": "http",
-			"roomlistport": 7810
-		}
-```
+## Summary
+* [Original summoning mechanics](#Original_summoning_mechanics)
+* [Configuration](#Configuration)
+* [Banlist](#Custom_banlist)
+* [Decks & Combos](#Decks_&_replays_showing_some_combos)
+* [Custom MSE](#Custom_MSE)
 
-### Custom banlist
-I also created a custom banlist '2023.04 Secuter+TCG' that uses the last TCG as a base adding limits/bans for my cards.<br>
-For now I only limited to 1 'D.D. Invader Gargoyle' and 'Allure of Darkness', to test that the banlist on server and to tweak D.D. Invader a bit.
-On the server it is recommended to play with this banlist and 'Anything goes'. (You must select 'Anything goes' to play with cards with the custom tag.)<br>
-![list](https://imgur.com/PLHi5mS.png)
+---
 
 ## Original summoning mechanics
 ![customtypes](https://imgur.com/YBo3tZU.png)
@@ -52,40 +42,30 @@ But if I activate the effect of any Runic monster like 'Dark Sovereign Execution
 	- OPT Clause with Runic Effects<br>
 The S/T Card and the Runic effect have different Once per turn clause, so I can copy the Runic effect of a spell card I already activated this turn. At this time the only Runic deck is 'Dark Sovereign' and all its Runic cards has a OPT both on the card and on the Runic effect, so I can activate both the same turn but each one only once each turn.
 
-## Downloads
-Zip archive with cards for EDOPro: https://drive.google.com/file/d/1XMfXm4gN0MUpIKkFSwr6Fos4FP3CeQl1/view?usp=sharing
-(The archive will be updated only when I release new archetypes, it won't be updated for the fix of just a couple of cards. To get all the updates and fixes immediately, I recommend to configure the auto sync.)
+---
 
-strings.conf file: https://drive.google.com/file/d/1veZA7dNbbDxV6sJXJqtuhn4JkzM5jHpr/view?usp=sharing
+## Configuration
 
-Replays and decks are NOT downloaded by the autosync feature in EDOPro, you have to download them manually if you want them.
+You can either edit your configs.json to add custom cards repositories and the server, or download the [preconfigured configs.json](etc/configs.json) with the server and all the necessary repositories to have all the cards available on the server.<br>
+Your file is located in the Edopro installation folder -> PATH\ProjectIgnis\config\configs.json<br>
+If you replace the file, check that the default repositories have not changed (the one provided here is automatically updated They usually only change when a major release is released, e.g. when it changes from version 40 to 41.<br>
+Before overwriting the configuration file, check that the default repositories have not changed (the file provided here is automatically updated daily, taking changes from the official Edopro repository, but it's always good to double-check :grinning:). Usually, Edopro repositories are only changed with major releases, eg. when it went from version 39 to 40.<br>
+If you have a lot of repositories is reccomended to backup the configs.json file because when Edopro is updated this file is overwritten with the default one.
 
-Replays with the basic combo for some of my archetypes: https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing
+As you can see in the configs.json I have 2 repositories, 1 for images and 1 for everything else. This is because this way, only the repository containing scripts, databases, etc., is downloaded each time you start Edopro (approximately 7 MB), while the card images are downloaded only once when you view the card in Edopro for the first time. (It's the same with original TCG/OCG cards.)<br>
+This is done to avoid a delay when opening Edopro. It may not be relevant for repositories with a small size and a limited number of cards, but for mine, which currently has a size of 1 GB in card images, this separation is necessary.<br>
+The only drawback of this approach is that the image is not updated if it's modified on the repo; you have to manually delete the card(s) from the "pics" folder to download the new one.
+For changes in the card's effect, you won't even notice the difference. Personally, I mostly read the text beneath the card, which is bigger :smile:. That's why I avoid making changes to card materials, level, or ATK/DEF. If it's absolutely necessary, I notify the cards with these changes in the releases on GitHub.<br>
 
-Example decks: https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
+Other developers' repositories contained in the configs file may also have additional archetypes not present on the server.<br>
+Here is a list of archetypes supported on the server in addition to mine.
+| Archetype/s | Developer | Repository | Preview webite |
+| :-------: | :-------: | ---------- | :----------- |
+| All | Secuter (owner) | [Secuter/SecuterYGOCustomCards](https://github.com/Secuter/SecuterYGOCustomCards) | https://secuter.github.io/SecuterYGOCustomCards-search/ |
+| FNO | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/FNO-Archetype/ |
 
-Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing 
-
-# Autosync with Github
-
-Edopro has a feature to sync cards with github, which is used to add new cards but can also be configured to work with custom cards!
-Only the database and script will be sync every time you start EDOPro (it's less the 7 MB), the images are downloaded only 1 time, the first time you view them in the simulator.<br>
-To enable this for my custom cards you have to edit your config.json file in EDOPro, it's located in the ProjectIgnis\config folder.<br>
-First make a backup of the config.json file, so you can restore it if you do something wrong.<br>
-The config.json is structured like this
-```
-{
-  "repos": [
-    { ... }
- ],
-  "urls": [
-    { ... }
- ],
- ...
-}
-```
-
-You need to add this to 'repos' to download card data and scripts.
+# Manual configuration
+* repos
 ```json
 		{
 			"url": "https://github.com/Secuter/SecuterYGOCustomCards",
@@ -95,10 +75,16 @@ You need to add this to 'repos' to download card data and scripts.
 			"script_path": "script",
 			"should_update": true,
 			"should_read": true
+		},
+		{
+			"url": "https://github.com/KSB-Custom/KSB-CCG",
+			"repo_name": "KSB Custom Cards",
+			"repo_path": "./repositories/KSBCustoms",
+			"should_update": true,
+			"should_read": true
 		}
 ```
-
-And these in 'urls' to download card images.
+* urls
 ```json
 		{
 			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/{}.png",
@@ -113,5 +99,53 @@ And these in 'urls' to download card images.
 			"type": "field"
 		}
 ```
+* servers
+```
+		{
+			"name": "Secuter Custom Cards",
+			"address": "duel.secutertools.win",
+			"duelport": 7820,
+			"roomaddress": "duel.secutertools.win",
+			"roomlistprotocol": "http",
+			"roomlistport": 7810
+		}
+```
 
-PS: Images are not updated if there is a change in the card, you have to manually delete the old image to automatically download the new one.
+---
+
+### Custom banlist
+I also created a custom banlist '2023.04 Secuter+TCG' that uses the last TCG as a base adding limits/bans for my cards.<br>
+For now I only limited to 1 'D.D. Invader Gargoyle' and 'Allure of Darkness', to test that the banlist on server and to tweak D.D. Invader a bit.
+On the server it is recommended to play with this banlist and 'Anything goes'. (You must select 'Anything goes' to play with cards with the custom tag event if this cards are accepted on the server.)<br>
+![list](https://imgur.com/PLHi5mS.png)
+
+---
+
+## Decks & replays showing some combos
+
+Replays and decks are NOT downloaded by the autosync feature in EDOPro, you have to download them manually if you want them.
+
+Example decks: https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
+
+Replays with the basic combo for some of my archetypes: https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing
+
+(In the next days, I'm creating a repository for these as well to make it easier to keep them updated and so you can know which ones have been updated and when.
+
+## Custom MSE
+
+Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
+
+Contiene anche alcune altre feature e shortcut per testi usati di freguente nella carte di yugioh.
+
+```
+TODO a list of these shortcuts
+```
+
+# Export cards as a SQL insert
+
+You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
+
+![Sql Exporter](https://imgur.com/7eNfunG.png)<br>
+It creates a SQL INSERT with all the cards selected, the only fields missing is str1, str2, ... because the export script can't know which are the different parts of the effect. You'll have to manually update those.
+
+---
