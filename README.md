@@ -12,7 +12,7 @@ If you can't see custom cards in Edopro you have to check 'Alternate formats', t
 * [Original summoning mechanics](#Original-summoning-mechanics)
 * [Configuration](#Configuration)
 * [Banlist](#Custom-banlist)
-* [Decks & Combos](#Decks-&-replays-showing-some-combos)
+* [Decks & Combos](#Decks--replays-showing-some-combos)
 * [Custom MSE](#Custom-MSE)
 
 ---
