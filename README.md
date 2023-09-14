@@ -9,11 +9,11 @@ If you can't see custom cards in Edopro you have to check 'Alternate formats', t
 ![Alternate formats](https://imgur.com/2YZEFNk.png)
 
 ## Summary
-* [Original summoning mechanics](#Original_summoning_mechanics)
+* [Original summoning mechanics](#Original-summoning-mechanics)
 * [Configuration](#Configuration)
-* [Banlist](#Custom_banlist)
-* [Decks & Combos](#Decks_&_replays_showing_some_combos)
-* [Custom MSE](#Custom_MSE)
+* [Banlist](#Custom-banlist)
+* [Decks & Combos](#Decks-&-replays-showing-some-combos)
+* [Custom MSE](#Custom-MSE)
 
 ---
 
