@@ -118,27 +118,27 @@ I also created a custom banlist '2023.04 Secuter+TCG' that uses the last TCG as 
 On the server it is recommended to play with this banlist and 'Anything goes'. (You must select 'Anything goes' to play with cards with the custom tag event if this cards are accepted on the server.)<br>
 ![list](https://imgur.com/PLHi5mS.png)
 
-### Banned
+#### Banned
 * none
-### Limited
+#### Limited
 * D.D. Invader Gargoyle
 * Allure of Darkness
-### Semi-Limited
+#### Semi-Limited
 * none
-### Unbanned cards
+#### Unbanned cards
 * none
 
 ---
 
 ## Decks & replays showing some combos
 
-Replays and decks are NOT downloaded by the autosync feature in EDOPro, you have to download them manually if you want them.
+Unfortunately, decks and replays are not downloaded automatically in Edopro, so I've created a separate repository with sample decks for all my archetypes and replays that showcase an example combo for some decks.
 
-Example decks: https://drive.google.com/file/d/1QEngiI2f62l0hL80K6v9BDVinhyhZ9OF/view?usp=sharing
+#### Example decklists (put them in the .deck. folder)
+https://github.com/Secuter/SecuterYGOCustomCards-Decks-Replays/tree/main/deck
 
-Replays with the basic combo for some of my archetypes: https://drive.google.com/file/d/1K0yPKbseOYubRv8_dkcd3-mc7R264qyl/view?usp=sharing
-
-(In the next days, I'm creating a repository for these as well to make it easier to keep them updated and so you can know which ones have been updated and when.
+#### Example combo replays (put them in the .replay. folder)
+https://github.com/Secuter/SecuterYGOCustomCards-Decks-Replays/tree/main/replay
 
 ## Custom MSE
 
@@ -146,11 +146,13 @@ Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPq
 
 Contiene anche alcune altre feature e shortcut per testi usati di freguente nella carte di yugioh.
 
+### Features
+
 ```
 TODO a list of these shortcuts
 ```
 
-### Export cards as a SQL insert
+#### Export cards as a SQL insert
 
 You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
 
