@@ -144,12 +144,12 @@ https://github.com/Secuter/SecuterYGOCustomCards-Decks-Replays/tree/main/replay
 
 Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
 
-Contiene anche alcune altre feature e shortcut per testi usati di freguente nella carte di yugioh.
+It also contains some useful features and shortcuts for frequently used text in Yu-Gi-Oh! cards.
 
 ### Features
 
 ```
-TODO a list of these shortcuts
+TODO a list of custom shortcuts
 ```
 
 #### Export cards as a SQL insert
@@ -157,6 +157,6 @@ TODO a list of these shortcuts
 You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
 
 ![Sql Exporter](https://imgur.com/7eNfunG.png)<br>
-It creates a SQL INSERT with all the cards selected, the only fields missing is str1, str2, ... because the export script can't know which are the different parts of the effect. You'll have to manually update those.
+It creates a SQL INSERT with all the cards selected with the correct structure for Edopro database, the only fields left empty are str1, str2, ... because the export script can't know which are the different parts of the effect. You'll have to manually update those.
 
 ---
