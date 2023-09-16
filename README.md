@@ -148,9 +148,36 @@ It also contains some useful features and shortcuts for frequently used text in 
 
 ### Features
 
-```
-TODO a list of custom shortcuts
-```
+#### Autoreplace
+
+| Source | Destination | Where |
+| :---   | :---        | :---  |
+| ~/cardname/CARDNAME | The card name | Card text |
+| cardsname/CARDSNAME | The card name with (s) | Card text |
+| @/setname/SETNAME | The 'Name' from set information | Card text |
+| set2name/SET2NAME | The 'Name2' from set information | Card text |
+| set3name/SET3NAME | The 'Name3' from set information | Card text |
+| key/KEYNAME | The 'Keycard' from set information | Card text |
+| §/titlename/TITLENAME | The set's 'Name' without quotes | Card name |
+| title2name/TITLE2NAME | The set's 'Name2' without quotes | Card name |
+| title3name/TITLE3NAME | The set's 'Name3' without quotes | Card name |
+| OPT | 'You can only use this effect of CARDNAME once per turn.' | Card text |
+| EOPT | 'You can only use each effect of CARDNAME once per turn.' | Card text |
+| AOPT | 'You can only activate 1 CARDNAME per turn.' | Card text |
+| HOPT | 'You can only use 1 CARDNAME effect per turn, and only once that turn.' | Card text |
+| SPOPT | 'You can only Special Summon CARDNAME once per turn this way.' | Card text |
+| FOPT | 'You can only use each of the following effects of CARDNAME once per turn.' | Card text |
+| HFOPT | 'You can only use 1 of the following effects of CARDNAME per turn, and only once that turn.' | Card text |
+| % | Continuous S/T icon | Level |
+| ! | Counter T icon | Level |
+| + | Equip S icon | Level |
+| & | Field S icon | Level |
+| $ | Quick-Play S icon | Level |
+| # | Ritual S icon | Level |
+| £ | Armor S/T icon | Level |
+| ^ | Runic S/T icon | Level |
+| * | Level/Rank | Level |
+| ° | Shell Rank | Level |
 
 #### Export cards as a SQL insert
 
