@@ -152,6 +152,13 @@ It also contains some useful features and shortcuts for frequently used text in 
 
 ### Features
 
+#### Export cards as a SQL insert
+
+You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
+
+![Sql Exporter](https://imgur.com/7eNfunG.png)<br>
+It creates a SQL INSERT with all the cards selected with the correct structure for Edopro database, the only fields left empty are str1, str2, ... because the export script can't know which are the different parts of the effect. You'll have to manually update those.
+
 #### Autoreplace
 
 | Source | Destination | Where |
@@ -183,11 +190,5 @@ It also contains some useful features and shortcuts for frequently used text in 
 | * | Level/Rank | Level |
 | ° | Shell Rank | Level |
 
-#### Export cards as a SQL insert
-
-You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
-
-![Sql Exporter](https://imgur.com/7eNfunG.png)<br>
-It creates a SQL INSERT with all the cards selected with the correct structure for Edopro database, the only fields left empty are str1, str2, ... because the export script can't know which are the different parts of the effect. You'll have to manually update those.
-
 ---
+<br><br><br>
