@@ -148,7 +148,8 @@ Download the [zip](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCar
 
 Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
 
-:warning: If you import a set created with a different version of MSE, some text on the card might be blank. Unfortunately, this is not fixable, as it happens because the field name in the MSE style was named differently.<br>
+:warning: If you import a set created with a different version of MSE, some text on the card might be blank.<br>
+Unfortunately, this is not fixable, as it happens because in different custom version of MSE some fields are named differently.<br>
 It also contains some useful features and shortcuts for frequently used text in Yu-Gi-Oh! cards.
 
 ### Fonts
