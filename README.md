@@ -134,12 +134,12 @@ On the server it is recommended to play with this banlist and 'Anything goes'. (
 
 Unfortunately, decks and replays are not downloaded automatically in Edopro, so I've created separate repositories with sample decks for all my archetypes and replays that showcase an example combo for some decks.
 
-#### Example decklists (put them in the deck folder)
+#### Example decklists
 https://github.com/Secuter/SecuterYGOCustomCards-Decks<br>
 <!---Download the [zip](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/Secuter/SecuterYGOCustomCards-Decks/tree/main/deck).-->
 Download the [zip](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-Decks/main/deck.zip).
 
-#### Example combo replays (put them in the replay folder)
+#### Example combo replays
 https://github.com/Secuter/SecuterYGOCustomCards-Replays<br>
 Download the [zip](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-Replays/main/replay.zip).
 <!---Download the [zip](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/Secuter/SecuterYGOCustomCards-Replays/tree/main/replay).-->
