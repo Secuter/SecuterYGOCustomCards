@@ -4,13 +4,39 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
 	--Ritual.AddProcGreater(c,s.rfilter,nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),nil,LOCATION_HAND|LOCATION_DECK)
-	Ritual.AddProcGreater({handler=c,filter=s.rfilter,matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_HAND|LOCATION_DECK})
+	local e1=Ritual.AddProcGreater({handler=c,filter=s.rfilter,matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_HAND|LOCATION_DECK})
+	e1:SetCost(s.cost)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
 s.listed_series={0x205}
 function s.rfilter(c)
 	return c:IsSetCard(0x205) and (c:GetLevel()<=7 or c:IsLocation(LOCATION_HAND))
 end
 
+function s.counterfilter(c)
+	return c:IsAttribute(ATTRIBUTE_DARK)
+end
+
+function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
+	local e1=Effect.CreateEffect(e:GetHandler())
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_OATH)
+	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
+	e1:SetReset(RESET_PHASE+PHASE_END)
+	e1:SetTargetRange(1,0)
+	e1:SetTarget(s.splimit)
+	Duel.RegisterEffect(e1,tp)
+	local e2=Effect.CreateEffect(e:GetHandler())
+	e2:SetProperty(EFFECT_FLAG_PLAYER_TARGET+EFFECT_FLAG_CLIENT_HINT+EFFECT_FLAG_OATH)
+	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetReset(RESET_PHASE+PHASE_END)
+	e2:SetTargetRange(1,0)
+	Duel.RegisterEffect(e2,tp)
+end
+function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
+	return not c:IsAttribute(ATTRIBUTE_DARK)
+end
 function s.filter(c,e,tp,m,ft)
 	if not c:IsSetCard(0x205) or not c:IsType(TYPE_RITUAL) or (c:IsLocation(LOCATION_DECK) and c:GetLevel()>7)
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end

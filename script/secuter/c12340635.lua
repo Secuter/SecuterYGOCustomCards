@@ -1,5 +1,6 @@
 --Anuak Dragonstorm
 --Scripted by Secuter
+if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -18,7 +19,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_IMMUNE_EFFECT)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(s.sfilter)
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsReunion))
 	e2:SetValue(s.immfilter2)
 	c:RegisterEffect(e2)
 	--banish
