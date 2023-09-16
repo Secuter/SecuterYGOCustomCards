@@ -57,7 +57,7 @@ This is done to avoid a delay when opening Edopro. It may not be relevant for re
 The only drawback of this approach is that the image is not updated if it's modified on the repo; you have to manually delete the card(s) from the "pics" folder to download the new one.
 For changes in the card's effect, you won't even notice the difference. Personally, I mostly read the text beneath the card, which is bigger :smile:. That's why I avoid making changes to card materials, level, or ATK/DEF. If it's absolutely necessary, I notify the cards with these changes in the releases on GitHub.<br>
 
-Other developers' repositories contained in the configs file may also have additional archetypes not present on the server.<br>
+:warning: Other developers' repositories contained in the configs file may also have additional archetypes not present on the server.<br>
 Here is a list of archetypes supported on the server in addition to mine.
 | Archetype/s | Developer | Repository | Preview webite |
 | :-------: | :-------: | ---------- | :----------- |
@@ -148,6 +148,8 @@ Download the [zip](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCar
 
 Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
 
+:warning: If you import a set created with a different version of MSE, some text on the card might be blank. Unfortunately, this is not fixable, as it happens because the field name in the MSE style was named differently.<br>
+It contains more fonts than those actually used, but I left them all to not miss any.<br>
 It also contains some useful features and shortcuts for frequently used text in Yu-Gi-Oh! cards.
 
 ### Features
@@ -157,7 +159,24 @@ It also contains some useful features and shortcuts for frequently used text in 
 You have to click on the Export Set icon > HTML > Sql (Sql Exporter).
 
 ![Sql Exporter](https://imgur.com/7eNfunG.png)<br>
-It creates a SQL INSERT with all the cards selected with the correct structure for Edopro database, the only fields left empty are str1, str2, ... because the export script can't know which are the different parts of the effect. You'll have to manually update those.
+It creates a SQL INSERT with all the cards selected with the correct structure for Edopro database.<br>
+:warning: Some fields cannot be completed by the script:
+* str1/str2/... -> these are left empty because the export script can't know which are the different parts of the effect. You'll have to manually update them.
+* setcode -> the export script support only 1 setcode at time. If your set uses 2+ setcodes or sub-archetypes you have to manually change the Insert query generated.
+
+#### Set settings
+
+Name/Name2/Name3/Keycard -> used for autoreplace, see below for the details.
+Code -> 2-4 letters. The set code shown in the card, eg. SAST, DUNE, BODE, etc. ...
+Language -> 2 letters. The code for the language.
+Autonumber -> true/false. Automatically set the 8-digit card gamecode, it combine the 6-digit set.gamecode and a 2-digit progessive.
+Gamecode -> 6-digits. The first part of the generated cardnumber (it uses 999999 otherwise).
+Number starts from -> default 0. Eg. 0 -> autonumber start from 11122200, 3 -> start from 11122203
+Setcode db -> The decimal number used in the 'SQL Export' template as the set code.
+Extra before ST -> true/false. The autonumber function places Extra Deck monsters before Spells/Traps.
+Link after extra -> true/false. The autonumber function places Link monsters after other Extra Deck monsters
+Edition -> string. The card edition field, eg. 1st Edition.
+Copyright -> string. The card copyright field.
 
 #### Autoreplace
 
