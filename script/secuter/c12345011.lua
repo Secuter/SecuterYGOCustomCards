@@ -83,7 +83,7 @@ end
 --negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
-	return rp~=tp and Duel.IsChainNegatable(ev) and re:IsActiveType(Duel.GetFlagEffectLabel(tp,id))
+	return rp~=tp and Duel.IsChainNegatable(ev) and re:IsActiveType(Duel.GetFlagEffectLabel(tp,id) or 0)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)	
 	if chk==0 then return true end
@@ -97,7 +97,9 @@ function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and not re:IsActiveType(EFFECT_TYPE_CONTINUOUS)
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,1,0,re:GetActiveType()&(TYPE_MONSTER+TYPE_SPELL+TYPE_TRAP))
+	--Duel.RegisterFlagEffect(int player, int code, int reset_flag, int property, int reset_count[, int label = 0])
+	Duel.ResetFlagEffect(tp,id)
+	Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1,(re:GetActiveType()&(TYPE_MONSTER+TYPE_SPELL+TYPE_TRAP)))
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
