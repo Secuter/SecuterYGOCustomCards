@@ -80,8 +80,8 @@ end
 function s.tdop(e,tp,eg,ep,ev,re,r,rp)	
 	local c=e:GetHandler()
 	local tg=Duel.GetTargetCards(e)
-	if c:IsRelateToEffect(e) or #tg>0 then
-		if c:IsRelateToEffect(e) then tg:AddCard(c) end
+	if c:IsRelateToEffect(e) and #tg>0 then
+		tg:AddCard(c)
 		if Duel.SendtoDeck(tg,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)>0 and tg:FilterCount(Card.IsLocation,nil,LOCATION_DECK|LOCATION_EXTRA)==3 then
 			Duel.BreakEffect()
 			Duel.Draw(tp,1,REASON_EFFECT)
