@@ -1,6 +1,6 @@
 --External Worlds Enchantress
-local s,id=GetID()
 --Scripted by Secuter
+local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
 	--splimit

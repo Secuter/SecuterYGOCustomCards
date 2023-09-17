@@ -1,6 +1,6 @@
 ---External Worlds Counter
-local s,id=GetID()
 --Scripted by Secuter
+local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)

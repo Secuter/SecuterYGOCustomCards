@@ -1,6 +1,6 @@
 --External Worlds Dark Synchro Dragon
-local s,id=GetID()
 --Scripted by Secuter
+local s,id=GetID()
 function s.initial_effect(c)
 	--dark synchro summon 
 	c:EnableReviveLimit()

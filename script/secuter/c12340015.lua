@@ -1,6 +1,6 @@
 --External Worlds Ruins
-local s,id=GetID()
 --Scripted by Secuter
+local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
 	c:EnableCounterPermit(0x300)

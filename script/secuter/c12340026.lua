@@ -1,6 +1,6 @@
 --External Worlds Xyz Rank 12
-local s,id=GetID()
 --Scripted by Secuter
+local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
 	Xyz.AddProcedure(c,s.xyzfilter,12,2)
