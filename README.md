@@ -173,14 +173,27 @@ It creates a SQL INSERT with all the cards selected with the correct structure f
 Name/Name2/Name3/Keycard -> used for autoreplace, see below for the details.
 Code -> 2-4 letters. The set code shown in the card, eg. SAST, DUNE, BODE, etc. ...
 Language -> 2 letters. The code for the language.
-Autonumber -> true/false. Automatically set the 8-digit card gamecode, it combine the 6-digit set.gamecode and a 2-digit progessive.
-Gamecode -> 6-digits. The first part of the generated cardnumber (it uses 999999 otherwise).
-Number starts from -> default 0. Eg. 0 -> autonumber start from 11122200, 3 -> start from 11122203
-Setcode db -> The decimal number used in the 'SQL Export' template as the set code.
-Extra before ST -> true/false. The autonumber function places Extra Deck monsters before Spells/Traps.
-Link after extra -> true/false. The autonumber function places Link monsters after other Extra Deck monsters
 Edition -> string. The card edition field, eg. 1st Edition.
 Copyright -> string. The card copyright field.
+
+**Settings for auto-generated gamecode**
+Autonumber -> true/false. Automatically set the 8-digit card gamecode, it combine the 6-digit set.gamecode and a 2-digit progessive. (This is not destructive, the manual inserted value is restored if you disable the option.)
+Gamecode -> 6-digits. The first part of the generated cardnumber (it uses 999999 otherwise).
+Number starts from -> default 0. Eg. 0 -> autonumber start from 11122200, 3 -> start from 11122203
+Setcode db -> The decimal or hex number used in the 'SQL Export' template as the set code. Eg. 687 or 0x2AF.
+Extra before ST -> true/false. The autonumber function places Extra Deck monsters before Spells/Traps.
+Link after extra -> true/false. The autonumber function places Link monsters after other Extra Deck monsters
+
+#### Settings in the editor
+
+To order the cards for the 'autogamecode', you first need to add them to the visible columns by right-clicking on the column headers.
+
+There is additional settings in the editor:
+* Hidden square on the left side of the game code (12345678) -> For cards added later, selecting '1st Expansion' will place them after the 'Original' (to avoid modifying the ID of old cards).
+* Hidden square on the right side of the card number (SET-EN01) -> To arrange the cards among those of the same type, to change the order of Xyz Monsters or Spell cards.
+* Hidden square on the top left of the Attribute symbol -> To set a dual Attribute.
+
+![Editor extra fields](https://imgur.com/hD62ciB.png)
 
 #### Autoreplace
 
