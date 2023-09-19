@@ -1,5 +1,6 @@
 --Soulbound Twins
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -28,13 +29,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and re:IsActiveType(TYPE_SPELL)
 end
 function s.spfilter(c,e,tp)
-	return c:IsLevelAbove(5) and c:IsSetCard(0x22A) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevelAbove(5) and c:IsSetCard(SET_SOULBOUND) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT)
@@ -63,7 +64,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_COST) and re:IsActivated() and re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsRace(RACE_FAIRY)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x22A) and not c:IsCode(id) and c:IsFaceup()
+	return c:IsSetCard(SET_SOULBOUND) and not c:IsCode(id) and c:IsFaceup()
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

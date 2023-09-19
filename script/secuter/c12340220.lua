@@ -1,12 +1,12 @@
 --Fluid Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x204),2,99)
-    --Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x204),8,2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_FLUID),2,99)
+    --Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_FLUID),8,2,99)
     --to deck
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -21,11 +21,11 @@ function s.initial_effect(c)
 	e1:SetOperation(s.operation)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 function s.cfilter(c,tp,sc)
     return (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE))
-        and c:IsSetCard(0x204) and c:GetLevel()>0 and c:IsAbleToDeckOrExtraAsCost()
+        and c:IsSetCard(SET_FLUID) and c:GetLevel()>0 and c:IsAbleToDeckOrExtraAsCost()
         and Duel.IsExistingMatchingCard(s.tfilter,tp,LOCATION_MZONE,LOCATION_MZONE,1,c,c:GetLevel(),sc)
 end
 function s.tdfilter(c,lvl)

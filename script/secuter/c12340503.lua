@@ -1,5 +1,6 @@
 --Fire Core Tiger
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--return to hand
@@ -29,7 +30,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x207}
+s.listed_series={SET_FIRE_CORE}
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_EFFECT)
 end
@@ -51,7 +52,7 @@ function s.desfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x207) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil)

@@ -1,7 +1,6 @@
 --Crearmor Great Tyrant
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=600
 s.ArmorDef=0
@@ -58,10 +57,10 @@ function s.initial_effect(c)
 	e5:SetOperation(s.desop2)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x22B}
-s.material_setcode={0x22B}
+s.listed_series={SET_CREARMOR}
+s.material_setcode={SET_CREARMOR}
 function s.rfilter2(c)
-	return c:IsArmorizing() and c:IsSetCard(0x22B)
+	return c:IsArmorizing() and c:IsSetCard(SET_CREARMOR)
 end
 --destroy
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
@@ -104,7 +103,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.bdcon(e,tp,eg,ep,ev,re,r,rp) and Armor.Condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22B) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_CREARMOR) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

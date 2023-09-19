@@ -1,9 +1,10 @@
 --External Worlds Synchro *9
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
-	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTuner(Card.IsSetCard,0x201),1,99)
+	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTuner(Card.IsSetCard,SET_EXTERNAL_WORLDS),1,99)
 	c:EnableReviveLimit()
 	--send to gy
 	local e1=Effect.CreateEffect(c)
@@ -32,13 +33,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.disop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -53,7 +54,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.filter(c,tp)
-	return c:IsControler(tp) and c:IsFaceup() and c:IsSetCard(0x201) and c:IsLocation(LOCATION_ONFIELD)
+	return c:IsControler(tp) and c:IsFaceup() and c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsLocation(LOCATION_ONFIELD)
 end
 function s.cond(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end

@@ -1,7 +1,7 @@
 --Dark Sovereign Manor
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
@@ -24,10 +24,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x205,0x230}
+s.listed_series={SET_DARK_KING,SET_DARK_SOVEREIGN}
 --search
 function s.filter(c)
-	return (c:IsSetCard(0x205) or c:IsSetCard(0x230)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_DARK_KING) or c:IsSetCard(SET_DARK_SOVEREIGN)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

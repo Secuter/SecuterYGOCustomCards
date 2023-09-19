@@ -1,5 +1,6 @@
 --Greedy Ent of the Primeval Forest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search (flip)
@@ -38,10 +39,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.negop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
 --search ST
 function s.thfilter(c)
-	return c:IsSetCard(0x234) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

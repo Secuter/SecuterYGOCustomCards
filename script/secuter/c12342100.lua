@@ -1,6 +1,6 @@
 --Invoker
 --Scripted by Secuter
-if not ECHO_IMPORTED then dofile Duel.LoadScript("proc_echo.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
 function s.initial_effect(c)
@@ -39,10 +39,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={47457347,00458748}
-s.listed_series={0x431}
+s.listed_series={SET_INVOKED}
 
 function s.efilter(c,sc,sumtype,tp)
-	return c:IsType(TYPE_FUSION,sc,sumtype,tp) and c:IsSetCard(0xf4)
+	return c:IsType(TYPE_FUSION,sc,sumtype,tp) and c:IsSetCard(SET_INVOKED)
 end
 
 function s.thfilter(c)
@@ -62,7 +62,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.adfilter(c)
-	return c:IsSetCard(0xf4) and c:IsType(TYPE_MONSTER) and c:IsLocation(LOCATION_GRAVE) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_INVOKED) and c:IsType(TYPE_MONSTER) and c:IsLocation(LOCATION_GRAVE) and c:IsAbleToRemoveAsCost()
 end
 function s.adcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()~=PHASE_DAMAGE or not Duel.IsDamageCalculated()

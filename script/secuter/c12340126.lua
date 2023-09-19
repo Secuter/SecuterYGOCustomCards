@@ -1,5 +1,6 @@
 --Undead
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -28,10 +29,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x202}
+s.listed_series={SET_UNDEAD}
 
 function s.filter(c)
-	return c:IsSetCard(0x202) and c:IsType(TYPE_MONSTER) and c:GetAttack()==0 and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:GetAttack()==0 and c:IsAbleToHand()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -55,7 +56,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x202) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

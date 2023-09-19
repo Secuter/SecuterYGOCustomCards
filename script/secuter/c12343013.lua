@@ -1,6 +1,6 @@
 --Hailshift Dragon
 --Scripted by Secuter
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Exchange=true
 function s.initial_effect(c)
@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 --destroy
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
@@ -42,7 +42,7 @@ function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x224) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsAbleToRemoveAsCost()
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ct=math.min(2,Duel.GetFieldGroupCount(tp,0,LOCATION_ONFIELD))

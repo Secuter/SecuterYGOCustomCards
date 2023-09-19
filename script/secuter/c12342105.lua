@@ -1,8 +1,8 @@
 --Void Cracking Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.rfilter,2,99,s.rcheck,true)
@@ -46,10 +46,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x20C}
+s.listed_series={SET_CRACKING}
 s.material={60349525}
-function Card.IsCracking(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) end
-function Card.IsCrackingOrWyvern(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) or c:IsCode(23850421) end
+function Card.IsCracking(c,tc,sumtype,tp) return c:IsSetCard(SET_CRACKING,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) end
+function Card.IsCrackingOrWyvern(c,tc,sumtype,tp) return c:IsSetCard(SET_CRACKING,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) or c:IsCode(23850421) end
 --reunion
 function s.rfilter(c,sc)
 	return (c:IsCode(60349525) and c:IsControler(sc:GetControler())) or c:IsType(TYPE_LINK)

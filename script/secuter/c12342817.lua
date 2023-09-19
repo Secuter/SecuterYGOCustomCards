@@ -1,5 +1,6 @@
 --Wyrmwind Northern Wyvern
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon + level change
@@ -26,7 +27,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x220}
+s.listed_series={SET_WYRMWIND}
 --spsummon + level change
 function s.spfilter(c,lv)
 	return c:IsFaceup() and c:GetLevel()>0 and not c:IsLevel(lv) and c:IsAttribute(ATTRIBUTE_WIND)
@@ -75,7 +76,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_OVERLAY)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x220) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WYRMWIND) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

@@ -1,8 +1,8 @@
 --Fluid Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.mfilter,2,99,nil,nil,LOCATION_MZONE+LOCATION_GRAVE,REUNION_MAT_TODECK)
@@ -41,18 +41,18 @@ function s.initial_effect(c)
 	e4:SetOperation(s.mtop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 function s.mfilter(c)
-	return c:IsSetCard(0x204)
+	return c:IsSetCard(SET_FLUID)
 end
 
 function s.costfilter(c,e,tp,sc,ft)
     return (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE)) and (ft>0 or c:IsLocation(LOCATION_MZONE))
-        and c:IsSetCard(0x204) and c:GetLevel()>0 and c:IsAbleToDeckOrExtraAsCost()
+        and c:IsSetCard(SET_FLUID) and c:GetLevel()>0 and c:IsAbleToDeckOrExtraAsCost()
         and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetLevel())
 end
 function s.spfilter(c,e,tp,lvl)
-	return c:IsSetCard(0x204) and c:IsType(TYPE_MONSTER) and c:IsLevel(lvl*2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_FLUID) and c:IsType(TYPE_MONSTER) and c:IsLevel(lvl*2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
     local c=e:GetHandler()

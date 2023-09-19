@@ -1,5 +1,6 @@
 --Freeflame Ogre
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -33,7 +34,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x231}
+s.listed_series={SET_FREEFLAME}
 --spsummon itself
 function s.spfilter(c,tp)
 	return c:IsAttribute(ATTRIBUTE_FIRE) and c:IsDefense(200) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true) 
@@ -63,7 +64,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 --send to gy
 function s.tgfilter(c)
-	return ((c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(0x231)) or (c:IsAttribute(ATTRIBUTE_FIRE) and c:IsDefense(200))) and not c:IsCode(id) and c:IsAbleToGrave()
+	return ((c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSetCard(SET_FREEFLAME)) or (c:IsAttribute(ATTRIBUTE_FIRE) and c:IsDefense(200))) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

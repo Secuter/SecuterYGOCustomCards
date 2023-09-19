@@ -1,5 +1,6 @@
 --Yoccol Ritual
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -17,9 +18,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12342704}
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 function s.thfilter(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
 end
 function s.tdfilter(c)
 	return c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsAbleToExtra()

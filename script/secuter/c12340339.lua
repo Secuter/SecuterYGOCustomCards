@@ -1,7 +1,7 @@
 --Dark King - Alkyoneus
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 s.Runic=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -47,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x205,0x230}
+s.listed_series={SET_DARK_KING,SET_DARK_SOVEREIGN}
 --remove
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
@@ -70,7 +70,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.thfilter(c)
-	return (c:IsSetCard(0x205) or c:IsSetCard(0x230)) and not c:IsCode(id) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_DARK_KING) or c:IsSetCard(SET_DARK_SOVEREIGN)) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end
@@ -91,7 +91,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToRemoveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToRemoveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()

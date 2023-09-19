@@ -1,5 +1,6 @@
 --Morai Spawn
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -25,9 +26,9 @@ function s.initial_effect(c)
 	e3:SetValue(s.linklimit)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 function s.spfilter(c,e)
-	return c:IsSetCard(0x209) and c:IsLevelAbove(7)
+	return c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.spfilter,1,nil) and eg:GetFirst():IsControler(tp)
@@ -46,5 +47,5 @@ end
 
 function s.linklimit(e,c)
 	if not c then return false end
-	return not c:IsSetCard(0x209)
+	return not c:IsSetCard(SET_MORHAI)
 end

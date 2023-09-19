@@ -1,5 +1,6 @@
 --External Worlds Last Gate
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --Activate
@@ -24,9 +25,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.psop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x2201}
+s.listed_series={SET_EXTERNAL_WORLDS_HERO}
 function s.filter(c)
-    return c:IsSetCard(0x2201) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+    return c:IsSetCard(SET_EXTERNAL_WORLDS_HERO) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -42,11 +43,11 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.rfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_PENDULUM) and c:IsAbleToRemove()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and c:IsAbleToRemove()
         and Duel.IsExistingMatchingCard(s.psfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.psfilter(c,code)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_PENDULUM) and not c:IsCode(code) and not c:IsForbidden()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and not c:IsCode(code) and not c:IsForbidden()
 end
 function s.pstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_PZONE) and chkc:IsControler(tp) and s.rmfilter(chkc) end

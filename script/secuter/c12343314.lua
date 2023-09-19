@@ -1,5 +1,6 @@
 --Pyroclast Crown
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,9 +27,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x226}
+s.listed_series={SET_PYROCLAST}
 function s.thfilter(c,e)
-	return c:IsSetCard(0x226) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:IsCanBeEffectTarget(e)
+	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:IsCanBeEffectTarget(e)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc,e) end
@@ -50,13 +51,13 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.cfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x226) and c:IsSummonType(SUMMON_TYPE_FUSION) and c:IsSummonPlayer(tp)
+	return c:IsFaceup() and c:IsSetCard(SET_PYROCLAST) and c:IsSummonType(SUMMON_TYPE_FUSION) and c:IsSummonPlayer(tp)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x226) and c:IsType(TYPE_MONSTER) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_MONSTER) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and s.thfilter2(chkc) end

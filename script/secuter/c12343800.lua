@@ -1,7 +1,7 @@
 --Crearmor Hasty Wyvern
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -31,10 +31,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.atop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x22B),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_CREARMOR),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -50,7 +50,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --attach
 function s.atfilter(c,sc)
-	return c:IsFaceup() and c:IsSetCard(0x22B) and Armor.AttachCheck(sc,c)
+	return c:IsFaceup() and c:IsSetCard(SET_CREARMOR) and Armor.AttachCheck(sc,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and s.filter(chkc) end

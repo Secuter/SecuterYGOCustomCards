@@ -1,5 +1,6 @@
 --Fluidosphere Enchantress
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -30,10 +31,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.efop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 --spsummon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x3204) and c:IsLevel(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsLevel(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -80,7 +81,7 @@ function s.xyzcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x3204) and c:IsLevel(8) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsLevel(8) and c:IsAbleToHand()
 end
 function s.xyztg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

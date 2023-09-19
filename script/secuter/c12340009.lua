@@ -1,5 +1,6 @@
 --External Worlds Lord
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -25,10 +26,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x201)
+	return c:IsFaceup() and c:IsSetCard(SET_EXTERNAL_WORLDS)
 end
 function s.filter2(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_FIRE)
@@ -44,7 +45,7 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetBattleTarget()
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
         and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)

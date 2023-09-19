@@ -1,5 +1,6 @@
 --Rascal Ace Destroyer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -36,10 +37,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.spfilter(c,e,tp)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
-		and c:IsSetCard(0x21D) and not c:IsCode(id)
+		and c:IsSetCard(SET_RASCAL_ACE) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -58,7 +59,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsReason(REASON_COST) and re:IsActivated() and re:GetHandler():IsSetCard(0x21D)
+	return e:GetHandler():IsReason(REASON_COST) and re:IsActivated() and re:GetHandler():IsSetCard(SET_RASCAL_ACE)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end

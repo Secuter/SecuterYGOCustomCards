@@ -1,5 +1,6 @@
 --External Worlds Synchro Summon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -13,12 +14,12 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.cfilter(c,tc)
 	return c:IsRace(RACE_DRAGON) and c:IsSynchroSummonable(tc)
 end
 function s.spfilter(c,e,tp)
-	return c:IsCanBeSpecialSummoned(e,182,tp,false,false) and c:IsSetCard(0x201) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
+	return c:IsCanBeSpecialSummoned(e,182,tp,false,false) and c:IsSetCard(SET_EXTERNAL_WORLDS) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 		and Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_EXTRA,0,1,nil,c)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

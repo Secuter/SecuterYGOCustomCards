@@ -1,5 +1,6 @@
 --Eternal Storm Titan
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -44,10 +45,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x221}
+s.listed_series={SET_ETERNAL_STORM}
 --spsummon itself
 function s.cfilter(c,ft,tp)
-	return c:IsSetCard(0x221) and (ft>0 or c:IsInMainMZone(tp))
+	return c:IsSetCard(SET_ETERNAL_STORM) and (ft>0 or c:IsInMainMZone(tp))
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
@@ -68,7 +69,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x221) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_ETERNAL_STORM) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

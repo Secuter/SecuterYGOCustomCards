@@ -1,5 +1,6 @@
 --Hailshift Restriction
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -24,12 +25,12 @@ function s.initial_effect(c)
 	e2:SetOperation(s.setop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsChainNegatable(ev) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function s.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x224) and c:IsAbleToHand()
+	return c:IsFaceup() and c:IsSetCard(SET_HAILSHIFT) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.thfilter(chkc) end

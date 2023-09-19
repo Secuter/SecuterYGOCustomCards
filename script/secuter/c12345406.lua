@@ -1,5 +1,6 @@
 --Worldless Cyclone
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.setop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --destroy
 function s.filter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)
@@ -51,7 +52,7 @@ function s.setcon(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),0,LOCATION_SZONE)==0
 end
 function s.setfilter(c)
-	return c:IsSetCard(0x20F) and c:IsTrap() and c:IsSSetable()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsTrap() and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_DECK,0,1,nil) end

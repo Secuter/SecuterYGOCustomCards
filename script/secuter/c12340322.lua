@@ -1,5 +1,6 @@
 --Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -25,10 +26,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.operation)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 
 function s.linkfilter(c)
-    return c:IsSetCard(0x205) and c:IsType(TYPE_RITUAL)
+    return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_RITUAL)
 end
 
 function s.atkfilter(c)
@@ -43,7 +44,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.filter(c)
-	return c:IsSetCard(0x205) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DARK_KING) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc) end

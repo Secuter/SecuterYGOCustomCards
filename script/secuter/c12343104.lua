@@ -1,5 +1,6 @@
 --Magic Tower Master
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -37,10 +38,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x222}
+s.listed_series={SET_MAGIC_TOWER}
 --spsummon
 function s.spfilter1(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsSetCard(0x222) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsSetCard(SET_MAGIC_TOWER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

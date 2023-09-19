@@ -1,5 +1,6 @@
 --Worldless Dark Wings
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -25,13 +26,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --draw
 function s.drcon(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),0,LOCATION_MZONE)==0
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:IsDiscardable()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsDiscardable()
 end
 function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,2)
@@ -54,7 +55,7 @@ function s.thcon(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),0,LOCATION_MZONE)>0
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -80,5 +81,5 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	c:RegisterEffect(e1)
 end
 function s.atktg(e,c)
-	return c:GetOriginalLevel()==8 and c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON)
+	return c:GetOriginalLevel()==8 and c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON)
 end

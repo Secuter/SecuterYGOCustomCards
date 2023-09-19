@@ -1,5 +1,6 @@
 --Magic Tower Sphere of Fusion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	local e1=Fusion.CreateSummonEff(c,aux.FilterBoolFunction(Card.IsRace,RACE_SPELLCASTER),s.matfilter,s.extrafil,Fusion.BanishMaterial,nil,s.stage2)

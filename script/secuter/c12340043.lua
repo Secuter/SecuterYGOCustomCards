@@ -1,5 +1,6 @@
 --External Worlds Lord EARTH
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -51,13 +52,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 --spsummon itself from PZ
 function s.filter(c)
-	return c:IsSetCard(0x201) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsFaceup()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAttribute(ATTRIBUTE_EARTH) and c:IsFaceup()
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -77,7 +78,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x201) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -99,7 +100,7 @@ function s.dmgop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCode(EFFECT_PIERCE)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x201))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_EXTERNAL_WORLDS))
 	e1:SetReset(RESET_PHASE|PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end

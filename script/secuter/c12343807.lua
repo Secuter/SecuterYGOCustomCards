@@ -1,11 +1,11 @@
 --Crearmor Infinite Aegis
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
-s.AttachFilter=function(c) return c:IsSetCard(0x22B) end
+s.AttachFilter=function(c) return c:IsSetCard(SET_CREARMOR) end
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --immune
 function s.immcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetOverlayCount()>=2
@@ -88,10 +88,10 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and (r&REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x22B) and not c:IsCode(id) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_CREARMOR) and not c:IsCode(id) and Armor.AttachCheck(c,sc)
 end
 function s.tgfilter(c,tp)
-	return c:IsSetCard(0x22B) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

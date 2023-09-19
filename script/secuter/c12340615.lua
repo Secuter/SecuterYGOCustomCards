@@ -1,5 +1,6 @@
 --Anuak Field Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x208))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_ANUAK))
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -42,13 +43,13 @@ function s.initial_effect(c)
 	e5:SetOperation(s.op)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 function s.desfilter(c,tp)
-	return c:IsSetCard(0x208) and c:IsFaceup()
+	return c:IsSetCard(SET_ANUAK) and c:IsFaceup()
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter(c,code)
-	return c:IsSetCard(0x208) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,LOCATION_ONFIELD,0,1,e:GetHandler(),e:GetHandlerPlayer()) end
@@ -74,7 +75,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_FZONE) and c:GetPreviousSequence()==5 and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_DESTROY)
 end
 function s.filter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.filter(chkc) end

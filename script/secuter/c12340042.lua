@@ -1,5 +1,6 @@
 --External Worlds Lord WATER
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -53,13 +54,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 --spsummon itself from PZ
 function s.filter(c)
-	return c:IsSetCard(0x201) and c:IsAttribute(ATTRIBUTE_WATER) and c:IsFaceup()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAttribute(ATTRIBUTE_WATER) and c:IsFaceup()
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -79,7 +80,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 end
 --search mom
 function s.thfilter(c)
-	return c:IsSetCard(0x201) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -106,7 +107,7 @@ function s.indop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function s.indtg(e,c)
-	return c:IsSetCard(0x201) and c~=e:GetHandler() and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c~=e:GetHandler() and c:IsType(TYPE_MONSTER)
 end
 function s.efilter(e,re,rp,c)
 	return re:GetOwner()~=c

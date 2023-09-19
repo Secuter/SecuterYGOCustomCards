@@ -1,5 +1,6 @@
 --Blaze Dragonlady Queen
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -47,10 +48,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 s.listed_names={id}
 function s.lcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x228,lc,sumtype,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_BLAZE_DRAGONLADY,lc,sumtype,tp)
 end
 function s.znval(e)
 	return ~(e:GetHandler():GetLinkedZone()&0x60)
@@ -60,7 +61,7 @@ function s.atcon(e)
 end
 --spsummon
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x228) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -81,7 +82,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return (c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT)) and c:IsSummonType(SUMMON_TYPE_LINK) and c:GetPreviousControler()==tp
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x228) and not c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

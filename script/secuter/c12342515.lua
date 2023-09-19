@@ -1,5 +1,6 @@
 --Rascal Ace Cannon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -25,9 +26,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.cnop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.cfilter(c)
-	return c:IsSetCard(0x21D) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsAbleToRemoveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_GRAVE,0,1,nil) end
@@ -50,11 +51,11 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.cnfilter(c,code)
-	return c:IsSetCard(0x21D) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
 		and c:IsCanBeEffectTarget() and not c:IsCode(code)
 end
 function s.cfilter(c,tp)	
-	return c:IsSetCard(0x21D) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(s.cnfilter,tp,LOCATION_MZONE,0,1,nil,c:GetOriginalCode())
 end
 function s.cncost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -67,7 +68,7 @@ function s.cncost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(cg:GetFirst():GetCode())
 end
 function s.cnfilter2(c,code)
-	return c:IsSetCard(0x21D) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and not c:IsCode(code)
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and not c:IsCode(code)
 end
 function s.cntg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

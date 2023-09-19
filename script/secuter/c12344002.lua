@@ -1,5 +1,6 @@
 --Pelagic Hunter
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	-- search
@@ -32,10 +33,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x22D}
+s.listed_series={SET_PELAGIC}
 -- search
 function s.thfilter(c)
-	return c:IsSetCard(0x22D) and not c:IsCode(id) and (c:IsAbleToHand() or c:IsAbleToGrave())
+	return c:IsSetCard(SET_PELAGIC) and not c:IsCode(id) and (c:IsAbleToHand() or c:IsAbleToGrave())
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -49,7 +50,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 -- spsummon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22D) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_PELAGIC) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

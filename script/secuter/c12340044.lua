@@ -1,5 +1,6 @@
 --External Worlds Tree of the End
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableCounterPermit(0x306)
@@ -39,9 +40,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.psop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x201,0x1201}
+s.listed_series={SET_EXTERNAL_WORLDS,SET_EXTERNAL_WORLDS_LORD}
 function s.filter(c)
-	return c:IsSetCard(0x1201) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS_LORD) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -64,7 +65,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
     e:GetHandler():RemoveCounter(tp,0x306,2,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x201) and c:IsMonster() and c:IsAbleToHand() and c:IsFaceup()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsMonster() and c:IsAbleToHand() and c:IsFaceup()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_EXTRA,0,1,nil) end

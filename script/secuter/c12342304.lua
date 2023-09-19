@@ -1,5 +1,6 @@
 --Machine Force Destroyer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -49,16 +50,16 @@ function s.initial_effect(c)
 	e5:SetValue(aux.tgoval)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x21b}
+s.listed_series={SET_MACHINE_FORCE}
 function s.lfilter(c)
-	return not c:IsType(TYPE_LINK) and c:IsSetCard(0x21b)
+	return not c:IsType(TYPE_LINK) and c:IsSetCard(SET_MACHINE_FORCE)
 end
 
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x21b) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MACHINE_FORCE) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

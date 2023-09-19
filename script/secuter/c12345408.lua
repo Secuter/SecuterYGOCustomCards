@@ -1,5 +1,6 @@
 --Worldless Summoning
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--send to grave
@@ -24,10 +25,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --send to grave
 function s.thfilter(c)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
 end
 function s.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,e:GetHandler(),tp) end
@@ -50,10 +51,10 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and c:IsAbleToDeck()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and c:IsAbleToDeck()
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x20F) and c:IsLevelBelow(3) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_WORLDLESS) and c:IsLevelBelow(3) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -94,8 +95,8 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(c,tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x20F) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_WORLDLESS) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x20F)
+	return not c:IsSetCard(SET_WORLDLESS)
 end

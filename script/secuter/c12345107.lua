@@ -1,8 +1,8 @@
 --Golden Angul the Aetherock Chief
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	--reunion summon
 	c:EnableReviveLimit()
@@ -40,7 +40,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x20D}
+s.listed_series={SET_AETHEROCK}
 --atk
 function s.filter(c)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsType(TYPE_XYZ) and c:GetRank()>0

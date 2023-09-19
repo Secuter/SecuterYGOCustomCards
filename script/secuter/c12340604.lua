@@ -1,5 +1,6 @@
 --Anuak 7*L
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 function s.spfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and not c:IsPublic()
 end
@@ -51,7 +52,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.filter(c)
-	return c:IsSetCard(0x208) and c:IsFaceup() and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_ANUAK) and c:IsFaceup() and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)    
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.filter(chkc) end
@@ -68,7 +69,7 @@ function s.sumop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(e:GetHandler():GetReason(),0x41)==0x41 and e:GetHandler():GetReasonPlayer()~=tp
+	return bit.band(e:GetHandler():GetReason(),REASON_DESTROY|REASON_EFFECT)==REASON_DESTROY|REASON_EFFECT and e:GetHandler():GetReasonPlayer()~=tp
 end
 function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler():GetReasonEffect():GetHandler()

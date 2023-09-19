@@ -1,5 +1,6 @@
 --Dark King S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -35,7 +36,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.counterfilter(c)
 	return not c:IsSummonLocation(LOCATION_EXTRA)
 end
@@ -83,7 +84,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:IsSummonLocation(LOCATION_EXTRA)
 end
 function s.actfilter(c,tp)
-	return c:IsSetCard(0x205) and c:IsType(TYPE_SPELL) and c:IsType(TYPE_FIELD+TYPE_CONTINUOUS)
+	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_SPELL) and c:IsType(TYPE_FIELD+TYPE_CONTINUOUS)
 		and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
 end
 function s.acttg(e,tp,eg,ep,ev,re,r,rp,chk)

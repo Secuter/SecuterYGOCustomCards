@@ -1,5 +1,6 @@
 --Rascal Ace Start-Up
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -35,9 +36,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.thfilter(c)
-	return c:IsSetCard(0x21D) and c:IsRace(RACE_MACHINE) and c:IsAbleToHand()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsRace(RACE_MACHINE) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -56,7 +57,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsRace,RACE_PSYCHIC),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x21D) and c:IsRace(RACE_MACHINE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_RASCAL_ACE) and c:IsRace(RACE_MACHINE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -73,7 +74,7 @@ end
 
 function s.thfilter2(c)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
-		and c:IsSetCard(0x21D) and not c:IsCode(id) and c:IsAbleToHand()
+		and c:IsSetCard(SET_RASCAL_ACE) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil) end

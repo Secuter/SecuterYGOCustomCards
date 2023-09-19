@@ -1,5 +1,6 @@
 --Fire Core Hawk
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--to grave
@@ -29,13 +30,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x207}
+s.listed_series={SET_FIRE_CORE}
 
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_EFFECT)
 end
 function s.tgfilter(c,e,tp)
-    return c:IsSetCard(0x207) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
+    return c:IsSetCard(SET_FIRE_CORE) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

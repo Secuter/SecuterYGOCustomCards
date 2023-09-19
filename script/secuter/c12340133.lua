@@ -1,8 +1,8 @@
 --Undead Master of Infection
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)
@@ -34,13 +34,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.drop)
 	c:RegisterEffect(e2)
 end
-s.material_setcode={0x202}
+s.material_setcode={SET_UNDEAD}
 --ignition
 function s.ignfilter1(c)
 	return c:IsRace(RACE_ZOMBIE)
 end
 function s.ignfilter2(c)
-	return c:IsSetCard(0x202)
+	return c:IsSetCard(SET_UNDEAD)
 end
 --token
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
@@ -53,13 +53,13 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12340198,0x202,TYPES_TOKEN,0,0,1,RACE_ZOMBIE,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12340198,SET_UNDEAD,TYPES_TOKEN,0,0,1,RACE_ZOMBIE,ATTRIBUTE_DARK) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,12340198,0x202,TYPES_TOKEN,0,0,1,RACE_ZOMBIE,ATTRIBUTE_DARK) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,12340198,SET_UNDEAD,TYPES_TOKEN,0,0,1,RACE_ZOMBIE,ATTRIBUTE_DARK) then
 		local token=Duel.CreateToken(tp,12340198)
 		Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP_ATTACK)
 	end

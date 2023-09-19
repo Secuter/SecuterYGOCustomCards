@@ -1,5 +1,6 @@
 --Asura Field
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -47,22 +48,22 @@ function s.initial_effect(c)
 	e6:SetOperation(s.spop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 --anti chain
 function s.cedcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:GetFirst():IsSetCard(0x218) and eg:GetFirst():IsLevelAbove(7)
+	return eg:GetFirst():IsSetCard(SET_ASURA) and eg:GetFirst():IsLevelAbove(7)
 end
 function s.cedop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SetChainLimitTillChainEnd(s.chlimit)
 end
 function s.chlimit(re,rp,tp)
-	return re:GetHandler():IsSetCard(0x218)
+	return re:GetHandler():IsSetCard(SET_ASURA)
 end
 
 --anti negate
 function s.chainop(e,tp,eg,ep,ev,re,r,rp)
 	local rc=eg:GetFirst()
-	if rc:IsSetCard(0x218) and rc:IsLevelAbove(7) and (rc:GetSummonType()==SUMMON_TYPE_NORMAL or rc:GetSummonType()==SUMMON_TYPE_TRIBUTE) then
+	if rc:IsSetCard(SET_ASURA) and rc:IsLevelAbove(7) and (rc:GetSummonType()==SUMMON_TYPE_NORMAL or rc:GetSummonType()==SUMMON_TYPE_TRIBUTE) then
 		Duel.SetChainLimit(s.chainlm)
 	end
 end
@@ -76,7 +77,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and rp~=tp and bit.band(r,REASON_EFFECT)==REASON_EFFECT
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x218) and c:IsLevelAbove(7) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ASURA) and c:IsLevelAbove(7) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

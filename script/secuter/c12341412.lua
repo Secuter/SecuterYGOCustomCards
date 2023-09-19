@@ -1,5 +1,6 @@
 --Ancient Oracle Arachne
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 
 function s.mzfilter(c,tp)
 	return c:IsControler(tp) and c:GetSequence()<5
@@ -77,7 +78,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 		and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_GRAVE+LOCATION_MZONE,0,2,nil) end
@@ -96,7 +97,7 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x211) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.filter(chkc) end

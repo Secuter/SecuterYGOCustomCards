@@ -1,5 +1,6 @@
 --D.D. Invader Sponge
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -52,7 +53,7 @@ function s.initial_effect(c)
 	e6:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x215}
+s.listed_series={SET_D_D__INVADER}
 function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler()~=re:GetHandler()
 end
@@ -95,10 +96,10 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x215) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_D_D__INVADER) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x215)
+	return not c:IsSetCard(SET_D_D__INVADER)
 end
 --spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
@@ -118,7 +119,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --excavate
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsAbleToHand()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>2 end

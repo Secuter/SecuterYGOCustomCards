@@ -1,5 +1,6 @@
 --Walking Tree of the Primeval Forest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--destroy (flip)
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.negop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
 --spsummon
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) end

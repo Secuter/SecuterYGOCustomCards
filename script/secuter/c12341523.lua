@@ -1,7 +1,7 @@
 --Armor S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=300
 s.Armor=true

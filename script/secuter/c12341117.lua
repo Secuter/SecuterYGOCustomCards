@@ -1,5 +1,6 @@
 -- Divine ST
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,e:GetHandler()) end
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
@@ -60,7 +61,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.trfilter(e,c)
-	return (c:GetLevel()>=5 and c:IsSetCard(0x213)) or (c:IsRace(RACE_DIVINE) and c:IsLevel(12))
+	return (c:GetLevel()>=5 and c:IsSetCard(SET_DIVINE_DISCIPLE)) or (c:IsRace(RACE_DIVINE) and c:IsLevel(12))
 end
 
 function s.filter(c)

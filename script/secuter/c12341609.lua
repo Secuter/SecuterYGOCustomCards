@@ -1,5 +1,6 @@
 --Demon Rival Purging Horror (LINK)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -42,10 +43,10 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x216}
-s.material_setcode={0x216}
+s.listed_series={SET_DEMON_RIVAL}
+s.material_setcode={SET_DEMON_RIVAL}
 function s.matfilter(c,scard,sumtype,tp)
-	return c:IsSetCard(0x216,scard,sumtype,tp)
+	return c:IsSetCard(SET_DEMON_RIVAL,scard,sumtype,tp)
 end
 function s.znval(e)
 	return ~(e:GetHandler():GetLinkedZone()&0x60)
@@ -55,7 +56,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

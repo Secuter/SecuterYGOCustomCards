@@ -1,5 +1,6 @@
 -- Divine ST
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -35,7 +36,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
 function s.imfilter(c)
 	return c:IsFaceup() and c:IsRace(RACE_DIVINE) and c:IsLevel(12)
 end
@@ -43,7 +44,7 @@ function s.limcond(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.imfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil) 
 end
 function s.atlimit(e,c)
-	return c:IsFaceup() and c:IsSetCard(0x213)
+	return c:IsFaceup() and c:IsSetCard(SET_DIVINE_DISCIPLE)
 end
 
 function s.cfilter(c,e,tp,rp)

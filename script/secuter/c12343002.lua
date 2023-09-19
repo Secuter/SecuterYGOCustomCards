@@ -1,6 +1,6 @@
 --Exchange Daemon of Vigor
 --Scripted by Secuter
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Exchange=true
 function s.initial_effect(c)
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.exop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x223}
+s.listed_series={SET_EXCHANGE_DAEMON}
 s.listed_names={id}
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

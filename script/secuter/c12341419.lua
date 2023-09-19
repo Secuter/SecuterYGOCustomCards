@@ -1,5 +1,6 @@
 --Ancient Oracle S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -21,14 +22,14 @@ function s.initial_effect(c)
 	e2:SetTarget(s.sptg)
 	e2:SetOperation(s.spop)
 end
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 
 function s.filter(c,g,e,tp)
-	return c:GetLevel()>0 and c:IsSetCard(0x211) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:GetLevel()>0 and c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 		and g:CheckWithSumEqual(Card.GetLevel,c:GetLevel()*2,1,99)
 end
 function s.rfilter(c)
-	return c:GetLevel()>0 and c:IsSetCard(0x211) and c:IsAbleToRemove()
+	return c:GetLevel()>0 and c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToRemove()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -55,7 +56,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x211) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) 
+	return c:IsFaceup() and c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) 
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.spfilter(chkc,e,tp) end

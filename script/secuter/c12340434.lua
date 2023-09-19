@@ -1,5 +1,6 @@
 --Hydra Barrage
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -40,7 +41,7 @@ function s.initial_effect(c)
 	e3:SetLabel(3)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 s.check=false
 
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)

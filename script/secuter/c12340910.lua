@@ -1,12 +1,12 @@
 --Vritra - Asura of Thousand Dragons
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	--reunion summon0
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x218),2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_ASURA),2,99)
 	--gain attributes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	e6:SetOperation(s.spop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.matcheck(e,c)
 	local att=e:GetHandler():GetMaterial():GetBitwiseOr(Card.GetAttribute)
 	if att>0 then
@@ -111,7 +111,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:GetPreviousControler()==c:GetOwner()
 end
 function s.spfilter(c,e,tp,attr)
-	return c:IsSetCard(0x218) and bit.band(c:GetAttribute(),attr)==c:GetAttribute() and c:GetAttribute()>0 and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and bit.band(c:GetAttribute(),attr)==c:GetAttribute() and c:GetAttribute()>0 and c:IsAbleToHand()
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local attr=e:GetHandler():GetPreviousAttributeOnField()

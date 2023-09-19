@@ -1,5 +1,6 @@
 --Soulbound Tree of Life
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -23,10 +24,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x22A) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -52,7 +53,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --link summon
 function s.cfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x22A) and not c:IsType(TYPE_LINK) and c:IsControler(tp)
+	return c:IsFaceup() and c:IsSetCard(SET_SOULBOUND) and not c:IsType(TYPE_LINK) and c:IsControler(tp)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)
@@ -63,10 +64,10 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	c:RegisterFlagEffect(id,RESET_CHAIN,0,1)
 end
 function s.spfilter(c)
-	return c:IsLinkSummonable() and c:IsSetCard(0x22A)
+	return c:IsLinkSummonable() and c:IsSetCard(SET_SOULBOUND)
 end
 function s.matfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x22A)
+	return c:IsFaceup() and c:IsSetCard(SET_SOULBOUND)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

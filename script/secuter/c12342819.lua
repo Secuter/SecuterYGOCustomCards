@@ -1,5 +1,6 @@
 --Wyrmwind Northern Wyvern
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -39,7 +40,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.xyzop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x220}
+s.listed_series={SET_WYRMWIND}
 function s.indcon(e,c)
 	local tc=e:GetHandler()
 	return (c==tc and tc:IsLinked()) or tc:GetLinkedGroup():IsContains(c)
@@ -49,7 +50,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x220) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WYRMWIND) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

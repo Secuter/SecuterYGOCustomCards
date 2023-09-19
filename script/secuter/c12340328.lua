@@ -1,5 +1,6 @@
 --Dark King Ritual
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_RITUAL) and c:IsAttribute(ATTRIBUTE_DARK)
 end
@@ -46,7 +47,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x205) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

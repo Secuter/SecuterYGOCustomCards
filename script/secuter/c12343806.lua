@@ -1,7 +1,7 @@
 --Crearmor Tough Sword
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -37,14 +37,14 @@ function s.initial_effect(c)
 	e4:SetCondition(s.rmcon)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --search
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22B) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -63,7 +63,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and (r&REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.atfilter(c,ar)
-	return c:IsSetCard(0x22B) and c:IsFaceup() and Armor.AttachCheck(ar,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsFaceup() and Armor.AttachCheck(ar,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

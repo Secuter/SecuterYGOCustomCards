@@ -1,5 +1,6 @@
 --Dark King Servant
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -24,13 +25,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.sprop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.excon(e)
 	return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(),69832741)
 end
 
 function s.sprfilter(c)
-	return c:IsSetCard(0x205) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.sprcon(e,c)
 	if c==nil then return true end

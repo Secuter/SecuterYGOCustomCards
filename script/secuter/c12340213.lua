@@ -1,5 +1,6 @@
---Upgrade
+--Fluid Manipulation
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Level Up
@@ -23,14 +24,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.activate)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 function s.shfilter(c,e,tp)
-	return c:GetLevel()>0 and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
+	return c:GetLevel()>0 and c:IsSetCard(SET_FLUID) and c:IsAbleToDeckOrExtraAsCost()
         and Duel.IsExistingMatchingCard(s.upfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,e,tp,c:GetLevel())
 end
 function s.upfilter(c,e,tp,lv)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==lv+2
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==lv+2
 end
 function s.uptarget(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.shfilter,tp,LOCATION_MZONE,0,1,nil,e,tp) end
@@ -52,10 +53,10 @@ function s.upactivate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.filter(c,g,e,tp)
-	return c:GetLevel()>0 and c:IsSetCard(0x204) and g:CheckWithSumEqual(Card.GetLevel,c:GetLevel(),2,99) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
+	return c:GetLevel()>0 and c:IsSetCard(SET_FLUID) and g:CheckWithSumEqual(Card.GetLevel,c:GetLevel(),2,99) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
 function s.rfilter(c)
-	return c:GetLevel()>0 and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
+	return c:GetLevel()>0 and c:IsSetCard(SET_FLUID) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

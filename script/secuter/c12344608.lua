@@ -1,8 +1,8 @@
 --Anuak Dragonearth
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--reunion summon
@@ -38,10 +38,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 function s.mfilter(c,sc,sumtype,tp)
-	return c:IsSetCard(0x208,sc,sumtype,tp)
+	return c:IsSetCard(SET_ANUAK,sc,sumtype,tp)
 end
 function s.ifilter(c,sc,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_EARTH)
@@ -73,7 +73,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	  and c:IsPreviousLocation(LOCATION_MZONE) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,ft,e,tp)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and not c:IsReunion() and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and not c:IsReunion() and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 		and ((ft>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)) or c:IsAbleToHand())
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

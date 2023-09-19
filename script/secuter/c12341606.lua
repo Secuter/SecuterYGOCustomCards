@@ -1,5 +1,6 @@
 --Demon Rival Chimera (LINK)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -18,7 +19,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.tgop)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsRace(RACE_FIEND,scard,sumtype,tp) and c:IsAttribute(ATTRIBUTE_DARK,scard,sumtype,tp) and c:IsLevelBelow(4)
 end
@@ -35,7 +36,7 @@ function s.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x216) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1)

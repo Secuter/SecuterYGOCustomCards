@@ -1,5 +1,6 @@
 --Abyss Challenger Ravenous Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon proc
@@ -31,7 +32,7 @@ function s.initial_effect(c)
     e4:SetRange(LOCATION_MZONE)
     e4:SetTargetRange(LOCATION_MZONE,0)
 	e4:SetCondition(s.econ)
-    e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x217))
+    e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_ABYSS_CHALLENGER))
     e4:SetValue(1)
     c:RegisterEffect(e4)
 	--search
@@ -46,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x217}
+s.listed_series={SET_ABYSS_CHALLENGER}
 function s.cfilter(c)
 	return c:IsFacedown() and c:IsAbleToRemoveAsCost(POS_FACEDOWN)
 end
@@ -82,7 +83,7 @@ function s.econ(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x217) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ABYSS_CHALLENGER) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
@@ -91,7 +92,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
     Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function s.rfilter(c)
-	return c:IsSetCard(0x217) and not c:IsCode(id)
+	return c:IsSetCard(SET_ABYSS_CHALLENGER) and not c:IsCode(id)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

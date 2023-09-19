@@ -18,7 +18,6 @@ REUNION_IMPORTED		= true
 
 --[[
 add at the start of the script to add Reunion procedure
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 condition if Reunion summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 ]]

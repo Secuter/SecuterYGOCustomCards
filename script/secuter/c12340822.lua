@@ -1,8 +1,8 @@
 --Eagle Overseer Dark Warlord
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter,s.ignfilter,2,2)
@@ -69,7 +69,7 @@ function s.initial_effect(c)
 	e6:SetOperation(s.thop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x210}
+s.listed_series={SET_EAGLE_OVERSEER}
 --ignition summon
 function s.ignfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)
@@ -107,7 +107,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.filter(c)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(0x210))
+	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(tp) and s.filter(chkc) end

@@ -1,7 +1,7 @@
 --Bulwark Champion Nova
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 function s.initial_effect(c)
 	--add
 	local e1=Effect.CreateEffect(c)
@@ -32,9 +32,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.thfilter(c)
-	return c:IsSetCard(0x21a) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -50,7 +50,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x21a) and c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_NORMAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
@@ -81,7 +81,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.matlimit(e,c)
-	return not c:IsSetCard(0x21a)
+	return not c:IsSetCard(SET_BULWARK_CHAMPION)
 end
 function s.sumlimit(e,c)
 	if not c then return false end

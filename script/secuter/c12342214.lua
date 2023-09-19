@@ -1,7 +1,7 @@
 --Bulwark Champion Coliseum
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -82,12 +82,12 @@ function s.initial_effect(c)
 	e8:SetOperation(s.desop)
 	c:RegisterEffect(e8)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.thcon(e)
-	return Armor.Condition(e) and e:GetHandler():IsSetCard(0x21a)
+	return Armor.Condition(e) and e:GetHandler():IsSetCard(SET_BULWARK_CHAMPION)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x21a) and c:IsRace(RACE_WARRIOR) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsRace(RACE_WARRIOR) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -107,7 +107,7 @@ function s.tgfilter(c,e,tp,chk)
 		and (chk or Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil,c))
 end
 function s.cfilter(c,tc)
-	return c:IsSetCard(0x21a) and c:IsType(TYPE_MONSTER) and Armor.AttachCheck(c,tc)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_MONSTER) and Armor.AttachCheck(c,tc)
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local tg=eg:Filter(s.tgfilter,nil,e,tp,false)
@@ -159,7 +159,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return eg:GetFirst():GetSummonPlayer()==tp and eg:GetFirst():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x21a) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter2(chkc) end

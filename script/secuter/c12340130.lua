@@ -1,10 +1,11 @@
 --Undead Fusion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	Fusion.AddProcMixN(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x202),2)
+	Fusion.AddProcMixN(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_UNDEAD),2)
 	--fusion
 	local params = {aux.FilterBoolFunction(Card.IsRace,RACE_ZOMBIE)}
 	local e1=Effect.CreateEffect(c)
@@ -46,8 +47,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x202}
-s.material_setcode={0x202}
+s.listed_series={SET_UNDEAD}
+s.material_setcode={SET_UNDEAD}
 function s.fucon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
@@ -75,7 +76,7 @@ function s.gycon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(c:GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x202) and c:IsAbleToDeck() and c:GetCode()~=id
+	return c:IsFaceup() and c:IsSetCard(SET_UNDEAD) and c:IsAbleToDeck() and c:GetCode()~=id
 end
 function s.gytg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and s.filter(chkc) end

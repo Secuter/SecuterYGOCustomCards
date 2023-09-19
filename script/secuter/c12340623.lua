@@ -1,5 +1,6 @@
 --Anuak Sinchro
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Synchro.AddProcedure(c,aux.FilterBoolFunctionEx(s.matfilter1),1,1,Synchro.NonTunerEx(s.matfilter2),1,99)
@@ -27,10 +28,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	e3:SetLabelObject(e2)
 end
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 function s.matfilter1(c,syncard)
-	return c:IsSetCard(0x208)
+	return c:IsSetCard(SET_ANUAK)
 end
 function s.matfilter2(c,syncard)
 	return c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK)

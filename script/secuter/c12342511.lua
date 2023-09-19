@@ -1,8 +1,8 @@
 --Rascal Ace Dino-Blaster
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Ignition.AddProcedure(c,s.exfilter,s.ignfilter,1,1)
@@ -36,7 +36,7 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 s.material={12342502}
 function s.exfilter(c)
 	return c:IsCode(12342502)
@@ -50,7 +50,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 		and ep==1-tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x21D) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil) end
@@ -77,7 +77,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.spfilter(c,e,tp)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
-		and c:IsSetCard(0x21D) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+		and c:IsSetCard(SET_RASCAL_ACE) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

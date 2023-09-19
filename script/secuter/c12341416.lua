@@ -1,5 +1,6 @@
 --Ancient Oracle S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,9 +27,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12341414,id}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 function s.filter(c)
-	return c:IsSetCard(0x211) and c:IsDiscardable()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsDiscardable()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
@@ -60,7 +61,7 @@ function s.con2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetPreviousLocation()==LOCATION_DECK
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x211) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end

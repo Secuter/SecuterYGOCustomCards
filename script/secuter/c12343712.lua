@@ -1,5 +1,6 @@
 --Soulbound Ostracism
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -28,13 +29,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 --negate
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return ep~=tp and Duel.IsChainDisablable(ev)
 end
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x22A)
+	return c:IsSetCard(SET_SOULBOUND)
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -52,7 +53,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
 function s.thfilter(c,cid)
-	return c:IsSetCard(0x22A) and c:IsType(TYPE_MONSTER) and not c:IsCode(cid) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_MONSTER) and not c:IsCode(cid) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
@@ -70,10 +71,10 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and re:IsActiveType(TYPE_MONSTER)	and re:GetHandler():IsSetCard(0x22A)
+	return rp==tp and re:IsActiveType(TYPE_MONSTER)	and re:GetHandler():IsSetCard(SET_SOULBOUND)
 end
 function s.spfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x22A) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsFaceup() and c:IsSetCard(SET_SOULBOUND) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

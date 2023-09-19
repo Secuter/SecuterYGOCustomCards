@@ -1,5 +1,6 @@
 --Anuak Link 1
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Link.AddProcedure(c,aux.FilterBoolFunctionEx(s.linkcheck),1,1)
@@ -38,10 +39,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.setop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 function s.linkcheck(c,scard,sumtype,tp)
-	return c:IsSetCard(0x208,scard,sumtype,tp) and not c:IsType(TYPE_LINK,scard,sumtype,tp)
+	return c:IsSetCard(SET_ANUAK,scard,sumtype,tp) and not c:IsType(TYPE_LINK,scard,sumtype,tp)
 end
 function s.spcheck(g,lc,tp)
 	return g:CheckSameProperty(Card.GetRace,lc,SUMMON_TYPE_LINK,tp)
@@ -67,7 +68,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c,attr)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetAttribute()~=attr
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetAttribute()~=attr
 end
 function s.cfilter(c,tp)
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and c:IsDiscardable()
@@ -122,7 +123,7 @@ function s.splimit2(e,c)
 end
 
 function s.setfilter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.setfilter(chkc) end

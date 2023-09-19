@@ -1,5 +1,6 @@
 --Soulbound Thinker
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -33,14 +34,14 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 --search
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x22A) and not c:IsPublic()
+	return c:IsSetCard(SET_SOULBOUND) and not c:IsPublic()
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter(c,code)
-	return c:IsSetCard(0x22A) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,nil,tp) end
@@ -66,14 +67,14 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and re:IsActiveType(TYPE_MONSTER)	and re:GetHandler():IsSetCard(0x22A)
+	return rp==tp and re:IsActiveType(TYPE_MONSTER)	and re:GetHandler():IsSetCard(SET_SOULBOUND)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToGraveAsCost() end
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x22A) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsFaceup() and c:IsSetCard(SET_SOULBOUND) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -1,5 +1,6 @@
 --Fluidosphere Knight
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon

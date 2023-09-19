@@ -1,8 +1,8 @@
 --Alien
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.reunionfilter,2,99,true)
@@ -21,7 +21,7 @@ end
 s.listed_names={24104865}
 
 function s.reunionfilter(c,sc)
-    return c:GetCounter(0x100e)>0 or (c:IsSetCard(0xc) and c:IsControler(sc:GetControler()))
+    return c:GetCounter(0x100e)>0 or (c:IsSetCard(SET_ALIEN) and c:IsControler(sc:GetControler()))
 end
 
 function s.condition(e,tp,eg,ep,ev,re,r,rp)

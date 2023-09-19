@@ -1,5 +1,6 @@
 --Irradiance Doppelganger
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --spsummon
 function s.spfilter(c,e,tp)
 	return c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
@@ -50,7 +51,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --draw
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x22C) and c:IsDiscardable()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsDiscardable()
 	and Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.tgfilter(c,code)

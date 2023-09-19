@@ -1,5 +1,6 @@
 --Worldless Magic Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -39,10 +40,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --sp procedure
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(SET_WORLDLESS) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 end
 function s.class(c)
 	return c:GetType()&0x7
@@ -79,7 +80,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==1-tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(SET_WORLDLESS) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,nil) end
@@ -101,7 +102,7 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon from gy
 function s.cfilter2(c,tp)
-	return c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsSetCard(0x20F) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true) 
+	return c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsSetCard(SET_WORLDLESS) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true) 
 		and (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or (c:IsLocation(LOCATION_MZONE) and c:GetSequence()<5))
 end
 function s.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)

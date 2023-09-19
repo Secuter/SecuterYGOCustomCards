@@ -1,7 +1,7 @@
 --Bulwark Champion Dailormian
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=600
 s.ArmorDef=0
 s.Armor=true
@@ -12,7 +12,7 @@ function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Armorizing.AddProcedure(c,s.matfilter,2)
 	--armor
-	Armor.AddProcedure(c,s
+	Armor.AddProcedure(c,s)
 	--lv
 	local e2=Effect.CreateEffect(c)
 	e2:SetCode(EFFECT_UPDATE_LEVEL)
@@ -70,13 +70,13 @@ function s.initial_effect(c)
 	e7:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e7)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.matfilter(c,lc,sumtype,tp)
 	return c:IsLevelAbove(6) and c:IsRace(RACE_WARRIOR,lc,sumtype,tp)
 end
 
 function s.atfilter(c,tc)
-	return c:IsSetCard(0x21a) and not c:IsCode(id) and Armor.AttachCheck(c,tc)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsCode(id) and Armor.AttachCheck(c,tc)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.atfilter(chkc,e:GetHandler()) end
@@ -97,7 +97,7 @@ function s.atcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.atfilter2(c,tc)
-	return c:IsSetCard(0x21a) and Armor.AttachCheck(c,tc)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and Armor.AttachCheck(c,tc)
 end
 function s.attg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_GRAVE,0,1,nil,e:GetHandler()) end
@@ -163,7 +163,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.spfilter(c,e,tp,ar)
-	return c:IsSetCard(0x21a) and c:IsRace(RACE_WARRIOR) and c:IsLevelBelow(4)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsRace(RACE_WARRIOR) and c:IsLevelBelow(4)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and Armor.AttachCheck(ar,c)
 end

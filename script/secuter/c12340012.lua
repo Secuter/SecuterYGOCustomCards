@@ -1,5 +1,6 @@
 --External Worlds Lord
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -18,13 +19,13 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_PIERCE)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x201))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_EXTERNAL_WORLDS))
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x201)
+	return c:IsFaceup() and c:IsSetCard(SET_EXTERNAL_WORLDS)
 end
 function s.filter2(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_EARTH)

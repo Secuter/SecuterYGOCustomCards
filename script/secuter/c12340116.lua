@@ -1,5 +1,6 @@
 --Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -23,7 +24,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.damop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x202}
+s.listed_series={SET_UNDEAD}
 
 function s.spfilter(c,e,tp)
 	return c:IsRace(RACE_ZOMBIE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
@@ -44,7 +45,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.cfilter(c)
-	return c:IsSetCard(0x202) and c:IsAttackPos()
+	return c:IsSetCard(SET_UNDEAD) and c:IsAttackPos()
 end
 function s.damcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)

@@ -1,5 +1,6 @@
 --Eagle Overseer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--cannot target
@@ -42,7 +43,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x210}
+s.listed_series={SET_EAGLE_OVERSEER}
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL)
 end
@@ -51,7 +52,7 @@ function s.ctval(e,re,rp)
 end
 
 function s.filter(c)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(0x210))
+	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(tp) and s.filter(chkc) end
@@ -62,7 +63,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x210) and not c:IsCode(id) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EAGLE_OVERSEER) and not c:IsCode(id) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -78,7 +79,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter2(c)
-	return c:IsSetCard(0x210) and not c:IsCode(id) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EAGLE_OVERSEER) and not c:IsCode(id) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD+LOCATION_GRAVE)

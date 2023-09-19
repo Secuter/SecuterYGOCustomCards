@@ -1,6 +1,6 @@
 --Undead Master of Misfortune (Echo)
 --Scripted by Secuter
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
 function s.initial_effect(c)
@@ -31,7 +31,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop2)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x202,0x46}
+s.listed_series={SET_UNDEAD,SET_FUSION}
 function s.efilter(c,sc,sumtype,tp)
 	return c:IsType(TYPE_FUSION,sc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_DARK,sc,sumtype,tp)
 end
@@ -55,7 +55,7 @@ function s.tgfilter(c)
 	return c:IsRace(RACE_ZOMBIE) and c:IsAbleToGrave()
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x202) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_HAND,0,1,e:GetHandler())
@@ -80,7 +80,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x46) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FUSION) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end

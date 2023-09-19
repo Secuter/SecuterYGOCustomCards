@@ -1,5 +1,6 @@
 -- Divine
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -26,7 +27,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return c:IsAbleToGraveAsCost() and c:IsDiscardable() end
@@ -48,7 +49,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x213) and c:IsType(TYPE_MONSTER) and not c:IsCode(id)
+	return c:IsFaceup() and c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsType(TYPE_MONSTER) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

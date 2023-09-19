@@ -1,10 +1,11 @@
 --Leviathan of the Asuras
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--fusion summon
 	c:EnableReviveLimit()
-	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x218),aux.FilterBoolFunction(Card.IsLevelAbove,7))
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ASURA),aux.FilterBoolFunction(Card.IsLevelAbove,7))
 	--double tribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -48,17 +49,17 @@ function s.initial_effect(c)
 	e4:SetOperation(s.desop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
-s.material_setcode={0x218}
+s.listed_series={SET_ASURA}
+s.material_setcode={SET_ASURA}
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x218) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_ASURA) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end
@@ -78,7 +79,7 @@ function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function s.sumfilter(c)
-	return c:IsSetCard(0x218) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(SET_ASURA) and c:IsSummonable(true,nil,1)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end

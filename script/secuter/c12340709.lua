@@ -1,5 +1,6 @@
 --Morhai
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -46,12 +47,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x209,0x1209}
+s.listed_series={SET_MORHAI,SET_MORHAI_CULTIST}
 function s.mtfilter(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.mtfilter2(c)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and c:IsFaceup() and c:GetSequence()<5
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and c:IsFaceup() and c:GetSequence()<5
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
@@ -82,7 +83,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.filter(c,e,sp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x209) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.mtfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler())
@@ -119,7 +120,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x1209) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI_CULTIST) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

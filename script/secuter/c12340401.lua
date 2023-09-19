@@ -1,5 +1,6 @@
 --Worm Hydra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableUnsummonable()
@@ -22,10 +23,10 @@ function s.initial_effect(c)
 	e2:SetValue(s.xyzlimit)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 
 function s.spfilter(c,e)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and c:GetLevel()>0
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and c:GetLevel()>0
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.spfilter,1,nil) and eg:GetFirst():IsControler(tp)
@@ -50,7 +51,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.lvfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and c:GetLevel()>0
+	return c:IsFaceup() and c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and c:GetLevel()>0
 end
 
 function s.xyzlimit(e,c)

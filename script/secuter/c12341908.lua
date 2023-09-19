@@ -1,5 +1,6 @@
 --Geartron S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -29,7 +30,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.repop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x212}
+s.listed_series={SET_GEARTRON}
 
 function s.cfilter(c)
 	return c:IsRace(RACE_MACHINE) and c:IsReleasable()
@@ -41,7 +42,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.thfilter(c,code)
-	return c:IsSetCard(0x212) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_GEARTRON) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,e:GetLabel()) end
@@ -57,7 +58,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.repfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x212) and c:IsLocation(LOCATION_ONFIELD)
+	return c:IsFaceup() and c:IsSetCard(SET_GEARTRON) and c:IsLocation(LOCATION_ONFIELD)
 		and c:IsControler(tp) and c:IsReason(REASON_EFFECT+REASON_BATTLE)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)

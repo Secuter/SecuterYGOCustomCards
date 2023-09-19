@@ -1,5 +1,6 @@
 --Fluidsphere Chant
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e2:SetRange(LOCATION_SZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x3204))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_FLUIDSPHERE))
 	e2:SetValue(200)
 	c:RegisterEffect(e2)
 	--search
@@ -27,10 +28,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x3204) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.tgfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToGrave()

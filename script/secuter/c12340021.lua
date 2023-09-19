@@ -1,5 +1,6 @@
 --Cards
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,9 +14,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.filter(c)
-	return c:IsSetCard(0x201) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAbleToGraveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     local h=1

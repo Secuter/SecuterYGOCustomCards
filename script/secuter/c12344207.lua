@@ -1,7 +1,7 @@
 --Dark Sovereign Runic Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 s.Runic=true
 function s.initial_effect(c)
 	--xyz summon
@@ -35,14 +35,14 @@ function s.initial_effect(c)
 	e3:SetCondition(s.thcon2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --runic effect
 function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(1)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToGraveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToGraveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()
@@ -90,7 +90,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsSummonType(SUMMON_TYPE_XYZ) and rp~=tp and c:IsReason(REASON_EFFECT)
 end
 function s.thfilter(c)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and not c:IsCode(id) and c:IsSetCard(0x230) and c:IsAbleToHand()
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and not c:IsCode(id) and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

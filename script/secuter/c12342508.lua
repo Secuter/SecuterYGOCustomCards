@@ -1,5 +1,6 @@
 --Rascal Ace Director
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -33,9 +34,9 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x21D) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -46,7 +47,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c,code)
-	return c:IsSetCard(0x21D) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
@@ -65,7 +66,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_EFFECT)
 end
 function s.cfilter2(c)
-	return c:IsSetCard(0x21D) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsAbleToRemoveAsCost() and aux.SpElimFilter(c,true)
 end
 function s.thcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter2,tp,LOCATION_MZONE+LOCATION_GRAVE,0,1,e:GetHandler()) end
@@ -75,7 +76,7 @@ function s.thcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.thfilter2(c)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
-		and c:IsSetCard(0x21D) and not c:IsCode(id) and c:IsAbleToHand()
+		and c:IsSetCard(SET_RASCAL_ACE) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and s.thfilter2(chkc) end

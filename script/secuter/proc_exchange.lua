@@ -4,7 +4,6 @@ EXCHANGE_IMPORTED	= true
 
 --[[
 add at the start of the script to add Exchange procedure
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 condition if Exchange summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
 ]]

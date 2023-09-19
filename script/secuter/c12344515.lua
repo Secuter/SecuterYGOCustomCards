@@ -1,5 +1,6 @@
 --Ghoost Library
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,13 +14,13 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 
 function s.thfilter(c,e,tp,code)
-	return c:IsSetCard(0x232) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_GHOOST) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.filter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x232)
+	return c:IsFaceup() and c:IsSetCard(SET_GHOOST)
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

@@ -1,5 +1,6 @@
 --Exoheart Restraint
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
@@ -16,7 +17,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 s.listed_names={s.TOKEN_ID}
-s.listed_series={0x20E}
+s.listed_series={SET_EXOHEART}
 --activate
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
@@ -26,7 +27,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsNegatable() and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,nil)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
 	local tg=Duel.SelectTarget(tp,Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,tg,1,0,0)
@@ -58,7 +59,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) then
 		local c=e:GetHandler()
 		local token=Duel.CreateToken(tp,s.TOKEN_ID)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
@@ -75,5 +76,5 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SpecialSummonComplete()
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x20E) or c:IsCode(s.TOKEN_ID)
+	return not c:IsSetCard(SET_EXOHEART) or c:IsCode(s.TOKEN_ID)
 end

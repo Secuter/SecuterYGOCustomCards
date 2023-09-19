@@ -1,5 +1,6 @@
 --Soulbound Prior
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--no tribute
@@ -41,7 +42,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop2)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 --no tribute
 function s.ntcon(e,c,minc)
 	if c==nil then return true end
@@ -63,7 +64,7 @@ function s.ntop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 --search
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x22A) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

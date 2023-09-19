@@ -1,6 +1,6 @@
 --Crearmor Destruction Sun
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=600
 s.ArmorDef=0
@@ -45,7 +45,7 @@ function s.initial_effect(c)
 	e4:SetValue(s.repval)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 function s.matfilter(c,lc,sumtype,tp)
 	return c:IsArmorizing()
 end
@@ -73,7 +73,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x22B) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_CREARMOR) and Armor.AttachCheck(c,sc)
 end
 function s.atcheck(sg,e,tp,mg)
 	return sg:GetClassCount(Card.GetOriginalCode)==#sg and sg:GetClassCount(Card.GetLocation)==#sg

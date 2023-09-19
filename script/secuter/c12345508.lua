@@ -1,5 +1,6 @@
 --Arcaeonix Verdant Vine
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -56,7 +57,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x21E}
+s.listed_series={SET_ARCAEONIX}
 --immune
 function s.efilter(e,re)
 	return e:GetOwnerPlayer()~=re:GetOwnerPlayer()
@@ -112,7 +113,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_REMOVED) and (r&REASON_SYNCHRO)==REASON_SYNCHRO
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x21E) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ARCAEONIX) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

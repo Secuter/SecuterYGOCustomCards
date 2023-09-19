@@ -1,5 +1,6 @@
 --Tempest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--indes
@@ -18,10 +19,10 @@ function s.initial_effect(c)
 	e2:SetCondition(s.handcon)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 function s.filter(c,tp)
-	return  c:IsSetCard(0x204) and c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE)
+	return  c:IsSetCard(SET_FLUID) and c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_MZONE)
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	--if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
@@ -47,11 +48,11 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e2,tp)
 end
 function s.etarget(e,c)
-	return c:IsFaceup() and c:IsSetCard(0x204)
+	return c:IsFaceup() and c:IsSetCard(SET_FLUID)
 end
 
 function s.handfilter(c)
-	return c:IsFacedown() or not c:IsSetCard(0x204)
+	return c:IsFacedown() or not c:IsSetCard(SET_FLUID)
 end
 function s.handcon(e)
 	return not Duel.IsExistingMatchingCard(s.handfilter,tp,LOCATION_MZONE,0,1,nil)

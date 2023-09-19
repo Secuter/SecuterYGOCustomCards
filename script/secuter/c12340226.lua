@@ -1,5 +1,6 @@
 --Fluid Thunderstorm
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,12 +14,12 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsChainNegatable(ev) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsFaceup() and c:IsSetCard(SET_FLUID) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) end

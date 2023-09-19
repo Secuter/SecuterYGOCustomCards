@@ -1,8 +1,8 @@
 --Morhai Ignition
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Ignition.AddProcedure(c,s.exfilter,s.ignfilter,2,2)
@@ -42,7 +42,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.penop)
 	c:RegisterEffect(e5)
 	--fusion
-	local params={aux.FilterBoolFunction(Card.IsSetCard,0x209)}
+	local params={aux.FilterBoolFunction(Card.IsSetCard,SET_MORHAI)}
 	local e6=Effect.CreateEffect(c)
 	e6:SetDescription(aux.Stringid(id,3))
 	e6:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
@@ -64,13 +64,13 @@ function s.initial_effect(c)
 	e7:SetOperation(s.spop)
 	c:RegisterEffect(e7)
 end
-s.listed_series={0x209}
-s.material_setcode={0x209}
+s.listed_series={SET_MORHAI}
+s.material_setcode={SET_MORHAI}
 function s.exfilter(c)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_FUSION)
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_FUSION)
 end
 function s.ignfilter(c)
-	return c:IsSetCard(0x209)
+	return c:IsSetCard(SET_MORHAI)
 end
 
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
@@ -100,7 +100,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsRelateToBattle() and bc:IsReason(REASON_BATTLE)
 end
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler()) end	
@@ -113,10 +113,10 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.mtfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.mtfilter2(c)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and c:IsFaceup() and c:GetSequence()<5
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and c:IsFaceup() and c:GetSequence()<5
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)

@@ -1,11 +1,11 @@
 --Anuak Dragonclock
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x208),2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANUAK),2,99)
 	--search
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -33,14 +33,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(s.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
@@ -68,7 +68,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.spfilter(c,e,tp,sc)
 	local mg=Group.FromCards(c,sc)
-	return c:IsSetCard(0x208) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_ANUAK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and Duel.IsExistingMatchingCard(s.scfilter,tp,LOCATION_EXTRA,0,1,nil,tp,mg)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

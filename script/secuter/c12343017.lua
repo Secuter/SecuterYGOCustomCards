@@ -1,5 +1,6 @@
 --Hailshift Plateau
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -14,7 +15,7 @@ function s.initial_effect(c)
 	e2:SetTargetRange(LOCATION_MZONE,0)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetCondition(s.condition)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x224))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_HAILSHIFT))
 	e2:SetValue(s.atkval)
 	c:RegisterEffect(e2)	
 	--activate
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={12343018}
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 function s.condition(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_EXTRA,0)==0
 end

@@ -1,11 +1,11 @@
 --Anuak Duality Reunion
 --Scripted by Secuter
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x208),2,99,s.rcheck)
+	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANUAK),2,99,s.rcheck)
 	--also LIGHT
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -40,15 +40,15 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 function s.rcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsAttribute,1,nil,ATTRIBUTE_LIGHT)
 		and g:IsExists(Card.IsAttribute,1,nil,ATTRIBUTE_DARK)
 end
 
 function s.repfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsOnField() and c:IsSetCard(0x208)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsOnField() and c:IsSetCard(SET_ANUAK)
 		and not c:IsReason(REASON_REPLACE) and c:IsReason(REASON_EFFECT+REASON_BATTLE)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -78,7 +78,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.spfilter(c,e,tp)
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.CreateGroup(),tp,c,nil,REASON_REUNION)
-	return #pg<=0 and c:IsReunion() and c:IsSetCard(0x208) and c:IsLevelBelow(6) and Duel.GetLocationCountFromEx(tp,tp,e:GetHandler(),c)>0
+	return #pg<=0 and c:IsReunion() and c:IsSetCard(SET_ANUAK) and c:IsLevelBelow(6) and Duel.GetLocationCountFromEx(tp,tp,e:GetHandler(),c)>0
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_REUNION,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

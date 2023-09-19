@@ -1,5 +1,6 @@
 --Fluid LV2
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--effect
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
     if Duel.GetCurrentPhase()~=PHASE_STANDBY then return false end
 	e:GetHandler():RegisterFlagEffect(id+50,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_STANDBY,0,1)
@@ -47,7 +48,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==4
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==4
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
@@ -71,7 +72,7 @@ function s.thcon(e,tp)
 	return e:GetHandler():GetFlagEffect(id)~=0
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x204) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_FLUID) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

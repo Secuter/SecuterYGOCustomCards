@@ -1,5 +1,6 @@
 --Abyss Challenger 
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --Activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
     e1:SetOperation(s.activate)
     c:RegisterEffect(e1)
 end
-s.listed_series={0x217}
+s.listed_series={SET_ABYSS_CHALLENGER}
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     local g=Duel.GetDecktopGroup(tp,3)
     if chk==0 then return g:FilterCount(Card.IsAbleToRemoveAsCost,nil,POS_FACEDOWN)==3
@@ -22,13 +23,13 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     Duel.Remove(g,POS_FACEDOWN,REASON_COST)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,1,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ABYSS_CHALLENGER),tp,LOCATION_MZONE,0,1,nil)
 		and Duel.IsExistingMatchingCard(Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,nil) end        
 	local g=Duel.GetMatchingGroup(Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,nil)
     Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_ABYSS_CHALLENGER),tp,LOCATION_MZONE,0,nil)
 	local ct=g:GetClassCount(Card.GetCode)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local tg=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,ct,nil)

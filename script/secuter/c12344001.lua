@@ -1,5 +1,6 @@
 --Pelagic Thrower
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	-- spsummon itself
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22D}
+s.listed_series={SET_PELAGIC}
 -- spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsAttribute,ATTRIBUTE_WATER),tp,LOCATION_MZONE,0,1,nil)
@@ -56,7 +57,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 end
 -- send to gy
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x22D) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_PELAGIC) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

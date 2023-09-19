@@ -1,5 +1,6 @@
 --Fluidsphere Hydra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -30,13 +31,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.negop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x3204),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_FLUIDSPHERE),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 --negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x3204),tp,LOCATION_MZONE,0,1,nil) then return false end
+	if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_FLUIDSPHERE),tp,LOCATION_MZONE,0,1,nil) then return false end
 	return ep==1-tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)

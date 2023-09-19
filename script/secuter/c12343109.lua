@@ -1,5 +1,6 @@
 --Magic Tower Research
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -12,12 +13,12 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x1222}
+s.listed_series={SET_MAGIC_TOWER_SPHERE}
 function s.tgfilter(c)
 	return c:IsRace(RACE_SPELLCASTER) and c:IsAbleToGrave() and (c:IsFaceup() or not c:IsLocation(LOCATION_MZONE))
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x1222) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MAGIC_TOWER_SPHERE) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(s.thfilter,tp,LOCATION_DECK,0,nil)

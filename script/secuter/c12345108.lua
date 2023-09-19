@@ -1,5 +1,6 @@
 --Aetherock First Mountain
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --search
@@ -29,14 +30,14 @@ function s.initial_effect(c)
 	e4:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
 	e4:SetRange(LOCATION_FZONE)
 	e4:SetTargetRange(LOCATION_SZONE,0)
-	e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x20D))
+	e4:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_AETHEROCK))
 	e4:SetCountLimit(1,{id,1})
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x20D}
+s.listed_series={SET_AETHEROCK}
 --search
 function s.filter(c)
-	return c:IsSetCard(0x20D) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_AETHEROCK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

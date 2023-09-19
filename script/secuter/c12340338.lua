@@ -1,7 +1,7 @@
 --Dark King Lady - Blooming Darkness
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 s.Runic=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -36,13 +36,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
 end
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -62,7 +62,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToGraveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToGraveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()

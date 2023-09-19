@@ -1,5 +1,6 @@
 --Blaze Dragonlady Priestess
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--negate
@@ -29,14 +30,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 s.listed_names={id}
 --destroy mon
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
 	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE
 		and rp~=tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
-		and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x228),tp,LOCATION_MZONE,0,1,nil)
+		and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_BLAZE_DRAGONLADY),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end
@@ -57,7 +58,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c==Duel.GetAttacker() or c==Duel.GetAttackTarget()
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x228) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

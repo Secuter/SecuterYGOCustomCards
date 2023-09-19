@@ -1,5 +1,6 @@
 --Draw
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -14,9 +15,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x41}
+s.listed_series={SET_LV}
 function s.filter(c)
-	return c:IsSetCard(0x41) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_LV) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,nil) end

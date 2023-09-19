@@ -1,5 +1,6 @@
 --Void Wanderer Interference
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -13,10 +14,10 @@ function s.initial_effect(c)
 	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
 s.listed_names={12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon limit
 function s.counterfilter(c)
-	return not c:IsSummonLocation(LOCATION_EXTRA) or c:IsSetCard(0x208) or c:IsReunion()
+	return not c:IsSummonLocation(LOCATION_EXTRA) or c:IsSetCard(SET_ANUAK) or c:IsReunion()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetCustomActivityCount(id,tp,ACTIVITY_SPSUMMON)==0 end
@@ -33,10 +34,10 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	aux.addTempLizardCheck(c,tp,s.lizfilter)
 end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return not c:IsSetCard(0x208) and not c:IsReunion() and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_ANUAK) and not c:IsReunion() and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x208) and not c:IsReunion()
+	return not c:IsSetCard(SET_ANUAK) and not c:IsReunion()
 end
 --choose effect
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -77,7 +78,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)

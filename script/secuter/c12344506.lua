@@ -1,5 +1,6 @@
 --Ghoost Oblivion Witch
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--copy level
@@ -24,10 +25,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 --copy level
 function s.costfilter(c,lvl)
-	return c:IsSetCard(0x232) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:GetLevel()>0 and not c:IsLevel(lvl)
+	return c:IsSetCard(SET_GHOOST) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:GetLevel()>0 and not c:IsLevel(lvl)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -52,7 +53,7 @@ function s.indcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
 end
 function s.filter(c,lvl)
-	return c:IsFaceup() and c:IsSetCard(0x232)
+	return c:IsFaceup() and c:IsSetCard(SET_GHOOST)
 end
 function s.indtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc) end

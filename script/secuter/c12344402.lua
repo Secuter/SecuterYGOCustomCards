@@ -1,5 +1,6 @@
 --Fluidsphere Wizard
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -30,7 +31,7 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 --spsummon
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToGraveAsCost()
@@ -54,7 +55,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --place
 function s.tffilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(0x3204) and not c:IsForbidden()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

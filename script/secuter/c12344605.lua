@@ -1,5 +1,6 @@
 --Anuak Dragonknight
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--name
@@ -42,7 +43,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id,12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon itself
 function s.cfilter(c,tp)
 	return c:IsCode(12344600) and c:IsControler(tp)
@@ -71,7 +72,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and not c:IsCode(12344600) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and not c:IsCode(12344600) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

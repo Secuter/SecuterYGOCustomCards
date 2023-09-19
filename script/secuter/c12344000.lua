@@ -1,5 +1,6 @@
 --Pelagic Pursuer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	-- spsummon itself
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22D}
+s.listed_series={SET_PELAGIC}
 -- spsummon itself
 function s.cfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WATER) and c:IsDiscardable()
@@ -59,7 +60,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 end
 -- search
 function s.thfilter(c)
-	return c:IsSetCard(0x22D) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PELAGIC) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

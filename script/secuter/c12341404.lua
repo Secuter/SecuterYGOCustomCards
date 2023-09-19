@@ -1,5 +1,6 @@
 --Ancient Oracle
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(12341414)
@@ -69,7 +70,7 @@ function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,tp,2)
 end
 function s.filter(c)
-	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(0x211)
+	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(SET_ANCIENT_ORACLE)
 end
 function s.op2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

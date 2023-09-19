@@ -1,5 +1,6 @@
 --External Worlds Lord WIND
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -55,13 +56,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 --spsummon itself from PZ
 function s.filter(c)
-	return c:IsSetCard(0x201) and c:IsAttribute(ATTRIBUTE_WIND) and c:IsFaceup()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAttribute(ATTRIBUTE_WIND) and c:IsFaceup()
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -81,7 +82,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 end
 --search ST
 function s.thfilter(c)
-	return c:IsSetCard(0x201) and c:IsSpellTrap() and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsSpellTrap() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -97,7 +98,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --destroy
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x201),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_EXTERNAL_WORLDS),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) end

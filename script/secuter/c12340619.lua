@@ -1,5 +1,6 @@
 --Anuak Continuous S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -31,10 +32,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.desop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetAttacker():GetControler()~=tp and Duel.GetAttackTarget() and Duel.GetAttackTarget():IsSetCard(0x208) and Duel.GetAttackTarget():IsFaceup()
+	return Duel.GetAttacker():GetControler()~=tp and Duel.GetAttackTarget() and Duel.GetAttackTarget():IsSetCard(SET_ANUAK) and Duel.GetAttackTarget():IsFaceup()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

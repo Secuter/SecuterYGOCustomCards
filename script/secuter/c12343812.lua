@@ -1,6 +1,6 @@
 --Crearmor Flaming Knight
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
@@ -50,10 +50,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.desop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x22B}
-s.material_setcode={0x201}
+s.listed_series={SET_CREARMOR}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x22B,lc,sumtype,tp)
+	return c:IsSetCard(SET_CREARMOR,lc,sumtype,tp)
 end
 --to hand
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -61,7 +61,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22B) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

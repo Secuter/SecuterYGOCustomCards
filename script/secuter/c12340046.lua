@@ -1,10 +1,11 @@
 --External Worlds XYZ
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x201),3,2)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_EXTERNAL_WORLDS),3,2)
 	--place field
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -28,8 +29,8 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tpop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 --place field
 function s.cfilter(c)
 	return c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
@@ -43,7 +44,7 @@ function s.tfcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.tffilter(c,tp)
-	return c:IsSetCard(0x201) and c:IsFieldSpell()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsFieldSpell()
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tffilter,tp,LOCATION_DECK,0,1,nil) end
@@ -60,7 +61,7 @@ function s.tpcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(aux.NOT(Card.IsType),1,nil,TYPE_TOKEN) and not (re and re:GetHandler():IsCode(id))
 end
 function s.tpfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function s.tptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.tpfilter(chkc) end

@@ -1,5 +1,6 @@
 --Abyss Challenger 
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --Activate
@@ -14,9 +15,9 @@ function s.initial_effect(c)
     e1:SetOperation(s.activate)
     c:RegisterEffect(e1)
 end
-s.listed_series={0x217}
+s.listed_series={SET_ABYSS_CHALLENGER}
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,1,nil) then return false end
+	if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ABYSS_CHALLENGER),tp,LOCATION_MZONE,0,1,nil) then return false end
 	return Duel.IsChainNegatable(ev)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -31,7 +32,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
-    local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,nil)
+    local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_ABYSS_CHALLENGER),tp,LOCATION_MZONE,0,nil)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) and g:GetClassCount(Card.GetCode)>=3 then
         Duel.Remove(eg,POS_FACEUP,REASON_EFFECT)
 	end

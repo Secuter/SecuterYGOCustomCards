@@ -1,6 +1,6 @@
 --Hailshift Fencer
 --Scripted by Secuter
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Exchange=true
 function s.initial_effect(c)
@@ -33,10 +33,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 --spsummon
 function s.rmfilter(c)
-	return c:IsSetCard(0x224) and c:IsExchange() and not c:IsCode(id) and c:IsAbleToRemove()
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsExchange() and not c:IsCode(id) and c:IsAbleToRemove()
 end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.rmfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -1,5 +1,6 @@
 --Anuak Trap
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 	--fusion
-	local params = {aux.FilterBoolFunction(Card.IsSetCard,0x208),s.matfilter,s.fextra,Fusion.ShuffleMaterial}
+	local params = {aux.FilterBoolFunction(Card.IsSetCard,SET_ANUAK),s.matfilter,s.fextra,Fusion.ShuffleMaterial}
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -26,10 +27,10 @@ function s.initial_effect(c)
 	e2:SetOperation(Fusion.SummonEffOP(table.unpack(params)))
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 
 function s.cfilter(c)
-	return c:IsSetCard(0x208)
+	return c:IsSetCard(SET_ANUAK)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and s.filter2(chkc) and chkc~=e:GetHandler() end

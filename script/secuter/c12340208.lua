@@ -1,5 +1,6 @@
 --Fluid LV6
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--immune
@@ -9,7 +10,7 @@ function s.initial_effect(c)
 	e1:SetRange(LOCATION_MZONE)
 	e1:SetTargetRange(LOCATION_MZONE,0)
 	e1:SetCondition(s.con)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x204))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_FLUID))
 	e1:SetValue(s.efilter)
 	c:RegisterEffect(e1)
 	--special summon
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.regop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
     if Duel.GetCurrentPhase()~=PHASE_STANDBY then return false end
@@ -51,7 +52,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==8
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==8
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
@@ -70,7 +71,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()>0
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()>0
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)

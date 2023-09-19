@@ -1,7 +1,7 @@
 --Armor Magician Litch Lord
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=1000
 s.ArmorDef=0
 s.Armor=true
@@ -38,17 +38,17 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x1098}
-s.material_setcode={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
+s.material_setcode={SET_ARMOR_MAGICIAN}
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x1098,lc,sumtype,tp) and not c:IsCode(id)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN,lc,sumtype,tp) and not c:IsCode(id)
 end
 --set
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.setfilter(c)
-	return c:IsSetCard(0x1098) and c:IsSpellTrap() and not c:IsType(TYPE_FIELD) and c:IsSSetable() and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsSpellTrap() and not c:IsType(TYPE_FIELD) and c:IsSSetable() and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil) end
@@ -81,7 +81,7 @@ function s.splimit(e,c)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and re:GetHandler():IsSetCard(0x1098)
+	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and re:GetHandler():IsSetCard(SET_ARMOR_MAGICIAN)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToHand() end

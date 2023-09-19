@@ -1,5 +1,6 @@
 --Geartron S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -63,7 +64,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x212}
+s.listed_series={SET_GEARTRON}
 function s.filter(e,c)
 	return c:IsSummonType(SUMMON_TYPE_TRIBUTE) and c:IsRace(RACE_MACHINE)
 end
@@ -78,7 +79,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
     return eg:IsExists(s.rfilter,1,nil,tp)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x212) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsSetCard(SET_GEARTRON) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

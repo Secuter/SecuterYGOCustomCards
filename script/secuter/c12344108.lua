@@ -1,8 +1,8 @@
 --Amorphiend Incandescent Titan
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)

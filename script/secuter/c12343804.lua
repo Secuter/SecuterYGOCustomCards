@@ -1,7 +1,7 @@
 --Crearmor Menacing Tiger
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -43,10 +43,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(0x22B) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -67,7 +67,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and (r&REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22B) and c:IsLevelBelow(4) and not c:IsCode(id)
+	return c:IsSetCard(SET_CREARMOR) and c:IsLevelBelow(4) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

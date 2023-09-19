@@ -1,5 +1,6 @@
 --Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x202}
+s.listed_series={SET_UNDEAD}
 
 function s.costfilter(c)
 	return (c:IsAttackBelow(0) or c:IsDefenseBelow(0)) and c:IsType(TYPE_MONSTER) and c:IsDiscardable()
@@ -45,7 +46,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x202) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,2,nil) end

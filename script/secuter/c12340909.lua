@@ -1,5 +1,6 @@
 --Asura Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.lfilter(c)
 	return c:IsLevelAbove(7) and (c:IsSummonType(SUMMON_TYPE_NORMAL) or c:IsSummonType(SUMMON_TYPE_TRIBUTE))
 end
@@ -70,7 +71,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:GetPreviousControler()==c:GetOwner()
 end
 function s.spfilter(c,e,tp,attr)
-	return c:IsSetCard(0x218) and bit.band(c:GetAttribute(),attr)==c:GetAttribute() and c:GetAttribute()>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ASURA) and bit.band(c:GetAttribute(),attr)==c:GetAttribute() and c:GetAttribute()>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local attr=e:GetHandler():GetPreviousAttributeOnField()

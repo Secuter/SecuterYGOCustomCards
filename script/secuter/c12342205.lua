@@ -1,7 +1,7 @@
 --Bulwark Champion Greatsword
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -21,12 +21,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.thcon(e)
-	return Armor.Condition(e) and e:GetHandler():IsSetCard(0x21a)
+	return Armor.Condition(e) and e:GetHandler():IsSetCard(SET_BULWARK_CHAMPION)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x21a) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

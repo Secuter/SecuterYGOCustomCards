@@ -1,6 +1,6 @@
 --Ignition Deployment
 --Scripted by Secuter
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	local e1=Effect.CreateEffect(c)

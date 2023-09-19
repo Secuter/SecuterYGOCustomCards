@@ -1,5 +1,6 @@
 --Amorphiend Mirror Image
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -26,7 +27,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 --special summon
 function s.filter(c,e,tp)
 	return c:IsFaceup() and c:IsCode(12344100) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
@@ -46,7 +47,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --to deck + draw
 function s.tdfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x22F) and c:IsType(TYPE_EQUIP) and c:IsAbleToDeck()
+	return c:IsFaceup() and c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_EQUIP) and c:IsAbleToDeck()
 end
 function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and s.tdfilter(chkc) end

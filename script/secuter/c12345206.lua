@@ -1,5 +1,6 @@
 --Exoheart Inferno
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
@@ -16,10 +17,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 s.listed_names={s.TOKEN_ID}
-s.listed_series={0x20E}
+s.listed_series={SET_EXOHEART}
 --activate
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x20E)
+	return c:IsFaceup() and c:IsSetCard(SET_EXOHEART)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)
@@ -33,7 +34,7 @@ end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return e:GetHandler():GetFlagEffect(id)==0
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
 	e:GetHandler():RegisterFlagEffect(id,RESET_CHAIN,0,1)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 	if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then
@@ -47,7 +48,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(eg,REASON_EFFECT)
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_DARK) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_DARK) then
 		local c=e:GetHandler()
 		local token=Duel.CreateToken(tp,s.TOKEN_ID)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
@@ -64,5 +65,5 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SpecialSummonComplete()
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x20E) or c:IsCode(s.TOKEN_ID)
+	return not c:IsSetCard(SET_EXOHEART) or c:IsCode(s.TOKEN_ID)
 end

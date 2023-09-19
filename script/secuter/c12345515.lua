@@ -1,5 +1,6 @@
 --Arcaeonix Break
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -15,7 +16,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 s.listed_names={id}
-s.listed_series={0x21E}
+s.listed_series={SET_ARCAEONIX}
 function s.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_SYNCHRO) and c:GetMaterial():FilterCount(Card.IsType,nil,TYPE_TUNER)
 end

@@ -1,10 +1,11 @@
 --Demon Rival Ritual
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x216))
-	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,0x216)})
+	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DEMON_RIVAL))
+	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DEMON_RIVAL)})
 	--add
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -19,13 +20,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x216}
-s.material_setcode={0x216}
+s.listed_series={SET_DEMON_RIVAL}
+s.material_setcode={SET_DEMON_RIVAL}
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType,TYPE_RITUAL),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

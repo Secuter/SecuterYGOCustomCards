@@ -1,5 +1,6 @@
 --Blaze Dragonlady Peak
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,0)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x228))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_BLAZE_DRAGONLADY))
 	e2:SetCondition(s.cond)
 	e2:SetValue(500)
 	c:RegisterEffect(e2)
@@ -24,7 +25,7 @@ function s.initial_effect(c)
 	e3:SetRange(LOCATION_FZONE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
 	e3:SetCondition(s.cond)
-	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x228))
+	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_BLAZE_DRAGONLADY))
 	e3:SetValue(1)
 	c:RegisterEffect(e3)
 	--link summon
@@ -51,7 +52,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 function s.cond(e)
 	return Duel.GetTurnPlayer()==e:GetHandlerPlayer()
 end
@@ -61,7 +62,7 @@ function s.lkcon(e,tp,eg,ep,ev,re,r,rp)
 	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE
 end
 function s.lkfilter(c,mg)
-	return c:IsSetCard(0x228) and c:IsLinkSummonable(nil,mg)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsLinkSummonable(nil,mg)
 end
 function s.lktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -85,7 +86,7 @@ function s.lkop(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.thfilter(c)
-	return c:IsSetCard(0x228) and not c:IsCode(id) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsCode(id) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_REMOVED+LOCATION_GRAVE,0,1,nil) end

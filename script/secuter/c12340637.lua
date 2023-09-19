@@ -1,11 +1,11 @@
 --Anuak The Apocryphos
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x208),2,99,s.rcheck)
+	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANUAK),2,99,s.rcheck)
 	--negate special summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -36,8 +36,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 --reunion
 function s.rcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsAttribute,1,nil,ATTRIBUTE_LIGHT)
@@ -93,7 +93,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and c:IsPreviousControler(tp) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x208) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ANUAK) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

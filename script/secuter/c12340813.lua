@@ -1,5 +1,6 @@
---Eagle Overseer Extra
 --Eagle Overseer Storming Falcon
+--Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
@@ -57,7 +58,7 @@ function s.ctval(e,re,rp)
 end
 
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(0x210))
+	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
 end
 function s.filter(c,e,sp)
 	return c:IsSummonType(SUMMON_TYPE_SPECIAL) and c:IsAbleToHand() and c:IsFaceup()

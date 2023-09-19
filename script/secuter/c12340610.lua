@@ -1,8 +1,8 @@
 --Anuak Dark Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.reunionfilter,2,99)
@@ -38,7 +38,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 
 function s.reunionfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK)
@@ -48,7 +48,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function s.costfilter(c,lvl,sc)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.costfilter,tp,LOCATION_GRAVE,0,1,nil) end
@@ -75,7 +75,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and c:IsPreviousControler(tp) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_DARK) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_DARK) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

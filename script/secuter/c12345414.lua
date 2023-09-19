@@ -1,5 +1,6 @@
 --Worldless Infinity Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -41,10 +42,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --sp procedure
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and c:IsAbleToDeckOrExtraAsCost()
 		and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.spcon(e,c)
@@ -70,7 +71,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 --spsummon + banish
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel(8) and not c:IsCode(id)
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:GetOriginalLevel(8) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

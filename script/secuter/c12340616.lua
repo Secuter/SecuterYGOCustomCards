@@ -1,5 +1,6 @@
 --Anuak Continuous S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -38,10 +39,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x208) and c:IsReason(REASON_DESTROY) and c:GetPreviousControler()==tp
+	return c:IsSetCard(SET_ANUAK) and c:IsReason(REASON_DESTROY) and c:GetPreviousControler()==tp
 		and c:GetPreviousLocation()==LOCATION_MZONE and bit.band(c:GetPreviousPosition(),POS_FACEUP)~=0
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
@@ -55,7 +56,7 @@ function s.check(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	while tc do
 		if tc:IsPreviousLocation(LOCATION_MZONE) and tc:IsReason(REASON_DESTROY) and tc:GetPreviousControler()==tp
-			and tc:IsSetCard(0x208) and tc:IsPreviousPosition(POS_FACEUP) then
+			and tc:IsSetCard(SET_ANUAK) and tc:IsPreviousPosition(POS_FACEUP) then
 			Duel.RaiseSingleEvent(c,EVENT_CUSTOM+id,e,r,rp,tc:GetControler(),0)
 		end
 		tc=eg:GetNext()
@@ -82,7 +83,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_DESTROY)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsLevelBelow(4)
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsLevelBelow(4)
         and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)   

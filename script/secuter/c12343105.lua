@@ -1,5 +1,6 @@
 --Magic Tower Emperess
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -30,7 +31,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tgop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x222,0x1222}
+s.listed_series={SET_MAGIC_TOWER,SET_MAGIC_TOWER_SPHERE}
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsType(TYPE_EFFECT,scard,sumtype,tp) and c:IsRace(RACE_SPELLCASTER,scard,sumtype,tp)
 end
@@ -48,7 +49,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x1222) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_MAGIC_TOWER_SPHERE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -69,7 +70,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x222) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MAGIC_TOWER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

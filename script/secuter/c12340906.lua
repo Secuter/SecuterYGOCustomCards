@@ -1,5 +1,6 @@
 --Asura Earth
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.ntcon(e,c,minc)
 	if c==nil then return true end
 	return minc==0 and c:GetLevel()>4
@@ -41,7 +42,7 @@ function s.ntcon(e,c,minc)
 end
 
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x218)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA)
 end
 function s.atfilter(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_EARTH)
@@ -51,7 +52,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	  and not Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler())
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x218) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil) end

@@ -1,5 +1,6 @@
 --External Worlds Field Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -31,13 +32,13 @@ function s.initial_effect(c)
 	e4:SetOperation(s.drop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.targets(e,c)
-	return c:GetPreviousLocation()==LOCATION_REMOVED and c:IsSetCard(0x201)
+	return c:GetPreviousLocation()==LOCATION_REMOVED and c:IsSetCard(SET_EXTERNAL_WORLDS)
 end
 
 function s.costfilter(c)
-	return c:IsSetCard(0x201) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAbleToRemoveAsCost()
         and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
 end
 function s.drcost(e,tp,eg,ep,ev,re,r,rp,chk)

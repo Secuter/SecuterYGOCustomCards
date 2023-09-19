@@ -1,5 +1,6 @@
 --Wyrmwind Strong Wind
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -13,13 +14,13 @@ function s.initial_effect(c)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x220}
+s.listed_series={SET_WYRMWIND}
 function s.spfilter(c,e,tp)
 	return c:IsType(TYPE_MONSTER)
 	--return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x220) and c:IsType(TYPE_XYZ) and c:GetOverlayGroup():IsExists(s.spfilter,1,nil,e,tp)
+	return c:IsSetCard(SET_WYRMWIND) and c:IsType(TYPE_XYZ) and c:GetOverlayGroup():IsExists(s.spfilter,1,nil,e,tp)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end

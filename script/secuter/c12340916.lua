@@ -1,5 +1,6 @@
 --Asura S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -23,13 +24,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(100)
 	return true
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x218) and c:IsLevelAbove(7)
+	return c:IsSetCard(SET_ASURA) and c:IsLevelAbove(7)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -56,7 +57,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil) end

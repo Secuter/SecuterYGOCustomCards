@@ -1,7 +1,7 @@
 --Crearmor Infinite Aegis
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -42,10 +42,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --send to gy
 function s.tgfilter(c)
-	return c:IsSetCard(0x22B) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() 
+	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() 
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return true end
@@ -71,10 +71,10 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --attach
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x22B) and not c:IsCode(id) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_CREARMOR) and not c:IsCode(id) and Armor.AttachCheck(c,sc)
 end
 function s.tgfilter2(c,tp)
-	return c:IsSetCard(0x22B) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.tgfilter2(chkc,tp) end
@@ -98,7 +98,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.bdcon(e,tp,eg,ep,ev,re,r,rp) and Armor.Condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22B) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

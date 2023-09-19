@@ -1,5 +1,6 @@
 --Rebellion Cracking Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
@@ -29,10 +30,10 @@ function s.initial_effect(c)
 	e3:SetValue(s.repval)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x20C}
-s.material_setcode={0x20C}
-function Card.IsCracking(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) end
-function Card.IsCrackingOrWyvern(c,tc,sumtype,tp) return c:IsSetCard(0x20C,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) or c:IsCode(23850421) end
+s.listed_series={SET_CRACKING}
+s.material_setcode={SET_CRACKING}
+function Card.IsCracking(c,tc,sumtype,tp) return c:IsSetCard(SET_CRACKING,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) end
+function Card.IsCrackingOrWyvern(c,tc,sumtype,tp) return c:IsSetCard(SET_CRACKING,tc,sumtype,tp) or c:IsCode(60349525) or c:IsCode(32835363) or c:IsCode(98864751) or c:IsCode(23850421) end
 --reduce atk + damage
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	if #eg~=1 then return false end

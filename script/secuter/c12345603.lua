@@ -1,5 +1,6 @@
 --Generaider Boss Slash
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--sp summon
@@ -27,11 +28,11 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x134}
+s.listed_series={SET_GENERAIDER}
 
 --sp summon
 function s.spfilter(c,e,tp)
-	return c:IsLevel(9) and c:IsSetCard(0x134) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -52,7 +53,7 @@ end
 
 --to deck
 function s.tdfilter(c,e)
-	return c:IsLevel(9) and c:IsSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsType(TYPE_MONSTER) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.tdfilter(chkc,e) end

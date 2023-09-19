@@ -1,5 +1,6 @@
 --Undead Eagle Overseer Wisp
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -27,7 +28,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x202,0x210}
+s.listed_series={SET_UNDEAD,SET_EAGLE_OVERSEER}
 --spsummon itself
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,2,e:GetHandler()) end
@@ -50,7 +51,7 @@ function s.thcond(e,tp,eg,ep,ev,re,r,rp,chk)
 	return e:GetHandler():IsPreviousLocation(LOCATION_HAND+LOCATION_ONFIELD)
 end
 function s.thfilter(c)
-	return (c:IsSetCard(0x202) or c:IsSetCard(0x210)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_UNDEAD) or c:IsSetCard(SET_EAGLE_OVERSEER)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 		and ((c:IsLocation(LOCATION_MZONE) and c:IsFaceup()) or c:IsLocation(LOCATION_GRAVE))
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

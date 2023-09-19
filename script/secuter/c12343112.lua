@@ -1,5 +1,6 @@
 --The Magic Tower
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x222))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_MAGIC_TOWER))
 	e2:SetValue(500)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -52,7 +53,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop2)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x222}
+s.listed_series={SET_MAGIC_TOWER}
 --search
 function s.cfilter(c)
 	return c:IsType(TYPE_SPELL) and c:IsDiscardable()
@@ -62,7 +63,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,s.cfilter,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x222) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MAGIC_TOWER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -86,7 +87,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,s.cfilter2,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x222) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+	return c:IsSetCard(SET_MAGIC_TOWER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

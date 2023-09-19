@@ -1,5 +1,6 @@
 --Pyroclast Centaur
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--sp summon itself
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x46}
+s.listed_series={SET_FUSION}
 --sp summon
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_FUSION)
@@ -60,7 +61,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.thfilter(c)
-	return c:IsSetCard(0x46) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FUSION) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

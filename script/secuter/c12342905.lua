@@ -1,5 +1,6 @@
 --Eternal Storm Knight
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -44,7 +45,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x221}
+s.listed_series={SET_ETERNAL_STORM}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)
@@ -80,7 +81,7 @@ function s.lizfilter(e,c)
 end
 --to hand
 function s.thfilter(c)
-	return c:IsSetCard(0x221) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_ETERNAL_STORM) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

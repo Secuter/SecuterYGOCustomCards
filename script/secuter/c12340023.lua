@@ -1,9 +1,10 @@
 --Xyz pendulum
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x201),3,2)
+	Xyz.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_EXTERNAL_WORLDS),3,2)
 	c:EnableReviveLimit()
     --pendulum
 	aux.EnablePendulumAttribute(c)
@@ -42,14 +43,14 @@ function s.initial_effect(c)
 	e3:SetOperation(s.penop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x201) and c:IsFaceup() and not c:IsType(TYPE_PENDULUM) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsFaceup() and not c:IsType(TYPE_PENDULUM) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDestructable() and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -77,7 +78,7 @@ function s.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local tc=e:GetHandler():RemoveOverlayCard(tp,2,2,REASON_COST)
 end
 function s.filter2(c,e,tp)
-	return c:IsSetCard(0x201) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

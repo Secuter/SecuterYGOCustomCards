@@ -1,5 +1,6 @@
 --Explosive Worm
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -42,7 +43,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.tkop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x227}
+s.listed_series={SET_EMBER_WORM}
 s.listed_names={id}
 --spsummon
 function s.desfilter(c,ft,tp)
@@ -67,7 +68,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(0x227) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_EMBER_WORM) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

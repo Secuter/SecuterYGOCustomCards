@@ -1,5 +1,6 @@
 --Fluidsphere Witch
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon limit
@@ -53,9 +54,9 @@ function s.initial_effect(c)
 	e5:SetOperation(s.negop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 function s.splimit(e,se,sp,st)
-	return se:GetHandler():IsSetCard(0x3204)
+	return se:GetHandler():IsSetCard(SET_FLUIDSPHERE)
 end
 function s.condition(e)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),e:GetHandlerPlayer(),LOCATION_SZONE,0,1,nil)

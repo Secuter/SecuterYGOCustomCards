@@ -1,5 +1,6 @@
 --Savage Beast White Beat
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -44,7 +45,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id,12342415}
-s.listed_series={0x21c}
+s.listed_series={SET_SAVAGE_BEAST}
 function s.cfilter(c)
 	return c:IsRace(RACE_BEAST) and c:IsAbleToGraveAsCost()
 end
@@ -86,7 +87,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x21c) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SAVAGE_BEAST) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

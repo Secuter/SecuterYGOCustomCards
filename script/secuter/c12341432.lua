@@ -1,5 +1,6 @@
 --Ancient Oracle Link 5
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -52,11 +53,11 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 s.listed_names={12341413,12341414}
-s.material_setcode={0x211}
+s.material_setcode={SET_ANCIENT_ORACLE}
 function s.matcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x211,lc,sumtype,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_ANCIENT_ORACLE,lc,sumtype,tp)
 end
 function s.immcon(e,tp,eg,ep,ev,re,r,rp)
 	if not tp then tp=e:GetHandlerPlayer() end
@@ -70,7 +71,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.tdfilter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToDeck()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToDeck()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc) end
@@ -89,7 +90,7 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.rmcfilter(c,tp)
-	return c:IsSetCard(0x211) and c:IsControler(tp) and c:GetPreviousLocation()==LOCATION_DECK
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsControler(tp) and c:GetPreviousLocation()==LOCATION_DECK
 end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.rmcfilter,1,nil,tp)

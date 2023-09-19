@@ -1,5 +1,6 @@
 --Dark Sovereign Curse
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Runic=true
 s.RunicEffect={}
@@ -21,16 +22,16 @@ function s.initial_effect(c)
 	re:SetOperation(s.thop)
 	s.RunicEffect=re
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --disable
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x230),tp,LOCATION_MZONE,0,1,nil)
+	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_DARK_SOVEREIGN),tp,LOCATION_MZONE,0,1,nil)
 		and Duel.IsExistingMatchingCard(Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,nil) end
     Duel.SetOperationInfo(0,CATEGORY_DISABLE,nil,1,0,0)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,0x230),tp,LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_DARK_SOVEREIGN),tp,LOCATION_MZONE,0,nil)
 	local cg=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
 	if #g>0 and #cg>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
@@ -63,7 +64,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x230) and c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,id)==0

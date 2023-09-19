@@ -1,8 +1,8 @@
 --Amorphiend Swordsmaster
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	--echo summon
 	Echo.AddProcedure(c,s.efilter)
@@ -50,10 +50,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
-s.material_setcode={0x22F}
+s.listed_series={SET_AMORPHIEND}
+s.material_setcode={SET_AMORPHIEND}
 function s.efilter(c,sc,sumtype,tp)
-	return c:IsSetCard(0x22F,sc,sumtype,tp) and c:IsIgnition()
+	return c:IsSetCard(SET_AMORPHIEND,sc,sumtype,tp) and c:IsIgnition()
 end
 --atk up
 function s.val(e,c)
@@ -70,7 +70,7 @@ function s.eqcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function s.eqfilter(c,ec)
-	return c:IsSetCard(0x22F) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
 end
 function s.tgfilter(c,tp)
 	return c:IsCode(12344100) and Duel.IsExistingMatchingCard(s.eqfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil,c)
@@ -96,7 +96,7 @@ function s.eqop(e,tp,eg,ep,ev,re,r,rp)
 end
 --equip #2
 function s.eqfilter2(c,ec)
-	return c:IsSetCard(0x22F) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
 end
 function s.tgfilter2(c,tp)
 	return c:IsCode(12344100) and Duel.IsExistingMatchingCard(s.eqfilter2,tp,LOCATION_GRAVE,0,1,nil,c)

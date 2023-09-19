@@ -1,5 +1,6 @@
 -- Divine
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--tograve
@@ -32,9 +33,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
 function s.filter(c)
-	return c:IsSetCard(0x213) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_DIVINE_DISCIPLE) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -50,13 +51,13 @@ end
 
 function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,0x213,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,SET_DIVINE_DISCIPLE,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,tp,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
 end
 function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
-		or not Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,0x213,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) then return end
+		or not Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,SET_DIVINE_DISCIPLE,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) then return end
 	local token=Duel.CreateToken(tp,12341120)
 	Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 	local e1=Effect.CreateEffect(e:GetHandler())

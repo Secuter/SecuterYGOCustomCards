@@ -1,9 +1,10 @@
 --Ancient Oracle Extra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x211),4,2,nil,nil,99)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANCIENT_ORACLE),4,2,nil,nil,99)
 	c:EnableReviveLimit()
 	--deckdes
 	local e1=Effect.CreateEffect(c)
@@ -40,8 +41,8 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x211}
-s.material_setcode={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
+s.material_setcode={SET_ANCIENT_ORACLE}
 
 function s.indcon(e)
 	return e:GetHandler():IsType(TYPE_XYZ) and e:GetHandler():GetOverlayCount()>0
@@ -58,7 +59,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,tp,3)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x211) and c:IsLocation(LOCATION_GRAVE)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsLocation(LOCATION_GRAVE)
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
@@ -82,7 +83,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x211) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.thfilter(chkc) end

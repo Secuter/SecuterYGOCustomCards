@@ -1,5 +1,6 @@
 --D.D. Invader Hotspot
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -44,9 +45,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.desop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x215}
+s.listed_series={SET_D_D__INVADER}
 function s.thfilter1(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsAbleToHand()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsAbleToHand()
 end
 function s.thtg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
@@ -77,7 +78,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil)
 end
 function s.thfilter2(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end
@@ -93,7 +94,7 @@ function s.thop2(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.cfilter(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil) end

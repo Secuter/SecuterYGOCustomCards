@@ -1,5 +1,6 @@
 --Ancient Oracle
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableCounterPermit(0x303)
@@ -14,7 +15,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x211))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_ANCIENT_ORACLE))
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -41,9 +42,9 @@ function s.initial_effect(c)
 	e5:SetOperation(s.desrepop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 function s.spfilter(c,e,tp,lv)
-	return c:IsSetCard(0x211) and c:IsLevelBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsLevelBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
         and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -53,7 +54,7 @@ function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,tp,2)
 end
 function s.filter(c)
-	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(0x211)
+	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(SET_ANCIENT_ORACLE)
 end
 function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

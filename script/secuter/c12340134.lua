@@ -1,8 +1,8 @@
 --Undead Master of Extortion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,2,2)
@@ -44,18 +44,18 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x202,0x1202}
-s.material_setcode={0x202}
+s.listed_series={SET_UNDEAD,SET_UNDEAD_MASTER}
+s.material_setcode={SET_UNDEAD}
 --ignition
 function s.ignfilter1(c)
 	return c:IsRace(RACE_ZOMBIE)
 end
 function s.ignfilter2(c)
-	return c:IsSetCard(0x202)
+	return c:IsSetCard(SET_UNDEAD)
 end
 --cannot target
 function s.immtg(e,c)
-	return c:IsSetCard(0x1202)
+	return c:IsSetCard(SET_UNDEAD_MASTER)
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
@@ -63,7 +63,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 end
 function s.thfilter(c)
-	return (c:IsSetCard(0x202) or (c:IsRace(RACE_ZOMBIE) and c:IsLevelAbove(7))) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_UNDEAD) or (c:IsRace(RACE_ZOMBIE) and c:IsLevelAbove(7))) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -87,7 +87,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x202) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
+	return c:IsSetCard(SET_UNDEAD) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

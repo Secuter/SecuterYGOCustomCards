@@ -1,7 +1,7 @@
 --Synchro Armor
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -38,7 +38,7 @@ function s.initial_effect(c)
 	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP)
-	e2:SetHintTiming(TIMING_DAMAGE_STEP,0x21e0)
+	e2:SetHintTiming(TIMING_DAMAGE_STEP,SET_ARCAEONIX0)
 	e2:SetCountLimit(1,id)
 	e2:SetCondition(s.cond)
 	e2:SetTarget(s.target)

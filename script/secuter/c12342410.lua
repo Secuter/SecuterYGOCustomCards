@@ -1,5 +1,6 @@
 --Savage Beast Basilisk
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -38,9 +39,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.material_setcode={0x21c}
+s.material_setcode={SET_SAVAGE_BEAST}
 function s.matfilter(c,scard,sumtype,tp)
-	return c:IsSetCard(0x21c,scard,sumtype,tp) and not c:IsCode(id)
+	return c:IsSetCard(SET_SAVAGE_BEAST,scard,sumtype,tp) and not c:IsCode(id)
 end
 function s.effcon(e)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_LINK

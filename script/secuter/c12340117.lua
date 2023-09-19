@@ -1,10 +1,11 @@
 --Fusion Master of Skulls
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--fusion material
-	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x202),aux.FilterBoolFunctionEx(Card.IsAttackBelow,0))
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_UNDEAD),aux.FilterBoolFunctionEx(Card.IsAttackBelow,0))
     --sent to GY
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -19,15 +20,15 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x202}
-s.material_setcode={0x202}
+s.listed_series={SET_UNDEAD}
+s.material_setcode={SET_UNDEAD}
 
 function s.gycon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(c:GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x202) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.gytg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

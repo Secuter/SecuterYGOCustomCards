@@ -1,5 +1,6 @@
 --Xeldron, the Exoheart Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
@@ -90,7 +91,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToHand() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToHand,tp,0,LOCATION_MZONE,1,nil)
 		and (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or e:GetHandler():IsInMainMZone())
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,1500,1500,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,1500,1500,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_MZONE,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
@@ -103,7 +104,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,1500,1500,1,RACE_CYBERSE,ATTRIBUTE_DARK) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,1500,1500,1,RACE_CYBERSE,ATTRIBUTE_DARK) then
 		local c=e:GetHandler()
 		local token=Duel.CreateToken(tp,s.TOKEN_ID)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)

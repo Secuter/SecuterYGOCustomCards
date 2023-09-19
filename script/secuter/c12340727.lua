@@ -1,5 +1,6 @@
 --Morhai Counter
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--negate
@@ -14,9 +15,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.negop)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 function s.cfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,2,e:GetHandler()) end
@@ -35,7 +36,7 @@ function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	end
 end
 function s.sfilter(c)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
 end
 function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then

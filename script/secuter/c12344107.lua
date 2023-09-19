@@ -1,8 +1,8 @@
 --Amorphiend Granite Titan
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 s.material={12344100}
 --ignition
 function s.ignfilter1(c,sc,sumtype,tp)
@@ -68,7 +68,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 end
 function s.filter(c)
-	return c:IsSetCard(0x22F) and c:IsType(TYPE_QUICKPLAY+TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_QUICKPLAY+TYPE_TRAP) and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

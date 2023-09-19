@@ -1,8 +1,9 @@
 --Morhai Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
-	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x209),2,3)
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_MORHAI),2,3)
 	c:EnableReviveLimit()
 	--atk
 	local e1=Effect.CreateEffect(c)
@@ -51,8 +52,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x209}
-s.material_setcode={0x209}
+s.listed_series={SET_MORHAI}
+s.material_setcode={SET_MORHAI}
 function s.atkval(e,c)
 	return c:GetLinkedGroupCount()*500
 end
@@ -65,7 +66,7 @@ function s.inval(e,re,r,rp)
 end
 
 function s.thfilter2(c)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end
@@ -86,7 +87,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:GetPreviousControler()==c:GetOwner() and c:IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

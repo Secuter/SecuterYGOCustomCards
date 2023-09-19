@@ -1,5 +1,6 @@
 --D.D. Invader Map
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -25,14 +26,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x215}
+s.listed_series={SET_D_D__INVADER}
 function s.rfilter(c,e,tp)
 	if not c:IsAbleToRemoveAsCost() then return false end
 	local g=Duel.GetMatchingGroup(s.thfilter,tp,LOCATION_DECK,0,nil,c:GetCode())
 	return aux.SelectUnselectGroup(g,e,tp,2,2,aux.dncheck,0) end
 	
 function s.thfilter(c,code)
-	return c:IsSetCard(0x215) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_HAND,0,1,e:GetHandler(),e,tp) end
@@ -63,10 +64,10 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x215) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_D_D__INVADER) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x215)
+	return not c:IsSetCard(SET_D_D__INVADER)
 end
 --spsummon
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -76,7 +77,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -1,5 +1,6 @@
 --External Worlds Hero LIGHT
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -18,7 +19,7 @@ function s.initial_effect(c)
 	p2:SetRange(LOCATION_PZONE)
 	p2:SetCode(EFFECT_UPDATE_ATTACK)
 	p2:SetTargetRange(LOCATION_MZONE,0)
-	p2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x201))
+	p2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_EXTERNAL_WORLDS))
 	p2:SetValue(200)
 	c:RegisterEffect(p2)
     local p3=p2:Clone()
@@ -54,13 +55,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x201) and c:IsFaceup() and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsFaceup() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and s.thfilter(chkc) end
@@ -79,7 +80,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter2(c)
-	return c:IsSetCard(0x201) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_GRAVE+LOCATION_EXTRA,0,1,nil) end

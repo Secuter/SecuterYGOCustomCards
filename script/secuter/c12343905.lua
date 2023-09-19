@@ -1,5 +1,6 @@
 --Irradiance Swordman
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -27,10 +28,10 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --spsummon
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x22C)
+	return c:IsFaceup() and c:IsSetCard(SET_IRRADIANCE)
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -47,7 +48,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>=ct end
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22C) and c:IsAbleToHand()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=3

@@ -1,5 +1,6 @@
 --Magic Tower Hall
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search mon
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x222}
+s.listed_series={SET_MAGIC_TOWER}
 --search mon
 function s.condition1(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
@@ -65,7 +66,7 @@ function s.condition2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)
 end
 function s.thfilter2(c,t)
-	return c:IsSetCard(0x222) and c:IsSpellTrap() and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MAGIC_TOWER) and c:IsSpellTrap() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end
@@ -81,7 +82,7 @@ function s.activate2(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.cfilter(c)
-	return c:IsSetCard(0x222) and c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsCode(id) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_MAGIC_TOWER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsCode(id) and c:IsAbleToGraveAsCost()
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return aux.bfgcost(e,tp,eg,ep,ev,re,r,rp,0)

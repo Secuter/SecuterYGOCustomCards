@@ -1,5 +1,6 @@
 --Eternal Storm Titan
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -47,7 +48,7 @@ function s.initial_effect(c)
 	e5:SetValue(s.atkval)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x221}
+s.listed_series={SET_ETERNAL_STORM}
 function s.matfilter(c,sc,st,tp)
 	return c:IsAttribute(ATTRIBUTE_WIND,sc,st,tp) and not c:IsType(TYPE_TOKEN,sc,st,tp)
 end
@@ -56,7 +57,7 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) and Duel.IsAbleToEnterBP() and not e:GetHandler():IsHasEffect(EFFECT_ATTACK_ALL)
 end
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x221) and c:IsAbleToGraveAsCost()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_ETERNAL_STORM) and c:IsAbleToGraveAsCost()
 end
 function s.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

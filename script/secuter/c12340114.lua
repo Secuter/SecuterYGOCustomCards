@@ -1,5 +1,6 @@
 --Poly
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--from field or graveyard
@@ -22,7 +23,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x202}
+s.listed_series={SET_UNDEAD}
 
 function s.filter0(c)
 	return c:IsOnField() and c:IsAbleToGrave()
@@ -31,7 +32,7 @@ function s.filter1(c,e)
 	return c:IsOnField() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
 function s.filter2(c,e,tp,m,f,chkf)
-	return c:IsType(TYPE_FUSION) and c:IsSetCard(0x202) and (not f or f(c))
+	return c:IsType(TYPE_FUSION) and c:IsSetCard(SET_UNDEAD) and (not f or f(c))
 		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_FUSION,tp,false,false) and c:CheckFusionMaterial(m,nil,tp)
 end
 function s.filter3(c,e)

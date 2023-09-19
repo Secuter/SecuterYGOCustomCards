@@ -1,5 +1,6 @@
 --D.D. Invader Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -40,15 +41,15 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x215}
-s.material_setcode={0x215}
+s.listed_series={SET_D_D__INVADER}
+s.material_setcode={SET_D_D__INVADER}
 function s.matfilter(c,scard,sumtype,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x215,scard,sumtype,tp)
+	return c:IsLevelBelow(4) and c:IsSetCard(SET_D_D__INVADER,scard,sumtype,tp)
 end
 --link material limit
 function s.linklimit(e,c)
 	if not c then return false end
-	return not c:IsSetCard(0x215)
+	return not c:IsSetCard(SET_D_D__INVADER)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
@@ -61,7 +62,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x215) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end
@@ -84,7 +85,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil)
 end
 function s.tdfilter(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsSpellTrap() and c:IsFaceup() and c:IsAbleToDeck()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsSpellTrap() and c:IsFaceup() and c:IsAbleToDeck()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and s.tdfilter(chkc) end

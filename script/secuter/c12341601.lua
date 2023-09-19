@@ -1,5 +1,6 @@
 --Demon Rival Stealth Butcher
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--sp summon
@@ -38,9 +39,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={12341613}
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x216)
+	return c:IsFaceup() and c:IsSetCard(SET_DEMON_RIVAL)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
@@ -80,7 +81,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 end
 function s.thfilter2(c,e,tp)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand() and (c:IsLocation(LOCATION_DECK) or c:IsFaceup())
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand() and (c:IsLocation(LOCATION_DECK) or c:IsFaceup())
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK+LOCATION_REMOVED,0,1,nil) end

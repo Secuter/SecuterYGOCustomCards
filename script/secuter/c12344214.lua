@@ -1,5 +1,6 @@
 --Dark Sovereign Return
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Runic=true
 s.RunicEffect={}
@@ -21,10 +22,10 @@ function s.initial_effect(c)
 	re:SetOperation(s.spop)
 	s.RunicEffect=re
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --xyz
 function s.matfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x230) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.xyzfilter(c,tp,mg)
 	return c:IsAttribute(ATTRIBUTE_DARK) and Duel.GetLocationCountFromEx(tp,tp,mg,c)>0 and c:IsXyzSummonable(nil,mg,2,2)
@@ -78,7 +79,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --sp summon
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x230) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFlagEffect(tp,id)==0

@@ -1,5 +1,6 @@
 --Yoccol Power Blast
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -24,10 +25,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 --destroy
 function s.filter(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_RITUAL+TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ)
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_RITUAL+TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(aux.FaceupFilter(s.filter),tp,LOCATION_MZONE,0,1,nil)
@@ -37,7 +38,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local ct=0
-	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,0x21F),tp,LOCATION_MZONE,0,nil)
+	local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_YOCCOL),tp,LOCATION_MZONE,0,nil)
 	if g:IsExists(Card.IsType,1,nil,TYPE_RITUAL) then ct=ct+1 end
 	if g:IsExists(Card.IsType,1,nil,TYPE_FUSION) then ct=ct+1 end
 	if g:IsExists(Card.IsType,1,nil,TYPE_SYNCHRO) then ct=ct+1 end
@@ -52,7 +53,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --return to hand
 function s.tdfilter(c,e)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL+TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL+TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck()
 end
 function s.rescon(sg,e,tp,mg)
 	local ct=0

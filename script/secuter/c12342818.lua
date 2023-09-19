@@ -1,8 +1,8 @@
 --Wyrmwind Southern Wyvern
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--echo summon
@@ -51,7 +51,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.negop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x220}
+s.listed_series={SET_WYRMWIND}
 function s.efilter(c,sc,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_WIND,sc,sumtype,tp) and c:IsType(TYPE_XYZ,sc,sumtype,tp)
 end

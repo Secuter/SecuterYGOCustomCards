@@ -1,7 +1,7 @@
 --Dark Sovereign Overlord
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 s.Runic=true
 function s.initial_effect(c)
 	--atk
@@ -46,7 +46,7 @@ function s.initial_effect(c)
 	e6:SetCode(EVENT_CHAINING)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --atk
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -59,7 +59,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thfilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToHand()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end
@@ -80,7 +80,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToGraveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToGraveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()

@@ -1,5 +1,6 @@
 --Pyroclast Chimera
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--send to gy
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop2)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x226}
+s.listed_series={SET_PYROCLAST}
 s.listed_names={id}
 --to grave
 function s.tgfilter(c)
@@ -54,7 +55,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return (r&REASON_FUSION)==REASON_FUSION
 end
 function s.thfilter2(c,e,tp)
-	return c:IsSetCard(0x226) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

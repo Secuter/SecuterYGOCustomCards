@@ -2,7 +2,6 @@ REVERSE_XYZ_IMPORTED=true
 
 --[[
 add at the start of the script to add Ingition procedure
-if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
 ]]
 
 if not aux.ReverseXyzProcedure then

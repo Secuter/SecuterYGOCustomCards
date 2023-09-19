@@ -1,9 +1,10 @@
 --External Worlds Synchro *7
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
-	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTuner(Card.IsSetCard,0x201),1,99)
+	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTuner(Card.IsSetCard,SET_EXTERNAL_WORLDS),1,99)
 	c:EnableReviveLimit()
 	--Destroy face-up
 	local e1=Effect.CreateEffect(c)
@@ -29,11 +30,11 @@ function s.initial_effect(c)
 	e2:SetOperation(s.psop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 
 function s.rfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
         and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -64,7 +65,7 @@ function s.pscon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function s.psfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and not c:IsForbidden()
 end
 function s.pstg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return (Duel.CheckLocation(tp,LOCATION_PZONE,0) or Duel.CheckLocation(tp,LOCATION_PZONE,1))

@@ -1,5 +1,6 @@
 --Slayer of the Asuras
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--double tribute
@@ -36,20 +37,20 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 --search + normal summon
 function s.thfilter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function s.sumfilter(c)
-	return c:IsSummonable(true,nil) and c:IsSetCard(0x218)
+	return c:IsSummonable(true,nil) and c:IsSetCard(SET_ASURA)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

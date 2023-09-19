@@ -1,5 +1,6 @@
 --Eternal Storm Crab
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -44,7 +45,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x221}
+s.listed_series={SET_ETERNAL_STORM}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)
@@ -80,7 +81,7 @@ function s.lizfilter(e,c)
 end
 --search
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x221) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
+	return c:IsSetCard(SET_ETERNAL_STORM) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -1,5 +1,6 @@
 --Irradiance Resonance
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -14,14 +15,14 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --spsummon
 function s.chkfilter(c,e,tp)
-	return c:IsSetCard(0x22C) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 		and Duel.IsExistingMatchingCard(s.codefilter,tp,LOCATION_GRAVE,0,1,c,e,tp,c:GetCode())
 end
 function s.codefilter(c,e,tp,code)
-	return c:IsCode(code) and c:IsSetCard(0x22C) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsCode(code) and c:IsSetCard(SET_IRRADIANCE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -35,7 +36,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,sg,2,tp,LOCATION_GRAVE)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22C) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spcheck(g,tc,sumtype,tp)
 	return g:GetClassCount(Card.GetCode)==1

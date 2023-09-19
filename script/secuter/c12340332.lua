@@ -1,5 +1,6 @@
 --Ritual Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -8,9 +9,9 @@ function s.initial_effect(c)
 	e1:SetCost(s.cost)
 	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.rfilter(c)
-	return c:IsSetCard(0x205) and (c:GetLevel()<=7 or c:IsLocation(LOCATION_HAND))
+	return c:IsSetCard(SET_DARK_KING) and (c:GetLevel()<=7 or c:IsLocation(LOCATION_HAND))
 end
 
 function s.counterfilter(c)
@@ -38,7 +39,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsAttribute(ATTRIBUTE_DARK)
 end
 function s.filter(c,e,tp,m,ft)
-	if not c:IsSetCard(0x205) or not c:IsType(TYPE_RITUAL) or (c:IsLocation(LOCATION_DECK) and c:GetLevel()>7)
+	if not c:IsSetCard(SET_DARK_KING) or not c:IsType(TYPE_RITUAL) or (c:IsLocation(LOCATION_DECK) and c:GetLevel()>7)
 		or not c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_RITUAL,tp,false,true) then return false end
 	local mg=m:Filter(Card.IsCanBeRitualMaterial,c,c):Filter(Card.IsAttribute,nil,ATTRIBUTE_DARK)
 	if ft>0 then

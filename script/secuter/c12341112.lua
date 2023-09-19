@@ -1,10 +1,11 @@
 -- Divine Xyz
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
-	Xyz.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x213),3,2)
+	Xyz.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DIVINE_DISCIPLE),3,2)
 	--double tribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -43,8 +44,8 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x213}
-s.material_setcode={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
+s.material_setcode={SET_DIVINE_DISCIPLE}
 function s.condition(e,c)
 	return c:IsRace(RACE_DIVINE) and c:IsLevel(12)
 end
@@ -71,7 +72,7 @@ end
 
 function s.repfilter(c,tp)
 	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD)
-		and c:IsSetCard(0x213) and c:IsReason(REASON_EFFECT) and not c:IsReason(REASON_REPLACE)
+		and c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsReason(REASON_EFFECT) and not c:IsReason(REASON_REPLACE)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -87,7 +88,7 @@ function s.repval(e,c)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x213) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -1,6 +1,6 @@
 --Arcaeonix Ember Enforcer
 --Scripted by Secuter
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
 function s.initial_effect(c)
@@ -27,7 +27,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x21E}
+s.listed_series={SET_ARCAEONIX}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION

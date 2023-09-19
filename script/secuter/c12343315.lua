@@ -1,5 +1,6 @@
 --Pyroclast Field
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,7 +27,7 @@ function s.initial_effect(c)
 	e3:SetValue(s.limit)
 	c:RegisterEffect(e3)
 	--fusion summon
-	local params={aux.FilterBoolFunction(Card.IsSetCard,0x226),Fusion.OnFieldMat}
+	local params={aux.FilterBoolFunction(Card.IsSetCard,SET_PYROCLAST),Fusion.OnFieldMat}
 	local e4=Effect.CreateEffect(c)
 	e4:SetDescription(aux.Stringid(id,0))
 	e4:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)
@@ -50,7 +51,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x226}
+s.listed_series={SET_PYROCLAST}
 --cannot be fusion material
 function s.limit(e,c)
 	if not c then return false end

@@ -1,10 +1,11 @@
 --Dark King's Offering
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x205),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),nil,LOCATION_GRAVE+LOCATION_HAND)
-	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,0x205),matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_HAND|LOCATION_GRAVE})
+	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),nil,LOCATION_GRAVE+LOCATION_HAND)
+	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_HAND|LOCATION_GRAVE})
 	--to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_TODECK)
@@ -18,9 +19,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.thfilter(c)
-	return c:IsSetCard(0x205) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and c:IsAbleToHand()
+	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.thfilter(chkc) end

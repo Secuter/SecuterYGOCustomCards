@@ -1,5 +1,6 @@
 --Asura XYZ
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
@@ -53,9 +54,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.negop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 --tribute
 function s.otcon(e,c,minc)
@@ -66,7 +67,7 @@ function s.otcon(e,c,minc)
 end
 function s.ottg(e,c)
 	local mi,ma=c:GetTributeRequirement()
-	return mi<=2 and ma>=2 and c:IsSetCard(0x218)
+	return mi<=2 and ma>=2 and c:IsSetCard(SET_ASURA)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,c)
 	if e:GetHandler() then
@@ -88,7 +89,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -104,7 +105,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --negate
 function s.filter(c,tp)
-	return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsSetCard(0x218)
+	return c:IsControler(tp) and c:IsLocation(LOCATION_MZONE) and c:IsFaceup() and c:IsSetCard(SET_ASURA)
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not (rp==1-tp and re:IsHasProperty(EFFECT_FLAG_CARD_TARGET)) then return false end

@@ -1,5 +1,6 @@
 --Fluid Flooding Brute
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 c:EnableReviveLimit()
@@ -29,16 +30,16 @@ c:EnableReviveLimit()
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 function s.mfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x204,lc,sumtype,tp) and c:IsLevelBelow(4)
+	return c:IsSetCard(SET_FLUID,lc,sumtype,tp) and c:IsLevelBelow(4)
 end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.filter(c)
-	return c:IsSetCard(0x204) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FLUID) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -74,7 +75,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsType(TYPE_MONSTER) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_FLUID) and c:IsType(TYPE_MONSTER) and c:IsSummonableCard() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

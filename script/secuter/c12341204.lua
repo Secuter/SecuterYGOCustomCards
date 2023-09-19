@@ -1,5 +1,6 @@
 --Erinyes Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -22,9 +23,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.repop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x214}
+s.listed_series={SET_ERINYES}
 function s.thfilter(c)
-	return c:IsSetCard(0x214) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ERINYES) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(aux.NecroValleyFilter(s.thfilter),tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end
@@ -40,7 +41,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.repfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x214) and c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) 
+	return c:IsFaceup() and c:IsSetCard(SET_ERINYES) and c:IsLocation(LOCATION_ONFIELD) and c:IsControler(tp) 
 		and not c:IsReason(REASON_REPLACE) and c:IsReason(REASON_EFFECT+REASON_BATTLE)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)

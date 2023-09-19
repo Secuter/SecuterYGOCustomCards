@@ -1,5 +1,6 @@
 --Rascal Ace Agent
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --spsummon and destroy mon
@@ -35,14 +36,14 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetTurnPlayer()==tp then return false end
 	local ph=Duel.GetCurrentPhase()
 	return ph==PHASE_MAIN1 or (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) or ph==PHASE_MAIN2
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x21D) and c:IsDiscardable()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsDiscardable()
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
@@ -71,7 +72,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x21D) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

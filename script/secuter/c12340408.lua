@@ -1,5 +1,6 @@
 --Rock Hydra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 function s.counterfilter(c)
 	return c:GetSummonLocation()~=LOCATION_EXTRA or c:IsRace(RACE_REPTILE)
 end
@@ -63,7 +64,7 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,0,tp,LOCATION_GRAVE)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -1,5 +1,6 @@
 --Morai Cultist
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--tohand
@@ -34,13 +35,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.rhop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x209,0x1209}
+s.listed_series={SET_MORHAI,SET_MORHAI_CULTIST}
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetAttackTarget()~=nil
 end
 function s.mtfilter(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.mtfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler()) end
@@ -49,10 +50,10 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function s.thfilter1(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToHand() and Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToHand() and Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter2(c,code)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1209) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI_CULTIST) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter1,tp,LOCATION_DECK,0,1,nil,tp) end

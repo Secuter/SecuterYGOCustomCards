@@ -1,5 +1,6 @@
 --Freeflame Witch
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--banish cards sent to the gy
@@ -49,7 +50,7 @@ function s.initial_effect(c)
 	e6:SetOperation(s.spop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x231}
+s.listed_series={SET_FREEFLAME}
 --banish cards
 function s.rmtarget(e,c)
 	return Duel.IsPlayerCanRemove(e:GetHandlerPlayer(),c)

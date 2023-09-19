@@ -1,5 +1,6 @@
 --Anuak Wind Tornado
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -47,10 +48,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x208),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ANUAK),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
@@ -79,7 +80,7 @@ function s.checkattr(tp)
 	local attr_all=0
 	for i=0,10 do
 		local attr = 2^i
-		if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,0x201,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
+		if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
 			attr_all=attr_all | attr
 		end
 	end
@@ -95,7 +96,7 @@ function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,0x201,TYPES_TOKEN,0,0,1,RACE_FIEND,e:GetLabel()) then
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,e:GetLabel()) then
 		-- change attribute both before and after summon to work with Gozen Match
 		local token=Duel.CreateToken(tp,12344699)
 		local e1=Effect.CreateEffect(e:GetHandler())
@@ -116,7 +117,7 @@ function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 end
 --negate
 function s.tgfilter(c,tp)
-	return c:IsControler(tp) and c:IsOnField() and c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion()))
+	return c:IsControler(tp) and c:IsOnField() and c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(SET_ANUAK) and c:IsReunion()))
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not (rp==1-tp and re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) and Duel.IsChainNegatable(ev)) then return false end

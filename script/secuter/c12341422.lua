@@ -1,5 +1,6 @@
 --Ancient Oracle Extra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -29,10 +30,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12341414}
-s.listed_series={0x211}
-s.material_setcode={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
+s.material_setcode={SET_ANCIENT_ORACLE}
 function s.lcheck(g,lc)
-	return g:IsExists(Card.IsSetCard,1,nil,0x211)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_ANCIENT_ORACLE)
 end
 
 function s.cfilter(c)
@@ -53,7 +54,7 @@ function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,tp,3)
 end
 function s.filter(c)
-	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(0x211)
+	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(SET_ANCIENT_ORACLE)
 end
 function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -66,7 +67,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
         e1:SetType(EFFECT_TYPE_FIELD)
         e1:SetCode(EFFECT_UPDATE_ATTACK)
         e1:SetTargetRange(LOCATION_MZONE,0)
-        e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x211))
+        e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_ANCIENT_ORACLE))
         e1:SetValue(ct*300)
         e1:SetReset(RESET_PHASE+PHASE_END+RESET_SELF_TURN)
         Duel.RegisterEffect(e1,tp)

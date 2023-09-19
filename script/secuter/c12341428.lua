@@ -1,5 +1,6 @@
 --Ancient Oracle Spear Master
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
@@ -47,7 +48,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 --actlimit
 function s.actlimit(e,te,tp)
 	return te:IsActiveType(TYPE_SPELL) and not te:GetHandler():IsCode(12341414)
@@ -82,7 +83,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x211) and not c:IsType(TYPE_XYZ) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsType(TYPE_XYZ) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.spfilter(chkc,e,tp) end

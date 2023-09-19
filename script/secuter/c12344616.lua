@@ -1,5 +1,6 @@
 --Void Wanderer Dark Release
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon
 function s.spfilter(c,e,tp)
 	return c:IsCode(12344600) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
@@ -42,7 +43,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --disable
 function s.filter(c)
-	return c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion()))
+	return c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(SET_ANUAK) and c:IsReunion()))
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)

@@ -1,7 +1,7 @@
 --Bulwark Champion Halberd
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -32,12 +32,12 @@ function s.initial_effect(c)
 	e2:SetOperation(s.atop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.atfilter(c,tc)
-	return c:IsSetCard(0x21a) and not c:IsCode(id) and Armor.AttachCheck(c,tc)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsCode(id) and Armor.AttachCheck(c,tc)
 end
 function s.filter(c,tp)
-	return c:IsSetCard(0x21a) and not c:IsType(TYPE_XYZ) and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,c)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsType(TYPE_XYZ) and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,c)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.filter(chkc,tp) end
@@ -58,7 +58,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.atcon(e)
-	return Armor.Condition(e) and e:GetHandler():IsSetCard(0x21a)
+	return Armor.Condition(e) and e:GetHandler():IsSetCard(SET_BULWARK_CHAMPION)
 end
 function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end

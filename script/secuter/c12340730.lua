@@ -1,8 +1,9 @@
 --Morhai Link 4
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
-	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x209),2,4)
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_MORHAI),2,4)
 	c:EnableReviveLimit()
 	--atk
 	local e1=Effect.CreateEffect(c)
@@ -20,7 +21,7 @@ function s.initial_effect(c)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetTargetRange(LOCATION_ONFIELD,0)
 	e2:SetCondition(s.pcon)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x209))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_MORHAI))
 	e2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2)
 	--cannot attack target
@@ -60,8 +61,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x209}
-s.material_setcode={0x209}
+s.listed_series={SET_MORHAI}
+s.material_setcode={SET_MORHAI}
 function s.atkval(e,c)
 	return c:GetLinkedGroupCount()*500
 end
@@ -77,7 +78,7 @@ function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and re:IsActiveType(TYPE_MONSTER) and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler()) end
@@ -99,7 +100,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:GetPreviousControler()==c:GetOwner() and c:IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

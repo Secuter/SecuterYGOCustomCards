@@ -1,8 +1,8 @@
 --Anuak Dragonflare
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--reunion summon
@@ -52,9 +52,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.material_setcode={0x208}
+s.material_setcode={SET_ANUAK}
 function s.mfilter(c,sc,sumtype,tp)
-	return c:IsReunion() and (c:IsLocation(LOCATION_MZONE) or c:IsSetCard(0x208,sc,sumtype,tp))
+	return c:IsReunion() and (c:IsLocation(LOCATION_MZONE) or c:IsSetCard(SET_ANUAK,sc,sumtype,tp))
 end
 --atk increase
 function s.atkval(e,c)

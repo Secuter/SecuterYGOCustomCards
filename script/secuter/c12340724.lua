@@ -1,5 +1,6 @@
 --Morhai
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -40,9 +41,9 @@ function s.initial_effect(c)
 	e3:SetLabel(6)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 function s.rfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ct=e:GetLabel()
@@ -65,7 +66,7 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -81,7 +82,7 @@ function s.op2(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,sp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x209) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.tg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCountFromEx(tp)>0

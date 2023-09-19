@@ -1,5 +1,6 @@
 --Sifarr, Aegis of the Generaider Bosses
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -28,7 +29,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x134}
+s.listed_series={SET_GENERAIDER}
 s.listed_names={id}
 
 --sp summon itself

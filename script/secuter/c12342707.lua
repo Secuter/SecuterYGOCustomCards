@@ -1,5 +1,6 @@
 --Iliasna The Yoccol Annihilator (Xyz)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -42,7 +43,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 --to hand
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,2,REASON_COST) end
@@ -63,7 +64,7 @@ function s.thop1(e,tp,eg,ep,ev,re,r,rp)
 end
 --search 1
 function s.thfilter(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -79,7 +80,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search 2
 function s.thfilter2(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

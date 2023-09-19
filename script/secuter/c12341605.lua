@@ -1,5 +1,6 @@
 --Demon Rival Ultimate Annihilator (RITUAL)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -36,7 +37,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsLevelBelow(4) and c:IsAttribute(ATTRIBUTE_DARK,scard,sumtype,tp)
 end
@@ -94,7 +95,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,0,LOCATION_DECK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x216) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local p=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER)

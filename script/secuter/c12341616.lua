@@ -1,5 +1,6 @@
 --Demon Rival Outbreak
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -36,13 +37,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_MONSTER) and (c:IsControler(tp) or c:IsFaceup())
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_MONSTER) and (c:IsControler(tp) or c:IsFaceup())
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -68,7 +69,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

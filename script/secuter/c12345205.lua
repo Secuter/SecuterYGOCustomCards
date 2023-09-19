@@ -1,5 +1,6 @@
 --Exoheart Network
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
@@ -27,15 +28,15 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={s.TOKEN_ID}
-s.listed_series={0x20E}
+s.listed_series={SET_EXOHEART}
 --activate
 function s.thfilter(c)
-	return c:IsSetCard(0x20E) and c:IsSpellTrap() and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXOHEART) and c:IsSpellTrap() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
@@ -49,7 +50,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) then
 		local c=e:GetHandler()
 		local token=Duel.CreateToken(tp,s.TOKEN_ID)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
@@ -66,7 +67,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SpecialSummonComplete()
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x20E) or c:IsCode(s.TOKEN_ID)
+	return not c:IsSetCard(SET_EXOHEART) or c:IsCode(s.TOKEN_ID)
 end
 --link summon
 function s.filter(c,tp)
@@ -76,7 +77,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp and eg:IsExists(s.filter,1,nil,tp)
 end
 function s.spfilter(c)
-	return c:IsSetCard(0x20E) and c:IsLinkAbove(2) and c:IsLinkSummonable()
+	return c:IsSetCard(SET_EXOHEART) and c:IsLinkAbove(2) and c:IsLinkSummonable()
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil) end

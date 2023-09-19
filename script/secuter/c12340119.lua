@@ -1,10 +1,11 @@
 --Fusion Master of Wickdness
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--fusion material
-	Fusion.AddProcMixRep(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x202),2,99)
+	Fusion.AddProcMixRep(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_UNDEAD),2,99)
 	--cannot be target
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -41,10 +42,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_seriecid={0x202}
-s.material_setcode=0x202
+s.listed_seriecid={SET_UNDEAD}
+s.material_setcode=SET_UNDEAD
 
-s.material_setcode=0x202
+s.material_setcode=SET_UNDEAD
 function s.valcheck(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local e1=Effect.CreateEffect(c)

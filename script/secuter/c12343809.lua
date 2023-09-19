@@ -1,6 +1,6 @@
 --Crearmor Silver Wing Drake
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
@@ -45,13 +45,13 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop2)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22B) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

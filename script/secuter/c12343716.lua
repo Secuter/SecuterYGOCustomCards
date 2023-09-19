@@ -1,5 +1,6 @@
 --Soulbound Watcher
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -28,7 +29,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 --spsummon
 function s.cfilter(c,tp)
 	return c:IsControler(tp) and c:IsPreviousLocation(LOCATION_DECK)
@@ -37,7 +38,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return (Duel.GetCurrentPhase()~=PHASE_DRAW or Duel.IsTurnPlayer(tp)) and eg:IsExists(s.cfilter,1,nil,1-tp)
 end
 function s.thfilter(c,e,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x22A) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsLevelBelow(4) and c:IsSetCard(SET_SOULBOUND) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -1,5 +1,6 @@
 --Preacher of the Asuras
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--double tribute
@@ -44,9 +45,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 --normal summon itself
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
@@ -65,7 +66,7 @@ function s.sumop(e,tp,eg,ep,ev,re,r,rp)
 end
 --normal summon
 function s.sumfilter(c)
-	return c:IsSummonable(true,nil) and c:IsSetCard(0x218)
+	return c:IsSummonable(true,nil) and c:IsSetCard(SET_ASURA)
 end
 function s.sumtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end
@@ -80,7 +81,7 @@ function s.sumop2(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

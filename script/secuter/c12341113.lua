@@ -1,10 +1,11 @@
 -- Divine Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
 	c:EnableReviveLimit()
-	Link.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x213),2,2)
+	Link.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DIVINE_DISCIPLE),2,2)
 	--token
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -30,8 +31,8 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x213}
-s.material_setcode={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
+s.material_setcode={SET_DIVINE_DISCIPLE}
 
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_LINK
@@ -42,14 +43,14 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>1 and not Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) 
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,0x213,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,SET_DIVINE_DISCIPLE,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,2,tp,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,0)
 end
 function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=1
 		or Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT)
-		or not Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,0x213,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) then return end
+		or not Duel.IsPlayerCanSpecialSummonMonster(tp,12341120,SET_DIVINE_DISCIPLE,0x4011,0,0,1,RACE_FAIRY,ATTRIBUTE_LIGHT) then return end
 	for i=1,2 do
 		local token=Duel.CreateToken(tp,12341120)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
@@ -67,7 +68,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x213) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

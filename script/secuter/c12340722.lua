@@ -1,8 +1,9 @@
 --Morhai
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
-	aux.AddEquipProcedure(c,nil,aux.FilterBoolFunction(Card.IsSetCard,0x209))
+	aux.AddEquipProcedure(c,nil,aux.FilterBoolFunction(Card.IsSetCard,SET_MORHAI))
 	--atk up
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local ec=e:GetHandler():GetEquipTarget()
@@ -45,7 +46,7 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return ec and tc and tc:IsFaceup() and tc:IsControler(1-tp)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x209) and (c:GetAttack()>0 or c:GetDefense()>0) and c:IsDiscardable()
+	return c:IsSetCard(SET_MORHAI) and (c:GetAttack()>0 or c:GetDefense()>0) and c:IsDiscardable()
 end
 function s.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,nil) end
@@ -111,7 +112,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x209) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

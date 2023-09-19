@@ -1,6 +1,6 @@
 --Crearmor Hand of Judgment
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
@@ -52,17 +52,17 @@ function s.initial_effect(c)
 	e4:SetOperation(s.negop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x22B}
-s.material_setcode={0x22B}
+s.listed_series={SET_CREARMOR}
+s.material_setcode={SET_CREARMOR}
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x22B,lc,sumtype,tp)
+	return c:IsSetCard(SET_CREARMOR,lc,sumtype,tp)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return aux.bdcon(e,tp,eg,ep,ev,re,r,rp) and Armor.Condition(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22B) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_CREARMOR) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end
@@ -83,7 +83,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x22B) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_CREARMOR) and Armor.AttachCheck(c,sc)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and Armor.AttachCheck(chkc,e:GetHandler()) end

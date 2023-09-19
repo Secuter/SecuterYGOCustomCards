@@ -1,11 +1,11 @@
 --Ancient Oracle Omen Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
-	Ignition.AddProcedure(c,aux.FilterBoolFunction(Card.IsLevel,4),aux.FilterBoolFunctionEx(Card.IsSetCard,0x211),1,1)
+	Ignition.AddProcedure(c,aux.FilterBoolFunction(Card.IsLevel,4),aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANCIENT_ORACLE),1,1)
 	c:EnableReviveLimit()
 	--draw + spsummon
 	local e1=Effect.CreateEffect(c)
@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id,12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 --des
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
@@ -70,12 +70,12 @@ function s.drop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x211) and not c:IsCode(id)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x211) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

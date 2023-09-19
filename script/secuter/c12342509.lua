@@ -1,5 +1,6 @@
 --Rascal Ace Mech-Overload
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.banop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsNegatableMonster,tp,0,LOCATION_ONFIELD,1,nil) end
 end

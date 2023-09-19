@@ -1,5 +1,6 @@
 --Savage Beast Goddess Bastet
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -48,7 +49,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x21c}
+s.listed_series={SET_SAVAGE_BEAST}
 function s.effcon(e)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_LINK
 end

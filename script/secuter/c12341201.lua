@@ -1,5 +1,6 @@
 --Erinyes
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -28,9 +29,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.xyzop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x214}
+s.listed_series={SET_ERINYES}
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x214)
+	return c:IsFaceup() and c:IsSetCard(SET_ERINYES)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
@@ -74,7 +75,7 @@ function s.xyzcon(e,tp,eg,ep,ev,re,r,rp)
 		and (ph==PHASE_MAIN1 or (ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE) or ph==PHASE_MAIN2)
 end
 function s.xyzfilter(c,sc)
-	return c:IsSetCard(0x214) and c:IsXyzSummonable(sc)
+	return c:IsSetCard(SET_ERINYES) and c:IsXyzSummonable(sc)
 end
 function s.xyztg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.xyzfilter,tp,LOCATION_EXTRA,0,1,nil,e:GetHandler()) end

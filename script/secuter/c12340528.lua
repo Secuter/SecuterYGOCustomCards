@@ -1,5 +1,6 @@
 --Fire Core Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -28,7 +29,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x1207}
+s.listed_series={SET_FIRE_CORE_MAGIC}
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsType(TYPE_EFFECT,scard,sumtype,tp) and c:IsAttribute(ATTRIBUTE_FIRE,scard,sumtype,tp)
 end
@@ -49,11 +50,11 @@ function s.drop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x1207) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FIRE_CORE_MAGIC) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.resfilter(c,tp)
 	return c:GetPreviousControler()==tp and c:GetControler()==tp
-      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),0x41)==0x41
+      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),REASON_DESTROY|REASON_EFFECT)==REASON_DESTROY|REASON_EFFECT
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.resfilter,1,nil,tp)

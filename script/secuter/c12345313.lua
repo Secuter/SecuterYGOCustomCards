@@ -1,7 +1,7 @@
 --Armor Magician's Bloodmancy
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -41,13 +41,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --attach armor
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x1098) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and Armor.AttachCheck(c,sc)
 end
 function s.tgfilter(c,tp)
-	return c:IsSetCard(0x1098) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_GRAVE,0,1,nil,c)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_GRAVE,0,1,nil,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -69,10 +69,10 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 --attach #2
 function s.atfilter2(c,sc)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and Armor.AttachCheck(c,sc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and Armor.AttachCheck(c,sc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.tgfilter2(c,tp)
-	return c:IsSetCard(0x1098) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,c)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,c)
 end
 function s.attg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

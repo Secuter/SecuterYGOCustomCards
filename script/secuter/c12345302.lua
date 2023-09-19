@@ -1,7 +1,7 @@
 --Armor Magician Golem Witch
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --spsummon itself
 function s.atfilter(c,tc)
 	return Armor.AttachCheck(c,tc) and c:IsFaceup() and not c:IsCode(id)
@@ -69,7 +69,7 @@ function s.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

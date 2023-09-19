@@ -1,5 +1,6 @@
 --Dark King Ritual
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -12,7 +13,7 @@ function s.initial_effect(c)
 	e1:SetValue(s.atkval)
 	c:RegisterEffect(e1)
 	--ritual summon
-	local e2=Ritual.CreateProc(c,RITPROC_GREATER,aux.FilterBoolFunction(Card.IsSetCard,0x205),nil,aux.Stringid(id,0),nil,nil,s.matfilter,nil,LOCATION_HAND|LOCATION_GRAVE)
+	local e2=Ritual.CreateProc(c,RITPROC_GREATER,aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),nil,aux.Stringid(id,0),nil,nil,s.matfilter,nil,LOCATION_HAND|LOCATION_GRAVE)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetHintTiming(0,TIMING_END_PHASE)
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.filter(c)
 	return c:IsFaceup() and c:IsType(TYPE_RITUAL) and c:IsAttribute(ATTRIBUTE_DARK)
 end
@@ -48,7 +49,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_RITUAL)
 end
 function s.thfilter(c)
-	return (c:IsType(TYPE_SPELL) or c:IsType(TYPE_TRAP)) and c:IsSetCard(0x205) and c:IsAbleToHand()
+	return (c:IsType(TYPE_SPELL) or c:IsType(TYPE_TRAP)) and c:IsSetCard(SET_DARK_KING) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

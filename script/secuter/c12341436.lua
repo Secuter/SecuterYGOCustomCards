@@ -1,5 +1,6 @@
 --Ancient Oracle
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon proc
@@ -43,13 +44,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id,12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 --spsummon proc
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(12341414)
 end
 function s.spfilter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToRemoveAsCost()
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -65,7 +66,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(0x211) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

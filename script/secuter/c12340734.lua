@@ -1,8 +1,8 @@
 --Morhai Spawn Dark Onslaught
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Ignition.AddProcedure(c,s.exfilter,s.ignfilter,1,1)
@@ -40,13 +40,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x209,0x2209}
-s.material_setcode={0x209,0x2209}
+s.listed_series={SET_MORHAI,SET_MORHAI_SPAWN}
+s.material_setcode={SET_MORHAI,SET_MORHAI_SPAWN}
 function s.exfilter(c)
-	return c:IsSetCard(0x2209)
+	return c:IsSetCard(SET_MORHAI_SPAWN)
 end
 function s.ignfilter(c)
-	return c:IsSetCard(0x209)
+	return c:IsSetCard(SET_MORHAI)
 end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
@@ -54,7 +54,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_MONSTER) and c:IsLevelAbove(7) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_MONSTER) and c:IsLevelAbove(7) and c:IsAbleToGraveAsCost()
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -63,7 +63,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x2209) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -79,7 +79,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e)
-	return c:IsSetCard(0x209) and c:IsLevelAbove(7)
+	return c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.spfilter,1,nil) and eg:GetFirst():IsControler(tp)
@@ -104,7 +104,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x2209) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter2(chkc) end
@@ -123,5 +123,5 @@ end
 
 function s.linklimit(e,c)
 	if not c then return false end
-	return not c:IsSetCard(0x209)
+	return not c:IsSetCard(SET_MORHAI)
 end

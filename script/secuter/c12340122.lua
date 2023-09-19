@@ -1,6 +1,6 @@
 --Undead Master of Fusion (Echo)
 --Scripted by Secuter
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
 function s.initial_effect(c)

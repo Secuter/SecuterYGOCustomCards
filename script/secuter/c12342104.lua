@@ -1,11 +1,11 @@
 --Destiny HERO
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0xc008),2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_DESTINY_HERO),2,99)
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_TOGRAVE+CATEGORY_SPECIAL_SUMMON)
@@ -18,11 +18,11 @@ function s.initial_effect(c)
 end
 
 function s.filter(c,e)
-	return c:IsSetCard(0xc008) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_DESTINY_HERO) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
         and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,c:GetOwner(),c:GetLevel())
 end
 function s.spfilter(c,e,tp,lv)
-	return c:IsLevel(lv) and c:IsSetCard(0xc008) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsLevel(lv) and c:IsSetCard(SET_DESTINY_HERO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil,e)

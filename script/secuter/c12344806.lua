@@ -1,5 +1,6 @@
 --Undead Eagle Overseer Fiendess
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -49,7 +50,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x202,0x210}
+s.listed_series={SET_UNDEAD,SET_EAGLE_OVERSEER}
 --spsummon itself
 function s.cfilter(c)
 	return c:IsRace(RACE_ZOMBIE|RACE_WINGEDBEAST) and c:IsAbleToDeckAsCost()
@@ -106,7 +107,7 @@ function s.spcond2(e,tp,eg,ep,ev,re,r,rp)
 		and not re:GetHandler():IsCode(id)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x202) and c:IsSetCard(0x210) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_UNDEAD) and c:IsSetCard(SET_EAGLE_OVERSEER) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

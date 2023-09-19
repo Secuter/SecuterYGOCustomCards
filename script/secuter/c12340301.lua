@@ -1,5 +1,6 @@
 --Dark King Servant
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--ritual material from grave
@@ -24,7 +25,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 function s.excon(e)
 	return not Duel.IsPlayerAffectedByEffect(e:GetHandlerPlayer(),69832741)
 end
@@ -34,7 +35,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(e:GetHandler(),REASON_COST)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x205) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_DARK_KING) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end

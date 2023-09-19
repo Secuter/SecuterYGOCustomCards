@@ -1,5 +1,6 @@
 --Magic Tower Caster
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--atk up
@@ -40,7 +41,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x222}
+s.listed_series={SET_MAGIC_TOWER}
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if re:IsActiveType(TYPE_MONSTER) and c:IsFaceup() then
@@ -79,7 +80,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thfilter(c)
-	return c:IsSetCard(0x222) and c:IsType(TYPE_SPELL+TYPE_TRAP) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MAGIC_TOWER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
 end
 function s.tgfilter2(c)
 	return c:IsRace(RACE_SPELLCASTER) and not c:IsCode(id) and c:IsAbleToGrave()

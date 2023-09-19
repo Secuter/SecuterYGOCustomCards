@@ -1,5 +1,6 @@
 --Ancient Oracle Deity
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -85,12 +86,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e10)
 end
 s.listed_names={12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(12341414)
 end
 function s.spfilter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToRemoveAsCost()
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
@@ -120,7 +121,7 @@ function s.con2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetPreviousLocation()==LOCATION_DECK
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x211) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.filter(chkc) end
@@ -138,7 +139,7 @@ end
 
 function s.damtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
-	local dmg=Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_REMOVED,0,nil,0x211)*200
+	local dmg=Duel.GetMatchingGroupCount(Card.IsSetCard,tp,LOCATION_REMOVED,0,nil,SET_ANCIENT_ORACLE)*200
 	Duel.SetTargetPlayer(1-tp)
 	Duel.SetTargetParam(dmg)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)

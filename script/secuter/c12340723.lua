@@ -1,5 +1,6 @@
 --Morhai
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,10 +27,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 
 function s.mtfilter(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.mtfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,2,e:GetHandler()) end
@@ -48,7 +49,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,tp,lvl)
-	return c:IsSetCard(0x209) and c:IsLevelBelow(lvl/2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_MORHAI) and c:IsLevelBelow(lvl/2) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ct=Duel.GetFieldGroupCount(tp,LOCATION_GRAVE,0)

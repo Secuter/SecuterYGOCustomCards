@@ -1,8 +1,8 @@
 --Ghoost Horror Hydra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ReverseXyz=true
-if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Reverse-Xyz Summon
@@ -51,7 +51,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 --lv change
 function s.lvtg(e,c)
 	return c:IsType(TYPE_XYZ)

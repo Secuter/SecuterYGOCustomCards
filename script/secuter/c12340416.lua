@@ -1,5 +1,6 @@
 --Hydra Link-3
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -43,7 +44,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop2)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 
 function s.linkcheck(g,lc)
 	return g:IsExists(Card.IsType,1,nil,TYPE_XYZ)
@@ -68,7 +69,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.PayLPCost(tp,500)
 end
 function s.spfilter(c,e,tp,zone)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and not c:IsType(TYPE_XYZ)
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and not c:IsType(TYPE_XYZ)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE,tp,zone)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

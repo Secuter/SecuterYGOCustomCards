@@ -1,5 +1,6 @@
 --Undead Eagle Overseer Crow
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -44,7 +45,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x202,0x210}
+s.listed_series={SET_UNDEAD,SET_EAGLE_OVERSEER}
 --spsummon itself
 function s.filter(c)
 	return c:IsFaceup() and c:IsAbleToHand() and c:IsRace(RACE_ZOMBIE|RACE_WINGEDBEAST)
@@ -69,7 +70,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.thfilter(c)
-	return (c:IsSetCard(0x202) or c:IsSetCard(0x210)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_UNDEAD) or c:IsSetCard(SET_EAGLE_OVERSEER)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

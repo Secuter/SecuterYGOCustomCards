@@ -1,5 +1,6 @@
 --Savage Beast Cheetan
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21c}
+s.listed_series={SET_SAVAGE_BEAST}
 function s.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_BEAST)
 end
@@ -40,7 +41,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return ep==1-tp and Duel.GetCurrentChain()>1 and cplayer==tp and ceff:GetHandler():IsRace(RACE_BEAST) and ceff:GetHandler():IsType(TYPE_MONSTER)
 end
 function s.thfilter(c)
-	return cc:IsSetCard(0x21c) and c:IsType_(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return cc:IsSetCard(SET_SAVAGE_BEAST) and c:IsType_(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

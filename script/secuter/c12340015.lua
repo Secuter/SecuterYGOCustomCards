@@ -1,5 +1,6 @@
 --External Worlds Ruins
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -43,9 +44,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.ctfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x201)
+	return c:IsFaceup() and c:IsSetCard(SET_EXTERNAL_WORLDS)
 end
 function s.ctop(e,tp,eg,ep,ev,re,r,rp)
 	if eg:IsExists(s.ctfilter,1,nil) then
@@ -59,7 +60,7 @@ function s.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
     e:GetHandler():RemoveCounter(tp,0x300,2,REASON_COST)
 end
 function s.filter1(c)
-	return c:IsSetCard(0x201) and c:IsAbleToHand() and c:IsFaceup()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAbleToHand() and c:IsFaceup()
 end
 function s.tg1(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter1,tp,LOCATION_REMOVED,0,1,nil) end
@@ -81,7 +82,7 @@ function s.cost2(e,tp,eg,ep,ev,re,r,rp,chk)
     e:GetHandler():RemoveCounter(tp,0x300,6,REASON_COST)
 end
 function s.filter2(c,e,tp)
-	return c:IsSetCard(0x201) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
         and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

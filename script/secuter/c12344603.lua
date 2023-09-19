@@ -1,5 +1,6 @@
 --Anuak Fire Cerberus
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -47,10 +48,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id,12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x208),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ANUAK),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
@@ -76,7 +77,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --special summon
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x208) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_ANUAK) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter2(chkc) end
@@ -98,8 +99,8 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	if phase~=PHASE_DAMAGE or Duel.IsDamageCalculated() then return false end
 	local a=Duel.GetAttacker()
 	local d=Duel.GetAttackTarget()
-	return d~=nil and d:IsFaceup() and ((a:GetControler()==tp and (a:IsCode(12344600) or (a:IsSetCard(0x208) and a:IsReunion())) and a:IsRelateToBattle())
-		or (d:GetControler()==tp and (d:IsCode(12344600) or (d:IsSetCard(0x208) and d:IsReunion())) and d:IsRelateToBattle()))
+	return d~=nil and d:IsFaceup() and ((a:GetControler()==tp and (a:IsCode(12344600) or (a:IsSetCard(SET_ANUAK) and a:IsReunion())) and a:IsRelateToBattle())
+		or (d:GetControler()==tp and (d:IsCode(12344600) or (d:IsSetCard(SET_ANUAK) and d:IsReunion())) and d:IsRelateToBattle()))
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp,chk)
 	local a=Duel.GetAttacker()

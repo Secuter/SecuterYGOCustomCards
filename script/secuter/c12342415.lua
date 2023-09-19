@@ -1,5 +1,6 @@
 --Savage Beast Assemble!
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate (add)
@@ -21,9 +22,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.activate2)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21c}
+s.listed_series={SET_SAVAGE_BEAST}
 function s.thfilter(c)
-	return c:IsSetCard(0x21c) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SAVAGE_BEAST) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

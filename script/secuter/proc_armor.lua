@@ -18,7 +18,6 @@ attach_log_only_once	= true
 
 --[[
 Add this at the start of the card script to add Armor/Armorizing procedure and constants
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 Condition if Armorizing summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 Condition if card is related with an effect triggered by EVENT_ATTACH_ARMOR

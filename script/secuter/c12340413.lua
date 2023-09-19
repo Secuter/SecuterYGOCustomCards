@@ -1,5 +1,6 @@
 --Hydra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
@@ -18,7 +19,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1,false,REGISTER_FLAG_DETACH_XMAT)
 	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 function s.counterfilter(c)
 	return c:IsRace(RACE_REPTILE)
 end
@@ -50,7 +51,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsRace(RACE_REPTILE)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_HYDRA) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

@@ -1,5 +1,6 @@
 --Pyroclast Terminator
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	e4:SetLabelObject(e3)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x226}
+s.listed_series={SET_PYROCLAST}
 s.listed_names={id}
 function s.tgfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_FUSION)
@@ -58,14 +59,14 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x226) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x226) and not c:IsType(TYPE_FUSION) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_PYROCLAST) and not c:IsType(TYPE_FUSION) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

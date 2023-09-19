@@ -1,6 +1,6 @@
 --Undead Master of Regeneration (Echo)
 --Scripted by Secuter
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
 function s.initial_effect(c)
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	e3:SetValue(s.repval)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x202}
+s.listed_series={SET_UNDEAD}
 function s.efilter(c,sc,sumtype,tp)
 	return c:IsType(TYPE_FUSION,sc,sumtype,tp) and c:IsRace(RACE_ZOMBIE,sc,sumtype,tp) and c:IsAttackBelow(2500)
 end
@@ -50,7 +50,7 @@ function s.atkval(e,c)
 end
 --spsummon
 function s.mgfilter(c,e,tp,tc)
-	return c:IsFaceup() and c:IsSetCard(0x202)
+	return c:IsFaceup() and c:IsSetCard(SET_UNDEAD)
 		and tc:IsEchoSummonable(e,tp,nil,Group.FromCards(c))
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

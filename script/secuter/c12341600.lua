@@ -1,5 +1,6 @@
 --Demon Rival Creepy Eye
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon itself
@@ -38,9 +39,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.cfilter(c,e,tp,sc)
-	return c:IsSetCard(0x216) and c:IsLinkMonster()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsLinkMonster()
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -73,7 +74,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.cfilter1(c)
-	return c:IsFaceup() and c:IsSetCard(0x216) and c:IsLinkMonster()
+	return c:IsFaceup() and c:IsSetCard(SET_DEMON_RIVAL) and c:IsLinkMonster()
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter1,tp,LOCATION_MZONE,0,1,nil)
@@ -104,7 +105,7 @@ function s.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.spfilter2(c,e,tp,cd)
-	return c:IsSetCard(0x216) and not c:IsCode(cd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+	return c:IsSetCard(SET_DEMON_RIVAL) and not c:IsCode(cd) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.spfilter2,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp) end

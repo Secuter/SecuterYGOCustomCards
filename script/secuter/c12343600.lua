@@ -1,5 +1,6 @@
 --Mirage Fog Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon limit
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x229}
+s.listed_series={SET_FOG_DRAGON}
 function s.sumlimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return not c:IsAttribute(ATTRIBUTE_LIGHT)
 end
@@ -60,7 +61,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x229) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FOG_DRAGON) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

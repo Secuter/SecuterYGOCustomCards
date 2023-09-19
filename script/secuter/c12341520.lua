@@ -1,7 +1,7 @@
 --Armor S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=-300
 s.ArmorDef=0
 s.Armor=true
@@ -11,9 +11,9 @@ function s.initial_effect(c)
 	local a1=Effect.CreateEffect(c)
 	a1:SetType(EFFECT_TYPE_XMATERIAL)
 	a1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	a2:SetCode(EFFECT_EXTRA_ATTACK)
+	a1:SetCode(EFFECT_EXTRA_ATTACK)
 	a1:SetCondition(Armor.Condition)
-	a2:SetValue(1)
+	a1:SetValue(1)
 	c:RegisterEffect(a1)
 	--Activate
 	local e1=Effect.CreateEffect(c)

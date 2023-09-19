@@ -1,8 +1,8 @@
 --Morhai Ignition
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Ignition.AddProcedure(c,s.exfilter,s.ignfilter,1,1)
@@ -45,17 +45,17 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x209,0x1209}
-s.material_setcode={0x209,0x1209}
+s.listed_series={SET_MORHAI,SET_MORHAI_CULTIST}
+s.material_setcode={SET_MORHAI,SET_MORHAI_CULTIST}
 function s.exfilter(c)
-	return c:IsSetCard(0x1209)
+	return c:IsSetCard(SET_MORHAI_CULTIST)
 end
 function s.ignfilter(c)
-	return c:IsSetCard(0x209) and c:IsLevelAbove(7)
+	return c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7)
 end
 
 function s.indtg(e,c)
-	return c:IsSetCard(0x209) and c~=e:GetHandler()
+	return c:IsSetCard(SET_MORHAI) and c~=e:GetHandler()
 end
 function s.indct(e,re,r,rp)
 	if bit.band(r,REASON_BATTLE)~=0 then
@@ -64,10 +64,10 @@ function s.indct(e,re,r,rp)
 end
 
 function s.mtfilter(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.filter(c,e,sp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x1209) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI_CULTIST) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.mtfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,e:GetHandler()) end	
@@ -97,7 +97,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x209) and c:IsLevelAbove(7) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_HAND,0,1,nil,e,tp)

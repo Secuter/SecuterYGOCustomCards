@@ -1,12 +1,12 @@
 --Indra - Asura of Divine Dragons
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	--reunion summon
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x218),2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_ASURA),2,99)
 	--gain attributes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.matcheck(e,c)
 	local att=e:GetHandler():GetMaterial():GetBitwiseOr(Card.GetAttribute)
 	if att>0 then
@@ -71,7 +71,7 @@ function s.disable(e,c)
 end
 --banish
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x218)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA)
 end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,e:GetHandler())
@@ -101,7 +101,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x218) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_ASURA) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

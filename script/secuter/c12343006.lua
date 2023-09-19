@@ -1,5 +1,6 @@
 --Exchange Daemon Portal
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,9 +25,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x223}
+s.listed_series={SET_EXCHANGE_DAEMON}
 function s.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x223) and c:IsAbleToHand()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_EXCHANGE_DAEMON) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -42,7 +43,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.cfilter(c,tp)
-	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(0x223)
+	return c:IsReason(REASON_BATTLE+REASON_EFFECT) and c:IsSetCard(SET_EXCHANGE_DAEMON)
 		and c:IsPreviousLocation(LOCATION_MZONE) and c:IsPreviousControler(tp) and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

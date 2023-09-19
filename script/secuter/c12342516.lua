@@ -1,5 +1,6 @@
 --Rascal Ace Town
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -32,10 +33,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.sumop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 --ignition summon
 function s.igfilter(c,tp)
-	return c:IsFaceup() and c:IsSetCard(0x21D) and c:IsRace(RACE_PSYCHIC) and c:IsControler(tp)
+	return c:IsFaceup() and c:IsSetCard(SET_RASCAL_ACE) and c:IsRace(RACE_PSYCHIC) and c:IsControler(tp)
 end
 function s.igcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.igfilter,1,nil,tp) and Duel.GetTurnPlayer()~=tp
@@ -68,7 +69,7 @@ function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsPlayerCanAdditionalSummon(tp)
 end
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x21D) and c:IsAbleToGraveAsCost()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_RASCAL_ACE) and c:IsAbleToGraveAsCost()
 end
 function s.sumcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -85,7 +86,7 @@ function s.sumop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
 	e1:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
-	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x21D))
+	e1:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_RASCAL_ACE))
 	e1:SetReset(RESET_PHASE+PHASE_END)
 	Duel.RegisterEffect(e1,tp)
 end

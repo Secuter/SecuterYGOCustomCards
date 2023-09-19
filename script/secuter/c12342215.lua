@@ -1,7 +1,7 @@
 --Bulwark Champion Electrosphere
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -34,12 +34,12 @@ function s.initial_effect(c)
 	e2:SetOperation(s.activate)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsChainNegatable(ev) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function s.rfilter(c,tp)
-	return c:IsSetCard(0x21a) and not c:IsType(TYPE_XYZ) and c:CheckRemoveOverlayCard(tp,2,REASON_COST)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsType(TYPE_XYZ) and c:CheckRemoveOverlayCard(tp,2,REASON_COST)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_MZONE,0,1,nil,tp) end
@@ -62,7 +62,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.con2(e,tp,eg,ep,ev,re,r,rp)
-	return Armor.Condition(e) and e:GetHandler():IsSetCard(0x21a)
+	return Armor.Condition(e) and e:GetHandler():IsSetCard(SET_BULWARK_CHAMPION)
 		and Duel.IsChainNegatable(ev) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))
 end
 function s.cost2(e,tp,eg,ep,ev,re,r,rp,chk)

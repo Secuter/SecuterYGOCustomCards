@@ -1,5 +1,6 @@
 --Ancient Oracle
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon proc
@@ -42,13 +43,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(12341414)
 end
 function s.spfilter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToRemoveAsCost()
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -64,7 +65,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 
 function s.costfilter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToRemoveAsCost()
 end
 function s.desfilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)

@@ -1,10 +1,11 @@
 --Ritual Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x205),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK))
-	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,0x205),matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK)})
+	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK))
+	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK)})
 	--to hand
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -17,14 +18,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return tp==Duel.GetTurnPlayer() and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0 and Duel.GetDrawCount(tp)>0
         and e:GetHandler():IsAbleToHand() and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x205) and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsAbleToHand()

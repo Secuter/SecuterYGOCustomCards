@@ -1,6 +1,6 @@
 --Crearmor Armorsoul Fighter
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
@@ -9,7 +9,7 @@ function s.initial_effect(c)
 	--armor
 	Armor.AddProcedure(c,s,nil,true)
 	--link summon
-	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x22B),2,2)
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_CREARMOR),2,2)
 	c:EnableReviveLimit()
 	--intarget
 	local e2=Effect.CreateEffect(c)
@@ -51,14 +51,14 @@ function s.initial_effect(c)
 	e6:SetCode(EVENT_FLIP_SUMMON_SUCCESS)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x22B}
-s.material_setcode={0x22B}
+s.listed_series={SET_CREARMOR}
+s.material_setcode={SET_CREARMOR}
 --attach
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x22B) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_CREARMOR) and Armor.AttachCheck(c,sc)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

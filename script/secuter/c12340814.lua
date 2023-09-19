@@ -1,8 +1,8 @@
 --Eagle Overseer Thunder King
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	--reunion summon
 	Reunion.AddProcedure(c,s.reunionfilter,2,99)
@@ -42,7 +42,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x210}
+s.listed_series={SET_EAGLE_OVERSEER}
 function s.reunionfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)
 end
@@ -54,7 +54,7 @@ function s.ctval(e,re,rp)
 end
 
 function s.filter(c)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(0x210))
+	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return false end

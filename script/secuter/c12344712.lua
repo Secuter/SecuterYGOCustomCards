@@ -1,6 +1,6 @@
 --Elemental of the Primeval Forest
 --Scripted by Secuter
-if not SYNCHRO_EXTRA_MATERIAL_IMPORTED then Duel.LoadScript("proc_synchro_extra_material.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -49,7 +49,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.negop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
 function s.extraval(chk,summon_type,e,...)
 	if chk==0 then
 		local tp,sc=...
@@ -62,7 +62,7 @@ function s.extraval(chk,summon_type,e,...)
 end
 --flip
 function s.setfilter(c,tp)
-	return c:IsType(TYPE_TRAP) and c:IsSetCard(0x234) and c:IsSSetable()
+	return c:IsType(TYPE_TRAP) and c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsSSetable()
 end
 function s.desfilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP)

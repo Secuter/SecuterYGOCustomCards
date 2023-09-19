@@ -1,5 +1,6 @@
 --Demon Rival Cauldron
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 
 function s.cfilter(c,tp)
 	return c:IsAttribute(ATTRIBUTE_DARK) and (c:IsControler(tp) or c:IsFaceup())
@@ -44,7 +45,7 @@ function s.thcost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.thfilter1(c,e,tp,code)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.thtg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter1,tp,LOCATION_DECK,0,1,nil,e:GetLabel()) end
@@ -63,7 +64,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 end
 function s.thfilter2(c,e,tp)
-	return c:IsSetCard(0x216) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

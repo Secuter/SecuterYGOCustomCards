@@ -1,5 +1,6 @@
 --External Worlds Double Synchro
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
@@ -26,11 +27,11 @@ function s.initial_effect(c)
 	e2:SetTarget(s.reptg)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 s.synchro_nt_required=1
 function s.matfilter1(c,syncard)
-	return c:IsSetCard(0x201)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS)
 end
 function s.matfilter2(c,syncard)
 	return c:IsRace(RACE_DRAGON) and c:IsType(TYPE_SYNCHRO)
@@ -52,7 +53,7 @@ function s.decon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
 function s.repfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
         and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)

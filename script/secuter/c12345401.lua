@@ -1,5 +1,6 @@
 --Worldless Skull
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -31,10 +32,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --spsummon itself
 function s.cfilter(c,e)
-	return c:IsSetCard(0x20F) and c:IsCanBeEffectTarget(e) and c:IsFaceup() and c:IsAbleToDeck()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsCanBeEffectTarget(e) and c:IsFaceup() and c:IsAbleToDeck()
 end
 function s.class(c)
 	return c:GetType()&0x7
@@ -69,7 +70,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x20F) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WORLDLESS) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not e:GetHandler():IsLocation(LOCATION_DECK)
@@ -100,8 +101,8 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(c,tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x20F) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_WORLDLESS) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x20F)
+	return not c:IsSetCard(SET_WORLDLESS)
 end

@@ -1,5 +1,6 @@
 --Amorphiend Flame Blade
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--equip
@@ -36,7 +37,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 --immune
 function s.efilter(e,re)
 	return re:GetOwner()~=e:GetOwner() and re:IsActiveType(TYPE_EFFECT) and re:GetHandler():IsAttribute(ATTRIBUTE_FIRE) 
@@ -46,7 +47,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousPosition(POS_FACEUP) and not e:GetHandler():IsLocation(LOCATION_DECK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22F) and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsAbleToHand()
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -1,5 +1,6 @@
 --Worldless Return
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate field
@@ -27,10 +28,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --activate field
 function s.acfilter(c,tp)
-	return c:IsFieldSpell() and c:IsSetCard(0x20F)
+	return c:IsFieldSpell() and c:IsSetCard(SET_WORLDLESS)
 end
 function s.actg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.acfilter,tp,LOCATION_DECK,0,1,nil,tp)
@@ -56,7 +57,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsTurnPlayer(tp) and Duel.IsMainPhase() and aux.exccon(e) and (e:GetHandler():IsFaceup() or not e:GetHandler():IsLocation(LOCATION_REMOVED))
 end
 function s.tdfilter(c,e)
-	return c:IsSetCard(0x20F) and c:IsType(TYPE_MONSTER|TYPE_SPELL) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsSetCard(SET_WORLDLESS) and c:IsType(TYPE_MONSTER|TYPE_SPELL) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.class(c)
 	return c:GetType()&0x3

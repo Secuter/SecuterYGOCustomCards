@@ -1,7 +1,7 @@
 --Armor Magician's Calamity
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -28,7 +28,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x1098))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_ARMOR_MAGICIAN))
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
@@ -60,7 +60,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --search
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Group.CreateGroup()
@@ -74,7 +74,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(sg,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x1098) and c:IsMonster() and c:IsAbleToHand()
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -96,7 +96,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and c:IsAbleToHand()
 		and (c:IsFaceup() or c:IsLocation(LOCATION_DECK))
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)

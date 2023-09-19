@@ -1,5 +1,6 @@
 --Hailshift Interference
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -24,15 +25,15 @@ function s.initial_effect(c)
 	e3:SetCode(EFFECT_TRAP_ACT_IN_HAND)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 function s.cond1(e)
-	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x224),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_HAILSHIFT),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function s.cond2(e)
 	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0)==0
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x224) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
 end
 function s.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

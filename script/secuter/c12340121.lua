@@ -1,5 +1,6 @@
 --Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -14,7 +15,7 @@ function s.initial_effect(c)
 	e1:SetValue(s.atktg)
 	c:RegisterEffect(e1)
 	--fusion summon	
-	local params = {aux.FilterBoolFunction(Card.IsSetCard,0x202)}
+	local params = {aux.FilterBoolFunction(Card.IsSetCard,SET_UNDEAD)}
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
 	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_FUSION_SUMMON)

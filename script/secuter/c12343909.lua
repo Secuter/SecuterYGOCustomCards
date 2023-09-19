@@ -1,5 +1,6 @@
 --Irradiance Farsight Sentinel
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -44,7 +45,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --top deck
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
@@ -55,7 +56,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>=ct end
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22C) and c:IsAbleToHand()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=3
@@ -77,7 +78,7 @@ function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetMutualLinkedGroupCount()>0
 end
 function s.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x22C)
+	return c:IsFaceup() and c:IsSetCard(SET_IRRADIANCE)
 end
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.atkfilter(chkc) end
@@ -99,7 +100,7 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 --send to gy
 function s.filter(c,tp)
-	return c:IsSetCard(0x22C) and not c:IsCode(id)
+	return c:IsSetCard(SET_IRRADIANCE) and not c:IsCode(id)
 		and Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK+LOCATION_EXTRA,0,1,nil,c:GetCode())
 end
 function s.tgfilter(c,code)

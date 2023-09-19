@@ -1,9 +1,10 @@
 --External Worlds Synchro *8
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTunerEx(Card.IsSetCard,0x201),1,99)
+	Synchro.AddProcedure(c,nil,1,1,Synchro.NonTunerEx(Card.IsSetCard,SET_EXTERNAL_WORLDS),1,99)
     --atk/def
     local e1=Effect.CreateEffect(c)
     e1:SetType(EFFECT_TYPE_SINGLE)
@@ -43,8 +44,8 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 function s.value(e,c)
     return Duel.GetFieldGroupCount(c:GetControler(),LOCATION_REMOVED,0)*100
 end
@@ -53,7 +54,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x201) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_PZONE) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end
@@ -72,7 +73,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-    return c:IsSetCard(0x201) and (c:IsAbleToGrave() or c:IsAbleToRemove())
+    return c:IsSetCard(SET_EXTERNAL_WORLDS) and (c:IsAbleToGrave() or c:IsAbleToRemove())
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

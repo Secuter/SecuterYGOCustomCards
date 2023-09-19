@@ -1,7 +1,7 @@
 --Armor Magician Star Caster
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -52,7 +52,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --spsummon itself
 function s.cfilter(c,tp)
 	return c:IsPreviousLocation(LOCATION_OVERLAY) and c:IsArmor() and c:IsReason(REASON_EFFECT|REASON_COST)
@@ -80,7 +80,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --attach
 function s.atfilter(c,tc)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and Armor.AttachCheck(c,tc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and Armor.AttachCheck(c,tc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e:GetHandler()) end

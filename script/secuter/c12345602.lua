@@ -1,5 +1,6 @@
 --Fafnir, Generaider Boss of Avarice
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -36,7 +37,7 @@ function s.initial_effect(c)
 	e3:SetTarget(s.target)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x134}
+s.listed_series={SET_GENERAIDER}
 
 --check turn
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -60,7 +61,7 @@ end
 
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x134) and c:IsSpellTrap() and c:IsAbleToHand()
+	return c:IsSetCard(SET_GENERAIDER) and c:IsSpellTrap() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -77,7 +78,7 @@ end
 
 --sp summon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x134) and c:IsLevel(9) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_GENERAIDER) and c:IsLevel(9) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -95,7 +96,7 @@ end
 
 --des replace
 function s.repfilter(c,tp)
-	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(0x134)
+	return c:IsFaceup() and c:IsControler(tp) and c:IsLocation(LOCATION_ONFIELD) and c:IsSetCard(SET_GENERAIDER)
 		and c:IsReason(REASON_BATTLE+REASON_EFFECT) and not c:IsReason(REASON_REPLACE)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)

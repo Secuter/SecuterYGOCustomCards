@@ -1,5 +1,6 @@
 --Ghoost Revival
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -12,13 +13,13 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 
 function s.spfilter(c,e,tp,code)
-	return c:IsSetCard(0x232) and not c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_GHOOST) and not c:IsCode(code) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.filter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x232)
+	return c:IsFaceup() and c:IsSetCard(SET_GHOOST)
 		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_GRAVE+LOCATION_HAND,0,1,nil,e,tp,c:GetCode())
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

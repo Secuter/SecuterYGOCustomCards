@@ -1,5 +1,6 @@
 --Morhai Link 1
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Link.AddProcedure(c,aux.FilterBoolFunctionEx(s.linkcheck),1,1)
@@ -16,9 +17,9 @@ function s.initial_effect(c)
 	e1:SetOperation(s.mvop)
 	c:RegisterEffect(e1)
 end
-s.material_setcode={0x209}
+s.material_setcode={SET_MORHAI}
 function s.linkcheck(c,scard,sumtype,tp)
-	return c:IsSetCard(0x209,scard,sumtype,tp) and not c:IsType(TYPE_LINK,scard,sumtype,tp)
+	return c:IsSetCard(SET_MORHAI,scard,sumtype,tp) and not c:IsType(TYPE_LINK,scard,sumtype,tp)
 end
 
 function s.mvcon(e,tp,eg,ep,ev,re,r,rp)

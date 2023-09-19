@@ -1,9 +1,10 @@
 --Ancient Oracle Aeon Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x211),6,2,nil,nil,99)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANCIENT_ORACLE),6,2,nil,nil,99)
 	c:EnableReviveLimit()
 	--remove + disable
 	local e1=Effect.CreateEffect(c)
@@ -33,7 +34,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id,12341414}
-s.material_setcode={0x211}
+s.material_setcode={SET_ANCIENT_ORACLE}
 --remove + disable
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(12341414)
@@ -103,7 +104,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x211) and not c:IsType(TYPE_XYZ) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsType(TYPE_XYZ) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.spfilter(chkc,e,tp) end

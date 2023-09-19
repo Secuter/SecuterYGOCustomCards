@@ -1,5 +1,6 @@
 --Explosive Worm
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -53,7 +54,7 @@ function s.initial_effect(c)
 	e7:SetCode(EFFECT_PIERCE)
 	c:RegisterEffect(e7)
 end
-s.listed_series={0x227}
+s.listed_series={SET_EMBER_WORM}
 s.listed_names={id}
 --spsummon
 function s.desfilter(c)
@@ -77,7 +78,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x227) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EMBER_WORM) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

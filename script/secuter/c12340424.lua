@@ -1,5 +1,6 @@
 --Primeval Hydra Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,500) end
@@ -63,7 +64,7 @@ function s.sumval(e,c)
 	return 0,sumzone,relzone
 end
 function s.sumtg(e,c)
-    return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE)
+    return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE)
 end
 
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
@@ -71,7 +72,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return (c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT))	and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and c:IsAbleToHand()
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_GRAVE,0,1,nil) end

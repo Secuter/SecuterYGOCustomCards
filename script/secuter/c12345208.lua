@@ -1,5 +1,6 @@
 --Ahiledr, the Exoheart Valkyrie
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
@@ -29,7 +30,7 @@ end
 s.listed_names={s.TOKEN_ID}
 --material
 function s.matfilter(c,scard,sumtype,tp)
-	return c:IsSetCard(0x20E,scard,sumtype,tp) and c:IsType(TYPE_TOKEN,scard,sumtype,tp)
+	return c:IsSetCard(SET_EXOHEART,scard,sumtype,tp) and c:IsType(TYPE_TOKEN,scard,sumtype,tp)
 end
 --splimit
 function s.spcheck(g,lc,tp)
@@ -58,13 +59,13 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or e:GetHandler():IsInMainMZone())
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) then
 		local c=e:GetHandler()
 		local token=Duel.CreateToken(tp,s.TOKEN_ID)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)

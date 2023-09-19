@@ -1,5 +1,6 @@
 --Rascal Ace Distortion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -27,9 +28,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12342516}
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.cfilter(c)
-	return c:IsSetCard(0x21D)
+	return c:IsSetCard(SET_RASCAL_ACE)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local dg=Duel.GetMatchingGroup(s.filter,tp,0,LOCATION_ONFIELD,nil,e)

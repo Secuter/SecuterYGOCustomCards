@@ -1,5 +1,6 @@
 --Irradiance Flare Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -44,16 +45,16 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 function s.matcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x22C,lc,sumtype,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_IRRADIANCE,lc,sumtype,tp)
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x22C) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -86,7 +87,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.filter(c,tp)
-	return c:IsSetCard(0x22C) and not c:IsCode(id)
+	return c:IsSetCard(SET_IRRADIANCE) and not c:IsCode(id)
 		and Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter2(c,code)

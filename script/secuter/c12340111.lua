@@ -1,5 +1,6 @@
 --Field
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -45,7 +46,7 @@ function s.initial_effect(c)
 	e6:SetOperation(s.gyop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x202,0x203}
+s.listed_series={SET_UNDEAD,0x203}
 
 function s.adcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
@@ -81,7 +82,7 @@ function s.effectfilter(e,ct)
 	local p=e:GetHandler():GetControler()
 	local te,tp,loc=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_LOCATION)
     local tc=te:GetHandler()
-	return p==tp and (tc:IsSetCard(0x202) or tc:IsSetCard(0x203)) and bit.band(loc,LOCATION_GRAVE)~=0
+	return p==tp and tc:IsSetCard(SET_UNDEAD) and bit.band(loc,LOCATION_GRAVE)~=0
 end
 
 function s.gycon(e,tp,eg,ep,ev,re,r,rp)
@@ -89,7 +90,7 @@ function s.gycon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_FZONE) and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.filter(c)
-	return c:IsSetCard(0x202) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_UNDEAD) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.gytg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc) end

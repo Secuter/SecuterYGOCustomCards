@@ -1,8 +1,8 @@
 --Eagle Overseer Dark Gryphon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,99)
@@ -56,14 +56,14 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x210}
-s.material_setcode={0x210}
+s.listed_series={SET_EAGLE_OVERSEER}
+s.material_setcode={SET_EAGLE_OVERSEER}
 --ignition
 function s.ignfilter1(c)
 	return c:IsAttribute(ATTRIBUTE_WIND) and c:IsLevelAbove(5)
 end
 function s.ignfilter2(c)
-	return c:IsSetCard(0x210)
+	return c:IsSetCard(SET_EAGLE_OVERSEER)
 end
 --cannot negate summon
 function s.effcon(e)

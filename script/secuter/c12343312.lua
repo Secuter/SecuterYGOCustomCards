@@ -1,5 +1,6 @@
 --Pyroclast Ex-Fusion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	local e1=Fusion.CreateSummonEff(c,s.ffilter,aux.FALSE,s.fextra,Fusion.BanishMaterial)

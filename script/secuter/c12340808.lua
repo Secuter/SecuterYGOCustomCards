@@ -1,5 +1,6 @@
 --Eagle Overseer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableUnsummonable()
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x210}
+s.listed_series={SET_EAGLE_OVERSEER}
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SPECIAL)
 end
@@ -46,7 +47,7 @@ function s.ctval(e,re,rp)
 end
 
 function s.filter(c,ft)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(0x210)) and (ft>0 or (c:IsLocation(LOCATION_MZONE) and c:GetSequence()<5))
+	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER)) and (ft>0 or (c:IsLocation(LOCATION_MZONE) and c:GetSequence()<5))
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)

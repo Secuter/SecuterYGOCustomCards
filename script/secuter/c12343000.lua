@@ -1,6 +1,6 @@
 --Exchange Daemon of Agility
 --Scripted by Secuter
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Exchange=true
 function s.initial_effect(c)

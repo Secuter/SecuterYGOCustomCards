@@ -1,5 +1,6 @@
 --Yoccol Floodgate
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -29,9 +30,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 function s.filter(c,t)
-	return c:IsFaceup() and c:IsSetCard(0x21F) and c:IsType(t)
+	return c:IsFaceup() and c:IsSetCard(SET_YOCCOL) and c:IsType(t)
 end
 function s.actlimit(e,te,tp)
 	if not te:IsActiveType(TYPE_MONSTER) then return false end
@@ -43,7 +44,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x21F) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_YOCCOL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

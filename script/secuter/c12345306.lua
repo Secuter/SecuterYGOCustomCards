@@ -1,7 +1,7 @@
 --Armor Magician Fallen Witch
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -53,7 +53,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --spsummon procedure
 function s.cfilter(c)
 	return c:IsFaceup() and not c:IsType(TYPE_XYZ)
@@ -80,7 +80,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --disable
 function s.cfilter(c)
-	return c:IsSetCard(0x1098) and c:IsSpellTrap() and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsSpellTrap() and c:IsAbleToGraveAsCost()
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -121,7 +121,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x1098) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

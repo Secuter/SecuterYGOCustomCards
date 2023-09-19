@@ -1,5 +1,6 @@
 --Anuak 4*D
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -39,9 +40,9 @@ function s.initial_effect(c)
 	e5:SetOperation(s.desop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 function s.spfilter(c)
-	return c:IsFaceup() and c:IsAbleToHandAsCost() and c:IsAttribute(ATTRIBUTE_LIGHT) --and c:IsSetCard(0x208)
+	return c:IsFaceup() and c:IsAbleToHandAsCost() and c:IsAttribute(ATTRIBUTE_LIGHT) --and c:IsSetCard(SET_ANUAK)
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -55,7 +56,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToHand()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

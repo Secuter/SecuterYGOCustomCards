@@ -1,5 +1,6 @@
 --External Worlds Hero FIRE
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -18,7 +19,7 @@ function s.initial_effect(c)
 	p2:SetRange(LOCATION_PZONE)
 	p2:SetCode(EFFECT_UPDATE_ATTACK)
 	p2:SetTargetRange(LOCATION_MZONE,0)
-	p2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x201))
+	p2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_EXTERNAL_WORLDS))
 	p2:SetValue(200)
 	c:RegisterEffect(p2)
     local p3=p2:Clone()
@@ -54,9 +55,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -66,7 +67,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -83,13 +84,13 @@ end
 
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12340037,0x201,TYPES_TOKEN+TYPE_TUNER,100,100,1,RACE_PYRO,ATTRIBUTE_FIRE) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12340037,SET_EXTERNAL_WORLDS,TYPES_TOKEN+TYPE_TUNER,100,100,1,RACE_PYRO,ATTRIBUTE_FIRE) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,0,0)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,12340037,0x201,TYPES_TOKEN+TYPE_TUNER,100,100,1,RACE_PYRO,ATTRIBUTE_FIRE) then
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,12340037,SET_EXTERNAL_WORLDS,TYPES_TOKEN+TYPE_TUNER,100,100,1,RACE_PYRO,ATTRIBUTE_FIRE) then
 		local token=Duel.CreateToken(tp,12340037)
 		Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP)
 	end

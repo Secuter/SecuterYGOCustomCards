@@ -1,7 +1,7 @@
 --Crearmor Blocking Lion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -46,7 +46,7 @@ function s.initial_effect(c)
 	e5:SetCondition(s.rmcon)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --spsummon itself & attach
 function s.atfilter(c,sc)
 	return Armor.AttachCheck(c,sc) and c:IsFaceup() and not c:IsCode(id)
@@ -81,7 +81,7 @@ function s.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x22B) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_CREARMOR) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter2(chkc,e,tp) end
@@ -102,7 +102,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and (r&REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.atfilter(c,ar)
-	return c:IsSetCard(0x22B) and c:IsFaceup() and Armor.AttachCheck(ar,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsFaceup() and Armor.AttachCheck(ar,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

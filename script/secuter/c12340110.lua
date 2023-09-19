@@ -1,5 +1,6 @@
 --Undead
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --cannot Set
@@ -39,7 +40,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x202}
+s.listed_series={SET_UNDEAD}
 function s.setcon(e,c,minc)
 	if not c then return true end
 	return false
@@ -73,7 +74,7 @@ function s.gycond(e,tp,eg,ep,ev,re,r,rp,chk)
 	return e:GetHandler():IsPreviousLocation(LOCATION_HAND+LOCATION_ONFIELD)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x202) and c:IsRace(RACE_ZOMBIE) and c:IsAttackBelow(0) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(id)
+	return c:IsSetCard(SET_UNDEAD) and c:IsRace(RACE_ZOMBIE) and c:IsAttackBelow(0) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and not c:IsCode(id)
 end
 function s.gytg(e,tp,eg,ep,ev,re,r,rp,chk)
     if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end

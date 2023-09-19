@@ -1,5 +1,6 @@
 --Ghoost Terror Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--des + spsummon itself
@@ -29,10 +30,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 --spsummon
 function s.spcon(e)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x232),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_GHOOST),e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
 end
 function s.filter(c,tp,ft)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK) and (c:IsControler(tp) or ft>0)

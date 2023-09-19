@@ -1,5 +1,6 @@
 --Yoccol Invasion Vessel
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -21,10 +22,10 @@ function s.initial_effect(c)
 	e2:SetValue(s.atkval)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 --search
 function s.filter(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -38,10 +39,10 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --atk
 function s.atktg(e,c)
-	return c:IsSetCard(0x21F)
+	return c:IsSetCard(SET_YOCCOL)
 end
 function s.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x21F)
+	return c:IsFaceup() and c:IsSetCard(SET_YOCCOL)
 end
 function s.atkval(e,c)
 	local tp=e:GetHandlerPlayer()

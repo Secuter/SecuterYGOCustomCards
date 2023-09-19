@@ -1,5 +1,6 @@
 --Irradiance Faint Angel
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -26,10 +27,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --spsummon
 function s.cfilter(c)
-	return c:IsSetCard(0x22C) and c:IsDiscardable()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsDiscardable()
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end
@@ -56,7 +57,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>=ct end
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22C) and c:IsAbleToHand()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=3

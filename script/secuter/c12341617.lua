@@ -1,5 +1,6 @@
 --Demon Rival Vault
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -27,9 +28,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x216) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
+	return c:IsSetCard(SET_DEMON_RIVAL) and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -98,10 +99,10 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.xyzfilter(c,mg,tp)
-	return c:IsSetCard(0x216) and c:IsXyzSummonable(nil,mg,2,2) and Duel.GetLocationCountFromEx(tp,tp,mg,c)>0 
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsXyzSummonable(nil,mg,2,2) and Duel.GetLocationCountFromEx(tp,tp,mg,c)>0 
 end
 function s.linkfilter(c,mg,tp)
-	return c:IsSetCard(0x216) and c:IsLinkSummonable(nil,mg,2,2) and Duel.GetLocationCountFromEx(tp,tp,mg,TYPE_LINK)>0
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsLinkSummonable(nil,mg,2,2) and Duel.GetLocationCountFromEx(tp,tp,mg,TYPE_LINK)>0
 end
 
 function s.thfilter(c)
@@ -111,7 +112,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 end
 function s.thchk(c)
-	return c:IsSetCard(0x216) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.check(sg,e,tp,mg)
 	return sg:IsExists(s.thchk,1,nil) and sg:GetClassCount(Card.GetCode)==#sg

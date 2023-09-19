@@ -1,5 +1,6 @@
 --Blaze Dragonlady Thief
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--atk gain
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 --atk gain
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
@@ -42,7 +43,7 @@ function s.atkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
 function s.atkfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x228)
+	return c:IsFaceup() and c:IsSetCard(SET_BLAZE_DRAGONLADY)
 end
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.atkfilter(chkc) end

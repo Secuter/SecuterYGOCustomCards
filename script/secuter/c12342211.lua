@@ -1,7 +1,7 @@
 --Bulwark Champion Disassemble
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -32,13 +32,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tgop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x21a) and c:IsArmor() and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_LINK) --and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsArmor() and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_LINK) --and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.filter(c,e,tp)
 	local og=c:GetOverlayGroup()
-	return c:IsSetCard(0x21a) and c:IsArmorizing() and not c:IsType(TYPE_XYZ)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsArmorizing() and not c:IsType(TYPE_XYZ)
 		and og:IsExists(s.spfilter,1,nil,e,tp)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -109,14 +109,14 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.tgcon(e)
-	return Armor.Condition(e) and e:GetHandler():IsSetCard(0x21a)
+	return Armor.Condition(e) and e:GetHandler():IsSetCard(SET_BULWARK_CHAMPION)
 end
 function s.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x21a) and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

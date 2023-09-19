@@ -1,8 +1,8 @@
 --Rahu - Asura of Lost Antiquities
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	--fusion summon
 	c:EnableReviveLimit()
@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	e6:SetOperation(s.negop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 --echo
 function s.efilter(c,sc,sumtype,tp)
 	return c:IsLevelAbove(7) and c:IsSummonLocation(LOCATION_EXTRA)
@@ -74,13 +74,13 @@ function s.matcheck(e,c)
 end
 --disable
 function s.cfilter1(c)
-	return c:IsFaceup() and c:IsSetCard(0x218)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA)
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter1,1,e:GetHandler())
 end
 function s.cfilter2(c)
-	return c:IsFaceup() and c:IsSetCard(0x218) and c:IsSummonType(SUMMON_TYPE_TRIBUTE)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA) and c:IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and chkc:IsNegatable() end
@@ -123,7 +123,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 		and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_MONSTER) and (c:IsAbleToHandAsCost() or c:IsAbleToExtraAsCost())
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_MONSTER) and (c:IsAbleToHandAsCost() or c:IsAbleToExtraAsCost())
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,e:GetHandler()) end

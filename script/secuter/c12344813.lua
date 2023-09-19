@@ -1,5 +1,6 @@
 --Undead Eagle Overseer Mountain
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -27,10 +28,10 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_TO_DECK)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x202,0x210}
+s.listed_series={SET_UNDEAD,SET_EAGLE_OVERSEER}
 --search
 function s.tgfilter(c)
-	return (c:IsSetCard(0x202) or c:IsSetCard(0x210)) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return (c:IsSetCard(SET_UNDEAD) or c:IsSetCard(SET_EAGLE_OVERSEER)) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

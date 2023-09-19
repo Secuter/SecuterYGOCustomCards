@@ -1,5 +1,6 @@
 --Irradiance Illusory Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--excavate
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --excavate
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -38,7 +39,7 @@ function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>=ct end
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x22C) and c:IsAbleToHand()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsAbleToHand()
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local ct=3

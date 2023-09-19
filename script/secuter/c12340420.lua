@@ -1,5 +1,6 @@
 --Hydra Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -30,7 +31,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.addop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 function s.cfilter(c)
 	return bit.band(c:GetSummonType(),SUMMON_TYPE_SPECIAL)==SUMMON_TYPE_SPECIAL
 end
@@ -43,7 +44,7 @@ function s.spcon(e)
 		and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_HYDRA) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return (chkc:IsLocation(LOCATION_GRAVE) or chkc:IsLocation(LOCATION_HAND)) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end
@@ -65,7 +66,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.hfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x206) and c:IsAbleToHand() 
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_HYDRA) and c:IsAbleToHand() 
 end
 function s.addtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.hfilter,tp,LOCATION_DECK,0,1,nil) end

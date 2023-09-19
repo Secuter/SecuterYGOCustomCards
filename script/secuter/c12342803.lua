@@ -1,5 +1,6 @@
 --Wyrmwind Scirocco
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon + level change
@@ -29,7 +30,7 @@ function s.initial_effect(c)
 	e3:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x220}
+s.listed_series={SET_WYRMWIND}
 function s.spfilter(c)
 	return c:IsFaceup() and c:GetLevel()>0 and c:IsAttribute(ATTRIBUTE_WIND)
 end
@@ -78,7 +79,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsReason(REASON_COST) and c:IsPreviousLocation(LOCATION_OVERLAY)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x220) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WYRMWIND) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

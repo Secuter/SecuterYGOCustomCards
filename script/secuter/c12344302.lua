@@ -1,5 +1,6 @@
 --Freeflame Spirit
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -31,10 +32,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x231,0x2c}
+s.listed_series={SET_FREEFLAME,SET_FLAMVELL}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x231) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FREEFLAME) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -50,7 +51,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --set s/t from deck
 function s.setfilter(c)
-	return (c:IsSetCard(0x231) or c:IsSetCard(0x2c)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
+	return (c:IsSetCard(SET_FREEFLAME) or c:IsSetCard(SET_FLAMVELL)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

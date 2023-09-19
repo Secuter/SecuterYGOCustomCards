@@ -1,5 +1,6 @@
 --Ancient Oracle S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,13 +27,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsCanRemoveCounter(tp,1,0,0x303,2,REASON_COST) end
 	Duel.RemoveCounter(tp,1,0,0x303,2,REASON_COST)
 end
 function s.filter(c)
-	return c:IsSetCard(0x211) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsAbleToHand()
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
@@ -58,7 +59,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x211) and c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsCode(id) and c:IsAbleToHand() and c:IsFaceup()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and not c:IsCode(id) and c:IsAbleToHand() and c:IsFaceup()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.thfilter(chkc) end

@@ -1,5 +1,6 @@
 --Mirage of the Asuras
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
@@ -48,16 +49,16 @@ function s.initial_effect(c)
 	e4:SetOperation(s.disop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_SYNCHRO)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -76,7 +77,7 @@ function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function s.sumfilter(c)
-	return c:IsSetCard(0x218) and c:IsSummonable(true,nil,1)
+	return c:IsSetCard(SET_ASURA) and c:IsSummonable(true,nil,1)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end

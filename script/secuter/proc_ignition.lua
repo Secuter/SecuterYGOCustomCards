@@ -5,7 +5,6 @@ IGNITION_IMPORTED    = true
 
 --[[
 add at the start of the script to add Ingition procedure
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 condition if Ignition summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 ]]

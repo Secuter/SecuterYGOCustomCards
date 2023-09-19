@@ -1,5 +1,6 @@
 --Aetherock Frenzy
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --to hand
@@ -14,7 +15,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x20D}
+s.listed_series={SET_AETHEROCK}
 --to hand
 function s.filter(c) 
 	return c:IsType(TYPE_XYZ) and c:IsRace(RACE_ROCK)

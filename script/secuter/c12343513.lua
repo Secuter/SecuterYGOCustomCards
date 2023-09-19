@@ -1,5 +1,6 @@
 --Blaze Dragonlady Charge
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,14 +27,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop2)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 s.listed_names={id}
 --search 3 monsters
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_BATTLE_START
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x228) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(s.thfilter,tp,LOCATION_DECK,0,nil)
@@ -50,7 +51,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.thfilter2(c)
-	return c:IsSetCard(0x228) and not c:IsCode(id) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsCode(id) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_REMOVED+LOCATION_GRAVE,0,1,nil) end

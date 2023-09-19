@@ -1,6 +1,6 @@
 --Hailshift Eternity
 --Scripted by Secuter
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -67,7 +67,7 @@ function s.initial_effect(c)
 	e6:SetOperation(s.negop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 s.counter_place_list={0x305}
 --cannot pendulum summon
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
@@ -107,7 +107,7 @@ function s.recon(e)
 end
 --to pendulum zone
 function s.cfilter(c)
-	return c:IsSetCard(0x224) and c:IsDiscardable()
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsDiscardable()
 end
 function s.tpcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end

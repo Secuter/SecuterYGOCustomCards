@@ -1,5 +1,6 @@
 --Ghoost Dread Reaper
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -29,14 +30,14 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 --set trap
 function s.setcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.setfilter(c)
-	return c:IsSetCard(0x232) and c:IsType(TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_GHOOST) and c:IsType(TYPE_TRAP) and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0
@@ -56,7 +57,7 @@ function s.xyzcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
 end
 function s.spfilter(c,e,tp,mc,pg)
-	return c:IsType(TYPE_XYZ) and c:IsSetCard(0x232) and not c:IsCode(id) and Duel.GetLocationCountFromEx(tp,tp,e:GetHandler(),c)>0
+	return c:IsType(TYPE_XYZ) and c:IsSetCard(SET_GHOOST) and not c:IsCode(id) and Duel.GetLocationCountFromEx(tp,tp,e:GetHandler(),c)>0
 		and mc:IsCanBeXyzMaterial(c,tp) and (#pg<=0 or pg:IsContains(mc)) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.xyztg(e,tp,eg,ep,ev,re,r,rp,chk)

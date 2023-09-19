@@ -1,5 +1,6 @@
 --Undead Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -41,10 +42,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x46,0x202}
-s.material_setcode={0x202}
+s.listed_series={SET_FUSION,SET_UNDEAD}
+s.material_setcode={SET_UNDEAD}
 function s.matcheck(g,lc,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x202,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_UNDEAD,lc,SUMMON_TYPE_LINK,tp)
 end
 
 function s.dfilter(e,c)
@@ -59,11 +60,11 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,2,2,REASON_COST+REASON_DISCARD)
 end
 function s.thfilter(c,tp)
-	return c:IsSetCard(0x46) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FUSION) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()
 		and Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,c)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x202) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,tp) end
@@ -108,7 +109,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function s.resfilter(c)
-	return c:IsSetCard(0x202) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsSetCard(SET_UNDEAD) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.rescon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.resfilter,tp,LOCATION_GRAVE,0,1,nil)

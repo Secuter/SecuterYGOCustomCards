@@ -1,5 +1,6 @@
 --Fire Core Sign
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -29,13 +30,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.atkop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x207}
+s.listed_series={SET_FIRE_CORE}
 
 function s.desfilter(c)
 	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x207) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil)
@@ -59,7 +60,7 @@ end
 
 function s.resfilter(c,tp)
 	return c:GetPreviousControler()==tp and c:GetControler()==tp
-      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),0x41)==0x41
+      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),REASON_DESTROY|REASON_EFFECT)==REASON_DESTROY|REASON_EFFECT
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.resfilter,1,nil,tp)

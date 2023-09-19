@@ -1,5 +1,6 @@
 --Fluid LV12
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon condition
@@ -53,10 +54,10 @@ function s.initial_effect(c)
 	e6:SetOperation(s.regop)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 function s.elimit(e,se,sp,st)
-	return se:GetHandler():IsSetCard(0x204)
+	return se:GetHandler():IsSetCard(SET_FLUID)
 end
 
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
@@ -71,7 +72,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==e:GetHandler():GetLevel()+2
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==e:GetHandler():GetLevel()+2
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
@@ -90,7 +91,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()>0
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()>0
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)

@@ -1,7 +1,7 @@
 --Bulwark Champion Labangarion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 function s.initial_effect(c)
 	--send to gy
 	local e1=Effect.CreateEffect(c)
@@ -34,9 +34,9 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x21a) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -51,7 +51,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x21a) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev

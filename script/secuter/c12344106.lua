@@ -1,5 +1,6 @@
 --Amorphiend Shapeshifter
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -39,7 +40,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 function s.lcheck(g,lc,sumtype,tp)
 	return g:IsExists(Card.IsCode,1,nil,12344100)
 end
@@ -48,7 +49,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x22F) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -74,10 +75,10 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
 function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
-	return not c:IsSetCard(0x22F) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_AMORPHIEND) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsOriginalSetCard(0x22F)
+	return not c:IsOriginalSetCard(SET_AMORPHIEND)
 end
 --add
 function s.thfilter2(c)

@@ -1,5 +1,6 @@
 --Worldless Slash Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -46,12 +47,12 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 function s.matfilter(c,lc,sumtype,tp)
 	return c:IsLevelBelow(3) and c:IsType(TYPE_EFFECT,lc,sumtype,tp)
 end
 function s.matcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x20F,lc,sumtype,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_WORLDLESS,lc,sumtype,tp)
 end
 --splimit
 function s.spcheck(g,lc,tp)
@@ -75,7 +76,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 end
 --indes
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
+	return c:IsSetCard(SET_WORLDLESS) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
 end
 function s.indcon(e)
 	return Duel.IsExistingMatchingCard(s.cfilter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -89,7 +90,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -108,7 +109,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:GetReasonPlayer()~=tp and c:IsSummonType(SUMMON_TYPE_LINK) and c:GetPreviousControler()==tp
 end
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x20F) and c:IsLevelBelow(3) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_WORLDLESS) and c:IsLevelBelow(3) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

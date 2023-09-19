@@ -1,5 +1,6 @@
 --Yoccol Mothership
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -14,7 +15,7 @@ function s.initial_effect(c)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
 	e2:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x21F))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_YOCCOL))
 	c:RegisterEffect(e2)
 	--prevent negation
 	local e3=Effect.CreateEffect(c)
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 --prevent negation
 function s.con(e)
 	local tp=e:GetHandlerPlayer()
@@ -51,7 +52,7 @@ function s.efilter(e,ct)
 end
 --to hand
 function s.thfilter(c)
-	return c:IsSetCard(0x21F) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

@@ -1,5 +1,6 @@
 --D.D. Invader Jammer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -23,9 +24,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.stop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x215}
+s.listed_series={SET_D_D__INVADER}
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x215) and c:IsLinkMonster()
+	return c:IsFaceup() and c:IsSetCard(SET_D_D__INVADER) and c:IsLinkMonster()
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) then return false end
@@ -36,7 +37,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
 function s.filter(c)
-	return c:IsSetCard(0x215) and c:IsAbleToRemove()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsAbleToRemove()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
@@ -51,7 +52,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.stfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x215) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()
+	return c:IsFaceup() and c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()
 end
 function s.sttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.stfilter,tp,LOCATION_REMOVED,0,1,e:GetHandler()) end

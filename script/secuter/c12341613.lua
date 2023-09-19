@@ -1,5 +1,6 @@
 --Demon Rival Blood Moon (FIELD)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,7 +25,7 @@ function s.initial_effect(c)
 	e3:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e3:SetRange(LOCATION_FZONE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
-	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x216))
+	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_DEMON_RIVAL))
 	e3:SetCondition(s.accon2)
 	e3:SetValue(s.ctval)
 	c:RegisterEffect(e3)
@@ -50,9 +51,9 @@ function s.initial_effect(c)
 	e6:SetOperation(s.spop2)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x216)
+	return c:IsFaceup() and c:IsSetCard(SET_DEMON_RIVAL)
 end
 function s.accon1(e)
 	return Duel.IsExistingMatchingCard(s.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -84,7 +85,7 @@ function s.spcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x216) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

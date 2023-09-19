@@ -1,7 +1,7 @@
 --Dark Sovereign Lost Raider
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 s.Runic=true
 function s.initial_effect(c)
 	--atk
@@ -35,7 +35,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.rop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --atk
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -48,7 +48,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 end
 --sp summon
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x230)
+	return c:IsFaceup() and c:IsSetCard(SET_DARK_SOVEREIGN)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.spcfilter,tp,LOCATION_MZONE,0,1,nil)
@@ -65,7 +65,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --runic effect
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x230)
+	return c:IsFaceup() and c:IsSetCard(SET_DARK_SOVEREIGN)
 end
 function s.rcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
@@ -75,7 +75,7 @@ function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(0x230) and c:IsAbleToRemoveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToRemoveAsCost() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()

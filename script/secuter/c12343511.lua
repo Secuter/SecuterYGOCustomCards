@@ -1,5 +1,6 @@
 --Blaze Dragonlady Burning
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -34,13 +35,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.thop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(Card.IsControler,1,nil,e:GetHandlerPlayer())
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x228) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 		and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,c:GetCode()),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -63,7 +64,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsReason(REASON_DESTROY) and c:IsReason(REASON_EFFECT)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x228) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -1,5 +1,6 @@
 --Abyss Challenger Sanctuary
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --Activate
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x217}
+s.listed_series={SET_ABYSS_CHALLENGER}
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     local g=Duel.GetDecktopGroup(tp,3)
     if chk==0 then return g:FilterCount(Card.IsAbleToRemoveAsCost,nil,POS_FACEDOWN)==3
@@ -45,7 +46,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x217),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ABYSS_CHALLENGER),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.thfilter(c)
 	return c:IsFacedown()and c:IsAbleToHand()

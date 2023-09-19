@@ -1,5 +1,6 @@
 --External Worlds Hero WIND
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -18,7 +19,7 @@ function s.initial_effect(c)
 	p2:SetRange(LOCATION_PZONE)
 	p2:SetCode(EFFECT_UPDATE_ATTACK)
 	p2:SetTargetRange(LOCATION_MZONE,0)
-	p2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x201))
+	p2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_EXTERNAL_WORLDS))
 	p2:SetValue(200)
 	c:RegisterEffect(p2)
     local p3=p2:Clone()
@@ -48,16 +49,16 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x201,0x2201}
+s.listed_series={SET_EXTERNAL_WORLDS,SET_EXTERNAL_WORLDS_HERO}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 
 function s.thfilter(c,ft)
-	return c:IsSetCard(0x201) and c:IsFaceup() and not c:IsCode(id) and c:IsAbleToHand() and (ft>0 or c:IsLocation(LOCATION_MZONE))
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsFaceup() and not c:IsCode(id) and c:IsAbleToHand() and (ft>0 or c:IsLocation(LOCATION_MZONE))
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x2201) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS_HERO) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

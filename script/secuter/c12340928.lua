@@ -1,12 +1,12 @@
 --Demise of the Asuras
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	c:EnableReviveLimit()
-	Ignition.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x218),aux.FilterBoolFunction(Card.IsLevelAbove,7),1,1)
+	Ignition.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ASURA),aux.FilterBoolFunction(Card.IsLevelAbove,7),1,1)
 	--double tribute
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -39,17 +39,17 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x218}
-s.material_setcode={0x218}
+s.listed_series={SET_ASURA}
+s.material_setcode={SET_ASURA}
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 --to grave
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x218) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ASURA) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -67,7 +67,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x218) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_ASURA) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end

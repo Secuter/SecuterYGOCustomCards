@@ -1,5 +1,6 @@
 --External Worlds Lord DARK
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Pendulum.AddProcedure(c)
@@ -55,13 +56,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
 function s.splimit(e,c,sump,sumtype,sumpos,targetp)
-	return not c:IsSetCard(0x201) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
+	return not c:IsSetCard(SET_EXTERNAL_WORLDS) and (sumtype&SUMMON_TYPE_PENDULUM)==SUMMON_TYPE_PENDULUM
 end
 --spsummon itself from PZ
 function s.filter(c)
-	return c:IsSetCard(0x201) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsFaceup()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsFaceup()
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,e:GetHandlerPlayer(),LOCATION_MZONE,0,1,nil)
@@ -81,7 +82,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 end
 --to pendulum/extra
 function s.tpfilter(c)
-	return c:IsSetCard(0x201) and c:IsMonster() and c:IsType(TYPE_PENDULUM) and not c:IsCode(id) and (c:IsAbleToExtra() or not c:IsForbidden())
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsMonster() and c:IsType(TYPE_PENDULUM) and not c:IsCode(id) and (c:IsAbleToExtra() or not c:IsForbidden())
 end
 function s.rescon(sg,e,tp,mg)
 	return sg:GetClassCount(Card.GetCode)==#sg and sg:IsExists(Card.IsAbleToExtra,1,nil) and sg:IsExists(aux.NOT(Card.IsForbidden),1,nil)
@@ -109,10 +110,10 @@ function s.tpop(e,tp,eg,ep,ev,re,r,rp)
 end
 --give atk
 function s.atktg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c:IsSetCard(0x201) and c:IsFaceup() end
-	if chk==0 then return Duel.IsExistingTarget(aux.FaceupFilter(Card.IsSetCard,0x201),tp,LOCATION_MZONE,0,1,nil) end
+	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsFaceup() end
+	if chk==0 then return Duel.IsExistingTarget(aux.FaceupFilter(Card.IsSetCard,SET_EXTERNAL_WORLDS),tp,LOCATION_MZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TARGET)
-	Duel.SelectTarget(tp,aux.FaceupFilter(Card.IsSetCard,0x201),tp,LOCATION_MZONE,0,1,1,nil)
+	Duel.SelectTarget(tp,aux.FaceupFilter(Card.IsSetCard,SET_EXTERNAL_WORLDS),tp,LOCATION_MZONE,0,1,1,nil)
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -128,5 +129,5 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.altg(e,c)
-	return c~=e:GetHandler() and c:IsFaceup() and c:IsSetCard(0x201)
+	return c~=e:GetHandler() and c:IsFaceup() and c:IsSetCard(SET_EXTERNAL_WORLDS)
 end

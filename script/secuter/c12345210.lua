@@ -1,5 +1,6 @@
 --Alhaf, the Exoheart General
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.TOKEN_ID=id+13
 function s.initial_effect(c)
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={s.TOKEN_ID}
-s.listed_series={0x20E}
+s.listed_series={SET_EXOHEART}
 --material
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsType(TYPE_TOKEN,scard,sumtype,tp)
@@ -71,7 +72,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.tdfilter(c)
-	return c:IsSetCard(0x20E) and c:IsType(TYPE_LINK) and c:IsAbleToExtra()
+	return c:IsSetCard(SET_EXOHEART) and c:IsType(TYPE_LINK) and c:IsAbleToExtra()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.tdfilter(chkc) end
@@ -92,13 +93,13 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thfilter(c)
-	return c:IsSetCard(0x20E) and c:IsSpellTrap() and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXOHEART) and c:IsSpellTrap() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(s.thfilter,tp,LOCATION_GRAVE,0,1,nil)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,2000,2000,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,2000,2000,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local g=Duel.SelectTarget(tp,s.thfilter,tp,LOCATION_GRAVE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
@@ -111,7 +112,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(tc,nil,REASON_EFFECT)
 	end
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,0x20E,TYPES_TOKEN,2000,2000,1,RACE_CYBERSE,ATTRIBUTE_DARK) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,2000,2000,1,RACE_CYBERSE,ATTRIBUTE_DARK) then
 		local c=e:GetHandler()
 		local token=Duel.CreateToken(tp,s.TOKEN_ID)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)

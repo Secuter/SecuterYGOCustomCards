@@ -1,5 +1,6 @@
 --External Worlds Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -33,10 +34,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id,12340013}
-s.listed_series={0x201}
-s.material_setcode={0x201}
+s.listed_series={SET_EXTERNAL_WORLDS}
+s.material_setcode={SET_EXTERNAL_WORLDS}
 function s.lcheck(g,lc,sumtype,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x201,lc,sumtype,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_EXTERNAL_WORLDS,lc,sumtype,tp)
 end
 
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -49,7 +50,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,tp,zone)
-	return c:IsSetCard(0x201) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP,tp,zone)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP,tp,zone)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local zone=e:GetHandler():GetLinkedZone(tp)
@@ -67,7 +68,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return ((c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER)) or c:IsCode(12340013)) and c:IsAbleToHand()
+	return ((c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)) or c:IsCode(12340013)) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

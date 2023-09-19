@@ -1,5 +1,6 @@
 --Abysmal Hunting Ground
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -21,10 +22,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.lvop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x225}
+s.listed_series={SET_ABYSMAL}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x225) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ABYSMAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

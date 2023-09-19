@@ -1,5 +1,6 @@
 --Morhai Moonlight Agony
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--set ST
@@ -34,10 +35,10 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 --set ST
 function s.mtfilter(c,tp)
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.mtfilter,tp,LOCATION_HAND|LOCATION_ONFIELD,0,1,e:GetHandler()) end	
@@ -46,7 +47,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(g,REASON_COST)
 end
 function s.setfilter(c)
-	return c:IsSetCard(0x209) and c:IsSpellTrap() and c:IsSSetable()
+	return c:IsSetCard(SET_MORHAI) and c:IsSpellTrap() and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE|LOCATION_REMOVED) and chkc:IsControler(tp) and s.setfilter(chkc) end
@@ -65,10 +66,10 @@ function s.setop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():IsReason(REASON_COST) and re and re:IsActivated() and re:GetHandler():IsSetCard(0x209)
+    return e:GetHandler():IsReason(REASON_COST) and re and re:IsActivated() and re:GetHandler():IsSetCard(SET_MORHAI)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

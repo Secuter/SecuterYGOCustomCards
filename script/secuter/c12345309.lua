@@ -1,7 +1,7 @@
 --Armor Magician Executor
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=1000
 s.ArmorDef=0
 s.Armor=true
@@ -40,8 +40,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
-s.material_setcode={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
+s.material_setcode={SET_ARMOR_MAGICIAN}
 function s.matfilter(c,lc,sumtype,tp)
 	return c:IsRace(RACE_SPELLCASTER,lc,sumtype,tp) and c:IsLevelBelow(4) and not c:IsCode(id)
 end
@@ -50,7 +50,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 end
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x1098) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -85,7 +85,7 @@ function s.splimit(e,c)
 end
 --des ST
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and re:GetHandler():IsSetCard(0x1098)
+	return rp==tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and re:GetHandler():IsSetCard(SET_ARMOR_MAGICIAN)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsSpellTrap() and chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) end

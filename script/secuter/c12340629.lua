@@ -1,5 +1,6 @@
 --Anuak Fusion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--fusion material
@@ -31,12 +32,12 @@ function s.initial_effect(c)
 	e2:SetOperation(s.negop)
 	c:RegisterEffect(e2)
 end
-s.material_setcode={0x208}
+s.material_setcode={SET_ANUAK}
 function s.ffilter1(c,fc,sumtype,tp)
-	return c:IsSetCard(0x208,fc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_LIGHT,fc,sumtype,tp)
+	return c:IsSetCard(SET_ANUAK,fc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_LIGHT,fc,sumtype,tp)
 end
 function s.ffilter2(c,fc,sumtype,tp)
-	return c:IsSetCard(0x208,fc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_DARK,fc,sumtype,tp)
+	return c:IsSetCard(SET_ANUAK,fc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_DARK,fc,sumtype,tp)
 end
 
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)

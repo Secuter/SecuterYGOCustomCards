@@ -1,8 +1,8 @@
 --Ghoost Panic Ogre
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Reunion Summon
@@ -40,13 +40,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.effop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x232) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_GHOOST) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -90,7 +90,7 @@ function s.lizfilter(e,c)
 end
 --negate
 function s.filter(c,tp)
-	return c:IsControler(tp) and c:IsOnField() and c:IsFaceup() and c:IsSetCard(0x232)
+	return c:IsControler(tp) and c:IsOnField() and c:IsFaceup() and c:IsSetCard(SET_GHOOST)
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	if not re:IsHasProperty(EFFECT_FLAG_CARD_TARGET) then return false end
@@ -106,7 +106,7 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 end
 --indes
 function s.effcon(e,tp,eg,ep,ev,re,r,rp)
-	return (r&REASON_XYZ)==REASON_XYZ and e:GetHandler():GetReasonCard():IsSetCard(0x232) and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+	return (r&REASON_XYZ)==REASON_XYZ and e:GetHandler():GetReasonCard():IsSetCard(SET_GHOOST) and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.effop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

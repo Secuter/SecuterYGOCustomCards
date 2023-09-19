@@ -1,7 +1,7 @@
 --Crearmor Ablaze Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=600
 s.ArmorDef=0
 s.Armor=true
@@ -51,7 +51,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 function s.matfilter(c,scard,sumtype,tp)
 	return not c:IsType(TYPE_XYZ) and c:GetOverlayCount()>0
 end
@@ -82,7 +82,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22B) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_CREARMOR) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end

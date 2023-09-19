@@ -1,5 +1,6 @@
 --Hydra Xyz 6*
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
@@ -43,7 +44,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 function s.ovfilter(c)
 	return c:IsFaceup() and c:IsRace(RACE_REPTILE) and c:IsType(TYPE_XYZ) and c:IsRank(6) and c:GetCode()~=id
 end
@@ -55,7 +56,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.matfilter(c)
-	return c:IsSetCard(0x206)
+	return c:IsSetCard(SET_HYDRA)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return e:GetHandler():IsType(TYPE_XYZ)

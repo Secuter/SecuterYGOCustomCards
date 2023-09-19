@@ -1,5 +1,6 @@
 --Abyss Challenger Entrance (FIELD)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --Activate
@@ -25,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.rmop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x217}
+s.listed_series={SET_ABYSS_CHALLENGER}
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     local g=Duel.GetDecktopGroup(tp,3)
     if chk==0 then return g:FilterCount(Card.IsAbleToRemoveAsCost,nil,POS_FACEDOWN)==3
@@ -34,7 +35,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
     Duel.Remove(g,POS_FACEDOWN,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x217) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ABYSS_CHALLENGER) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -52,7 +53,7 @@ end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetAttacker()
 	local dc=Duel.GetAttackTarget()
-	return tc:IsSetCard(0x217) or (dc and dc:IsFaceup() and dc:IsSetCard(0x217))
+	return tc:IsSetCard(SET_ABYSS_CHALLENGER) or (dc and dc:IsFaceup() and dc:IsSetCard(SET_ABYSS_CHALLENGER))
 end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
     local g1=Duel.GetDecktopGroup(tp,1)

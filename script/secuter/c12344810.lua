@@ -1,8 +1,8 @@
 --Undead Eagle Overseer Reaper
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Ignition Summon

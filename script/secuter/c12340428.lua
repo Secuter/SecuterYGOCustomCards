@@ -1,5 +1,6 @@
 --Hydra 4*
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--sp summon
@@ -45,10 +46,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 
 function s.spfilter1(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:GetLevel()<=4
+	return c:IsSetCard(SET_HYDRA) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:GetLevel()<=4
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -107,7 +108,7 @@ function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,2,tp,LOCATION_HAND+LOCATION_DECK)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.spcheck(sg,e,tp,mg)
 	return sg:GetClassCount(Card.GetOriginalCode)==#sg and sg:GetClassCount(Card.GetLocation)==#sg and sg:GetClassCount(Card.GetLevel)==1

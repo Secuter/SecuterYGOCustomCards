@@ -1,5 +1,6 @@
 --Erinyes Xyz
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -41,7 +42,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.retop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x214}
+s.listed_series={SET_ERINYES}
 function s.atkval(e,c)
 	return c:GetOverlayCount()*1000
 end
@@ -62,7 +63,7 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x214) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ERINYES) and c:IsAbleToHand()
 end
 function s.rettg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

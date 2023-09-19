@@ -1,10 +1,11 @@
 --Venom of the Primeval Forest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Link Summon
-	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x234),2,2)
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_PRIMEVAL_FOREST),2,2)
 	--extra mat
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_FIELD)
@@ -55,8 +56,8 @@ function s.initial_effect(c)
 	e4:SetOperation(s.posop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x234}
-s.material_setcode={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
+s.material_setcode={SET_PRIMEVAL_FOREST}
 function s.extraval(chk,summon_type,e,...)
 	if chk==0 then
 		local tp,sc=...
@@ -78,7 +79,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x234) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

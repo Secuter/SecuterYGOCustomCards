@@ -1,7 +1,7 @@
 --Armor Magician Spellbreaker
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -47,7 +47,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --spsummon procedure
 function s.cfilter(c)
 	return c:IsFaceup() and not c:IsType(TYPE_XYZ)
@@ -77,7 +77,7 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFieldID() == ev
 end
 function s.atfilter(c,tc)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and Armor.AttachCheck(c,tc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and Armor.AttachCheck(c,tc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e:GetHandler()) end
@@ -102,7 +102,7 @@ function s.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and (c:IsAbleToGrave() or c:IsAbleToRemove())
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and (c:IsAbleToGrave() or c:IsAbleToRemove())
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end

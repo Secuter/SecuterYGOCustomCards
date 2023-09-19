@@ -1,5 +1,6 @@
 --Dipsos'f The Yoccol Mind (Ritual)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)	
 	c:EnableReviveLimit()
@@ -51,7 +52,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id,12342708,12342710}
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 --search
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -125,7 +126,7 @@ function s.acop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter2(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

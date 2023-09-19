@@ -1,5 +1,6 @@
 --Anuak 7*D
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 function s.spfilter(c)
 	return c:IsAttribute(ATTRIBUTE_LIGHT) and not c:IsPublic()
 end
@@ -51,7 +52,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.tgfilter(c,att)
-	return c:IsSetCard(0x208) and c:IsFaceup() and c:IsAttribute(att) and c:IsAbleToGrave() and not c:IsCode(id)
+	return c:IsSetCard(SET_ANUAK) and c:IsFaceup() and c:IsAttribute(att) and c:IsAbleToGrave() and not c:IsCode(id)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)    
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED)

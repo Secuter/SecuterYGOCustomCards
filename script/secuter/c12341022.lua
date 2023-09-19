@@ -1,7 +1,7 @@
 --Blasting Armorizing Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=700
 s.ArmorDef=700
 s.Armor=true

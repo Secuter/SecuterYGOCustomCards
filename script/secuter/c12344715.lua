@@ -1,5 +1,6 @@
 --Blessing of the Primeval Forest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--change position + search
@@ -12,13 +13,13 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
 --change position + search
 function s.thfilter(c,cid)
-	return c:IsSetCard(0x234) and c:IsType(TYPE_MONSTER) and not c:IsCode(cid) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsType(TYPE_MONSTER) and not c:IsCode(cid) and c:IsAbleToHand()
 end
 function s.filter(c,tp)
-	return c:IsSetCard(0x234) and c:IsCanTurnSet()
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsCanTurnSet()
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)

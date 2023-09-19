@@ -1,5 +1,6 @@
 --Amorphiend Blade
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--equip
@@ -23,14 +24,14 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 --equip
 function s.eqcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
 end
 function s.eqfilter(c,ec)
-	return c:IsSetCard(0x22F) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

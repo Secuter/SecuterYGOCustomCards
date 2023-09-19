@@ -1,5 +1,6 @@
 --Fluidsphere Sanctuary
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -15,7 +16,7 @@ function s.initial_effect(c)
 	e2:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetCondition(s.con(1))
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x3204))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_FLUIDSPHERE))
 	c:RegisterEffect(e2)
 	--indes
 	local e3=Effect.CreateEffect(c)
@@ -64,7 +65,7 @@ function s.initial_effect(c)
 	e7:SetCondition(s.con(5))
 	c:RegisterEffect(e7)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 function s.con(ct)
 	return function (e,tp,eg,ep,ev,re,r,rp)
 		local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsType,TYPE_CONTINUOUS),e:GetHandlerPlayer(),LOCATION_SZONE,0,nil)
@@ -77,7 +78,7 @@ function s.indtg(e,c)
 end
 --intarget
 function s.immtg(e,c)
-	return c:IsSetCard(0x3204)
+	return c:IsSetCard(SET_FLUIDSPHERE)
 end
 --sp limit
 function s.splimit(e,c)

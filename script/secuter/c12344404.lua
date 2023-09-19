@@ -1,8 +1,8 @@
 --Fluidsphere Huntress
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--echo summon
@@ -32,7 +32,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 function s.efilter(c,sc,sumtype,tp)
 	return c:IsAttribute(ATTRIBUTE_WATER,sc,sumtype,tp) and c:IsType(TYPE_XYZ,sc,sumtype,tp) and c:IsRankAbove(4)
 end
@@ -42,7 +42,7 @@ function s.cfilter(c,e,tp)
 		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetRank())
 end
 function s.spfilter(c,e,tp,lvl)
-	return c:IsSetCard(0x3204) and c:IsLevel(lvl) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsLevel(lvl) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():GetEquipGroup():IsExists(s.cfilter,1,nil,e,tp) end

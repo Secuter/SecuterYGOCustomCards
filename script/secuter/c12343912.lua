@@ -1,5 +1,6 @@
 --Irradiance Renegade
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--fusion summon
@@ -31,10 +32,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --fusion
 function s.ffilter(c,fc,sumtype,tp,sub,mg,sg)
-	return c:IsSetCard(0x22C,fc,sumtype,tp) and (not sg or sg:FilterCount(aux.TRUE,c)==0 or sg:IsExists(s.fusfilter,1,c,c:GetCode(fc,sumtype,tp),fc,tp))
+	return c:IsSetCard(SET_IRRADIANCE,fc,sumtype,tp) and (not sg or sg:FilterCount(aux.TRUE,c)==0 or sg:IsExists(s.fusfilter,1,c,c:GetCode(fc,sumtype,tp),fc,tp))
 end
 function s.fusfilter(c,code,fc,tp)
 	return c:IsSummonCode(fc,SUMMON_TYPE_FUSION,tp,code) or c:IsHasEffect(511002961) -- fusion parasite
@@ -51,7 +52,7 @@ function s.contactop(g)
 end
 --send to gy
 function s.chkfilter(c,tp)
-	return c:IsSetCard(0x22C) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsAbleToGrave()
 		and Duel.IsExistingMatchingCard(s.codefilter,tp,LOCATION_DECK,0,1,c,c:GetCode())
 end
 function s.codefilter(c,code)

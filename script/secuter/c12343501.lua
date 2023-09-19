@@ -1,5 +1,6 @@
 --Blaze Dragonlady Shaman
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -46,10 +47,10 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop2)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(0x228) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -73,7 +74,7 @@ function s.lkcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
 function s.lkfilter(c,mg)
-	return c:IsSetCard(0x228) and c:IsLinkSummonable(nil,mg)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsLinkSummonable(nil,mg)
 end
 function s.lktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then

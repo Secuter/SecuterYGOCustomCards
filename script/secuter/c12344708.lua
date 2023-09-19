@@ -1,5 +1,6 @@
 --Phantom of the Primeval Forest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -56,7 +57,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.posop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
 function s.extraval(chk,summon_type,e,...)
 	if chk==0 then
 		local tp,sc=...
@@ -78,7 +79,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x234) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

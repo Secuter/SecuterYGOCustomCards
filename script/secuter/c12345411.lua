@@ -1,5 +1,6 @@
 --Worldless Shock
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -27,7 +28,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tdop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --to grave
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToGrave() end
@@ -50,14 +51,14 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.filter(c)
-	return c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
+	return c:IsSetCard(SET_WORLDLESS) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
 end
 --to deck
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsTurnPlayer(tp) and Duel.IsMainPhase() and aux.exccon(e) and (e:GetHandler():IsFaceup() or not e:GetHandler():IsLocation(LOCATION_REMOVED))
 end
 function s.tdfilter(c,e)
-	return c:IsSetCard(0x20F) and c:IsType(TYPE_MONSTER|TYPE_SPELL) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsSetCard(SET_WORLDLESS) and c:IsType(TYPE_MONSTER|TYPE_SPELL) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.class(c)
 	return c:GetType()&0x3

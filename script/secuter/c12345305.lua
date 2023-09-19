@@ -1,7 +1,7 @@
 --Armor Magician Knight
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -33,7 +33,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --attach
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and Armor.AttachCheck(chkc,e:GetHandler()) end
@@ -54,10 +54,10 @@ function s.atcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and bit.band(r,REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.atfilter2(c,sc)
-	return c:IsSetCard(0x1098) and not c:IsCode(id) and Armor.AttachCheck(c,sc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsCode(id) and Armor.AttachCheck(c,sc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.tgfilter(c,tp)
-	return c:IsSetCard(0x1098) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_REMOVED+LOCATION_GRAVE,0,1,nil,c)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter2,tp,LOCATION_REMOVED+LOCATION_GRAVE,0,1,nil,c)
 end
 function s.attg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

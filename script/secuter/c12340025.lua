@@ -1,5 +1,6 @@
 --External Worlds Dark Synchro Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--dark synchro summon 
@@ -43,10 +44,10 @@ function s.initial_effect(c)
 	e3:SetValue(12)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x201,0x301}
+s.listed_series={SET_EXTERNAL_WORLDS}
 
 function s.costfilter(c)
-	return c:IsSetCard(0x201) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
         and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -73,7 +74,7 @@ function s.rmcond(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
 function s.rmfilter(c)
-	return c:IsSetCard(0x201) and c:IsAbleToRemoveAsCost() and c:IsFaceup() and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAbleToRemoveAsCost() and c:IsFaceup() and c:IsType(TYPE_MONSTER)
 end
 function s.rmcost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE+LOCATION_EXTRA) and chkc:IsControler(1-tp) and s.rmfilter(chkc) end
@@ -120,10 +121,10 @@ function s.lvcon(e)
 end
 
 function s.tmatfilter(c,sc)
-	return c:IsSetCard(0x301) and c:IsType(TYPE_TUNER) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsCanBeSynchroMaterial(sc)
+	return c:IsSetCard(0x600) and c:IsType(TYPE_TUNER) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsCanBeSynchroMaterial(sc)
 end
 function s.ntmatfilter(c,sc,tp)
-	return c:IsSetCard(0x201) and c:IsNotTuner(sc,tp) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsCanBeSynchroMaterial(sc)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsNotTuner(sc,tp) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and c:IsCanBeSynchroMaterial(sc)
 end
 function s.synfilter1(c,lv,tuner,sc,pe,tc)
 	if sc:GetFlagEffect(100000147)==0 then

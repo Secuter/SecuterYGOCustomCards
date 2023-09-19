@@ -1,6 +1,6 @@
 --Crearmor Twin Blaster
 --Scripted by Secuter
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ArmorAtk=300
 s.ArmorDef=0
@@ -44,10 +44,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.atop3)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x22B}
+s.listed_series={SET_CREARMOR}
 --move armor
 function s.tgfilter(c,mg)
-	return c:IsSetCard(0x22B) and c:IsFaceup() and mg:IsExists(Armor.AttachCheck,1,nil,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsFaceup() and mg:IsExists(Armor.AttachCheck,1,nil,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -74,7 +74,7 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x22B) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_CREARMOR) and c:IsLevelBelow(4) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,2,REASON_COST) end
@@ -109,7 +109,7 @@ function s.actlimit(e,re,rp)
 end
 --attach itself
 function s.atfilter3(c,ar)
-	return c:IsSetCard(0x22B) and c:IsFaceup() and Armor.AttachCheck(ar,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsFaceup() and Armor.AttachCheck(ar,c)
 end
 function s.attg3(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

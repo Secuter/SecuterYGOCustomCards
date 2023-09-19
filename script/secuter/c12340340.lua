@@ -1,11 +1,11 @@
 --Dark King's Forgotten Tome
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--Activate
-	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,0x205),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),s.stage2)
-	Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,0x205),matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),stage2=s.stage2})
+	--Ritual.AddProcGreater(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),nil,nil,nil,nil,aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),s.stage2)
+	local e1=Ritual.AddProcGreater({handler=c,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),matfilter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),stage2=s.stage2})
 	--search
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -29,7 +29,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	e1:SetLabelObject(e3)
 end
-s.listed_series={0x205,0x230}
+s.listed_series={SET_DARK_KING,SET_DARK_SOVEREIGN}
 function s.stage2(mg,e,tp,eg,ep,ev,re,r,rp,tc)
 	e:GetLabelObject():SetLabelObject(tc)
 end
@@ -42,7 +42,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x230) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToHand()
+	return c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

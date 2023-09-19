@@ -1,7 +1,7 @@
 --Bulwark Champion Dailormian
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.Armorizing=true
 s.Shells=1
 function s.initial_effect(c)
@@ -38,9 +38,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x21a,lc,sumtype,tp)
+	return c:IsSetCard(SET_BULWARK_CHAMPION,lc,sumtype,tp)
 end
 function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
@@ -76,7 +76,7 @@ function s.sumsuc(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function s.tgtg(e,c)
-	return c:IsSetCard(0x21a) and c:IsArmorizing()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsArmorizing()
 end
 
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
@@ -87,7 +87,7 @@ function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.atfilter(c,tc)
-	return c:IsSetCard(0x21a) and Armor.AttachCheck(c,tc)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and Armor.AttachCheck(c,tc)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_DECK,0,1,nil,e:GetHandler()) end

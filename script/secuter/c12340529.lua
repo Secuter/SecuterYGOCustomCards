@@ -1,8 +1,8 @@
 --Fire Core Reunion LV5
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_FIRE),2,99)
@@ -73,7 +73,7 @@ end
 
 function s.spreg(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if bit.band(r,0x41)~=0x41 then return end
+	if bit.band(r,REASON_DESTROY|REASON_EFFECT)~=REASON_DESTROY|REASON_EFFECT then return end
 	e:SetLabel(0)
 	c:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
 end

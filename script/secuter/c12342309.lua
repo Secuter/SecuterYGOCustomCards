@@ -1,5 +1,6 @@
 --Machine Force Exploration
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -23,7 +24,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.repop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21b}
+s.listed_series={SET_MACHINE_FORCE}
 function s.filter1(c,e,tp)
 	local lvl=c:GetLevel()
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)

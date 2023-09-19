@@ -1,5 +1,6 @@
 --Astrid, Valkyrie of the Generaider Bosses
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x134}
+s.listed_series={SET_GENERAIDER}
 s.listed_names={id}
 
 --sp summon itself
@@ -66,7 +67,7 @@ end
 
 --to grave
 function s.tgfilter(c,e,tp)
-    return c:IsLevel(9) and c:IsSetCard(0x134) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
+    return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -82,7 +83,7 @@ end
 
 --sp summon
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x134) and c:IsLevel(9) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_GENERAIDER) and c:IsLevel(9) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

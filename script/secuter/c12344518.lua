@@ -1,5 +1,6 @@
 --Ghoost Quake
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,10 +14,10 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x232}
+s.listed_series={SET_GHOOST}
 
 function s.tgfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x232) and c:IsAbleToGrave()
+	return c:IsFaceup() and c:IsSetCard(SET_GHOOST) and c:IsAbleToGrave()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

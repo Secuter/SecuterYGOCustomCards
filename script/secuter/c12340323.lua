@@ -1,8 +1,8 @@
 --Reverse-Xyz
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.ReverseXyz=true
-if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	ReverseXyz.AddProcedure(c,3,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_DARK),s.rifilter)

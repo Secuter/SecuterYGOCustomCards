@@ -1,5 +1,6 @@
 --Worldless Parasite
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0,nil)==0
@@ -58,14 +59,14 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(c,tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x20F) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_WORLDLESS) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x20F)
+	return not c:IsSetCard(SET_WORLDLESS)
 end
 --to grave
 function s.tgfilter(c,tp)
-	return c:IsSetCard(0x20F) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_WORLDLESS) and not c:IsCode(id) and c:IsAbleToGrave()
 	  and not Duel.IsExistingMatchingCard(Card.IsCode,tp,LOCATION_GRAVE,0,1,nil,c:GetCode())
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)

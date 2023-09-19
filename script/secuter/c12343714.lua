@@ -1,8 +1,8 @@
 --Soulbound Herald
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	--ignition summon
 	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)
@@ -49,11 +49,11 @@ function s.initial_effect(c)
 	e5:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x22A}
-s.material_setcode={0x22A}
+s.listed_series={SET_SOULBOUND}
+s.material_setcode={SET_SOULBOUND}
 --ignition
 function s.ignfilter1(c)
-	return c:IsSetCard(0x22A)
+	return c:IsSetCard(SET_SOULBOUND)
 end
 function s.ignfilter2(c)
 	return c:IsRace(RACE_FAIRY)
@@ -106,7 +106,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 end
 function s.setfilter(c)
-	return c:IsSetCard(0x22A) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_DECK,0,1,nil) end

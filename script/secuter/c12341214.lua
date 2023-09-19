@@ -1,5 +1,6 @@
 --D.D. Invader Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -34,17 +35,17 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x215}
-s.material_setcode={0x215}
+s.listed_series={SET_D_D__INVADER}
+s.material_setcode={SET_D_D__INVADER}
 function s.lcheck(g,lc,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,0x215,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_D_D__INVADER,lc,SUMMON_TYPE_LINK,tp)
 end
 
 function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.eqfilter(c)
-	return c:IsSetCard(0x215) and c:IsLinkMonster() and not c:IsForbidden()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsLinkMonster() and not c:IsForbidden()
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.IsExistingMatchingCard(s.eqfilter,tp,LOCATION_GRAVE,0,1,nil) end

@@ -1,5 +1,6 @@
 --Ancient Oracle S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,18 +27,18 @@ function s.initial_effect(c)
 	e2:SetOperation(s.op2)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckLPCost(tp,1000) end
 	Duel.PayLPCost(tp,1000)
 end
 function s.filter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(0x211)
+	return c:IsFaceup() and c:IsSetCard(SET_ANCIENT_ORACLE)
 		and  Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetLevel(),c:GetCode())
 end
 function s.spfilter(c,e,tp,lv,code)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x211) and c:GetLevel()==lv and not c:IsCode(code)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_ANCIENT_ORACLE) and c:GetLevel()==lv and not c:IsCode(code)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
@@ -84,7 +85,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e4,tp)	
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x211)
+	return not c:IsSetCard(SET_ANCIENT_ORACLE)
 end
 function s.retop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.SendtoHand(e:GetHandler(),nil,REASON_EFFECT)
@@ -94,7 +95,7 @@ function s.con2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetPreviousLocation()==LOCATION_DECK
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x211) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.thfilter(chkc) end

@@ -1,5 +1,6 @@
 --Blaze Dragonlady Queen
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -41,7 +42,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop3)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 s.listed_names={id}
 --destroy S/T
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
@@ -53,7 +54,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoGrave(e:GetHandler(),REASON_COST+REASON_DISCARD)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x228) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -86,7 +87,7 @@ function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spfilter3(c,e,tp)
-	return c:IsSetCard(0x228) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter3(chkc,e,tp) end

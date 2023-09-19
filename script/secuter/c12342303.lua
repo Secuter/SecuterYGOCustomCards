@@ -1,5 +1,6 @@
 --Machine Force Stormtrooper
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -36,9 +37,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x21b}
+s.listed_series={SET_MACHINE_FORCE}
 function s.thfilter(c)
-	return c:IsSetCard(0x21b) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MACHINE_FORCE) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -59,7 +60,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsPreviousLocation(LOCATION_OVERLAY)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x21b) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MACHINE_FORCE) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

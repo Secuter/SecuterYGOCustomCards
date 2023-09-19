@@ -1,5 +1,6 @@
 --Machine Force Sniper
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x21b}
+s.listed_series={SET_MACHINE_FORCE}
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsRace(RACE_MACHINE)
 end
@@ -54,7 +55,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.tgfilter(c)
-	return c:IsSetCard(0x21b) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MACHINE_FORCE) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

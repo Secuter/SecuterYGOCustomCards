@@ -1,5 +1,6 @@
 --Void Wanderer Dragon Breath
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--destroy
@@ -27,10 +28,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --destroy
 function s.filter(c)
-	return c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion()))
+	return c:IsFaceup() and (c:IsCode(12344600) or (c:IsSetCard(SET_ANUAK) and c:IsReunion()))
 end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)

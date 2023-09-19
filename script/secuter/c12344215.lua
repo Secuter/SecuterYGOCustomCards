@@ -1,5 +1,6 @@
 --Dark Sovereign Restriction
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Runic=true
 s.RunicEffect={}
@@ -24,10 +25,10 @@ function s.initial_effect(c)
 	re:SetOperation(s.disop)
 	s.RunicEffect=re
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --negate ST
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x230)
+	return c:IsFaceup() and c:IsSetCard(SET_DARK_SOVEREIGN)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)

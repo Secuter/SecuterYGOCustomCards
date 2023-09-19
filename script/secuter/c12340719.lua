@@ -1,5 +1,6 @@
 --Morhai Field
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_HAND+LOCATION_ONFIELD,0)
 	e2:SetCode(EFFECT_ADD_SETCODE)
-	e2:SetValue(0x209)
+	e2:SetValue(SET_MORHAI)
 	c:RegisterEffect(e2)
 	--draw
 	local e3=Effect.CreateEffect(c)
@@ -43,10 +44,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.drop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(Card.IsControler,1,nil,tp)
-        and re and re:IsActivated() and re:GetHandler():IsSetCard(0x209)
+        and re and re:IsActivated() and re:GetHandler():IsSetCard(SET_MORHAI)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ct=eg:Filter(Card.IsControler,nil,tp):GetCount()
@@ -76,7 +77,7 @@ function s.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()==tp and Duel.GetFieldGroupCount(tp,LOCATION_HAND,0)==0
 end
 function s.filter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToRemoveAsCost()
 end
 function s.drcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_GRAVE,0,2,nil) end

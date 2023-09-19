@@ -1,5 +1,6 @@
 --Ghoost Scare Wolf
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -55,7 +56,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsContains(e:GetHandler())
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x232) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_GHOOST) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

@@ -1,5 +1,6 @@
 --Eternal Storm Wolf
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -23,7 +24,7 @@ function s.initial_effect(c)
 	e2:SetLabelObject(e1)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x221}
+s.listed_series={SET_ETERNAL_STORM}
 function s.matfilter(c,sc,st,tp)
 	return c:IsLinkAbove(2) and c:IsType(TYPE_LINK,lc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_WIND,sc,st,tp)
 end

@@ -1,5 +1,6 @@
 --Morhai Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Link.AddProcedure(c,nil,2,2,s.lcheck)
@@ -37,10 +38,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x209}
-s.material_setcode={0x209}
+s.listed_series={SET_MORHAI}
+s.material_setcode={SET_MORHAI}
 function s.lcheck(g,lc)
-	return g:IsExists(Card.IsSetCard,1,nil,0x209,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_MORHAI,lc,SUMMON_TYPE_LINK,tp)
 end
 function s.atkval(e,c)
 	return c:GetLinkedGroupCount()*500
@@ -51,7 +52,7 @@ function s.pcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetLinkedGroup():IsExists(Card.IsControler,1,nil,1-tp)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp)
@@ -73,7 +74,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 		and c:GetPreviousControler()==c:GetOwner() and c:IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

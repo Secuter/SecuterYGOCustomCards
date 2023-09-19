@@ -1,5 +1,6 @@
 --Amorphiend Lost Home
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -19,7 +20,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 --search
 function s.thfilter(c)
 	return c:IsCode(12344100) and c:IsAbleToHand()
@@ -34,7 +35,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --chain limit
 function s.filter(c)
-	return c:IsType(TYPE_EQUIP) and c:IsSetCard(0x22F)
+	return c:IsType(TYPE_EQUIP) and c:IsSetCard(SET_AMORPHIEND)
 end
 function s.chainop(e,tp,eg,ep,ev,re,r,rp)
 	if re:GetHandler():GetEquipGroup():IsExists(s.filter,1,nil) then

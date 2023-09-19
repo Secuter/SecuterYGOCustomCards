@@ -1,5 +1,6 @@
 --Soulbound Genesis
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -64,7 +65,7 @@ function s.initial_effect(c)
 	e6:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e6)
 end
-s.listed_series={0x22A}
+s.listed_series={SET_SOULBOUND}
 function s.znval(e)
 	return ~(e:GetHandler():GetLinkedZone()&0x60)
 end
@@ -74,19 +75,19 @@ end
 --sp token
 function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12343799,0x22C,TYPES_TOKEN,2000,2000,1,RACE_FAIRY,ATTRIBUTE_LIGHT) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12343799,SET_IRRADIANCE,TYPES_TOKEN,2000,2000,1,RACE_FAIRY,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
 end
 function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-	and Duel.IsPlayerCanSpecialSummonMonster(tp,12343799,0x22C,TYPES_TOKEN,2000,2000,1,RACE_FAIRY,ATTRIBUTE_LIGHT) then
+	and Duel.IsPlayerCanSpecialSummonMonster(tp,12343799,SET_IRRADIANCE,TYPES_TOKEN,2000,2000,1,RACE_FAIRY,ATTRIBUTE_LIGHT) then
 		local token=Duel.CreateToken(tp,12343799)
 		Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP)
 	end
 end
 --spsummon
 function s.spfilter(c,e,tp,zone)
-	return c:IsSetCard(0x22A) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE,tp,zone)
+	return c:IsSetCard(SET_SOULBOUND) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE,tp,zone)
 end
 function s.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
@@ -114,7 +115,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x22A) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_SOULBOUND) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter2(chkc,e,tp) end

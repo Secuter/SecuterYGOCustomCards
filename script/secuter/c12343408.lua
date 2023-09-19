@@ -1,5 +1,6 @@
 --Ember Worm Mutant
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_INSECT),2)
@@ -43,7 +44,7 @@ function s.initial_effect(c)
 	e3:SetValue(s.value)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x227}
+s.listed_series={SET_EMBER_WORM}
 function s.sumlimit(e,c)
 	return not c:IsRace(RACE_INSECT)
 end
@@ -52,7 +53,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x227) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EMBER_WORM) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

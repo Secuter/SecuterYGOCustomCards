@@ -1,6 +1,6 @@
 --Hailshift Warrior
 --Scripted by Secuter
-if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Exchange=true
 function s.initial_effect(c)
@@ -30,7 +30,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 --disable
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
@@ -64,7 +64,7 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 end
 --exchange summon
 function s.filter(c)
-	return c:IsSetCard(0x224) and c:IsAbleToHand() and c:IsFaceup() and not c:IsCode(id)
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsAbleToHand() and c:IsFaceup() and not c:IsCode(id)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.filter(chkc) end

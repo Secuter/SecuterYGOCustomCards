@@ -1,5 +1,6 @@
 --Ancient Oracle Tough Champion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -27,7 +28,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id,12341414}
-s.listed_series={0x211}
+s.listed_series={SET_ANCIENT_ORACLE}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
@@ -66,11 +67,11 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.splimit(e,c)
 	local tp=c:GetControler()
-	return not c:IsSetCard(0x211) and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_ANCIENT_ORACLE) and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
 	local tp=c:GetControler()
-	return not c:IsOriginalSetCard(0x211) and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
+	return not c:IsOriginalSetCard(SET_ANCIENT_ORACLE) and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil)
 end
 --draw
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)

@@ -1,8 +1,8 @@
 --Fluidsphere Spirit
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	--reunion summon
 	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsAttribute,ATTRIBUTE_WATER),2)
@@ -37,13 +37,13 @@ function s.initial_effect(c)
 	e3:SetOperation(s.effop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x3204}
+s.listed_series={SET_FLUIDSPHERE}
 --spsummon
 function s.tfcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.tffilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(0x3204) and not c:IsForbidden()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.tffilter(chkc) end
@@ -66,7 +66,7 @@ function s.cfilter(c,tp)
 		and Duel.IsExistingMatchingCard(s.tffilter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.tffilter2(c,cid)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(0x3204) and not c:IsCode(cid) and not c:IsForbidden()
+	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsCode(cid) and not c:IsForbidden()
 end
 function s.tfcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,1,nil,tp) end

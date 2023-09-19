@@ -1,5 +1,6 @@
 --Field
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableCounterPermit(0x301)
@@ -23,7 +24,7 @@ function s.initial_effect(c)
 	e3:SetCode(EFFECT_UPDATE_ATTACK)
 	e3:SetRange(LOCATION_FZONE)
 	e3:SetTargetRange(LOCATION_MZONE,0)
-	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x204))
+	e3:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_FLUID))
 	e3:SetValue(s.atkval)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
@@ -39,13 +40,13 @@ function s.initial_effect(c)
 	e5:SetOperation(s.desrepop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 function s.atkval(e,c)
 	return e:GetHandler():GetCounter(0x301)*100
 end
 
 function s.cfilter(c,tp)
-	return c:IsSetCard(0x204) --and c:IsPreviousLocation(LOCATION_DECK) and c:GetPreviousControler()==tp
+	return c:IsSetCard(SET_FLUID) --and c:IsPreviousLocation(LOCATION_DECK) and c:GetPreviousControler()==tp
 end
 function s.accon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)

@@ -1,5 +1,6 @@
 --Hydra Trap
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,13 +25,13 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 
 function s.filter(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE) and c:GetLevel()>0 and c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE) and c:GetLevel()>0 and c:IsCanBeEffectTarget(e) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.xyzfilter(c,mg)
-	return c:IsXyzSummonable(mg,2,2)
+	return c:IsXyzSummonable(nil,mg,2,2)
 end
 function s.mfilter1(c,mg,exg)
 	return mg:IsExists(s.mfilter2,1,c,c,exg)
@@ -78,7 +79,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x206) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_HYDRA) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil) end

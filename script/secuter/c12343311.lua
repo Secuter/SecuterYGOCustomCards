@@ -1,5 +1,6 @@
 --Pyroclast Fusion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	local e1=Fusion.CreateSummonEff(c,s.ffilter,nil,s.fextra,s.extraop)
@@ -7,7 +8,7 @@ function s.initial_effect(c)
 	if not AshBlossomTable then AshBlossomTable={} end
 	table.insert(AshBlossomTable,e1)
 end
-s.listed_series={0x226}
+s.listed_series={SET_PYROCLAST}
 function s.ffilter(c)
 	return c:IsAttribute(ATTRIBUTE_FIRE)
 end
@@ -15,7 +16,7 @@ function s.cfilter(c)
 	return c:IsSummonType(SUMMON_TYPE_SPECIAL)
 end
 function s.dfilter(c)
-	return c:IsSetCard(0x226) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsAbleToGrave()
 end
 function s.fextra(e,tp,mg)
 	if Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0

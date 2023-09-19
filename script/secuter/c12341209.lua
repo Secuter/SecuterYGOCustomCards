@@ -1,5 +1,6 @@
 --D.D. Invader Gargoyle
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -53,7 +54,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={0x215}
+s.listed_series={SET_D_D__INVADER}
 function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler()~=re:GetHandler()
 end
@@ -102,10 +103,10 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(0x215) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_D_D__INVADER) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(0x215)
+	return not c:IsSetCard(SET_D_D__INVADER)
 end
 --spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
@@ -125,7 +126,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsFaceup() and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsFaceup() and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

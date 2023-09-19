@@ -1,8 +1,8 @@
 --Amorphiend Ultimate Titan
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	--reunion summon
 	Reunion.AddProcedure(c,nil,2,99,s.rcheck)
@@ -51,7 +51,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 s.material={12344100}
 --reunion
 function s.rcheck(g,lc,sumtype,tp)
@@ -63,7 +63,7 @@ function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.eqfilter(c,ec)
-	return c:IsType(TYPE_EQUIP) and c:IsSetCard(0x22F) and c:CheckEquipTarget(ec)
+	return c:IsType(TYPE_EQUIP) and c:IsSetCard(SET_AMORPHIEND) and c:CheckEquipTarget(ec)
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

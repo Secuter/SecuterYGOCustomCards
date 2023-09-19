@@ -1,5 +1,6 @@
 --Void Wanderer Mystical Blade
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	aux.AddEquipProcedure(c,nil,s.eqfilter)
@@ -38,9 +39,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 function s.eqfilter(c)
-	return c:IsCode(12344600) or (c:IsSetCard(0x208) and c:IsReunion())
+	return c:IsCode(12344600) or (c:IsSetCard(SET_ANUAK) and c:IsReunion())
 end
 function s.atkval(e,c)
 	local tp=e:GetHandlerPlayer()
@@ -62,7 +63,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x208) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_ANUAK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end

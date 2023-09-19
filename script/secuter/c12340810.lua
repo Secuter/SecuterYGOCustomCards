@@ -1,5 +1,6 @@
 --Eagle Overseer Extra
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -38,7 +39,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x210}
+s.listed_series={SET_EAGLE_OVERSEER}
 function s.linkfilter(c)
 	return c:IsRace(RACE_WINGEDBEAST)
 end
@@ -50,7 +51,7 @@ function s.ctval(e,re,rp)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(0x210)
+	return c:IsLevelBelow(4) and c:IsSetCard(SET_EAGLE_OVERSEER)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

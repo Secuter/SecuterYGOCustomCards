@@ -1,5 +1,6 @@
 --Demon Rival Brutalize (COUNTER)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,9 +27,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.setop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x216}
+s.listed_series={SET_DEMON_RIVAL}
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x216) and c:IsLinkMonster()
+	return c:IsFaceup() and c:IsSetCard(SET_DEMON_RIVAL) and c:IsLinkMonster()
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) then return false end
@@ -51,7 +52,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSummonLocation,LOCATION_EXTRA),tp,0,LOCATION_MZONE,1,nil)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x216) and c:IsLinkMonster() and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsLinkMonster() and c:IsAbleToRemoveAsCost()
 end
 function s.setcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_GRAVE,0,1,e:GetHandler()) end

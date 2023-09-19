@@ -1,7 +1,7 @@
 --Bulwark Champion Charge Gear
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=300
 s.ArmorDef=0
 s.Armor=true
@@ -45,7 +45,7 @@ function s.initial_effect(c)
 	e5:SetCondition(s.thcon2)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x21a}
+s.listed_series={SET_BULWARK_CHAMPION}
 function s.condition(e)
 	return e:GetHandler():GetOverlayCount()>=3
 end
@@ -76,7 +76,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and bit.band(r,REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x21a) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

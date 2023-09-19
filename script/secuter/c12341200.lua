@@ -1,5 +1,6 @@
 --Erinyes
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--register 1
@@ -39,7 +40,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x214}
+s.listed_series={SET_ERINYES}
 function s.reg1(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:GetFlagEffect(id)>0 then
@@ -91,7 +92,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x214) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ERINYES) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

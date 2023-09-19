@@ -1,5 +1,6 @@
 --Asura Fire
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	e4:SetCode(EVENT_SPSUMMON_SUCCESS)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.ntcon(e,c,minc)
 	if c==nil then return true end
 	return minc==0 and c:GetLevel()>4
@@ -40,7 +41,7 @@ function s.ntcon(e,c,minc)
 end
 
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x218)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA)
 end
 function s.atfilter(c)
 	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_FIRE)

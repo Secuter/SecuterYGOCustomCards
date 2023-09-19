@@ -1,5 +1,6 @@
 --Dark King S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,10 +27,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x205}
+s.listed_series={SET_DARK_KING}
 
 function s.cfilter(c)
-	return c:IsSetCard(0x1205) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_DARK_KING_SERVANT) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -58,7 +59,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Remove(e:GetHandler(),POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x205) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsFaceup() and c:IsSetCard(SET_DARK_KING) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_REMOVED,0,1,nil) end

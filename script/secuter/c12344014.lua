@@ -1,5 +1,6 @@
 --Aquaraid Nexus
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	-- search
@@ -12,10 +13,10 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x22E}
+s.listed_series={SET_AQUARAID}
 -- search
 function s.thfilter(c)
-	return c:IsSetCard(0x22E) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_AQUARAID) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.tgfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_NORMAL) and c:IsAbleToGrave()

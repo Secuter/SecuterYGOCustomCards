@@ -1,7 +1,7 @@
 --Dark Sovereign Outer King
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 function s.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
@@ -33,7 +33,7 @@ function s.initial_effect(c)
 	e3:SetCondition(s.thcon2)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x230}
+s.listed_series={SET_DARK_SOVEREIGN}
 --attach
 function s.atcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
@@ -77,7 +77,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsSummonType(SUMMON_TYPE_XYZ) and rp~=tp and c:IsReason(REASON_EFFECT)
 end
 function s.thfilter(c)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsSetCard(0x230) and c:IsAbleToHand()
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

@@ -1,9 +1,10 @@
 --Morhai
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
-	local e1=Fusion.CreateSummonEff(c,aux.FilterBoolFunction(Card.IsSetCard,0x209),Fusion.InHandMat,s.fextra)
+	local e1=Fusion.CreateSummonEff(c,aux.FilterBoolFunction(Card.IsSetCard,SET_MORHAI),Fusion.InHandMat,s.fextra)
 	e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
 	e1:SetHintTiming(0,TIMING_END_PHASE)
 	c:RegisterEffect(e1)
@@ -17,9 +18,9 @@ function s.initial_effect(c)
 	e2:SetCondition(s.actcon)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x2209}
+s.listed_series={SET_MORHAI_SPAWN}
 function s.filter(c)
-	return c:IsSetCard(0x2209) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsAbleToGrave()
 end
 function s.fextra(e,tp,mg)
 	return Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil)

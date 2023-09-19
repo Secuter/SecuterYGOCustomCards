@@ -1,5 +1,6 @@
 --D.D. Invader Arc
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -16,7 +17,7 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_UPDATE_ATTACK)
 	e2:SetRange(LOCATION_FZONE)
 	e2:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x215))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_D_D__INVADER))
 	e2:SetValue(300)
 	c:RegisterEffect(e2)
 	--defup
@@ -49,9 +50,9 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_names={id}
-s.listed_series={0x215}
+s.listed_series={SET_D_D__INVADER}
 function s.rmfilter(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -70,7 +71,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil) and not (re and re:GetHandler():IsCode(id))
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsFaceup() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -87,7 +88,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter2(c,e,tp)
-	return c:IsSetCard(0x215) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

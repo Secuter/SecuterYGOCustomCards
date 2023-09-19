@@ -1,5 +1,6 @@
 --Irradiance Bright Guardian
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -29,7 +30,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --spsummon
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsCode(id)
@@ -60,10 +61,10 @@ end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsLocation(LOCATION_GRAVE) and r==REASON_LINK and c:GetReasonCard():IsSetCard(0x22C)
+	return c:IsLocation(LOCATION_GRAVE) and r==REASON_LINK and c:GetReasonCard():IsSetCard(SET_IRRADIANCE)
 end
 function s.cfilter2(c,tp)
-	return c:IsSetCard(0x22C) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter(c,code)

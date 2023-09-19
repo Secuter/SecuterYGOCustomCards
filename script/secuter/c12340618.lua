@@ -1,5 +1,6 @@
 --Anuak Continuous S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -34,10 +35,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.desop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 
 function s.filter(c)
-	return c:IsSetCard(0x208) and c:IsDiscardable()
+	return c:IsSetCard(SET_ANUAK) and c:IsDiscardable()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,nil) end

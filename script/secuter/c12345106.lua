@@ -1,10 +1,11 @@
 --Prime Angul the Aetherock Lord
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
-	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x20D),5,3)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_AETHEROCK),5,3)
 	--alter xyz
 	local xyz=Effect.CreateEffect(c)
 	xyz:SetDescription(aux.Stringid(id,0))
@@ -57,7 +58,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4,false,REGISTER_FLAG_DETACH_XMAT)
 end
 s.listed_names={id}
-s.listed_series={0x20D}
+s.listed_series={SET_AETHEROCK}
 --alter xyz
 function s.mfilter(c,e,tp,sc)
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
@@ -103,7 +104,7 @@ function s.setcond(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
 end
 function s.setfilter(c)
-	return c:IsSetCard(0x20D) and c:IsType(TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_AETHEROCK) and c:IsType(TYPE_TRAP) and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil) end

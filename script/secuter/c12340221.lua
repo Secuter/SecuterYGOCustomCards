@@ -1,11 +1,11 @@
 --Fluid Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,0x204),2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_FLUID),2,99)
 	--to deck
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -34,14 +34,14 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 --function s.shcon(c)
 --	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
 --        and Duel.IsExistingMatchingCard(s.shfilter,tp,0,LOCATION_ONFIELD,1,nil)
 --end
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsFaceup() and c:IsSetCard(SET_FLUID) and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.shcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
@@ -74,7 +74,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
+	return c:IsSetCard(SET_FLUID) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)

@@ -1,8 +1,8 @@
 --Anuak Genesis Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.rfilter,2,99,s.rcheck)
@@ -35,11 +35,11 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x208,0x1208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK,SET_ANUAK_DRAGON}
+s.material_setcode={SET_ANUAK}
 
 function s.rfilter(c)
-	return c:IsSetCard(0x208)
+	return c:IsSetCard(SET_ANUAK)
 end
 function s.rfilter2(c)
 	return c:IsReunion()
@@ -49,10 +49,10 @@ function s.rcheck(g,lc,sumtype,tp)
 end
 
 function s.dfilter(c,lvl,sc)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost()
 end
 function s.lfilter(c,lvl,sc)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToRemoveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.dfilter,tp,LOCATION_GRAVE,0,1,nil)
@@ -84,7 +84,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.spfilter(c,e,tp)
 	if c:IsLocation(LOCATION_EXTRA) and Duel.GetLocationCountFromEx(tp,tp,nil,c)==0 then return false end
-	return c:IsSetCard(0x1208) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
+	return c:IsSetCard(SET_ANUAK_DRAGON) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local loc=LOCATION_EXTRA

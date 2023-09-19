@@ -1,9 +1,10 @@
 --Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	Link.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x1205),2,2)
+	Link.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING_SERVANT),2,2)
 	c:EnableReviveLimit()
 	--link summon
 	local e1=Effect.CreateEffect(c)
@@ -17,7 +18,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
 end
-s.material_setcode={0x1205}
+s.material_setcode={SET_DARK_KING_SERVANT}
 
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)

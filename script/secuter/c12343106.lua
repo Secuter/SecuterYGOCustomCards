@@ -1,5 +1,6 @@
 --Magic Tower Empress
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -42,7 +43,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop2)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x222}
+s.listed_series={SET_MAGIC_TOWER}
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsType(TYPE_EFFECT,scard,sumtype,tp) and c:IsRace(RACE_SPELLCASTER,scard,sumtype,tp)
 end
@@ -77,7 +78,7 @@ function s.tgfilter(c)
 	return c:IsRace(RACE_SPELLCASTER) and c:IsAbleToGrave()
 end
 function s.thfilter(c)
-	return (c:IsSetCard(0x222) or c:IsSetCard(0x98)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_MAGIC_TOWER) or c:IsSetCard(SET_MAGICIAN)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil)

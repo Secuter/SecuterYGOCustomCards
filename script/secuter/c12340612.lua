@@ -1,8 +1,8 @@
 --Anuak Singularity Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.reunionfilter,2,99)
@@ -49,17 +49,17 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 function s.reunionfilter(c)
-	return c:IsSetCard(0x208)
+	return c:IsSetCard(SET_ANUAK)
 end
 
 function s.dfilter(c,lvl,sc)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToRemoveAsCost()
 end
 function s.lfilter(c,lvl,sc)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsAbleToRemoveAsCost()
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and Duel.IsChainNegatable(ev)
@@ -105,7 +105,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and c:IsPreviousControler(tp) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x208) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsSetCard(SET_ANUAK) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end

@@ -1,5 +1,6 @@
 --Pyroclast Golem
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--sp summon itself
@@ -26,7 +27,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop2)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x226}
+s.listed_series={SET_PYROCLAST}
 s.listed_names={id}
 --sp summon
 function s.cfilter(c)
@@ -60,7 +61,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	return (r&REASON_FUSION)==REASON_FUSION
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x226) and not c:IsType(TYPE_FUSION) and not c:IsCode(id)
+	return c:IsSetCard(SET_PYROCLAST) and not c:IsType(TYPE_FUSION) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

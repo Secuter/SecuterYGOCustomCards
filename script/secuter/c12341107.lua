@@ -1,5 +1,6 @@
 -- Dark Divine
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--immune
@@ -47,7 +48,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x213}
+s.listed_series={SET_DIVINE_DISCIPLE}
 function s.efilter(e,re)
 	return re:IsActiveType(TYPE_SPELL+TYPE_TRAP)
 end
@@ -77,7 +78,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x213) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DIVINE_DISCIPLE) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsRelateToBattle()
@@ -97,7 +98,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x213) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

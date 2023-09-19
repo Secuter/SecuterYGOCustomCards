@@ -1,11 +1,11 @@
 --Asura Reunion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,0x218),2,99)
+	Reunion.AddProcedure(c,aux.FilterBoolFunction(Card.IsSetCard,SET_ASURA),2,99)
 	--gain attributes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -42,7 +42,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.spop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 function s.matcheck(e,c)
 	local att=e:GetHandler():GetMaterial():GetBitwiseOr(Card.GetAttribute)
 	if att>0 then
@@ -117,7 +117,7 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,ct)
 end
 function s.sumfilter(c)
-	return c:IsSetCard(0x218) and c:IsLevelAbove(7) and c:IsSummonable(true,nil)
+	return c:IsSetCard(SET_ASURA) and c:IsLevelAbove(7) and c:IsSummonable(true,nil)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)

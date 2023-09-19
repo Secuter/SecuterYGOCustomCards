@@ -1,5 +1,6 @@
 --Arcaeonix Golden Glider
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon itself
@@ -31,7 +32,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x21E}
+s.listed_series={SET_ARCAEONIX}
 --spsummon
 function s.cfilter(c)
 	return c:IsMonster() and c:IsLevel(1) and c:IsDiscardable()
@@ -68,7 +69,7 @@ function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_REMOVED) and (r&REASON_SYNCHRO)==REASON_SYNCHRO
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x21E) and c:IsSpellTrap() and c:IsAbleToHand()
+	return c:IsSetCard(SET_ARCAEONIX) and c:IsSpellTrap() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

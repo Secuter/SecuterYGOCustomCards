@@ -1,5 +1,6 @@
 --Zenit Dragon Acropolis
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search
@@ -23,10 +24,10 @@ function s.initial_effect(c)
 	e3:SetCode(EFFECT_UPDATE_DEFENSE)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x20A}
+s.listed_series={SET_ZENIT_DRAGON}
 --search
 function s.filter(c,e,tp)
-	return (c:IsSetCard(0x20A) or c:IsType(TYPE_NORMAL)) and c:IsMonster() and c:IsAbleToHand()
+	return (c:IsSetCard(SET_ZENIT_DRAGON) or c:IsType(TYPE_NORMAL)) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

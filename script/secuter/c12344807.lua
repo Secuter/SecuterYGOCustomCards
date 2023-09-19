@@ -1,5 +1,6 @@
 --Undead Eagle Overseer Decay
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -47,7 +48,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x202,0x210}
+s.listed_series={SET_UNDEAD,SET_EAGLE_OVERSEER}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
@@ -91,7 +92,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 --add
 function s.thfilter(c)
-	return (c:IsSetCard(0x202) or c:IsSetCard(0x210)) and not c:IsCode(id) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_UNDEAD) or c:IsSetCard(SET_EAGLE_OVERSEER)) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

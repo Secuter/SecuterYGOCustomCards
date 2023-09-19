@@ -1,5 +1,6 @@
 --Vengeance of the Primeval Forest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -48,10 +49,10 @@ function s.initial_effect(c)
 	e3:SetOperation(s.posop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x234}
-s.material_setcode={0x234}
+s.listed_series={SET_PRIMEVAL_FOREST}
+s.material_setcode={SET_PRIMEVAL_FOREST}
 function s.linkcheck(g,lc)
-	return g:IsExists(Card.IsSetCard,1,nil,0x234,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_PRIMEVAL_FOREST,lc,SUMMON_TYPE_LINK,tp)
 end
 function s.extraval(chk,summon_type,e,...)
 	if chk==0 then

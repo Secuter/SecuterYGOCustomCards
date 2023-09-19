@@ -1,5 +1,6 @@
 --Worldless Mystical Gate
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -24,10 +25,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 --search
 function s.thfilter(c,tp)
-	return c:IsLevelBelow(3) and c:IsSetCard(0x20F) and c:IsAbleToHand()
+	return c:IsLevelBelow(3) and c:IsSetCard(SET_WORLDLESS) and c:IsAbleToHand()
 	  and not Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,c:GetCode()),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
@@ -42,13 +43,13 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.cfilter(c)
-	return c:IsSetCard(0x20F) and c:IsPreviousLocation(LOCATION_DECK|LOCATION_HAND)
+	return c:IsSetCard(SET_WORLDLESS) and c:IsPreviousLocation(LOCATION_DECK|LOCATION_HAND)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil)
 end
 function s.filter(c)
-	return c:IsSetCard(0x20F) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
+	return c:IsSetCard(SET_WORLDLESS) and c:GetOriginalLevel()==8 and c:IsRace(RACE_DRAGON) and c:IsFaceup()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsAbleToHand() end

@@ -1,9 +1,10 @@
 --Pyroclast Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
-	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x226),aux.FilterBoolFunctionEx(Card.IsLevelAbove,5))
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_PYROCLAST),aux.FilterBoolFunctionEx(Card.IsLevelAbove,5))
 	c:EnableReviveLimit()
 	--indes effect
 	local e1=Effect.CreateEffect(c)
@@ -52,14 +53,14 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop2)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x226}
-s.material_setcode={0x226}
+s.listed_series={SET_PYROCLAST}
+s.material_setcode={SET_PYROCLAST}
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x226) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -99,7 +100,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_FUSION)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x226) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_FUSION) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_FUSION) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter2(chkc) end

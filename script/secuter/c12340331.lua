@@ -1,5 +1,6 @@
 --Dark King Ritual
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -12,7 +13,7 @@ function s.initial_effect(c)
 	e1:SetValue(s.atkval)
 	c:RegisterEffect(e1)
 	--ritual summon
-	local e2=Ritual.CreateProc(c,RITPROC_GREATER,aux.FilterBoolFunction(Card.IsSetCard,0x205),nil,aux.Stringid(id,0),s.rigroup,s.riop,s.matfilter)
+	local e2=Ritual.CreateProc(c,RITPROC_GREATER,aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),nil,aux.Stringid(id,0),s.rigroup,s.riop,s.matfilter)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetHintTiming(0,TIMING_END_PHASE)

@@ -1,5 +1,6 @@
 --Amorphiend Being
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon itself
@@ -22,7 +23,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.eqop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 function s.spcon(e,c)
 	if c==nil then return true end
 	return Duel.GetFieldGroupCount(c:GetControler(),LOCATION_MZONE,0)==0
@@ -30,7 +31,7 @@ function s.spcon(e,c)
 end
 --equip
 function s.eqfilter(c,ec)
-	return c:IsSetCard(0x22F) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(ec)
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

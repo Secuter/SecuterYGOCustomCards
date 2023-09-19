@@ -1,7 +1,7 @@
 --Armor Magician Dominus
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=1500
 s.ArmorDef=0
 s.Armor=true
@@ -41,8 +41,8 @@ function s.initial_effect(c)
 	e2:SetOperation(s.negop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x1098}
-s.material_setcode={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
+s.material_setcode={SET_ARMOR_MAGICIAN}
 function s.matfilter(c,lc,sumtype,tp)
 	return c:IsRace(RACE_SPELLCASTER,lc,sumtype,tp) and not c:IsCode(id)
 end

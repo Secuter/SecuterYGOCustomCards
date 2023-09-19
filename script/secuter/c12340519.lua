@@ -1,5 +1,6 @@
 --Fire Core Xyz General
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x207}
+s.listed_series={SET_FIRE_CORE}
 
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
@@ -78,13 +79,13 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.resfilter(c)
 	return c:GetPreviousControler()==tp and c:GetControler()==tp
-      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),0x41)==0x41
+      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),REASON_DESTROY|REASON_EFFECT)==REASON_DESTROY|REASON_EFFECT
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.resfilter,1,nil)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x207) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end

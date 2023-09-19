@@ -1,5 +1,6 @@
 --Morhai Cultist Arcane Alchemist
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--search ST
@@ -33,9 +34,9 @@ function s.initial_effect(c)
     c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -51,10 +52,10 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():IsReason(REASON_COST) and re and re:IsActivated() and re:GetHandler():IsSetCard(0x209)
+    return e:GetHandler():IsReason(REASON_COST) and re and re:IsActivated() and re:GetHandler():IsSetCard(SET_MORHAI)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(0x2209) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

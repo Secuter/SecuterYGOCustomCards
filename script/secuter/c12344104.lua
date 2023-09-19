@@ -1,5 +1,6 @@
 --Amorphiend Thunderbolt
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--to hand
@@ -28,10 +29,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={12344100}
-s.listed_series={0x22F}
+s.listed_series={SET_AMORPHIEND}
 --to hand
 function s.thfilter(c)
-	return c:IsSetCard(0x22F) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_AMORPHIEND) and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end

@@ -1,5 +1,6 @@
 --Fluid LV2
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--effect
@@ -33,7 +34,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.regop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
     if Duel.GetCurrentPhase()~=PHASE_STANDBY then return false end
@@ -47,7 +48,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SendtoDeck(e:GetHandler(),nil,0,REASON_COST)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==4
+	return c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true) and c:GetLevel()==4
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_MZONE)
@@ -72,7 +73,7 @@ function s.con(e,tp)
         and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil)
 end
 function s.filter(c)
-	return c:IsSetCard(0x204) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FLUID) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end

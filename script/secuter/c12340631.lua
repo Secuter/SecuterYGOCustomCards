@@ -1,5 +1,6 @@
 --Anuak Spell
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -26,9 +27,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 function s.filter(c)
-	return c:IsLevelBelow(3) and c:IsSetCard(0x208) and c:IsAbleToHand()
+	return c:IsLevelBelow(3) and c:IsSetCard(SET_ANUAK) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -45,14 +46,14 @@ end
 
 function s.cfilter(c,tp)
 	return c:GetPreviousControler()==tp and c:IsPreviousLocation(LOCATION_MZONE)
-		and c:IsPreviousPosition(POS_FACEUP) and c:IsSetCard(0x208)
+		and c:IsPreviousPosition(POS_FACEUP) and c:IsSetCard(SET_ANUAK)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.cfilter,1,nil,tp) and re:GetHandler():IsSetCard(0x208) 
+	return eg:IsExists(s.cfilter,1,nil,tp) and re:GetHandler():IsSetCard(SET_ANUAK) 
 		--and e:GetHandler():IsReason(REASON_SPSUMMON)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x208) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_ANUAK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

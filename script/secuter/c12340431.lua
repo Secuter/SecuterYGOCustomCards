@@ -1,5 +1,6 @@
 --Hydra 6*
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -26,7 +27,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop2)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsType(TYPE_XYZ)
 end
@@ -57,7 +58,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsPreviousLocation(LOCATION_OVERLAY)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsType(TYPE_MONSTER) and c:GetLevel()<=4
+	return c:IsSetCard(SET_HYDRA) and c:IsType(TYPE_MONSTER) and c:GetLevel()<=4
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)

@@ -1,6 +1,6 @@
 --Crystallion Hydra (Echo)
 --Scripted by Secuter
-if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Echo=true
 function s.initial_effect(c)
@@ -37,7 +37,7 @@ function s.initial_effect(c)
 	e3:SetValue(aux.tgoval)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x206}
+s.listed_series={SET_HYDRA}
 function s.efilter(c,sc,sumtype,tp)
 	return c:IsType(TYPE_XYZ,sc,sumtype,tp) and c:IsRank(6)
 end
@@ -67,7 +67,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x206) and c:IsRace(RACE_REPTILE)
+	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)

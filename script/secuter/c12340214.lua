@@ -1,5 +1,6 @@
 --Decomposition
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -13,15 +14,15 @@ function s.initial_effect(c)
 	e2:SetOperation(s.activate)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x204}
+s.listed_series={SET_FLUID}
 function s.rfilter(c,e,tp)
-     return c:GetLevel()>0 and c:IsSetCard(0x204) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
+     return c:GetLevel()>0 and c:IsSetCard(SET_FLUID) and c:IsCanBeSpecialSummoned(e,0,tp,true,true)
 end
 function s.filter(c,e,tp)
     local ct=Duel.GetLocationCount(tp,LOCATION_MZONE)+1
     if ct<2 then return false end
 	local g=Duel.GetMatchingGroup(s.rfilter,tp,LOCATION_HAND+LOCATION_DECK,0,nil,e,tp)
-	return c:GetLevel()>0 and c:IsSetCard(0x204) and c:IsAbleToDeckOrExtraAsCost()
+	return c:GetLevel()>0 and c:IsSetCard(SET_FLUID) and c:IsAbleToDeckOrExtraAsCost()
         and g:CheckWithSumEqual(Card.GetLevel,c:GetLevel(),2,ct)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)

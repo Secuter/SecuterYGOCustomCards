@@ -1,5 +1,6 @@
 --Nullaor, the Void Wanderer
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--act field
@@ -32,10 +33,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --act field
 function s.acfilter(c,tp)
-	return c:IsType(TYPE_FIELD) and c:IsSetCard(0x208) and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
+	return c:IsType(TYPE_FIELD) and c:IsSetCard(SET_ANUAK) and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
 end
 function s.actg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.acfilter,tp,LOCATION_DECK,0,1,nil,tp) end
@@ -50,7 +51,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_HAND+LOCATION_ONFIELD)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

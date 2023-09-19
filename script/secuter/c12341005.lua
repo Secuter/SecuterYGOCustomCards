@@ -1,6 +1,6 @@
 --Reunion Support Link
 --Scripted by Secuter
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()

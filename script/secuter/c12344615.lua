@@ -1,5 +1,6 @@
 --Lair or the Void Wanderer Drago
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -41,7 +42,7 @@ function s.checkattr(tp)
 	local attr_all=0
 	for i=0,10 do
 		local attr = 2^i
-		if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,0x201,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
+		if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
 			attr_all=attr_all | attr
 		end
 	end
@@ -57,7 +58,7 @@ function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,0x201,TYPES_TOKEN,0,0,1,RACE_FIEND,e:GetLabel()) then
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,e:GetLabel()) then
 		-- change attribute both before and after summon to work with Gozen Match
 		local token=Duel.CreateToken(tp,12344699)
 		local e1=Effect.CreateEffect(e:GetHandler())

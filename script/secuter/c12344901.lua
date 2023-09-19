@@ -1,5 +1,6 @@
 --Flashing Zenit Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--normal monster
@@ -70,7 +71,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(0x20A) and c:IsMonster() and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ZENIT_DRAGON) and c:IsMonster() and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

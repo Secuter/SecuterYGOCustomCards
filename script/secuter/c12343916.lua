@@ -1,5 +1,6 @@
 --Irradiance Whispers
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
@@ -18,13 +19,13 @@ function s.initial_effect(c)
 	e2:SetTargetRange(1,0)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x22C}
+s.listed_series={SET_IRRADIANCE}
 --sp token
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	if Duel.IsExistingMatchingCard(Card.IsAbleToGrave,tp,LOCATION_HAND,0,1,nil)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12343999,0x22C,TYPES_TOKEN,0,0,1,RACE_PSYCHIC,ATTRIBUTE_LIGHT)
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12343999,SET_IRRADIANCE,TYPES_TOKEN,0,0,1,RACE_PSYCHIC,ATTRIBUTE_LIGHT)
 		and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		e:SetCategory(CATEGORY_HANDES+CATEGORY_SPECIAL_SUMMON+CATEGORY_TOKEN)
 		e:SetProperty(0)
@@ -42,7 +43,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_HAND,0,1,1,nil)
 	if #g>0 and Duel.SendtoGrave(g,REASON_EFFECT)>0 and g:GetFirst():IsLocation(LOCATION_GRAVE)
 		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12343999,0x22C,TYPES_TOKEN,0,0,1,RACE_PSYCHIC,ATTRIBUTE_LIGHT) then
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12343999,SET_IRRADIANCE,TYPES_TOKEN,0,0,1,RACE_PSYCHIC,ATTRIBUTE_LIGHT) then
 		local token=Duel.CreateToken(tp,12343999)
 		Duel.SpecialSummon(token,0,tp,tp,false,false,POS_FACEUP)
 	end

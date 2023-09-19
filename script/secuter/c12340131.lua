@@ -1,10 +1,11 @@
 --Undead Fusion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--fusion material
 	c:EnableReviveLimit()
-	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x202),s.ffilter)
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_UNDEAD),s.ffilter)
 	--to grave
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -44,7 +45,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.material_setcode={0x202}
+s.material_setcode={SET_UNDEAD}
 function s.ffilter(c,fc,sumtype,tp)
 	return c:IsType(TYPE_FUSION,fc,sumtype,tp) and c:GetLevel()>=6
 end

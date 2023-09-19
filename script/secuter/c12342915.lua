@@ -1,5 +1,6 @@
 --Eternal Storm Powerhouse
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -47,20 +48,20 @@ function s.initial_effect(c)
 	e5:SetOperation(s.thop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x221}
+s.listed_series={SET_ETERNAL_STORM}
 --co-linked check
 function s.atktg(e,c)
 	return c:GetMutualLinkedGroupCount()>0
 end
 --spsummon
 function s.spfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(0x221) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_ETERNAL_STORM) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil,e,tp)
 		and Duel.GetLocationCount(1-tp,LOCATION_MZONE,tp)>0
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,12342999,0x221,TYPES_TOKEN,300,300,1,RACE_THUNDER,ATTRIBUTE_WIND,POS_FACEUP_DEFENSE,1-tp) end
+		and Duel.IsPlayerCanSpecialSummonMonster(tp,12342999,SET_ETERNAL_STORM,TYPES_TOKEN,300,300,1,RACE_THUNDER,ATTRIBUTE_WIND,POS_FACEUP_DEFENSE,1-tp) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
 	--Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE+LOCATION_REMOVED)
@@ -68,7 +69,7 @@ end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0
 	or Duel.GetLocationCount(1-tp,LOCATION_MZONE,tp)<=0
-	or not Duel.IsPlayerCanSpecialSummonMonster(tp,12342999,0x221,TYPES_TOKEN,300,300,1,RACE_THUNDER,ATTRIBUTE_WIND,POS_FACEUP_DEFENSE,1-tp) then return end
+	or not Duel.IsPlayerCanSpecialSummonMonster(tp,12342999,SET_ETERNAL_STORM,TYPES_TOKEN,300,300,1,RACE_THUNDER,ATTRIBUTE_WIND,POS_FACEUP_DEFENSE,1-tp) then return end
 	local token=Duel.CreateToken(tp,12342999)
 	if Duel.SpecialSummon(token,0,tp,1-tp,false,false,POS_FACEUP_DEFENSE)>0 then
 		local sg=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.spfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp)
@@ -84,7 +85,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousPosition(POS_FACEUP) and e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x221) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ETERNAL_STORM) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

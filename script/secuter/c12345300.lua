@@ -1,7 +1,7 @@
 --Armor Magician Apprentice
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=500
 s.ArmorDef=0
 s.Armor=true
@@ -34,10 +34,10 @@ function s.initial_effect(c)
 	e2:SetOperation(s.atop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --spsummon itself
 function s.filter(c)
-	return c:IsFaceup() and c:IsSetCard(0x1098)
+	return c:IsFaceup() and c:IsSetCard(SET_ARMOR_MAGICIAN)
 end
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsRace(RACE_SPELLCASTER)
@@ -71,10 +71,10 @@ function s.atcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function s.atfilter(c,sc)
-	return c:IsSetCard(0x1098) and Armor.AttachCheck(c,sc)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and Armor.AttachCheck(c,sc)
 end
 function s.tgfilter(c,tp)
-	return c:IsSetCard(0x1098) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,c)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsFaceup() and Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,c)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

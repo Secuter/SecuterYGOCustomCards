@@ -1,10 +1,11 @@
 --Maodn The Yoccol Ruler (Fusion)
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--Fusion
-	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x21F),s.matfilter)
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_YOCCOL),s.matfilter)
 	--material
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -49,7 +50,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop2)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x21F}
+s.listed_series={SET_YOCCOL}
 function s.matfilter(c,fc,sumtype,tp)
 	return c:IsType(TYPE_EFFECT,fc,sumtype,tp)
 end
@@ -58,7 +59,7 @@ function s.valcheck(e,c)
 	local g=c:GetMaterial()
 	local ct=0
 	for tc in aux.Next(g) do
-		if tc:IsSetCard(0x21F) then ct=ct+1 end
+		if tc:IsSetCard(SET_YOCCOL) then ct=ct+1 end
 	end
 	e:SetLabel(ct)
 end
@@ -83,7 +84,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search 1
 function s.thfilter(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -99,7 +100,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search 2
 function s.thfilter2(c)
-	return c:IsSetCard(0x21F) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

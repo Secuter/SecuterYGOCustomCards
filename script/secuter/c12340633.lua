@@ -1,5 +1,6 @@
 --Anuak The Wisdom 6* LIGHT
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--special summon
@@ -34,7 +35,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.desop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon
 function s.spfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and not c:IsPublic()
@@ -55,7 +56,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x208) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_DARK) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter(chkc) end
@@ -72,7 +73,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --destroy
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-	return bit.band(e:GetHandler():GetReason(),0x41)==0x41 and e:GetHandler():GetReasonPlayer()~=tp
+	return bit.band(e:GetHandler():GetReason(),REASON_DESTROY|REASON_EFFECT)==REASON_DESTROY|REASON_EFFECT and e:GetHandler():GetReasonPlayer()~=tp
 end
 function s.desop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=e:GetHandler():GetReasonEffect():GetHandler()

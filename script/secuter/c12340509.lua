@@ -1,5 +1,6 @@
 --Fire Core Rock Phoenix
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
@@ -26,10 +27,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x207}
+s.listed_series={SET_FIRE_CORE}
 
 function s.spfilter(c)
-	return c:IsSetCard(0x207) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsType(TYPE_MONSTER)
 end
 function s.spcon(e,c)
 	if c==nil then return true end

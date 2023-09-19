@@ -1,5 +1,6 @@
 --Void Wanderer Light Release
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -22,13 +23,13 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={12344600}
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 --spsummon
 function s.cfilter(c)
 	return c:IsCode(12344600) and c:IsFaceup()
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and not c:IsCode(12344600) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and not c:IsCode(12344600) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -43,7 +44,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --change level
 function s.filter(c)
-	return c:IsSetCard(0x208) and c:IsFaceup() and c:HasLevel()
+	return c:IsSetCard(SET_ANUAK) and c:IsFaceup() and c:HasLevel()
 end
 function s.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.filter(chkc) end

@@ -1,5 +1,6 @@
 --Anuak Link
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--link summon
@@ -41,10 +42,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_names={id}
-s.listed_series={0x208}
-s.material_setcode={0x208}
+s.listed_series={SET_ANUAK}
+s.material_setcode={SET_ANUAK}
 function s.linkcheck(g,lc)
-	return g:IsExists(Card.IsSetCard,1,nil,0x208,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_ANUAK,lc,SUMMON_TYPE_LINK,tp)
 end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
@@ -52,7 +53,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and c:IsPreviousControler(tp) and c:IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x208) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsSetCard(SET_ANUAK) and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

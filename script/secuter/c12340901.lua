@@ -1,5 +1,6 @@
 --Asura Priest
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--double tribute
@@ -35,14 +36,14 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x218}
+s.listed_series={SET_ASURA}
 
 function s.condition(e,c)
-	return c:IsSetCard(0x218)
+	return c:IsSetCard(SET_ASURA)
 end
 
 function s.filter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
@@ -58,7 +59,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,sp)
-	return c:IsLevelAbove(7) and c:IsSetCard(0x218) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsLevelAbove(7) and c:IsSetCard(SET_ASURA) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp

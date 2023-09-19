@@ -1,5 +1,6 @@
 --Freeflame Heat Knight
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Xyz Summon
@@ -28,7 +29,7 @@ function s.initial_effect(c)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2,false,REGISTER_FLAG_DETACH_XMAT)
 end
-s.listed_series={0x231,0x2c}
+s.listed_series={SET_FREEFLAME,0x2c}
 --atk gain
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
@@ -55,7 +56,7 @@ function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.thfilter(c)
-	return (c:IsSetCard(0x231) or c:IsSetCard(0x2c)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_FREEFLAME) or c:IsSetCard(SET_FLAMVELL)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

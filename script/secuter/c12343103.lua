@@ -1,5 +1,6 @@
 --Magic Tower Magician
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--atk up
@@ -40,7 +41,7 @@ function s.initial_effect(c)
 	e5:SetOperation(s.tdop)
 	c:RegisterEffect(e5)
 end
-s.listed_series={0x222}
+s.listed_series={SET_MAGIC_TOWER}
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and c:IsFaceup() then
@@ -58,7 +59,7 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(0x222) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MAGIC_TOWER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

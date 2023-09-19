@@ -1,5 +1,6 @@
 --Explosive Worm Canibalism
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -15,9 +16,9 @@ function s.initial_effect(c)
 	e1:SetHintTiming(0,TIMING_END_PHASE)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x227}
+s.listed_series={SET_EMBER_WORM}
 function s.spfilter(c,e,tp,lv)
-	return c:IsSetCard(0x227) and c:IsLevel(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
+	return c:IsSetCard(SET_EMBER_WORM) and c:IsLevel(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)
 end
 function s.desfilter(c,e,tp)
 	return c:IsFaceup() and c:IsRace(RACE_INSECT) and c:IsLevelAbove(1)

@@ -1,5 +1,6 @@
 --Blaze Dragonlady Scout
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--destroy S/T
@@ -29,11 +30,11 @@ function s.initial_effect(c)
 	e2:SetOperation(s.sumop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x228}
+s.listed_series={SET_BLAZE_DRAGONLADY}
 --destroy S/T
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	local ph=Duel.GetCurrentPhase()
-	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,0x228),tp,LOCATION_MZONE,0,1,nil)
+	return ph>=PHASE_BATTLE_START and ph<=PHASE_BATTLE and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_BLAZE_DRAGONLADY),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():IsDiscardable() end
@@ -61,7 +62,7 @@ function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return c==Duel.GetAttacker() or c==Duel.GetAttackTarget()
 end
 function s.sumfilter(c)
-	return c:IsSetCard(0x228) and c:IsSummonable(true,nil)
+	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and c:IsSummonable(true,nil)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end

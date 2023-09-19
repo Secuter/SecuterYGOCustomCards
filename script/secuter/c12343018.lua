@@ -1,5 +1,6 @@
 --Hailshift Town
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--activate
@@ -33,20 +34,20 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={12343017}
-s.listed_series={0x224}
+s.listed_series={SET_HAILSHIFT}
 --spsummon
 function s.thcon(e)
 	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0)==0
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x224) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 end
 function s.sumfilter(c)
-	return c:IsSetCard(0x224) and c:IsSummonable(true,nil)
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsSummonable(true,nil)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)

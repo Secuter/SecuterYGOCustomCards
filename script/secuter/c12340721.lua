@@ -1,5 +1,6 @@
 --Morhai
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -38,9 +39,9 @@ function s.initial_effect(c)
 	e3:SetOperation(s.activate3)
 	c:RegisterEffect(e3)
 end
-s.listed_series={0x209}
+s.listed_series={SET_MORHAI}
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsSetCard(0x209)
+	return c:IsFaceup() and c:IsSetCard(SET_MORHAI)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.CheckReleaseGroupCost(tp,s.cfilter,1,nil) end
@@ -49,7 +50,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(0x209) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc) end
@@ -83,7 +84,7 @@ function s.activate2(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x209) and c:IsAbleToGrave()
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAbleToGrave()
 end
 function s.target3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

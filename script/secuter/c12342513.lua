@@ -1,5 +1,6 @@
 --Rascal Ace Beacon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -23,9 +24,9 @@ function s.initial_effect(c)
 	e2:SetOperation(s.spop)
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x21D}
+s.listed_series={SET_RASCAL_ACE}
 function s.thfilter(c)
-	return c:IsSetCard(0x21D) and c:IsRace(RACE_PSYCHIC) and c:IsAbleToHand()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsRace(RACE_PSYCHIC) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -42,7 +43,7 @@ end
 
 function s.spfilter(c,e,tp)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
-		and c:IsSetCard(0x21D) and c:IsRace(RACE_PSYCHIC) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+		and c:IsSetCard(SET_RASCAL_ACE) and c:IsRace(RACE_PSYCHIC) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

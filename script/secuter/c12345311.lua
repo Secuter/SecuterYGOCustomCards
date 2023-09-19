@@ -1,7 +1,7 @@
 --Armor Magician Doom Master
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=2000
 s.ArmorDef=0
 s.Armor=true
@@ -52,17 +52,17 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
-s.material_setcode={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
+s.material_setcode={SET_ARMOR_MAGICIAN}
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x1098,lc,sumtype,tp) and not c:IsCode(id)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN,lc,sumtype,tp) and not c:IsCode(id)
 end
 --search
 function s.effcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetOverlayCount()>=e:GetLabel()
 end
 function s.thspfilter(c,e,tp,rc)
-	return c:IsSetCard(0x1098) and c:IsMonster() and (c:IsAbleToHand() or (Duel.GetMZoneCount(tp,rc)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsMonster() and (c:IsAbleToHand() or (Duel.GetMZoneCount(tp,rc)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
 end
 function s.thsptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thspfilter,tp,LOCATION_DECK,0,1,nil,e,tp,rc) end
@@ -86,7 +86,7 @@ function s.thspop(e,tp,eg,ep,ev,re,r,rp)
 end
 --immune
 function s.efilter(e,te)
-	return not te:GetOwner():IsSetCard(0x1098)
+	return not te:GetOwner():IsSetCard(SET_ARMOR_MAGICIAN)
 end
 --negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)

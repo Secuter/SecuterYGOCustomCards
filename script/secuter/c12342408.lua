@@ -1,5 +1,6 @@
 --Savage Beast Lion
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--spsummon
@@ -37,7 +38,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
-s.listed_series={0x21c}
+s.listed_series={SET_SAVAGE_BEAST}
 function s.spcon(e,c)
 	if c==nil then return true end
 	if Duel.GetLocationCount(c:GetControler(),LOCATION_MZONE)<=0 then return false end
@@ -68,7 +69,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsReason(REASON_EFFECT) and c:GetReasonPlayer()==1-tp
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(0x21c) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
+	return c:IsSetCard(SET_SAVAGE_BEAST) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

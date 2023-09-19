@@ -1,5 +1,6 @@
 --Sun-Eyes Spark Zenit Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Xyz summon
@@ -32,7 +33,7 @@ function s.initial_effect(c)
 	e3:SetOperation(s.operation)
 	c:RegisterEffect(e3,false,REGISTER_FLAG_DETACH_XMAT)
 end
-s.listed_series={0x20A}
+s.listed_series={SET_ZENIT_DRAGON}
 --indes
 function s.indcon(e)
 	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsType,1,nil,TYPE_NORMAL)
@@ -51,7 +52,7 @@ function s.tgfilter1(c)
 	return c:IsType(TYPE_NORMAL) and c:GetLevel()>0 and c:IsAbleToGrave()
 end
 function s.tgfilter2(c,lv)
-	return c:IsSetCard(0x20A) and c:IsMonster() and c:IsLevel(lv) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_ZENIT_DRAGON) and c:IsMonster() and c:IsLevel(lv) and c:IsAbleToGrave()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter1,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil) end

@@ -1,5 +1,6 @@
 --Anuak Continuous S/T
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
@@ -28,10 +29,10 @@ function s.initial_effect(c)
 	e2:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
 	e2:SetCountLimit(1,id)
 	e2:SetCondition(s.sumcon)
-	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,0x208))
+	e2:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_ANUAK))
 	c:RegisterEffect(e2)
 end
-s.listed_series={0x208}
+s.listed_series={SET_ANUAK}
 
 function s.filter(c)
 	return not c:IsFacedown() and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK)
@@ -46,7 +47,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_DESTROY)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(0x208) and c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsLevelBelow(4)
+	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:IsLevelBelow(4)
         and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)   

@@ -1,5 +1,6 @@
 --Aetherock First Mountain
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
     --xyz summon
@@ -13,7 +14,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
-s.listed_series={0x20D}
+s.listed_series={SET_AETHEROCK}
 --xyz summon
 function s.mfilter(c,e,tp,sc)
 	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
@@ -23,13 +24,13 @@ end
 function s.xyzfilter4(c,e,tp)
 	if c.rum_limit and not c.rum_limit(mc,e) then return false end
 	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil)
-	return c:IsSetCard(0x20D) and c:IsRank(4) and g:GetClassCount(Card.GetCode)>=2
+	return c:IsSetCard(SET_AETHEROCK) and c:IsRank(4) and g:GetClassCount(Card.GetCode)>=2
 		and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.xyzfilter5(c,e,tp)
 	if c.rum_limit and not c.rum_limit(mc,e) then return false end
 	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil)
-	return c:IsSetCard(0x20D) and c:IsRank(5) and g:GetClassCount(Card.GetCode)>=3
+	return c:IsSetCard(SET_AETHEROCK) and c:IsRank(5) and g:GetClassCount(Card.GetCode)>=3
 		and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.check(sg,e,tp,mg)
@@ -52,7 +53,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.xyzfilter(c,e,tp,count)
 	if c.rum_limit and not c.rum_limit(mc,e) then return false end
-	return c:IsSetCard(0x20D) and (c:IsRank(4) or (count==3 and c:IsRank(5))) and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
+	return c:IsSetCard(SET_AETHEROCK) and (c:IsRank(4) or (count==3 and c:IsRank(5))) and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.groupcontains(sg,g)
 	local tc=g:GetFirst()

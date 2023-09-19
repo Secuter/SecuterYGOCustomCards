@@ -1,10 +1,11 @@
 --Vemacitrin - Asura of Everlasting Fight
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--fusion summon
 	c:EnableReviveLimit()
-	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,0x218),s.ffilter)
+	Fusion.AddProcMix(c,true,true,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ASURA),s.ffilter)
 	Fusion.AddContactProc(c,s.contactfil,s.contactop,s.splimit,nil,nil,nil,false)
 	--remove
 	local e1=Effect.CreateEffect(c)
@@ -40,8 +41,8 @@ function s.initial_effect(c)
 	e4:SetOperation(s.negop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x218}
-s.material_setcode={0x218}
+s.listed_series={SET_ASURA}
+s.material_setcode={SET_ASURA}
 --fusion
 function s.ffilter(c,sc,sumtype,tp)
 	return c:IsLevelAbove(7) and c:IsSummonType(SUMMON_TYPE_TRIBUTE)
@@ -57,13 +58,13 @@ function s.contactop(g)
 end
 --remove
 function s.cfilter1(c)
-	return c:IsFaceup() and c:IsSetCard(0x218)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA)
 end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter1,1,e:GetHandler())
 end
 function s.cfilter2(c)
-	return c:IsFaceup() and c:IsSetCard(0x218) and c:IsSummonType(SUMMON_TYPE_TRIBUTE)
+	return c:IsFaceup() and c:IsSetCard(SET_ASURA) and c:IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsAbleToRemove() end
@@ -86,7 +87,7 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 		and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.cfilter(c)
-	return c:IsSetCard(0x218) and c:IsType(TYPE_MONSTER) and (c:IsAbleToHandAsCost() or c:IsAbleToExtraAsCost())
+	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_MONSTER) and (c:IsAbleToHandAsCost() or c:IsAbleToExtraAsCost())
 end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,e:GetHandler()) end

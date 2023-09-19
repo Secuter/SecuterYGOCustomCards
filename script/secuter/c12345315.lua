@@ -1,7 +1,7 @@
 --Armor Magician's Darkness Orb
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
-if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
 s.ArmorAtk=0
 s.ArmorDef=0
 s.Armor=true
@@ -41,10 +41,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={0x1098}
+s.listed_series={SET_ARMOR_MAGICIAN}
 --banish
 function s.cfilter(c)
-	return c:IsSetCard(0x1098) and not c:IsType(TYPE_XYZ)
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and not c:IsType(TYPE_XYZ)
 end
 function s.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Group.CreateGroup()
@@ -72,7 +72,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 --banish #2
 function s.cfilter2(c) 
-	return c:IsFaceup() and c:IsSetCard(0x1098) and c:IsArmorizing()
+	return c:IsFaceup() and c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsArmorizing()
 end
 function s.rmcon2(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(s.cfilter2,tp,LOCATION_MZONE,0,1,nil)

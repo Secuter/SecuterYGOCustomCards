@@ -1,8 +1,8 @@
 --Worldless Rumble Dragon
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Reunion=true
-if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Reunion.AddProcedure(c,s.rfilter,2,99,s.rcheck)
@@ -48,19 +48,19 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x20F}
+s.listed_series={SET_WORLDLESS}
 function s.rfilter(c,lc,sumtype,tp)
 	return c:IsType(ATTRIBUTE_DARK,lc,sumtype,tp)
 end
 function s.ifilter(c,lc,sumtype,tp)
-	return c:IsSetCard(0x20F,lc,sumtype,tp) and c:IsRace(RACE_DRAGON,lc,sumtype,tp)
+	return c:IsSetCard(SET_WORLDLESS,lc,sumtype,tp) and c:IsRace(RACE_DRAGON,lc,sumtype,tp)
 end
 function s.rcheck(g,lc,sumtype,tp)
 	return g:IsExists(s.ifilter,1,nil,lc,sumtype,tp)
 end
 --ATK
 function s.atktg(e,c)
-	return c:GetOriginalLevel()==8 and c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON)
+	return c:GetOriginalLevel()==8 and c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON)
 end
 --send to gy
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
@@ -71,7 +71,7 @@ function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DECKDES,nil,0,tp,3)
 end
 function s.filter(c)
-	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(0x20F)
+	return c:IsLocation(LOCATION_GRAVE) and c:IsSetCard(SET_WORLDLESS)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -94,7 +94,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==1
 end
 function s.thfilter(c)
-	return c:IsSetCard(0x20F) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WORLDLESS) and c:IsRace(RACE_DRAGON) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

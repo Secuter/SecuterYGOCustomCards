@@ -1,8 +1,8 @@
 --Morhai Ignition
 --Scripted by Secuter
+if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Ignition=true
-if not IGNITION_IMPORTED then Duel.LoadScript("proc_ignition.lua") end
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	Ignition.AddProcedure(c,s.exfilter,s.ignfilter,1,1)
@@ -37,10 +37,10 @@ function s.initial_effect(c)
 	e4:SetOperation(s.thop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={0x209}
-s.material_setcode={0x209}
+s.listed_series={SET_MORHAI}
+s.material_setcode={SET_MORHAI}
 function s.exfilter(c)
-	return c:IsSetCard(0x209) and c:IsLevelAbove(7)
+	return c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7)
 end
 function s.ignfilter(c)
 	return c:IsType(TYPE_EFFECT)
@@ -54,7 +54,7 @@ function s.cfilter(c,tp)
 	if c:IsType(TYPE_MONSTER) then ct=TYPE_MONSTER
 	elseif c:IsType(TYPE_SPELL) then ct=TYPE_SPELL
 	elseif c:IsType(TYPE_TRAP) then ct=TYPE_TRAP end
-	return c:IsSetCard(0x209) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and ct>0
+	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and ct>0
 		and Duel.IsExistingMatchingCard(s.desfilter,tp,0,LOCATION_ONFIELD,1,nil,ct)
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -92,7 +92,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(0x209) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp)
