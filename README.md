@@ -151,13 +151,13 @@ Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPq
 
 :warning: If you import a set created with a different version of MSE, some text on the card might be blank.<br>
 Unfortunately, this is not fixable, as it happens because in different custom version of MSE some fields are named differently.<br>
-It also contains some useful features and shortcuts for frequently used text in Yu-Gi-Oh! cards.
 
 ### Fonts
 
-You should install all the fonts in the font/fonts-common folder.
+You should install all the fonts in the font/fonts-common folder.<br>
+Let me know if any fonts are missing.
 
-### Features
+### Custom Features
 
 #### Export cards as a SQL insert
 
