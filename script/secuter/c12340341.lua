@@ -1,55 +1,57 @@
---Auranth, the Dark King Heir
+--Dark King Servant - Leviathan
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
-	Pendulum.AddProcedure(c)
-    --sp summon
+	--spsummon proc
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TOHAND+CATEGORY_TOGRAVE)
-	e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
-	e1:SetRange(LOCATION_PZONE)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_SPSUMMON_PROC)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_SPSUM_PARAM)
+	e1:SetRange(LOCATION_HAND)
+	e1:SetTargetRange(POS_FACEUP_DEFENSE,1)
+	e1:SetValue(1)
 	e1:SetCountLimit(1,id)
-	e1:SetCondition(s.spcon)
-	e1:SetTarget(s.sptg)
-	e1:SetOperation(s.spop)
+	e1:SetCondition(Auxiliary.LavaCondition(1,aux.TRUE))
+	e1:SetTarget(Auxiliary.LavaTarget(1,aux.TRUE))
+	e1:SetOperation(Auxiliary.LavaOperation(1,aux.TRUE))
 	c:RegisterEffect(e1)
+	--ritual material from opponent's field
+	local e2=Effect.CreateEffect(c)
+	e2:SetType(EFFECT_TYPE_SINGLE)
+	--e2:SetCode(EFFECT_EXTRA_RITUAL_MATERIAL)
+	e2:SetCode(EFFECT_EXTRA_RELEASE)
+	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e2:SetRange(LOCATION_MZONE)
+	e2:SetTargetRange(0,LOCATION_MZONE)
+	e2:SetValue(1)
+	c:RegisterEffect(e2)
+	--to grave
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetCategory(CATEGORY_TOGRAVE)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetCode(EVENT_RELEASE)
+	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetCountLimit(1,{id,1})
+	e3:SetTarget(s.tgtg)
+	e3:SetOperation(s.tgop)
+	c:RegisterEffect(e3)
 end
-s.listed_series={SET_UNDEAD}
-s.is_ritual_summonable=Ritual.Target({handler=c,filter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_GRAVE,matfilter=s.matfilter})
-s.ritual_summon=Ritual.Operation({handler=c,filter=aux.FilterBoolFunction(Card.IsAttribute,ATTRIBUTE_DARK),location=LOCATION_GRAVE,matfilter=s.matfilter})
-function s.matfilter(c,e,tp)
-	return c:IsLocation(LOCATION_ONFIELD) and c:IsAttribute(ATTRIBUTE_DARK)
+s.listed_names={id}
+s.listed_series={SET_DARK_KING}
+--to grave
+function s.tgfilter(c)
+	return c:IsSetCard(SET_DARK_KING) and not c:IsCode(id) and c:IsAbleToGrave()
 end
---sp summon
-function s.cfilter(c,tp)
-	return c:IsControler(tp) and c:IsSummonType(SUMMON_TYPE_RITUAL) and c:IsAttribute(ATTRIBUTE_DARK)
+function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
-function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg and eg:IsExists(s.cfilter,1,nil,tp)
-end
-function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and c:IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
-	Duel.SetPossibleOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
-end
-function s.spop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetCode(EFFECT_CHANGE_LEVEL)
-		e1:SetValue(10)
-		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
-		c:RegisterEffect(e1,true)
-		--ritual summon
-		local g=Duel.GetMatchingGroup(s.rfilter,tp,LOCATION_GRAVE,0,nil)
-		if s.is_ritual_summonable(e,tp,eg,ep,ev,re,r,rp,0) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
-            s.ritual_summon(e,tp,eg,ep,ev,re,r,rp)
-        end
+function s.tgop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+	local g=Duel.SelectMatchingCard(tp,s.tgfilter,tp,LOCATION_DECK,0,1,1,nil)
+	if #g>0 then
+		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
 end

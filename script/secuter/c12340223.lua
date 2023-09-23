@@ -76,7 +76,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
 		Duel.SpecialSummonComplete()
-		tc:CompleteProcedure()
 	end
 end
 
@@ -88,9 +87,10 @@ function s.cfilter(c)
 end
 function s.mtop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	Duel.HintSelection(Group.FromCards(c))
 	local g=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_MZONE,0,nil)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
-	local tg=g:Select(tp,1,1,nil)
-	Duel.SendtoDeck(tg,nil,2,REASON_COST)
+	if #g>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+		local tg=g:Select(tp,1,1,nil)
+		Duel.SendtoDeck(tg,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+	end
 end

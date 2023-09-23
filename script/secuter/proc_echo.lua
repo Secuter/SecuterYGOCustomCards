@@ -198,7 +198,7 @@ function Duel.EchoSummon(tp,c,mustg,mg)
 		rg=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE):Filter(Echo.MatFilter,nil,c,tp,ft,f)
 	else
 		rg=Duel.GetMatchingGroup(Echo.MatFilter,tp,LOCATION_MZONE,0,nil,c,tp,ft,f)
-	end	
+	end
 	if mustg then rg=mustg:Filter(Echo.MatFilter,nil,c,tp,ft,f) end	
     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_EMATERIAL)
 	local sg=nil

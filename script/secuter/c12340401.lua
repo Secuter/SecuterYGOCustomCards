@@ -39,7 +39,13 @@ end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0 then
-        local tc=eg:FilterSelect(tp,s.lvfilter,1,1,nil):GetFirst()
+		local tc
+		if #eg==1 then
+			tc=eg:GetFirst()
+			Duel.HintSelection(tc)
+		else
+			tc=eg:FilterSelect(tp,s.lvfilter,1,1,nil):GetFirst()
+		end
         if tc then
             local e1=Effect.CreateEffect(c)
             e1:SetType(EFFECT_TYPE_SINGLE)

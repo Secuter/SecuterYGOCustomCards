@@ -64,7 +64,6 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		--Duel.SpecialSummon(tc,0,tp,tp,true,true,POS_FACEUP)
 		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
         Duel.SpecialSummonComplete()
-		tc:CompleteProcedure()
 	end
 end
 

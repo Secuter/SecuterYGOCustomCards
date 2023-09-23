@@ -28,4 +28,4 @@ WindBot/
 updates/
 .edopro_lock
 *.zip
-script/secuter/archetype_setcode_constants.lua
+script/secuter/modules

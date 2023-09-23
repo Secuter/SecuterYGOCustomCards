@@ -1,6 +1,7 @@
 SYNCHRO_EXTRA_MATERIAL_IMPORTED=true
 
 --[[
+if not SYNCHRO_EXTRA_MATERIAL_IMPORTED then Duel.LoadScript("proc_synchro_extra_material.lua") end
 ]]
 
 if not aux.SynchroProcedure then

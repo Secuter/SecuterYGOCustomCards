@@ -1,4 +1,4 @@
---Spell
+--Dark King's Heart
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
@@ -14,6 +14,7 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+s.listed_series={SET_DARK_KING}
 
 function s.costfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsDiscardable()
@@ -34,18 +35,16 @@ end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local p,d=Duel.GetChainInfo(0,CHAININFO_TARGET_PLAYER,CHAININFO_TARGET_PARAM)
 	Duel.Draw(p,d,REASON_EFFECT)
-    
-	Duel.BreakEffect()
-    if Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
-        and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) then
+    if Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0 and Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) then
         Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
         local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_DECK,0,1,1,nil)
         if #g>0 then
+			Duel.BreakEffect()
             Duel.SendtoHand(g,nil,REASON_EFFECT)
             Duel.ConfirmCards(1-tp,g)
         end
     end
-    
+	--splimit
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetType(EFFECT_TYPE_FIELD)
 	e1:SetCode(EFFECT_CANNOT_SPECIAL_SUMMON)
@@ -56,5 +55,5 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	Duel.RegisterEffect(e1,tp)
 end
 function s.splimit(e,c)
-	return not c:IsType(TYPE_RITUAL)
+	return not c:IsType(TYPE_RITUAL) and not c:IsSetCard(SET_DARK_KING)
 end
