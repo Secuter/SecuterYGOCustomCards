@@ -29,3 +29,4 @@ updates/
 .edopro_lock
 *.zip
 script/secuter/modules
+*.ps1
