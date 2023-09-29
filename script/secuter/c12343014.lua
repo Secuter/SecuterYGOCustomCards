@@ -3,10 +3,10 @@
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
-	c:EnableReviveLimit()
-	c:EnableCounterPermit(0x305)
-	c:SetCounterLimit(0x305,3)
 	Pendulum.AddProcedure(c)
+	c:EnableReviveLimit()
+	c:EnableCounterPermit(0x305,LOCATION_PZONE|LOCATION_MZONE)
+	c:SetCounterLimit(0x305,3)
 	--cannot pendulum summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
