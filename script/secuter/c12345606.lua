@@ -52,7 +52,6 @@ end
 function s.negcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.negcfilter,tp,LOCATION_HAND,0,1,nil) end
 	Duel.DiscardHand(tp,s.negcfilter,1,1,REASON_COST+REASON_DISCARD)
-	s.announcecost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
