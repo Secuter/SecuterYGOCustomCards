@@ -30,3 +30,4 @@ updates/
 *.zip
 script/secuter/modules
 *.ps1
+utils/

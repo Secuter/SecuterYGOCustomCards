@@ -5,16 +5,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--dark synchro summon 
 	c:EnableReviveLimit()
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_FIELD)
-	e1:SetCode(EFFECT_SPSUMMON_PROC)
-	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE+EFFECT_FLAG_CANNOT_DISABLE)
-	e1:SetRange(LOCATION_EXTRA)
-	e1:SetCondition(s.syncon)
-	--e1:SetTarget(s.syntg)
-	e1:SetOperation(s.synop)
-	e1:SetValue(SUMMON_TYPE_SYNCHRO)
-	c:RegisterEffect(e1)
+	Synchro.AddDarkSynchroProcedure(c,Synchro.NonTuner(Card.IsSetCard,SET_EXTERNAL_WORLDS),nil,11)
 	--remove & boost atk
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
@@ -45,30 +36,6 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 end
 s.listed_series={SET_EXTERNAL_WORLDS}
-
-function s.costfilter(c)
-	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
-        and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
-end
-function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.costfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_EXTRA,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,s.costfilter,tp,LOCATION_MZONE+LOCATION_GRAVE+LOCATION_EXTRA,0,1,1,nil)
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
-end
-function s.op(e,tp,eg,ep,ev,re,r,rp)
-    local c=e:GetHandler()
-	local atks=c:GetFlagEffect(id)*1 +1
-    c:RegisterFlagEffect(id,RESET_EVENT+0x1ec0000+RESET_PHASE+PHASE_BATTLE,0,atks)
-	local e1=Effect.CreateEffect(c)
-	e1:SetType(EFFECT_TYPE_SINGLE)
-	e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e1:SetRange(LOCATION_MZONE)
-	e1:SetCode(EFFECT_EXTRA_ATTACK_MONSTER)
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_BATTLE)
-	e1:SetValue(atks)
-	c:RegisterEffect(e1)
-end
 
 function s.rmcond(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO

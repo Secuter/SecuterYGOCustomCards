@@ -81,5 +81,5 @@ function s.efilter(e,te)
 end
 --atk
 function s.value(e,c)
-	return Duel.GetMatchingGroupCount(Card.IsType,c:GetControler(),LOCATION_ONFIELD,LOCATION_ONFIELD,nil,TYPE_TOKEN)*500
+	return Duel.GetMatchingGroupCount(Card.IsType,c:GetControler(),LOCATION_ONFIELD,LOCATION_ONFIELD,nil,TYPE_TOKEN)*1000
 end
