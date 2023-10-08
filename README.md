@@ -125,7 +125,6 @@ On the server it is recommended to play with this banlist and 'Anything goes'. (
 * Card of Demise
 #### Limited
 * D.D. Invader Gargoyle
-* Allure of Darkness
 #### Semi-Limited
 * none
 #### Unbanned cards
