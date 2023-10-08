@@ -30,14 +30,14 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={SET_D_D__INVADER}
-s.material_setcode={SET_D_D__INVADER}
+s.listed_series={SET_DD_INVADER}
+s.material_setcode={SET_DD_INVADER}
 function s.lcheck(g,lc,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,SET_D_D__INVADER,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_DD_INVADER,lc,SUMMON_TYPE_LINK,tp)
 end
 
 function s.lkfilter(c,mg)
-	return c:IsSetCard(SET_D_D__INVADER) and not c:IsCode(id) and c:IsLinkSummonable(nil,mg,2,2)
+	return c:IsSetCard(SET_DD_INVADER) and not c:IsCode(id) and c:IsLinkSummonable(nil,mg,2,2)
 end
 function s.mfilter(tc,c,tp,lg)
 	local mg=Group.FromCards(c,tc)
@@ -78,7 +78,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_DD_INVADER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

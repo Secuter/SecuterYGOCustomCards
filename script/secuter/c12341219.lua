@@ -48,7 +48,7 @@ function s.initial_effect(c)
 	e4:SetOperation(s.disop)
 	c:RegisterEffect(e4)
 end
-s.listed_series={SET_D_D__INVADER}
+s.listed_series={SET_DD_INVADER}
 function s.lkcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
@@ -62,7 +62,7 @@ end
 function s.lktg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then
 		local el={}
-		local mg=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_D_D__INVADER),tp,LOCATION_MZONE,0,nil)
+		local mg=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_DD_INVADER),tp,LOCATION_MZONE,0,nil)
 		local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,mg)
 		for tc in aux.Next(g) do
 			local e1=Effect.CreateEffect(e:GetHandler())
@@ -83,7 +83,7 @@ function s.lkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if not c:IsRelateToEffect(e) then return end
 	local el={}
-	local mg=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_D_D__INVADER),tp,LOCATION_MZONE,0,nil)
+	local mg=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsSetCard,SET_DD_INVADER),tp,LOCATION_MZONE,0,nil)
 	local g=Duel.GetMatchingGroup(Card.IsFaceup,tp,LOCATION_MZONE,0,mg)
 	for tc in aux.Next(g) do
 		local e1=Effect.CreateEffect(c)
@@ -124,7 +124,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.cfilter(c,e,tp)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemoveAsCost()
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -4,7 +4,7 @@ if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_D_D__INVADER),2,2)
+	Link.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_DD_INVADER),2,2)
 	--link summon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -30,10 +30,10 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={SET_D_D__INVADER}
-s.material_setcode={SET_D_D__INVADER}
+s.listed_series={SET_DD_INVADER}
+s.material_setcode={SET_DD_INVADER}
 function s.lkfilter(c,mg)
-	return c:IsSetCard(SET_D_D__INVADER) and not c:IsCode(id) and c:IsLinkSummonable(nil,mg,2,2)
+	return c:IsSetCard(SET_DD_INVADER) and not c:IsCode(id) and c:IsLinkSummonable(nil,mg,2,2)
 end
 function s.mfilter(tc,c,tp,lg)
 	local mg=Group.FromCards(c,tc)
@@ -74,7 +74,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil)
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

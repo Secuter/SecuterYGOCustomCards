@@ -54,7 +54,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 s.listed_names={id}
-s.listed_series={SET_D_D__INVADER}
+s.listed_series={SET_DD_INVADER}
 function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler()~=re:GetHandler()
 end
@@ -97,10 +97,10 @@ function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
 function s.splimit(e,c)
-	return not c:IsSetCard(SET_D_D__INVADER) and c:IsLocation(LOCATION_EXTRA)
+	return not c:IsSetCard(SET_DD_INVADER) and c:IsLocation(LOCATION_EXTRA)
 end
 function s.lizfilter(e,c)
-	return not c:IsSetCard(SET_D_D__INVADER)
+	return not c:IsSetCard(SET_DD_INVADER)
 end
 --spsummon itself
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
@@ -120,7 +120,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search mon
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

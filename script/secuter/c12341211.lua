@@ -40,22 +40,22 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-s.listed_series={SET_D_D__INVADER}
-s.material_setcode={SET_D_D__INVADER}
+s.listed_series={SET_DD_INVADER}
+s.material_setcode={SET_DD_INVADER}
 function s.matfilter(c,scard,sumtype,tp)
-	return c:IsLevelBelow(4) and c:IsSetCard(SET_D_D__INVADER,scard,sumtype,tp)
+	return c:IsLevelBelow(4) and c:IsSetCard(SET_DD_INVADER,scard,sumtype,tp)
 end
 --link material limit
 function s.linklimit(e,c)
 	if not c then return false end
-	return not c:IsSetCard(SET_D_D__INVADER)
+	return not c:IsSetCard(SET_DD_INVADER)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_DD_INVADER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
@@ -78,7 +78,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil)
 end
 function s.tdfilter(c,e,tp)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsMonster() and c:IsFaceup() and not c:IsCode(id) and c:IsAbleToDeck()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsMonster() and c:IsFaceup() and not c:IsCode(id) and c:IsAbleToDeck()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_REMOVED) and chkc:IsControler(tp) and s.tdfilter(chkc) end

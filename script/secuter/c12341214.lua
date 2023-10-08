@@ -35,17 +35,17 @@ function s.initial_effect(c)
 	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
 end
-s.listed_series={SET_D_D__INVADER}
-s.material_setcode={SET_D_D__INVADER}
+s.listed_series={SET_DD_INVADER}
+s.material_setcode={SET_DD_INVADER}
 function s.lcheck(g,lc,tp)
-	return g:IsExists(Card.IsSetCard,1,nil,SET_D_D__INVADER,lc,SUMMON_TYPE_LINK,tp)
+	return g:IsExists(Card.IsSetCard,1,nil,SET_DD_INVADER,lc,SUMMON_TYPE_LINK,tp)
 end
 
 function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.eqfilter(c)
-	return c:IsSetCard(SET_D_D__INVADER) and c:IsLinkMonster() and not c:IsForbidden()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsLinkMonster() and not c:IsForbidden()
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0 and Duel.IsExistingMatchingCard(s.eqfilter,tp,LOCATION_GRAVE,0,1,nil) end
