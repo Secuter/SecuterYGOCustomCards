@@ -115,19 +115,31 @@ Here is a list of archetypes supported on the server in addition to mine.
 ---
 
 ## Custom banlist
-I also created a custom banlist '2023.04 Secuter+TCG' that uses the last TCG as a base adding limits/bans for my cards.<br>
+I also created a custom banlist '20XX.XX Secuter+TCG' that uses the last TCG as a base adding limits/bans for my cards.<br>
 On the server it is recommended to play with this banlist and 'Anything goes'. (You must select 'Anything goes' to play with cards with the custom tag event if this cards are accepted on the server.)<br>
 ![list](https://imgur.com/PLHi5mS.png)
 
 #### Banned
-* none
+* Hot Red Dragon Archfiend King Calamity
+* Phantom Skyblaster
+* Card of Demise
 #### Limited
 * D.D. Invader Gargoyle
 * Allure of Darkness
 #### Semi-Limited
 * none
 #### Unbanned cards
-* none
+* Block Dragon [Errata]
+* Fishborg Blaster [Errata]
+* Union Carrier [Errata]
+* Allure of Darkness [Errata]
+* Reinforcement of the Army [Errata]
+* Dinowrestler Pankratops
+* Ancient Fairy Dragon
+* Wind-Up Carrier Zenmaity
+* Daigusto Emeral
+* Pot of Desires
+* Sekka's Light
 
 ---
 
