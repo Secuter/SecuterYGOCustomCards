@@ -42,12 +42,10 @@ s.listed_names={id}
 s.listed_series={SET_ETERNAL_STORM}
 --multi attack
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(
-		Card.IsType,
-		e:GetHandler(),LOCATION_MZONE,LOCATION_MZONE,1,nil,TYPE_LINK)
+	return Duel.IsExistingMatchingCard(Card.IsType,e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,1,nil,TYPE_LINK)
 end
 function s.val(e,c)
-	local g=Duel.GetMatchingGroup(Card.IsType,e:GetHandler(),LOCATION_MZONE,LOCATION_MZONE,nil,TYPE_LINK)
+	local g=Duel.GetMatchingGroup(Card.IsType,e:GetHandlerPlayer(),LOCATION_MZONE,LOCATION_MZONE,nil,TYPE_LINK)
 	return g:GetSum(Card.GetLink)
 end
 --gain atk
