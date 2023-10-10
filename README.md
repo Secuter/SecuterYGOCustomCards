@@ -63,7 +63,7 @@ Here is a list of archetypes supported on the server in addition to mine.
 | Archetype/s | Developer | Repository | Preview webite |
 | :-------: | :-------: | ---------- | :----------- |
 | All | Secuter (owner) | [Secuter/SecuterYGOCustomCards](https://github.com/Secuter/SecuterYGOCustomCards) | https://secuter.github.io/SecuterYGOCustomCards-search/ |
-| FNO | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/FNO-Archetype/ |
+| FNO | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/KSB-Archetypes/ |
 
 ### Manual configuration
 * repos
