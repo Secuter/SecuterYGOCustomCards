@@ -6,6 +6,15 @@ function s.initial_effect(c)
 	--link summon
 	Link.AddProcedure(c,nil,2,3,s.lcheck)
 	c:EnableReviveLimit()
+	--atk
+	local e0=Effect.CreateEffect(c)
+	e0:SetType(EFFECT_TYPE_SINGLE)
+	e0:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e0:SetRange(LOCATION_MZONE)
+	e0:SetCode(EFFECT_UPDATE_ATTACK)
+	e0:SetCondition(function(e) return e:GetHandler():IsStatus(STATUS_SPSUMMON_TURN) and e:GetHandler():IsSummonType(SUMMON_TYPE_LINK) end)
+	e0:SetValue(500)
+	c:RegisterEffect(e0)
 	--search S/T
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
