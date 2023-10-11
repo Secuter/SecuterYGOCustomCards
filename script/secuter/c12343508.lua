@@ -1,4 +1,4 @@
---Blaze Dragonlady Queen
+--Blaze Dragonlady Ruler of Wars
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
@@ -79,7 +79,7 @@ end
 --spsummon
 function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return (c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT)) and c:IsSummonType(SUMMON_TYPE_LINK) and c:GetPreviousControler()==tp
+	return rp==1-tp and c:IsSummonType(SUMMON_TYPE_LINK) and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP)
 end
 function s.spfilter2(c,e,tp)
 	return c:IsSetCard(SET_BLAZE_DRAGONLADY) and not c:IsType(TYPE_LINK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())

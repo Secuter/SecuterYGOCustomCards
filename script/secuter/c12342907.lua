@@ -25,8 +25,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_series={SET_ETERNAL_STORM}
-function s.matfilter(c,sc,st,tp)
-	return c:IsLinkAbove(2) and c:IsType(TYPE_LINK,lc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_WIND,sc,st,tp)
+function s.matfilter(c,sc,sumtype,tp)
+	return c:IsLinkAbove(2) and c:IsType(TYPE_LINK,lc,sumtype,tp) and c:IsAttribute(ATTRIBUTE_WIND,sc,sumtype,tp)
 end
 --draw
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)

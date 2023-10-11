@@ -51,8 +51,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e5)
 end
 s.listed_series={SET_ETERNAL_STORM}
-function s.matfilter(c,sc,st,tp)
-	return c:IsAttribute(ATTRIBUTE_WIND,sc,st,tp) and not c:IsType(TYPE_TOKEN,sc,st,tp)
+function s.matfilter(c,sc,sumtype,tp)
+	return c:IsAttribute(ATTRIBUTE_WIND,sc,sumtype,tp) and not c:IsType(TYPE_TOKEN,sc,sumtype,tp)
 end
 --disable
 function s.dmgcon(e,tp,eg,ep,ev,re,r,rp)

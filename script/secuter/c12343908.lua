@@ -20,7 +20,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_IRRADIANCE}
 function s.matfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(SET_IRRADIANCE,lc,sumtype,tp) and not c:IsType(TYPE_LINK,lc,st,tp)
+	return c:IsSetCard(SET_IRRADIANCE,lc,sumtype,tp) and not c:IsType(TYPE_LINK,lc,sumtype,tp)
 end
 --top deck
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
