@@ -11,7 +11,12 @@ function s.initial_effect(c)
 	e1:SetTarget(s.thtg)
 	e1:SetOperation(s.thop)
 	c:RegisterEffect(e1)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
+function s.counterfilter(c)
+	return c:IsAttribute(ATTRIBUTE_FIRE) and c:IsRace(RACE_DRAGON)
+end
+
 function s.thfilter(c)
 	return c:IsAttribute(ATTRIBUTE_FIRE) and c:IsRace(RACE_DRAGON) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end

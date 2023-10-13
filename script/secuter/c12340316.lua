@@ -13,8 +13,12 @@ function s.initial_effect(c)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
+	Duel.AddCustomActivityCounter(id,ACTIVITY_SPSUMMON,s.counterfilter)
 end
 s.listed_series={SET_DARK_KING}
+function s.counterfilter(c)
+	return c:IsType(TYPE_RITUAL) or c:IsSetCard(SET_DARK_KING)
+end
 
 function s.costfilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsDiscardable()
