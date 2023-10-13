@@ -29,7 +29,7 @@ end
 
 --negate
 function s.cfilter(c)
-	return c:IsSummonType(SUMMON_TYPE_TRIBUTE) and c:IsLinkMonster()
+	return c:IsSummonType(SUMMON_TYPE_TRIBUTE)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	if not Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) then return false end
