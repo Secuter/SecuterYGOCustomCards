@@ -25,13 +25,6 @@ function s.initial_effect(c)
 	e2:SetTarget(s.settg)
 	e2:SetOperation(s.setop)
 	c:RegisterEffect(e2)
-	--tribute check
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-	e3:SetCode(EFFECT_MATERIAL_CHECK)
-	e3:SetValue(s.valcheck)
-	e3:SetLabelObject(e2)
-	c:RegisterEffect(e3)
 end
 
 --negate
@@ -63,8 +56,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
 	local ec=eg:GetFirst()
 	Debug.Message(ec:GetMaterialCount())
 	return ec:IsPreviousControler(tp) and ec:IsSummonType(SUMMON_TYPE_TRIBUTE)
-		and ec:GetMaterialGroup():IsExists(Card.IsMonster,1,nil)
-	--and e:GetFlagEffect()==1
+		and ec:GetMaterial():IsExists(Card.IsMonster,1,nil)
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
@@ -83,15 +75,5 @@ function s.setop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetReset(RESET_EVENT+RESETS_REDIRECT)
 		e1:SetValue(LOCATION_REMOVED)
 		c:RegisterEffect(e1)
-	end
-end
---tribute check
-function s.valcheck(e,c)
-	local g=c:GetMaterial()
-	if g:IsExists(Card.IsMonster,1,nil) then
-		e:GetLabelObject():SetLabel(1)
-		e:GetLabelObject():SetLabel(1)
-	else
-		e:GetLabelObject():SetLabel(0)
 	end
 end
