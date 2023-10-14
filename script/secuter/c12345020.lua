@@ -41,7 +41,8 @@ function s.distg(e,c)
 	return c:IsAttack(0)
 end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
-	return re:IsActiveType(TYPE_MONSTER) and re:GetHandler():IsAttack(0)
+	local rc=re:GetHandler()
+	return re:IsActiveType(TYPE_MONSTER) and rc:IsAttack(0) and rc:IsCracking()
 end
 function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_CARD,0,id)

@@ -11,9 +11,7 @@
 config/
 *.lflist.conf
 !SecuterTCG.lflist.conf
-!deck/
-*.ydk
-!Armor Magician Magic Tower.ydk
+deck/
 pics/
 puzzles/
 replay/

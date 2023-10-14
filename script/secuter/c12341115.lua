@@ -21,23 +21,22 @@ function s.initial_effect(c)
 	--extra summon
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetType(EFFECT_TYPE_FIELD)
+	e3:SetCategory(CATEGORY_SUMMON)
+	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_FZONE)
-	e3:SetTargetRange(LOCATION_HAND+LOCATION_MZONE,0)
-	e3:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
-	e3:SetTarget(s.sumfilter)
+	e3:SetCountLimit(1,{id,1})
+	e3:SetTarget(s.sumtg)
+	e3:SetOperation(s.sumop)
 	c:RegisterEffect(e3)
 end
+--draw
 function s.cfilter(c)
 	return c:IsRace(RACE_DIVINE) and c:IsLevel(12) and not c:IsPublic()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	if Duel.IsPlayerCanDraw(tp,1) and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
-		local dt=Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)
-		if dt==0 then return end
-		local sg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_HAND,0,nil)
-		if #sg==0 then return end
+	local sg=Duel.GetMatchingGroup(s.cfilter,tp,LOCATION_HAND,0,nil)
+	if #sg>0 and Duel.IsPlayerCanDraw(tp,1) and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		local g=Group.CreateGroup()
 		repeat
 			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
@@ -51,7 +50,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Draw(tp,ct,REASON_EFFECT)
 	end
 end
-
+--chain limit
 function s.chainop(e,tp,eg,ep,ev,re,r,rp)
 	if re:GetHandler():IsRace(RACE_DIVINE) and re:GetHandler():IsLevel(12) then
 		Duel.SetChainLimit(s.chainlm)
@@ -60,7 +59,19 @@ end
 function s.chainlm(e,rp,tp)
 	return tp==rp
 end
-
-function s.sumfilter(e,c)
+--extra summon
+function s.sumfilter(c)
 	return c:IsRace(RACE_DIVINE) and c:IsLevel(12)
+end
+function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_SUMMON,nil,1,0,0)
+end
+function s.sumop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SUMMON)
+	local g=Duel.SelectMatchingCard(tp,s.sumfilter,tp,LOCATION_HAND,0,1,1,nil)
+	local tc=g:GetFirst()
+	if tc then
+		Duel.Summon(tp,tc,true,nil)
+	end
 end
