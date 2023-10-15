@@ -63,7 +63,7 @@ Here is a list of archetypes supported on the server in addition to mine.
 | Archetype/s | Developer | Repository | Preview webite |
 | :-------: | :-------: | ---------- | :----------- |
 | All | Secuter (owner) | [Secuter/SecuterYGOCustomCards](https://github.com/Secuter/SecuterYGOCustomCards) | https://secuter.github.io/SecuterYGOCustomCards-search/ |
-| FNO | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/KSB-Archetypes/ |
+| FNO, Azteca | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/KSB-Archetypes/ |
 
 ### Manual configuration
 * repos
@@ -148,13 +148,11 @@ Unfortunately, decks and replays are not downloaded automatically in Edopro, so 
 
 #### Example decklists
 https://github.com/Secuter/SecuterYGOCustomCards-Decks<br>
-<!---Download the [zip](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/Secuter/SecuterYGOCustomCards-Decks/tree/main/deck).-->
-Download the [zip](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-Decks/main/deck.zip).
+Download the [deck.zip](https://github.com/Secuter/SecuterYGOCustomCards-Decks/releases/latest/download/deck.zip).
 
 #### Example combo replays
 https://github.com/Secuter/SecuterYGOCustomCards-Replays<br>
-Download the [zip](https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-Replays/main/replay.zip).
-<!---Download the [zip](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/Secuter/SecuterYGOCustomCards-Replays/tree/main/replay).-->
+Download the [replay.zip](https://github.com/Secuter/SecuterYGOCustomCards-Replays/releases/latest/download/replay.zip).
 
 ## Custom MSE
 
