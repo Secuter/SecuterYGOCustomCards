@@ -39,7 +39,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --reduce level
 function s.filter(c)
-	return c:IsFaceup() and c:IsRace(RACE_SEASERPENT) and c:IsLevelAbove(2)
+	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_WATER) and c:IsLevelAbove(2)
 end
 function s.lvtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.filter(chkc) end
