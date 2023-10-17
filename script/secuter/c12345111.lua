@@ -31,7 +31,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local sg=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_ONFIELD,1,ct,c)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,sg,#sg,0,0)
 end
-function s.thop(e,tp,eg,ep,ev,re,r,rp)
+function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetTargetCards(e)
 	if #g>0 then
 		Duel.SendtoHand(g,nil,REASON_EFFECT)

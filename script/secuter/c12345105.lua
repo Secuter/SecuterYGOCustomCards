@@ -34,9 +34,9 @@ function s.initial_effect(c)
 	e4:SetDescription(aux.Stringid(id,1))
 	e4:SetCategory(CATEGORY_REMOVE)
 	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
-	e4:SetRange(LOCATION_HAND)
 	e4:SetCode(EVENT_CHAIN_SOLVED)
 	e4:SetProperty(EFFECT_FLAG_DELAY)
+	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1,{id,1})
 	e4:SetCondition(s.rmcon)
 	e4:SetTarget(s.rmtg)
@@ -72,7 +72,7 @@ function s.setop(e,tp,eg,ep,ev,re,r,rp)
 end
 --banish
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_TRAP) and rp==tp 
+	return re:IsHasType(EFFECT_TYPE_ACTIVATE) and re:IsActiveType(TYPE_TRAP) and rp==tp
 end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,1,nil) end

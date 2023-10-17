@@ -16,44 +16,56 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_AETHEROCK}
 --xyz summon
-function s.mfilter(c,e,tp,sc)
-	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
+function s.mfilter(c,e)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsRace(RACE_ROCK)
+        and (c:IsLevel(4) or c:IsRank(4)) and c:IsCanBeEffectTarget(e)
+end
+function s.mfilter4(c,e,tp,sc,pg)
+	--local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
 	return (#pg<=0 or (#pg==1 and pg:IsContains(c))) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
-		and c:IsRace(RACE_ROCK) and c:IsLevel(4) and (not sc or c:IsCanBeXyzMaterial(sc,tp)) and c:IsCanBeEffectTarget(e)
+		and c:IsRace(RACE_ROCK) and (c:IsLevel(4) or c:IsRank(4)) and (not sc or c:IsCanBeXyzMaterial(sc,tp)) and c:IsCanBeEffectTarget(e)
 end
-function s.xyzfilter4(c,e,tp)
-	if c.rum_limit and not c.rum_limit(mc,e) then return false end
-	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil)
-	return c:IsSetCard(SET_AETHEROCK) and c:IsRank(4) and g:GetClassCount(Card.GetCode)>=2
-		and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
+function s.mfilter5(c,e,tp,sc,pg)
+	--local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
+	return (#pg<=0 or (#pg==1 and pg:IsContains(c))) and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
+		and c:IsRace(RACE_ROCK) and c:IsRank(4) and (not sc or c:IsCanBeXyzMaterial(sc,tp)) and c:IsCanBeEffectTarget(e)
 end
-function s.xyzfilter5(c,e,tp)
-	if c.rum_limit and not c.rum_limit(mc,e) then return false end
-	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil)
+function s.xyzfilter4(c,e,tp,mg,pg,chk)
+	if c.rum_limit and not c.rum_limit(mg,e) or Duel.GetLocationCountFromEx(tp,tp,mg,c)<=0 then return false end
+	local g=chk
+        and Duel.GetMatchingGroup(s.mfilter4,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil,pg)
+        or Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter4),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil,pg)
+	return c:IsSetCard(SET_AETHEROCK) and c:IsRank(4) and g:GetClassCount(Card.GetCode)>=3
+		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
+end
+function s.xyzfilter5(c,e,tp,mg,pg,chk)
+	if c.rum_limit and not c.rum_limit(mg,e) or Duel.GetLocationCountFromEx(tp,tp,mg,c)<=0 then return false end
+	local g=chk
+        and Duel.GetMatchingGroup(s.mfilter5,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil,pg)
+        or Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter5),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil,pg)
 	return c:IsSetCard(SET_AETHEROCK) and c:IsRank(5) and g:GetClassCount(Card.GetCode)>=3
-		and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
+		and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.check(sg,e,tp,mg)
+    local c=e:GetHandler()
+	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
 	return sg:GetClassCount(Card.GetCode)==#sg
+        and (Duel.IsExistingMatchingCard(s.xyzfilter4,tp,LOCATION_EXTRA,0,1,nil,e,tp,sg,pg,true)
+        or (#sg:Filter(Card.IsType,nil,TYPE_XYZ)==3 and Duel.IsExistingMatchingCard(s.xyzfilter5,tp,LOCATION_EXTRA,0,1,nil,e,tp,sg,pg,true)))
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_MZONE) and s.mfilter(chkc,e,tp) end
-	local min=3
-	local max=2
-	if Duel.IsExistingMatchingCard(s.xyzfilter4,tp,LOCATION_EXTRA,0,1,nil,e,tp) then min=2 end
-	if Duel.IsExistingMatchingCard(s.xyzfilter5,tp,LOCATION_EXTRA,0,1,nil,e,tp) then max=3 end
-	local g=Duel.GetMatchingGroup(aux.NecroValleyFilter(s.mfilter),tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e,tp,nil)
-	if chk==0 then return min < max and g:GetClassCount(Card.GetCode)>=min end
+    local g=Duel.GetMatchingGroup(s.mfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,nil,e)
+	if chk==0 then return aux.SelectUnselectGroup(g,e,tp,3,3,s.check,0,tp,HINTMSG_XMATERIAL) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
-	local sg=aux.SelectUnselectGroup(g,e,tp,min,max,s.check,1,tp,HINTMSG_XMATERIAL)
+	local sg=aux.SelectUnselectGroup(g,e,tp,3,3,s.check,1,tp,HINTMSG_XMATERIAL)
 	Duel.SetTargetCard(sg)
-	e:SetLabel(#sg)
+	e:SetLabel(#sg:Filter(Card.IsType,nil,TYPE_XYZ))
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 	Duel.SetOperationInfo(0,CATEGORY_LEAVE_GRAVE,sg,#sg,0,0)
 end
-function s.xyzfilter(c,e,tp,count)
-	if c.rum_limit and not c.rum_limit(mc,e) then return false end
-	return c:IsSetCard(SET_AETHEROCK) and (c:IsRank(4) or (count==3 and c:IsRank(5))) and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
+function s.xyzfilter(c,e,tp,ct)
+	return c:IsSetCard(SET_AETHEROCK) and (c:IsRank(4) or (ct==3 and c:IsRank(5)))
+        and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
 function s.groupcontains(sg,g)
 	local tc=g:GetFirst()
@@ -69,7 +81,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local pg=aux.GetMustBeMaterialGroup(tp,sg,tp,nil,nil,REASON_XYZ)
 	if #tg>0 and (#pg==0 or s.groupcontains(pg,tg)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-		local sg=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.xyzfilter),tp,LOCATION_EXTRA,0,1,1,nil,e,tp,e:GetLabel())
+		local sg=Duel.SelectMatchingCard(tp,s.xyzfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,e:GetLabel())
 		local sc=sg:GetFirst()
 		if sc then
 			sc:SetMaterial(tg)

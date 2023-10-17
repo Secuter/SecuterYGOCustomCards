@@ -20,36 +20,23 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(100)
 	if chk==0 then return true end
 end
-function s.spcheck(sg,tp,exg,dg)
-	local a=0
-	for c in aux.Next(sg) do
-		if dg:IsContains(c) then a=a+1 end
-		for tc in aux.Next(c:GetEquipGroup()) do
-			if dg:IsContains(tc) then a=a+1 end
-		end
-	end
-	return #dg-a>0
-end
 function s.cfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WIND) and c:IsType(TYPE_LINK)
 end
-function s.thfilter(c)
-	return c:IsCanBeEffectTarget() and c:IsAbleToHand()
-end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return false end
-	local dg=Duel.GetMatchingGroup(s.thfilter,tp,0,LOCATION_ONFIELD,nil,e)
+	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and chkc:IsAbleToHand() end
 	if chk==0 then
-		if e:GetLabel()~=100 then return false end
+		if e:GetLabel()==0 then return false end
 		e:SetLabel(0)
-		return Duel.CheckReleaseGroupCost(tp,s.cfilter,1,false,s.spcheck,nil,dg)
+		return Duel.CheckReleaseGroup(tp,s.cfilter,1,nil) and
+		       Duel.IsExistingTarget(Card.IsAbleToHand,tp,0,LOCATION_ONFIELD,1,nil)
 	end
-	local sg=Duel.SelectReleaseGroupCost(tp,s.cfilter,1,1,false,s.spcheck,nil,dg)
-	local lnk=sg:GetFirst():GetLink()
+	local sg=Duel.SelectReleaseGroupCost(tp,s.cfilter,1,1,false,nil,nil)
+	local ct=sg:GetFirst():GetLink()
 	Duel.Release(sg,REASON_COST)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-	local dg=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_ONFIELD,1,lnk,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,dg,#dg,tp,0)
+	local tg=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_ONFIELD,1,ct,nil)
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,tg,#tg,tp,0)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetTargetCards(e)
