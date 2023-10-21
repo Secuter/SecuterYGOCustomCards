@@ -45,8 +45,11 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_series={SET_MORHAI}
+function s.cfilter(c,tp)
+    return c:IsControler(tp) and c:IsReason(REASON_COST)
+end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(Card.IsControler,1,nil,tp)
+	return eg:IsExists(s.cfilter,1,nil,tp)
         and re and re:IsActivated() and re:GetHandler():IsSetCard(SET_MORHAI)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)

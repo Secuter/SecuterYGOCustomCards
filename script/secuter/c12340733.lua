@@ -28,13 +28,14 @@ function s.initial_effect(c)
     e4:SetCode(EVENT_TO_GRAVE)
 	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
 	e4:SetCountLimit(1,{id,1})
-    e4:SetCondition(s.thcon2)
-    e4:SetTarget(s.thtg2)
-    e4:SetOperation(s.thop2)
+    e4:SetCondition(s.tgcon)
+    e4:SetTarget(s.tgtg)
+    e4:SetOperation(s.tgop)
     c:RegisterEffect(e4)
 end
 s.listed_names={id}
 s.listed_series={SET_MORHAI}
+--search
 function s.thfilter(c)
 	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end
@@ -50,20 +51,20 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ConfirmCards(1-tp,g)
 	end
 end
-
-function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
+--to grave
+function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsReason(REASON_COST) and re and re:IsActivated() and re:GetHandler():IsSetCard(SET_MORHAI)
 end
-function s.thfilter2(c)
+function s.tgfilter(c)
 	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
 end
-function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end
+function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
 end
-function s.thop2(e,tp,eg,ep,ev,re,r,rp)
+function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectMatchingCard(tp,s.thfilter2,tp,LOCATION_DECK,0,1,1,nil)
+	local g=Duel.SelectMatchingCard(tp,s.tgfilter,tp,LOCATION_DECK,0,1,1,nil)
 	if #g>0 then
 		Duel.SendtoGrave(g,REASON_EFFECT)
 	end

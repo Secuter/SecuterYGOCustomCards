@@ -97,7 +97,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_HAND,0,1,nil,e,tp)
