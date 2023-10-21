@@ -54,7 +54,6 @@ function s.tfilter(c,tp)
 end
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
 	local ec=eg:GetFirst()
-	Debug.Message(ec:GetMaterialCount())
 	return ec:IsPreviousControler(tp) and ec:IsSummonType(SUMMON_TYPE_TRIBUTE)
 		and ec:GetMaterial():IsExists(Card.IsMonster,1,nil)
 end

@@ -154,10 +154,10 @@ end
 
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	Debug.Message(c:GetCode().." leave field : GetSummonType="..tostring(e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING)..
-				  " IsReason="..tostring(c:IsReason(REASON_EFFECT)).." rp="..rp.." tp="..tp.." IsPreviousControler="..tostring(c:IsPreviousControler(tp))..
-				  " IsPreviousPosition="..tostring(c:IsPreviousPosition(POS_FACEUP))
-				 )
+	--Debug.Message(c:GetCode().." leave field : GetSummonType="..tostring(e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING)..
+	--			  " IsReason="..tostring(c:IsReason(REASON_EFFECT)).." rp="..rp.." tp="..tp.." IsPreviousControler="..tostring(c:IsPreviousControler(tp))..
+	--			  " IsPreviousPosition="..tostring(c:IsPreviousPosition(POS_FACEUP))
+	--			 )
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
 		and c:IsReason(REASON_EFFECT) and rp~=tp and c:IsPreviousControler(tp)
 		and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP)
