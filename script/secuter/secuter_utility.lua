@@ -13,6 +13,7 @@ if not REVERSE_XYZ_IMPORTED then Duel.LoadScript("proc_reverse_xyz.lua") end
 if not RUNIC_IMPORTED then Duel.LoadScript("proc_runic.lua") end
 if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 if not SYNCHRO_EXTRA_MATERIAL_IMPORTED then Duel.LoadScript("proc_synchro_extra_material.lua") end
+if not UNION_EXTRA_IMPORTED then Duel.LoadScript("proc_union_extra.lua") end
 
 function Auxiliary.GetZonesCount(zones)
     local ct=0
