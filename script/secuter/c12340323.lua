@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	e2:SetCost(s.cost)
 	e2:SetTarget(s.target)
 	e2:SetOperation(s.operation)
-	c:RegisterEffect(e2)
+	c:RegisterEffect(e2,false,REGISTER_FLAG_DETACH_XMAT)
 end
 function s.rifilter(c)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsType(TYPE_RITUAL)

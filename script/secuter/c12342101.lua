@@ -5,25 +5,38 @@ local s,id=GetID()
 s.Reunion=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
-	Reunion.AddProcedure(c,s.reunionfilter,2,99,true)
-	--summon
+	Reunion.AddProcedure(c,s.reunionfilter,2,99,nil,true)
+	--disable
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
-	e1:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY+EFFECT_FLAG_PLAYER_TARGET)
-	e1:SetCode(EVENT_LEAVE_FIELD)
-	e1:SetCondition(s.condition)
-	e1:SetTarget(s.target)
-	e1:SetOperation(s.operation)
+	e1:SetType(EFFECT_TYPE_FIELD)
+	e1:SetCode(EFFECT_DISABLE)
+	e1:SetRange(LOCATION_MZONE)
+	e1:SetTargetRange(LOCATION_MZONE,LOCATION_MZONE)
+	e1:SetTarget(s.disable)
 	c:RegisterEffect(e1)
+	--summon
+	local e2=Effect.CreateEffect(c)
+	e2:SetDescription(aux.Stringid(id,0))
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_F)
+	e2:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY+EFFECT_FLAG_PLAYER_TARGET)
+	e2:SetCode(EVENT_LEAVE_FIELD)
+	e2:SetCondition(s.condition)
+	e2:SetTarget(s.target)
+	e2:SetOperation(s.operation)
+	c:RegisterEffect(e2)
 end
 s.listed_names={24104865}
-
+--material
 function s.reunionfilter(c,sc)
-    return c:GetCounter(0x100e)>0 or (c:IsSetCard(SET_ALIEN) and c:IsControler(sc:GetControler()))
+    return c:GetCounter(COUNTER_A)>0 or (c:IsSetCard(SET_ALIEN) and c:IsControler(sc:GetControler()))
 end
-
+--disable
+function s.disable(e,c)
+	return (c:IsType(TYPE_EFFECT) or (c:GetOriginalType()&TYPE_EFFECT)==TYPE_EFFECT)
+        and c:GetCounter(COUNTER_A)>0 and not c:IsSetCard(SET_ALIEN)
+end
+--spsummon
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	return (c:IsReason(REASON_BATTLE) or (c:GetReasonPlayer()~=tp and c:IsReason(REASON_EFFECT)))

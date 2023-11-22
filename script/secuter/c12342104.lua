@@ -11,33 +11,30 @@ function s.initial_effect(c)
 	e2:SetCategory(CATEGORY_TOGRAVE+CATEGORY_SPECIAL_SUMMON)
 	e2:SetType(EFFECT_TYPE_IGNITION)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,id)
 	e2:SetTarget(s.tgtg)
 	e2:SetOperation(s.tgop)
 	c:RegisterEffect(e2)
 end
 
-function s.filter(c,e)
-	return c:IsSetCard(SET_DESTINY_HERO) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
-        and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_GRAVE,0,1,nil,e,c:GetOwner(),c:GetLevel())
+function s.spfilter(c,e,tp,lv,cid)
+	return c:IsLevel(lv) and c:IsSetCard(SET_DESTINY_HERO) and not c:IsCode(cid) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
-function s.spfilter(c,e,tp,lv)
-	return c:IsLevel(lv) and c:IsSetCard(SET_DESTINY_HERO) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+function s.tgfilter(c,e,tp)
+	return c:IsSetCard(SET_DESTINY_HERO) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+        and Duel.IsExistingMatchingCard(s.spfilter,e:GetHandlerPlayer(),LOCATION_GRAVE,0,1,nil,e,tp,c:GetLevel(),c:GetCode())
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil,e)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil,e,tp)
         and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end
-	local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_DECK,0,1,1,nil,e)
-	local tc=g:GetFirst()
-	if tc and Duel.SendtoGrave(tc,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_GRAVE) then
-		local lv=tc:GetLevel()
-        local tg=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,lv)
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,g,1,0,0)
-    end
+        Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,tp,LOCATION_DECK)
+        Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_GRAVE)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
-	end
+	local g=Duel.SelectMatchingCard(tp,s.tgfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
+	local tc=g:GetFirst()
+	if tc and Duel.SendtoGrave(tc,REASON_EFFECT)~=0 and tc:IsLocation(LOCATION_GRAVE) then
+        local tg=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_GRAVE,0,1,1,nil,e,tp,tc:GetLevel(),tc:GetCode())
+		Duel.SpecialSummon(tg,0,tp,tp,false,false,POS_FACEUP)
+    end
 end

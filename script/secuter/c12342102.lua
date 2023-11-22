@@ -26,8 +26,8 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={70095154}
-function s.efilter(c,sc,sumtype,tp)
-	return c:IsType(TYPE_FUSION,sc,sumtype,tp) and aux.IsMaterialListCode(c,70095154)
+function s.matfilter(c,sc,sumtype,tp)
+	return c:IsType(TYPE_FUSION,sc,sumtype,tp) and c:ListsCodeAsMaterial(70095154)
 end
 
 function s.tdcon(e,c)
