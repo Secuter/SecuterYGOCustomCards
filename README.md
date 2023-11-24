@@ -207,8 +207,8 @@ There is additional settings in the editor:
 
 #### Autoreplace
 
-| Source | Destination | Where |
-| :---   | :---        | :---  |
+| Keyword | Raplace | Where |
+| :---    | :---    | :---  |
 | ~/cardname/CARDNAME | The card name | Card text |
 | cardsname/CARDSNAME | The card name with (s) | Card text |
 | @/setname/SETNAME | The 'Name' from set information | Card text |
@@ -219,12 +219,18 @@ There is additional settings in the editor:
 | title2name/TITLE2NAME | The set's 'Name2' without quotes | Card name |
 | title3name/TITLE3NAME | The set's 'Name3' without quotes | Card name |
 | OPT | 'You can only use this effect of CARDNAME once per turn.' | Card text |
+| 2OPT | 'You can only use this effect of CARDNAME up to twice per turn.' | Card text |
+| 3OPT | 'You can only use this effect of CARDNAME up to thrice per turn.' | Card text |
 | EOPT | 'You can only use each effect of CARDNAME once per turn.' | Card text |
 | AOPT | 'You can only activate 1 CARDNAME per turn.' | Card text |
 | HOPT | 'You can only use 1 CARDNAME effect per turn, and only once that turn.' | Card text |
 | SPOPT | 'You can only Special Summon CARDNAME once per turn this way.' | Card text |
 | FOPT | 'You can only use each of the following effects of CARDNAME once per turn.' | Card text |
 | HFOPT | 'You can only use 1 of the following effects of CARDNAME per turn, and only once that turn.' | Card text |
+| SPL | 'you cannot Special Summon monsters for the rest of this turn, except XXX monsters.' | Card text |
+| SPEXL | 'you cannot Special Summon monsters from the Extra Deck for the rest of this turn, except XXX monsters.' | Card text |
+| ASPL | 'You cannot Special Summon monsters the turn you activate this card, except XXX monsters.' | Card text |
+| ASPEXL | 'You cannot Special Summon monsters from the Extra Deck the turn you activate this card, except XXX monsters.' | Card text |
 | % | Continuous S/T icon | Level |
 | ! | Counter T icon | Level |
 | + | Equip S icon | Level |
