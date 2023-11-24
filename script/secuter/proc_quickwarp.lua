@@ -1,6 +1,6 @@
 REASON_QUICKWARP        = 0x80000000
 SUMMON_TYPE_QUICKWARP   = 0x160
-QUICKWARP_LIMIT         = 12340000
+QUICKWARP_LIMIT         = 12345700
 QUICKWARP_IMPORTED      = true
 
 --[[
@@ -69,6 +69,8 @@ function Quickwarp.Condition(id,ct)
         if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 		local tp=c:GetControler()
 
+        -- Check if already Quickwarp Summoned this turn
+        if Duel.GetFlagEffect(tp,QUICKWARP_LIMIT)>0 then return false end
         -- Check if the counter is triggered and if it's in the same chain
         return Duel.GetFlagEffect(tp,id)>=ct and (Duel.GetFlagEffect(tp,id+1)>0 or Duel.GetFlagEffect(tp,id+2)==0)
     end
@@ -93,7 +95,9 @@ end
 function Quickwarp.Operation(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) then
-		Duel.SpecialSummon(c,SUMMON_TYPE_QUICKWARP,tp,tp,false,false,POS_FACEUP)
-		c:CompleteProcedure()
+		if Duel.SpecialSummon(c,SUMMON_TYPE_QUICKWARP,tp,tp,false,false,POS_FACEUP)>0 then
+            Duel.RegisterFlagEffect(tp,QUICKWARP_LIMIT,RESET_PHASE|PHASE_END,0,1)
+		    c:CompleteProcedure()
+        end
 	end
 end
