@@ -4,7 +4,7 @@ HINTMSG_IMATERIAL	 = 601
 IGNITION_IMPORTED    = true
 
 --[[
-add at the start of the script to add Ingition procedure
+add at the start of the script to add Ignition procedure
 condition if Ignition summoned
     return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
 ]]
@@ -69,6 +69,7 @@ end
 function Ignition.Condition(f1,f2,min,max)
 	return	function(e,c)
 				if c==nil then return true end
+				if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 				local tp=c:GetControler()
                 
                 if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,1,nil,f1,c,tp)
