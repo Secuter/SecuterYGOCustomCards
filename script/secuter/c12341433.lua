@@ -61,15 +61,15 @@ function s.filter(c)
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if not c:IsRelateToEffect(e) then return end
     if Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsCode,12341414),tp,LOCATION_ONFIELD,0,1,nil) then
         Duel.DiscardDeck(tp,10,REASON_EFFECT)
     else
         Duel.DiscardDeck(tp,5,REASON_EFFECT)
     end
+	if not c:IsRelateToEffect(e) then return end
 	local dg=Duel.GetOperatedGroup()
 	local ct=dg:FilterCount(s.filter,nil)
-	if ct>0 then        
+	if ct>0 then
         local e1=Effect.CreateEffect(c)
         e1:SetType(EFFECT_TYPE_SINGLE)
         e1:SetCode(EFFECT_UPDATE_ATTACK)
