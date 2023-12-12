@@ -1,6 +1,7 @@
 REASON_QUICKWARP        = 0x80000000
 SUMMON_TYPE_QUICKWARP   = 0x160
 QUICKWARP_LIMIT         = 12345700
+QUICKWARP_CHAIN         = 12345799
 QUICKWARP_IMPORTED      = true
 
 --[[
@@ -18,24 +19,24 @@ if not Quickwarp then
 	Quickwarp = aux.QuickwarpProcedure
 end
 
--- utility functions
+-- check if it's Quickwarp
 function Card.IsQuickwarp(c)
 	return c.Quickwarp
 end
 
 --Quickwarp Summon
-function Quickwarp.AddProcedure(c,s,id,ct,ev,op)
+function Quickwarp.AddProcedure(c,s,id,ct,ev,f)
 	if c.quickwarp_type==nil then
 		local mt=c:GetMetatable()
 		mt.quickwarp_type=1
-		mt.quickwarp_parameters={c,s,id,ct,ev,op}
+		mt.quickwarp_parameters={c,s,id,ct,ev,f}
 	end
     --spsummon
 	local e1=Effect.CreateEffect(c)
 	e1:SetCategory(CATEGORY_SPECIAL_SUMMON)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
-	--e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
+	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
 	e1:SetRange(LOCATION_EXTRA)
     e1:SetCost(Quickwarp.Cost)
 	e1:SetCondition(Quickwarp.Condition(id,ct))
@@ -47,7 +48,7 @@ function Quickwarp.AddProcedure(c,s,id,ct,ev,op)
 		local ge1=Effect.CreateEffect(c)
 		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 		ge1:SetCode(ev)
-		ge1:SetOperation(op)
+		ge1:SetOperation(Quickwarp.Check(id,f))
 		Duel.RegisterEffect(ge1,0)
 	end)
 	--remove fusion type
@@ -59,8 +60,19 @@ function Quickwarp.AddProcedure(c,s,id,ct,ev,op)
 	e0:SetValue(TYPE_FUSION)
 	c:RegisterEffect(e0)
 end
-function Quickwarp.Cost(self)
-    return true
+function Quickwarp.Cost(e,tp,eg,ep,ev,re,r,rp,chk)
+    if chk then return Duel.GetFlagEffect(e:GetHandlerPlayer(),QUICKWARP_LIMIT)==0 end
+    Duel.RegisterFlagEffect(e:GetHandlerPlayer(),QUICKWARP_LIMIT,RESET_CHAIN,0,1)
+end
+function Quickwarp.Check(id,f)
+    return function (e,tp,eg,ep,ev,re,r,rp)
+        local tc=eg:GetFirst()
+        for tc in aux.Next(eg) do
+            if f and f(tc,e,tp,eg,ep,ev,re,r,rp) then
+                Duel.RegisterFlagEffect(tc:GetControler(),id,RESET_PHASE|PHASE_END,0,1)
+            end
+        end
+    end
 end
 function Quickwarp.Condition(id,ct)
 	return	function(e,tp,eg,ep,ev,re,r,rp)
