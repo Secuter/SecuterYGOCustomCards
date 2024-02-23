@@ -1,4 +1,4 @@
---Rascal Ace Controller
+--Rascal Ace Controler
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()

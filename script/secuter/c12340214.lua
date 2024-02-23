@@ -46,7 +46,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=g:GetFirst()
 	while tc do
         if Duel.SpecialSummonStep(tc,0,tp,tp,true,true,POS_FACEUP) then
-            tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
+            tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
             Duel.SpecialSummonComplete()
             tc=g:GetNext()
 		end

@@ -25,7 +25,8 @@ function s.spfilter(c,e,tp)
 end
 function s.cfilter(c,e,tp)
 	return ((c:IsSetCard(SET_LV) and c:IsMonster() and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil))
-			or (c:IsSetCard(SET_FLUIDSPHERE) and c:IsSpellTrap() and c:IsType(TYPE_CONTINUOUS) and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp))
+			or (c:IsSetCard(SET_FLUIDSPHERE) and c:IsSpellTrap() and c:IsType(TYPE_CONTINUOUS)
+                and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp))
 		) and not c:IsPublic()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -38,8 +39,6 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.ShuffleHand(tp)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	local b1=Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
-	local b2=Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_HAND,0,1,nil,e,tp)
 	if chk==0 then return true end
 	local ctype=Duel.GetFirstTarget():GetType()
 	if ctype&TYPE_MONSTER>0 then
@@ -72,15 +71,17 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
+    if Duel.GetLocationCount(tp,LOCATION_MZONE)<1 then return end
 	local c=e:GetHandler()
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	if #g>0 and Duel.SpecialSummonStep(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
-		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
+		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
 		Duel.SpecialSummonComplete()
 		--spsummon itself
 		local tc=Duel.GetFirstTarget()
-		if tc:IsDiscardable(REASON_EFFECT) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
+		if tc:IsDiscardable(REASON_EFFECT) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+        and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 			Duel.BreakEffect()
 			if Duel.SendtoGrave(tc,REASON_EFFECT+REASON_DISCARD)>0 then
 				Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)

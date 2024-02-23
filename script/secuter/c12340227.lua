@@ -32,7 +32,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_FLUID}
 function s.mfilter(c,lc,sumtype,tp)
-	return c:IsSetCard(SET_FLUID,lc,sumtype,tp) and c:IsLevelBelow(4)
+	return c:IsSetCard(SET_FLUID,lc,sumtype,tp) and c:IsSetCard(SET_LV,lc,sumtype,tp)
 end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
@@ -88,7 +88,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp)
 	local tc=g:GetFirst()
 	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE) then
-        tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
+        tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
         Duel.SpecialSummonComplete()
 	end
 end

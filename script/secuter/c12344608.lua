@@ -6,7 +6,7 @@ s.Reunion=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--reunion summon
-	Reunion.AddProcedure(c,s.mfilter,2,99,nil,nil,LOCATION_MZONE+LOCATION_GRAVE,REUNION_MAT_REMOVE,LOCATION_GRAVE,true,s.ifilter)
+	Reunion.AddProcedure(c,s.mfilter,2,99,nil,nil,LOCATION_MZONE+LOCATION_GRAVE,MATERIAL_REMOVE,LOCATION_GRAVE,true,s.ifilter)
 	--destroy mon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))

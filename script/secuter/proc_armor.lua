@@ -1,20 +1,7 @@
 ARMOR_IMPORTED			= true
-CATEGORY_ATTACH_ARMOR	= 0x20000000
-REASON_ARMORIZING		= 0x40000000
-SUMMON_TYPE_ARMORIZING	= 0x40
-EFFECT_FLAG2_ARMOR		= 0x20000000
-HINTMSG_AMATERIAL       = 602
-HINTMSG_REMOVEARMOR     = 603
-HINTMSG_REMOVEARMORFROM = 604
-HINTMSG_ARMORTARGET     = 605
-HINTMSG_ATTACHARMOR     = 606
-EVENT_ATTACH_ARMOR		= 1300
-EFFECT_ARMORATK_UPD		= 12349901
-EFFECT_ARMORATK_REP		= 12349902
-EFFECT_ARMORDEF_UPD		= 12349903
-EFFECT_ARMORDEF_REP		= 12349904
-armor_log_only_once		= true
-attach_log_only_once	= true
+
+local armor_log_only_once = true
+local attach_log_only_once= true
 
 --[[
 Add this at the start of the card script to add Armor/Armorizing procedure and constants
@@ -160,7 +147,7 @@ end
 function Armor.Target(opp)
 	return function(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		local oppzone = opp and LOCATION_MZONE or 0
-		if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and (opp or chkc:IsController(tp)) and Armor.Filter(chkc,e,tp) end
+		if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsFaceup() and (opp or chkc:IsControler(tp)) and Armor.Filter(chkc,e,tp) end
 		if chk==0 then return Duel.IsExistingTarget(Armor.Filter,tp,LOCATION_MZONE,oppzone,1,nil,e,tp) end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ARMORTARGET)
 		local g=Duel.SelectTarget(tp,Armor.Filter,tp,LOCATION_MZONE,oppzone,1,1,nil,e,tp)

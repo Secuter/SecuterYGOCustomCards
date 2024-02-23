@@ -9,7 +9,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function s.matfilter(c)
-	return c:IsType(TYPE_NORMAL) and c:IsAbleToGrave()
+	return not c:IsType(TYPE_EFFECT) and c:IsAbleToGrave()
 end
 function s.fextra(e,tp,mg)
 	return Duel.GetMatchingGroup(Fusion.IsMonsterFilter(s.matfilter),tp,LOCATION_DECK,0,nil)
