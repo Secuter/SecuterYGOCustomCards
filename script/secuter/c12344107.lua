@@ -65,7 +65,7 @@ end
 --set
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.filter(c)
 	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_QUICKPLAY+TYPE_TRAP) and c:IsSSetable()

@@ -68,7 +68,7 @@ function s.valcheck(e,c)
 	e:SetLabel(atk)
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -103,7 +103,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 --set
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.setfilter(c)
 	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()

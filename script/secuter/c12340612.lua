@@ -102,7 +102,7 @@ end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return rp~=tp and c:IsPreviousControler(tp) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+	return rp~=tp and c:IsPreviousControler(tp) and c:IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.thfilter(c)
 	return c:IsSetCard(SET_ANUAK) and c:IsAbleToHand() and c:GetCode()~=id

@@ -53,7 +53,7 @@ end
 
 --to grave + destroy
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.tgfilter(c,e,tp)
     return c:IsLevel(9) and c:IsSetCard(SET_DARK_KING_SERVANT) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)

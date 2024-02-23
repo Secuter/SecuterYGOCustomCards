@@ -40,7 +40,7 @@ function s.check(c,e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 	    or e:GetHandler():GetFlagEffect(id)~=0
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

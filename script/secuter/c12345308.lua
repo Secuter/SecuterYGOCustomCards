@@ -45,7 +45,7 @@ function s.matfilter(c,lc,sumtype,tp)
 end
 --set
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.setfilter(c)
 	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsSpellTrap() and not c:IsType(TYPE_FIELD) and c:IsSSetable() and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))

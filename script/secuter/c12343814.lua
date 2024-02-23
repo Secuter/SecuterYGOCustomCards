@@ -80,7 +80,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --attach
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.atfilter(c,sc)
 	return c:IsSetCard(SET_CREARMOR) and Armor.AttachCheck(c,sc)

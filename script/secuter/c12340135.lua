@@ -77,7 +77,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search #
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
 end
 function s.thfilter2(c)
 	return c:IsSetCard(SET_FUSION) and c:IsType(TYPE_SPELL) and c:IsAbleToHand()

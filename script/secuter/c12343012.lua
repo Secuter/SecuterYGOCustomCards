@@ -33,7 +33,7 @@ s.listed_names={id}
 s.listed_series={SET_HAILSHIFT}
 --disable
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) and chkc:IsNegatable() end

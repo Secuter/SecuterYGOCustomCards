@@ -57,7 +57,7 @@ end
 --send to gy
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.tgfilter(c)
 	return c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsAbleToGrave()

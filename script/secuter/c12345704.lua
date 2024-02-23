@@ -40,7 +40,7 @@ function s.check(c,e,tp,eg,ep,ev,re,r,rp)
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.thfilter(c,e,tp)
 	return c:IsSetCard(SET_EAGLE_OVERSEER) and c:IsSpellTrap() and c:IsAbleToHand()

@@ -69,7 +69,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 --to deck
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

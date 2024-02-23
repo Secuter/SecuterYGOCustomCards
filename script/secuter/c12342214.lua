@@ -156,7 +156,7 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return eg:GetFirst():GetSummonPlayer()==tp and eg:GetFirst():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return eg:GetFirst():GetSummonPlayer()==tp and eg:GetFirst():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.thfilter2(c)
 	return c:IsSetCard(SET_BULWARK_CHAMPION) and not c:IsCode(id) and c:IsAbleToHand()

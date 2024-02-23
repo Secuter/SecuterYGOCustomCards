@@ -60,7 +60,7 @@ end
 --equip
 function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.eqfilter(c,ec)
 	return c:IsType(TYPE_EQUIP) and c:IsSetCard(SET_AMORPHIEND) and c:CheckEquipTarget(ec)

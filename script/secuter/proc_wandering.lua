@@ -9,7 +9,7 @@ end
 --[[
 Add at the start of the script to add Wandering Procedure.
 Condition if Wandering Summoned:
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 ]]
 
 if not aux.WanderingProcedure then

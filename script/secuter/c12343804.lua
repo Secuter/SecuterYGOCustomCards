@@ -60,7 +60,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)

@@ -51,7 +51,7 @@ s.summoned_ids[1]={}
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
     local cid=c:GetCode()
     local cp=c:GetControler()
-    if c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING and c:IsControler(re:GetHandlerPlayer()) and cid and not s.summoned_ids[cp][cid] then
+    if c:IsSummonType(SUMMON_TYPE_WANDERING) and c:IsControler(re:GetHandlerPlayer()) and cid and not s.summoned_ids[cp][cid] then
         s.summoned_ids[cp][cid]=1
         return true
     end

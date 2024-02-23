@@ -6,7 +6,7 @@ local attach_log_only_once= true
 --[[
 Add this at the start of the card script to add Armor/Armorizing procedure and constants
 Condition if Armorizing summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 Condition if card is related with an effect triggered by EVENT_ATTACH_ARMOR
 	e:GetHandler():GetFieldID() == ev
 Use RegisterFlagEffect to update/replace the Armor ATK/DEF of a card

@@ -34,7 +34,7 @@ end
 s.listed_names={id}
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) end

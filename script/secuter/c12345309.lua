@@ -47,7 +47,7 @@ function s.matfilter(c,lc,sumtype,tp)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.spfilter(c,e,tp)
 	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsLevelBelow(4) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)

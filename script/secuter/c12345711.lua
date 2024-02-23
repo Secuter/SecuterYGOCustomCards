@@ -48,7 +48,7 @@ end
 
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.tgfilter(c)
 	return c:IsSetCard(SET_MORHAI) and c:IsLevelAbove(7) and c:IsAbleToGraveAsCost()

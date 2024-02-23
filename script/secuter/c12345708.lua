@@ -38,7 +38,7 @@ function s.check(c,e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.thfilter(c)
 	return c:IsType(TYPE_PENDULUM) and c:IsFaceup() and c:IsAbleToHand()

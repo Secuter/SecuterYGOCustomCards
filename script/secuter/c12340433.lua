@@ -64,7 +64,7 @@ function s.immfilter(e,re)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
 end
 function s.spfilter(c,e,tp)
 	return c:IsSetCard(SET_HYDRA) and c:IsRace(RACE_REPTILE)

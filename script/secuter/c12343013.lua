@@ -35,7 +35,7 @@ s.listed_names={id}
 s.listed_series={SET_HAILSHIFT}
 --destroy
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(100)
@@ -67,7 +67,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.filter(c,tp)
-	return c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE and c:IsSummonPlayer(tp)
+	return c:IsSummonType(SUMMON_TYPE_EXCHANGE) and c:IsSummonPlayer(tp)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil,e:GetHandlerPlayer())

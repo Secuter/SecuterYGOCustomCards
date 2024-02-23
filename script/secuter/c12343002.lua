@@ -35,7 +35,7 @@ s.listed_series={SET_EXCHANGE_DAEMON}
 s.listed_names={id}
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 function s.thfilter(c)
 	return c:IsExchange() and c:IsAbleToHand()

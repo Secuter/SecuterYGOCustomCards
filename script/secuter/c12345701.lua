@@ -51,15 +51,15 @@ function s.initial_effect(c)
 end
 --wandering summon
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return c:IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.wcon(c,e,tp,eg,ep,ev,re,r,rp,ct)
-    return ct==10 or ct==11 or ct>=3
+    return ct==10 or ct==11
 end
 
 --banish
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local atk=e:GetHandler():GetAttack()
@@ -112,25 +112,25 @@ end
 
 --excavate
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    Debug.UniqueMessage(tp, "Reunion Cond: "..aux.DecodeReason(r), id)
-	return (r&REASON_REUNION)==REASON_REUNION
+	--return (r&REASON_REUNION)==REASON_REUNION
+    --EVENT_BE_MATERIAL doesn't return custom reason codes
+	return (r&REASON_SPSUMMON)==REASON_SPSUMMON and re:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
-    Debug.UniqueMessage(tp, "Check Deck 1: "..Duel.GetFieldGroupCount(tp,LOCATION_DECK,0), id)
 	if chk==0 then return Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)>=2 end
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
-    Debug.UniqueMessage(tp, "Check Deck 2: "..Duel.GetFieldGroupCount(tp,LOCATION_DECK,0), id)
 	if Duel.GetFieldGroupCount(tp,LOCATION_DECK,0)<2 then return end
 	Duel.ConfirmDecktop(tp,2)
 	local g=Duel.GetDecktopGroup(tp,2)
-	if g:IsExists(Card.IsAbleToHand,1,nil) and Duel.SelectYesNo(tp,aux.Stringid(id,3)) then
+    Duel.DisableShuffleCheck()
+	if g:IsExists(Card.IsAbleToHand,1,nil) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:FilterSelect(tp,Card.IsAbleToHand,1,1,nil)
 		Duel.SendtoHand(sg,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,sg)
 		Duel.ShuffleHand(tp)
 		g:RemoveCard(sg:GetFirst())
-		Duel.SendtoGrave(g,REASON_EFFECT)
 	end
+    Duel.SendtoGrave(g,REASON_EFFECT)
 end

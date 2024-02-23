@@ -33,7 +33,7 @@ function s.initial_effect(c)
 end
 --banish
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.rmfilter(c)
 	return c:IsAbleToRemove() and (c:IsLocation(LOCATION_SZONE) or aux.SpElimFilter(c,true,true))
@@ -94,7 +94,7 @@ function s.atfilter(c,tc)
 end
 function s.arfilter(c,e,tp,sh)
 	return c:IsArmorizing() and c:IsShellBelow(sh) and Duel.GetLocationCountFromEx(tp,tp,nil,c)>0
-        and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING,tp,false,false,POS_FACEUP_DEFENSE)
+        and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_ARMORIZING,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	local c=e:GetHandler()
@@ -112,7 +112,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local g=Duel.SelectMatchingCard(tp,s.arfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,c:GetOverlayCount())
 		if #g>0 then
-			Duel.SpecialSummon(g,SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING,tp,tp,false,false,POS_FACEUP_DEFENSE)
+			Duel.SpecialSummon(g,SUMMON_TYPE_ARMORIZING,tp,tp,false,false,POS_FACEUP_DEFENSE)
 		end
 	end
 end

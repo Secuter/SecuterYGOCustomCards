@@ -40,7 +40,7 @@ end
 s.listed_series={SET_FLUIDSPHERE}
 --ST to field
 function s.tfcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.tffilter(c)
 	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()

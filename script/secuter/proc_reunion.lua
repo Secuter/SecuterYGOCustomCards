@@ -9,7 +9,7 @@ REUNION_TYPES_MAIN		= REUNION_TYPE_CHECK+REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSE
 --[[
 add at the start of the script to add Reunion procedure
 condition if Reunion summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 ]]
 
 if not aux.ReunionProcedure then
@@ -682,7 +682,7 @@ function Reunion.Operation(f,minc,maxc,specialchk,opp,loc,send,locsend,maxsend,i
 					g=g:Filter(Card.IsLocation,nil,locsend)
 					if #g2>0 then Duel.SendtoGrave(g2,REASON_MATERIAL+REASON_REUNION) end
 					g2:DeleteGroup()
-				end					
+				end
 				if send==MATERIAL_TOGRAVE then
 					Duel.SendtoGrave(g,REASON_MATERIAL+REASON_REUNION)
 				elseif send==MATERIAL_REMOVE then

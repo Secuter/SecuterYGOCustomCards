@@ -31,7 +31,7 @@ function s.matfilter(c,sc,sumtype,tp)
 end
 
 function s.tdcon(e,c)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
 end
 function s.tdfilter(c)
 	return c:IsFacedown() and c:IsAbleToDeck()

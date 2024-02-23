@@ -37,7 +37,7 @@ s.listed_series={SET_ANUAK}
 s.material_setcode={SET_ANUAK}
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.thfilter(c)
 	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()

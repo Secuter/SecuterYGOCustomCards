@@ -47,7 +47,7 @@ function s.reunionfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)
 end
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.ctval(e,re,rp)
 	return rp~=e:GetHandlerPlayer()

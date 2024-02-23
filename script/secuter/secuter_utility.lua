@@ -1,10 +1,20 @@
 SECUTER_IMPORTED = true
 
 --[[
+Add this at the start of all cards that use custom functions
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 ]]
 
--- utility functions
+--------------------------------------------
+-- Import constants
+--------------------------------------------
+
+if not SECUTER_CONSTANTS_IMPORTED then Duel.LoadScript("secuter_constants.lua") end
+
+--------------------------------------------
+
+-- Utility functions
+
 function Auxiliary.GetZonesCount(zones)
     local ct=0
     local i=1
@@ -13,6 +23,47 @@ function Auxiliary.GetZonesCount(zones)
         i=i*2
     until i > zones
     return ct
+end
+
+-- Debug functions
+
+local player_log = {}
+function Debug.UniqueMessage(tp, string, id)
+    string = tostring(string)
+    if tp~=nil and not player_log[tp] or player_log[tp]~=string then
+        player_log[tp]=string
+        if id then
+            Debug.Message("tp"..tp.."-"..id..": "..string)
+        else
+            Debug.Message("tp"..tp..": "..string)
+        end
+    end
+end
+
+function Auxiliary.DecToHex(num)
+    local hexstr = '0123456789abcdef'
+    local s = ''
+    while num > 0 do
+        local mod = math.fmod(num, 16)
+        s = string.sub(hexstr, mod+1, mod+1) .. s
+        num = math.floor(num / 16)
+    end
+    if s == '' then s = '0' end
+    return s
+end
+function Auxiliary.Dec2Hex(num)
+    return Auxiliary.DecToHex(num)
+end
+
+function Auxiliary.HexToDec(num)
+    return tonumber("0x"..num)
+end
+function Auxiliary.Hex2Dec(num)
+    return tonumber("0x"..num)
+end
+
+function Auxiliary.GetSubId(id, add)
+    return aux.HexToDec(aux.DecToHex(id)..add)
 end
 
 local TYPES = {}
@@ -49,14 +100,12 @@ TYPES[TYPE_MINUS] = "MINUS"
 TYPES[TYPE_ARMOR] = "ARMOR"
 function Auxiliary.DecodeType(type)
     local out
-    local i=1
-    repeat
-        if i&type==i and TYPES[i] then
+    for i,v in pairs(TYPES) do
+        if i&type==i then
             if out then out = out.."|"..TYPES[i]
             else out = TYPES[i] end
         end
-        i=i*2
-    until i > type
+    end
     return out or "NONE"
 end
 
@@ -70,14 +119,12 @@ ATTRIBUTES[ATTRIBUTE_DARK] = "DARK"
 ATTRIBUTES[ATTRIBUTE_DIVINE] = "DIVINE"
 function Auxiliary.DecodeAttribute(attr)
     local out
-    local i=1
-    repeat
-        if i&attr==i and ATTRIBUTES[i] then
+    for i,v in pairs(ATTRIBUTES) do
+        if i&attr==i then
             if out then out = out.."|"..ATTRIBUTES[i]
             else out = ATTRIBUTES[i] end
         end
-        i=i*2
-    until i > attr
+    end
     return out or "NONE"
 end
 
@@ -117,14 +164,12 @@ RACES[RACE_GALAXY] = "GALAXY"
 RACES[RACE_YOKAI] = "YOKAI"
 function Auxiliary.DecodeRace(race)
     local out
-    local i=1
-    repeat
-        if i&race==i and RACES[i] then
+    for i,v in pairs(RACES) do
+        if i&race==i then
             if out then out = out.."|"..RACES[i]
             else out = RACES[i] end
         end
-        i=i*2
-    until i > race
+    end
     return out or "NONE"
 end
 
@@ -164,14 +209,12 @@ REASONS[REASON_ECHO] = "ECHO"
 REASONS[REASON_WANDERING] = "WANDERING"
 function Auxiliary.DecodeReason(reason)
     local out
-    local i=1
-    repeat
-        if i&reason==i and REASONS[i] then
+    for i,v in pairs(REASONS) do
+        if i&reason==i then
             if out then out = out.."|"..REASONS[i]
             else out = REASONS[i] end
         end
-        i=i*2
-    until i > reason
+    end
     return out or "NONE"
 end
 
@@ -196,61 +239,19 @@ SUMMON_TYPES[SUMMON_TYPE_EXCHANGE] = "EXCHANGE"
 SUMMON_TYPES[SUMMON_TYPE_WANDERING] = "WANDERING"
 function Auxiliary.DecodeSummonType(summon)
     local out
-    local i=1
-    repeat
-        if i&summon==i and SUMMON_TYPES[i] then
+    for i,v in pairs(SUMMON_TYPES) do
+        if i&summon==i then
             if out then out = out.."|"..SUMMON_TYPES[i]
             else out = SUMMON_TYPES[i] end
         end
-        i=i*2
-    until i > summon
+    end
     return out or "NONE"
 end
 
-function Auxiliary.DecToHex(num)
-    local hexstr = '0123456789abcdef'
-    local s = ''
-    while num > 0 do
-        local mod = math.fmod(num, 16)
-        s = string.sub(hexstr, mod+1, mod+1) .. s
-        num = math.floor(num / 16)
-    end
-    if s == '' then s = '0' end
-    return s
-end
-function Auxiliary.Dec2Hex(num)
-    return Auxiliary.DecToHex(num)
-end
-
-function Auxiliary.HexToDec(num)
-    return tonumber("0x"..num)
-end
-function Auxiliary.Hex2Dec(num)
-    return tonumber("0x"..num)
-end
-
-function Auxiliary.GetSubId(id, add)
-    return aux.HexToDec(aux.DecToHex(id)..add)
-end
-
-local player_log = {}
-function Debug.UniqueMessage(tp, string, id)
-    string = tostring(string)
-    if tp~=nil and not player_log[tp] or player_log[tp]~=string then
-        player_log[tp]=string
-        if id then
-            Debug.Message("tp"..tp.."-"..id..": "..string)
-        else
-            Debug.Message("tp"..tp..": "..string)
-        end
-    end
-end
-
 --------------------------------------------
--- import other modules
+-- Import modules
 --------------------------------------------
 
-if not SECUTER_CONSTANTS_IMPORTED then Duel.LoadScript("secuter_constants.lua") end
 if not ECHO_IMPORTED then Duel.LoadScript("proc_echo.lua") end
 if not REUNION_IMPORTED then Duel.LoadScript("proc_reunion.lua") end
 if not ARMOR_IMPORTED then Duel.LoadScript("proc_armor.lua") end
@@ -261,3 +262,5 @@ if not EXCHANGE_IMPORTED then Duel.LoadScript("proc_exchange.lua") end
 if not SYNCHRO_EXTRA_MATERIAL_IMPORTED then Duel.LoadScript("proc_synchro_extra_material.lua") end
 if not UNION_EXTRA_IMPORTED then Duel.LoadScript("proc_union_extra.lua") end
 if not WANDERING_IMPORTED then Duel.LoadScript("proc_wandering.lua") end
+
+--------------------------------------------

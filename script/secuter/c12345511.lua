@@ -30,7 +30,7 @@ s.listed_names={id}
 s.listed_series={SET_ARCAEONIX}
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.spfilter(c,e,tp)
 	return c:IsLevel(1) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)

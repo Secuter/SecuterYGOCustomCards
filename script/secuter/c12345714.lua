@@ -45,7 +45,7 @@ function s.initial_effect(c)
 end
 --draw
 function s.drcfilter(c,tp)
-	return c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_WANDERING and c:IsSummonPlayer(tp)
+	return c:IsSummonType(SUMMON_TYPE_WANDERING) and c:IsSummonPlayer(tp)
 end
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.drcfilter,1,nil,tp)

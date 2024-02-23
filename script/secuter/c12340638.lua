@@ -33,7 +33,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetCountLimit(1,id)
+	e2:SetCountLimit(1,{id,1})
 	e2:SetCondition(s.con)
 	e2:SetTarget(s.tg)
 	e2:SetOperation(s.op)
@@ -52,7 +52,7 @@ end
 
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.spfilter(c,e,tp)
 	return c:IsAttribute(ATTRIBUTE_LIGHT|ATTRIBUTE_DARK) and c:IsSetCard(SET_ANUAK) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
@@ -74,7 +74,9 @@ end
 
 --look deck
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return (r&REASON_REUNION)==REASON_REUNION
+	--return (r&REASON_REUNION)==REASON_REUNION
+    --EVENT_BE_MATERIAL doesn't return custom reason codes
+	return (r&REASON_SPSUMMON)==REASON_SPSUMMON and re:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetFieldGroupCount(1-tp,LOCATION_DECK,0)>=2 end
@@ -85,7 +87,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetDecktopGroup(1-tp,2)
 	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,2))
 	local sg=g:FilterSelect(tp,aux.TRUE,1,1,nil)
-    Duel.SendtoDeck(sg,nil,SEQ_DECKTOP,REASON_EFFECT)
+    Duel.MoveToDeckTop(sg)
 	g:RemoveCard(sg:GetFirst())
-    Duel.SendtoDeck(g,nil,SEQ_DECKBOTTOM,REASON_EFFECT)
+    Duel.MoveToDeckBottom(g)
 end

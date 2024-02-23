@@ -69,7 +69,7 @@ end
 --add or spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-    return c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return c:IsSummonType(SUMMON_TYPE_REUNION)
 	  and c:IsPreviousLocation(LOCATION_MZONE) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,ft,e,tp)

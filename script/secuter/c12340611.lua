@@ -79,7 +79,7 @@ end
 
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return rp~=tp and c:IsPreviousControler(tp) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+	return rp~=tp and c:IsPreviousControler(tp) and c:IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.spfilter(c,e,tp)
 	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
