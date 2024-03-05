@@ -34,7 +34,7 @@ function s.initial_effect(c)
 end
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsControler(re:GetHandlerPlayer())
+    return c:IsControler(rp)
 end
 --to grave
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)

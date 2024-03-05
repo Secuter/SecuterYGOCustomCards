@@ -1,6 +1,7 @@
-WANDERING_IMPORTED      = true
+WANDERING_IMPORTED = true
 
 local DEBUG = true
+local SKIP = false
 local ONLY_ID = nil
 local function Debugging(id)
     return (DEBUG or ONLY_ID) and (not ONLY_ID or ONLY_ID == id)
@@ -33,19 +34,27 @@ end
 -- ct_event: bool, if to count the events instead of the cards
 --    false: count the cards (eg. summon X monsters)
 --    true: count the events (eg. summon a monster(s) X times)
--- cond: function (optional), if set it's used instead of the counter to check if the monster is summonable
+-- cond: function (optional), if set it's used instead of the counter to check if the monster is summonable (counter and requirements are passed to the function)
+-- opp: bool, counts opponent actions
 -- duel: bool, conditions per duel instead of per turn
 -- force: bool, ignore the once Wandering Summon per turn limit
+
 Wandering.AddProcedure = aux.FunctionWithNamedArgs(
-function (c,s,id,ct,ev,f,ct_event,value,cond,duel,force)
+function (c,s,id,ct,ev,f,ct_event,value,cond,opp,duel,force)
+    if SKIP then ct=1 end
 	if c.wandering_type==nil then
 		local mt=c:GetMetatable()
 		mt.wandering_type=1
 		mt.wandering_parameters={c,s,id,ct,ev,f,ct_event,value,cond,duel,force}
 	end
-    local id_limit_chain=aux.GetSubId(id, 0)
-    local id_first_chain=aux.GetSubId(id, 1)
-    local id_limit_count=aux.GetSubId(id, 2)
+    local id_counter=aux.GetSubId(id, 0)
+    local id_limit_chain=aux.GetSubId(id, 1)
+    local id_first_chain=aux.GetSubId(id, 2)
+    local id_limit_count=aux.GetSubId(id, 3)
+    if ev==EVENT_DETACH_MATERIAL then
+        --Enable the material detaching event
+	    Duel.EnableGlobalFlag(GLOBALFLAG_DETACH_EVENT)
+    end
     --spsummon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(1188)
@@ -53,21 +62,36 @@ function (c,s,id,ct,ev,f,ct_event,value,cond,duel,force)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetProperty(EFFECT_FLAG_UNCOPYABLE+EFFECT_FLAG_IGNORE_IMMUNE)
-    e1:SetHintTiming(TIMINGS_CHECK_MONSTER_E)
+    e1:SetHintTiming(TIMINGS_CHECK_MONSTER|TIMING_CHAIN_END)
 	e1:SetRange(LOCATION_EXTRA)
     e1:SetCost(Wandering.Cost)
-	e1:SetCondition(Wandering.Condition(id,ct,cond,force,id_limit_chain,id_first_chain,id_limit_count))
+	e1:SetCondition(Wandering.Condition(id,ct,cond,force,id_counter,id_limit_chain,id_first_chain,id_limit_count))
 	e1:SetTarget(Wandering.Target(id,id_limit_count))
 	e1:SetOperation(Wandering.Operation(id_limit_count))
 	c:RegisterEffect(e1)
     --check
-	aux.GlobalCheck(s,function()
-		local ge1=Effect.CreateEffect(c)
-		ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		ge1:SetCode(ev)
-		ge1:SetOperation(Wandering.Check(id,f,ct_event,value,duel))
-		Duel.RegisterEffect(ge1,0)
-	end)
+    if type(ev)=="table" then
+        --multiple event triggers
+        aux.GlobalCheck(s,function()
+            for _,ev1 in pairs(ev) do
+                if Debugging(id) then Debug.UniqueMessage(c:GetControler(), "GlobalCheck: "..aux.DecodeEvent(ev1)) end
+                local ge1=Effect.CreateEffect(c)
+                ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+                ge1:SetCode(ev1)
+                ge1:SetOperation(Wandering.Check(id,id_counter,f,ct_event,value,opp,duel))
+                Duel.RegisterEffect(ge1,0)
+            end
+        end)
+    else
+        --single event trigger
+        aux.GlobalCheck(s,function()
+            local ge1=Effect.CreateEffect(c)
+            ge1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
+            ge1:SetCode(ev)
+            ge1:SetOperation(Wandering.Check(id,id_counter,f,ct_event,value,opp,duel))
+            Duel.RegisterEffect(ge1,0)
+        end)
+    end
 	--remove fusion type
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)
@@ -76,7 +100,7 @@ function (c,s,id,ct,ev,f,ct_event,value,cond,duel,force)
 	e0:SetRange(LOCATION_ALL)
 	e0:SetValue(TYPE_FUSION)
 	c:RegisterEffect(e0)
-end,"handler","script","id","ct","ev","filter","ct_event","value","cond","duel","force")
+end,"handler","script","id","ct","ev","filter","ct_event","value","cond","opp","duel","force")
 
 function Wandering.Cost(e,tp,eg,ep,ev,re,r,rp,chk)
     if chk then return true end
@@ -87,26 +111,27 @@ function Wandering.Cost(e,tp,eg,ep,ev,re,r,rp,chk)
     --Duel.RegisterFlagEffect(tp,id_limit_count,RESET_CHAIN,0,1)
     Debug.UniqueMessage(tp, "Limit Chain in Cost")
 end
-function Wandering.Check(id,f,ct_event,value,duel)
+function Wandering.Check(id,id_counter,f,ct_event,value,opp,duel)
     return function (e,tp,eg,ep,ev,re,r,rp)
         local t={}
         local tc=eg:GetFirst()
         for tc in aux.Next(eg) do
             if f and f(tc,e,tp,eg,ep,ev,re,r,rp) then
-                local cp=tc:GetControler()
-                if ct_event and t[cp] then
+                local player=tc:GetControler()
+                if opp then player=1-player end
+                if ct_event and t[player] then
                     -- Do nothing if it's counting events and has already triggered for that player
                 else
-                    t[cp]=1
-                    local current=Duel.GetFlagEffectLabel(tp,id) or 0
-                    Duel.ResetFlagEffect(tp,id)
-                    Duel.RegisterFlagEffect(tp,id,not duel and RESET_PHASE|PHASE_END or 0,0,1,current + (value and value(tc,e,tp,eg,ep,ev,re,r,rp) or 1))
+                    t[player]=1
+                    local current=Duel.GetFlagEffectLabel(player,id_counter) or 0
+                    Duel.ResetFlagEffect(player,id_counter)
+                    Duel.RegisterFlagEffect(player,id_counter,not duel and RESET_PHASE|PHASE_END or 0,0,1,current + (value and value(tc,e,player,eg,ep,ev,re,r,rp) or 1))
                 end
             end
         end
     end
 end
-function Wandering.Condition(id,ct,cond,force,id_limit_chain,id_first_chain,id_limit_count)
+function Wandering.Condition(id,ct,cond,force,id_counter,id_limit_chain,id_first_chain,id_limit_count)
 	return	function(e,tp,eg,ep,ev,re,r,rp)
         local c=e:GetHandler()
         if not c then return false end
@@ -121,11 +146,23 @@ function Wandering.Condition(id,ct,cond,force,id_limit_chain,id_first_chain,id_l
         if Duel.IsPlayerAffectedByEffect(tp,EFFECT_WANDERING_SUMMON_TRICE) then max=3 end
         if Duel.IsPlayerAffectedByEffect(tp,EFFECT_WANDERING_SUMMON_UNLIMITED) then max=999 end
 
+        -- Check Wandering requirements reduction effects
+        local req=ct
+        if Duel.IsPlayerAffectedByEffect(tp,EFFECT_WANDERING_REQ_REDUCED_TWICE) then
+            req=math.max(max(1,ct-2))
+            Debug.UniqueMessage(tp, "Wandering cost -2")
+        else
+            if Duel.IsPlayerAffectedByEffect(tp,EFFECT_WANDERING_REQ_REDUCED) then
+                req=math.max(1,ct-1)
+                Debug.UniqueMessage(tp, "Wandering cost -1")
+            end
+        end
+
         -- Logging
-        if Debugging(id) and Duel.GetFlagEffect(tp,id)>0 and Duel.GetFlagEffectLabel(tp,id)>0 then
-            local msg="Limit: "..(force and "none" or tostring(Duel.GetFlagEffect(tp,ID_WANDERING_LIMIT))).." Chain: "..Duel.GetFlagEffect(tp,id_first_chain).."/"..Duel.GetFlagEffect(tp,id_limit_chain).." Count: "..Duel.GetFlagEffectLabel(tp,id)
-            if cond then msg = msg.." Special: "..tostring(cond(c,e,tp,eg,ep,ev,re,r,rp,Duel.GetFlagEffectLabel(tp,id) or 0)) end
-            Debug.UniqueMessage(tp, msg)
+        if Debugging(id) then--and Duel.GetFlagEffect(tp,id_counter)>0 and Duel.GetFlagEffectLabel(tp,id_counter)>0 then
+            local msg="Limit: "..(force and "none" or tostring(Duel.GetFlagEffect(tp,ID_WANDERING_LIMIT))).." Chain: "..tostring(Duel.GetFlagEffect(tp,id_first_chain)).."/"..tostring(Duel.GetFlagEffect(tp,id_limit_chain)).." Count: "..tostring(Duel.GetFlagEffectLabel(tp,id_counter)).."/"..tostring(req)
+            if cond then msg = msg.." Special: "..tostring(cond(c,e,tp,eg,ep,ev,re,r,rp,Duel.GetFlagEffectLabel(tp,id_counter) or 0,req)) end
+            Debug.UniqueMessage(tp, msg, id)
         end
 
         -- Check if already Wandering Summoned this card this turn
@@ -137,10 +174,10 @@ function Wandering.Condition(id,ct,cond,force,id_limit_chain,id_first_chain,id_l
         if Duel.GetFlagEffect(tp,ID_WANDERING_LIMIT)>=max and not force then return false end
         -- Custom function check
         if cond then
-            if not cond(c,e,tp,eg,ep,ev,re,r,rp,Duel.GetFlagEffectLabel(tp,id) or 0) then return false end
+            if not cond(c,e,tp,eg,ep,ev,re,r,rp,Duel.GetFlagEffectLabel(tp,id_counter) or 0,req) then return false end
         else
             -- Standard counter check
-            if not (Duel.GetFlagEffect(tp,id)>0 and Duel.GetFlagEffectLabel(tp,id)>=ct) then return false end
+            if not (Duel.GetFlagEffect(tp,id_counter)>0 and Duel.GetFlagEffectLabel(tp,id_counter)>=req) then return false end
         end
 
         if Duel.GetFlagEffect(tp,id_limit_chain)==0 then
@@ -151,7 +188,7 @@ function Wandering.Condition(id,ct,cond,force,id_limit_chain,id_first_chain,id_l
         end
 
         -- Check if condition was triggered this chain
-        if Debugging(id) then Debug.UniqueMessage(tp, "return "..tostring(Duel.GetFlagEffect(tp,id_first_chain))) end
+        if Debugging(id) then Debug.UniqueMessage(tp, "return "..tostring(Duel.GetFlagEffect(tp,id_first_chain)), id) end
         return Duel.GetFlagEffect(tp,id_first_chain)>0
     end
 end
@@ -160,7 +197,7 @@ function Wandering.Target(id,id_limit_count)
         local c=e:GetHandler()
         if chk==0 then
             if Debugging(id) then
-                Debug.UniqueMessage(tp, "Target check: "..tostring(Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)))
+                Debug.UniqueMessage(tp, "Target check: "..tostring(Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false)), id)
             end
 
             return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 --Duel.GetLocationCountFromEx(tp,tp)>0

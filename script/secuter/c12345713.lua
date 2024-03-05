@@ -6,7 +6,7 @@ s.Wandering=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
-    Wandering.AddProcedure({handler=c,script=s,id=id,ev=EVENT_SPSUMMON_SUCCESS,filter=s.check,cond=s.con,duel=true,force=true})
+    Wandering.AddProcedure({handler=c,script=s,id=id,ct=3,ev=EVENT_SPSUMMON_SUCCESS,filter=s.check,cond=s.con,duel=true,force=true})
 	--Wandering Summon lock
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_FIELD)
@@ -51,19 +51,18 @@ s.summoned_ids[1]={}
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
     local cid=c:GetCode()
     local cp=c:GetControler()
-    if c:IsSummonType(SUMMON_TYPE_WANDERING) and c:IsControler(re:GetHandlerPlayer()) and cid and not s.summoned_ids[cp][cid] then
+    if c:IsSummonType(SUMMON_TYPE_WANDERING) and c:IsControler(rp) and cid and not s.summoned_ids[cp][cid] then
         s.summoned_ids[cp][cid]=1
         return true
     end
     return false
 end
-function s.con(c,e,tp,eg,ep,ev,re,r,rp)
+function s.con(c,e,tp,eg,ep,ev,re,r,rp,_,req)
     local ct=0
     for k,v in next, s.summoned_ids[tp] do
-        Debug.UniqueMessage(tp, tp..": "..k)
         if v then ct=ct+1 end
     end
-    return ct>=3
+    return ct>=req
 end
 --immune
 function s.immval(e,te)
@@ -89,7 +88,7 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
         Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 		local g=Duel.SelectMatchingCard(tp,aux.FaceupFilter(Card.IsAbleToDeck),tp,0,LOCATION_ONFIELD,1,1,nil)
         if #g>0 then
-            Duel.SendtoDeck(tc,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
+            Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_EFFECT)
         end
 	end
 end

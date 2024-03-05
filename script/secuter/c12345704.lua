@@ -36,7 +36,7 @@ end
 s.listed_series={SET_EAGLE_OVERSEER}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsPreviousLocation(LOCATION_ONFIELD|LOCATION_GRAVE) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsPreviousLocation(LOCATION_ONFIELD|LOCATION_GRAVE) and c:IsPreviousControler(re:GetHandlerPlayer())
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

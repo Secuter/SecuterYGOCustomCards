@@ -55,5 +55,5 @@ function s.handfilter(c)
 	return c:IsFacedown() or not c:IsSetCard(SET_FLUID)
 end
 function s.handcon(e)
-	return not Duel.IsExistingMatchingCard(s.handfilter,tp,LOCATION_MZONE,0,1,nil)
+	return not Duel.IsExistingMatchingCard(s.handfilter,e:GetHandler():GetControler(),LOCATION_MZONE,0,1,nil)
 end

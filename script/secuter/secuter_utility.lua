@@ -100,10 +100,10 @@ TYPES[TYPE_MINUS] = "MINUS"
 TYPES[TYPE_ARMOR] = "ARMOR"
 function Auxiliary.DecodeType(type)
     local out
-    for i,v in pairs(TYPES) do
-        if i&type==i then
-            if out then out = out.."|"..TYPES[i]
-            else out = TYPES[i] end
+    for k,v in pairs(TYPES) do
+        if k&type==k then
+            if out then out = out.."|"..v
+            else out = v end
         end
     end
     return out or "NONE"
@@ -119,10 +119,10 @@ ATTRIBUTES[ATTRIBUTE_DARK] = "DARK"
 ATTRIBUTES[ATTRIBUTE_DIVINE] = "DIVINE"
 function Auxiliary.DecodeAttribute(attr)
     local out
-    for i,v in pairs(ATTRIBUTES) do
-        if i&attr==i then
-            if out then out = out.."|"..ATTRIBUTES[i]
-            else out = ATTRIBUTES[i] end
+    for k,v in pairs(ATTRIBUTES) do
+        if k&attr==k then
+            if out then out = out.."|"..v
+            else out = v end
         end
     end
     return out or "NONE"
@@ -164,10 +164,10 @@ RACES[RACE_GALAXY] = "GALAXY"
 RACES[RACE_YOKAI] = "YOKAI"
 function Auxiliary.DecodeRace(race)
     local out
-    for i,v in pairs(RACES) do
-        if i&race==i then
-            if out then out = out.."|"..RACES[i]
-            else out = RACES[i] end
+    for k,v in pairs(RACES) do
+        if k&race==k then
+            if out then out = out.."|"..v
+            else out = v end
         end
     end
     return out or "NONE"
@@ -209,10 +209,10 @@ REASONS[REASON_ECHO] = "ECHO"
 REASONS[REASON_WANDERING] = "WANDERING"
 function Auxiliary.DecodeReason(reason)
     local out
-    for i,v in pairs(REASONS) do
-        if i&reason==i then
-            if out then out = out.."|"..REASONS[i]
-            else out = REASONS[i] end
+    for k,v in pairs(REASONS) do
+        if k&reason==k then
+            if out then out = out.."|"..v
+            else out = v end
         end
     end
     return out or "NONE"
@@ -239,13 +239,132 @@ SUMMON_TYPES[SUMMON_TYPE_EXCHANGE] = "EXCHANGE"
 SUMMON_TYPES[SUMMON_TYPE_WANDERING] = "WANDERING"
 function Auxiliary.DecodeSummonType(summon)
     local out
-    for i,v in pairs(SUMMON_TYPES) do
-        if i&summon==i then
-            if out then out = out.."|"..SUMMON_TYPES[i]
-            else out = SUMMON_TYPES[i] end
+    for k,v in pairs(SUMMON_TYPES) do
+        if k&summon==k then
+            if out then out = out.."|"..v
+            else out = v end
         end
     end
     return out or "NONE"
+end
+
+local EVENTS = {}
+EVENTS[EVENT_STARTUP] = "STARTUP"
+EVENTS[EVENT_FLIP] = "FLIP"
+EVENTS[EVENT_FREE_CHAIN] = "FREE_CHAIN"
+EVENTS[EVENT_DESTROY] = "DESTROY"
+EVENTS[EVENT_REMOVE] = "REMOVE"
+EVENTS[EVENT_TO_HAND] = "TO_HAND"
+EVENTS[EVENT_TO_DECK] = "TO_DECK"
+EVENTS[EVENT_TO_GRAVE] = "TO_GRAVE"
+EVENTS[EVENT_LEAVE_FIELD] = "LEAVE_FIELD"
+EVENTS[EVENT_CHANGE_POS] = "CHANGE_POS"
+EVENTS[EVENT_RELEASE] = "RELEASE"
+EVENTS[EVENT_DISCARD] = "DISCARD"
+EVENTS[EVENT_LEAVE_FIELD_P] = "LEAVE_FIELD_P"
+EVENTS[EVENT_CHAIN_SOLVING] = "CHAIN_SOLVING"
+EVENTS[EVENT_CHAIN_ACTIVATING] = "CHAIN_ACTIVATING"
+EVENTS[EVENT_CHAIN_SOLVED] = "CHAIN_SOLVED"
+EVENTS[EVENT_CHAIN_NEGATED] = "CHAIN_NEGATED"
+EVENTS[EVENT_CHAIN_DISABLED] = "CHAIN_DISABLED"
+EVENTS[EVENT_CHAIN_END] = "CHAIN_END"
+EVENTS[EVENT_CHAINING] = "CHAINING"
+EVENTS[EVENT_BECOME_TARGET] = "BECOME_TARGET"
+EVENTS[EVENT_DESTROYED] = "DESTROYED"
+EVENTS[EVENT_MOVE] = "MOVE"
+EVENTS[EVENT_LEAVE_GRAVE] = "LEAVE_GRAVE"
+EVENTS[EVENT_ADJUST] = "ADJUST"
+EVENTS[EVENT_BREAK_EFFECT] = "BREAK_EFFECT"
+EVENTS[EVENT_SUMMON_SUCCESS] = "SUMMON_SUCCESS"
+EVENTS[EVENT_FLIP_SUMMON_SUCCESS] = "FLIP_SUMMON_SUCCESS"
+EVENTS[EVENT_SPSUMMON_SUCCESS] = "SPSUMMON_SUCCESS"
+EVENTS[EVENT_SUMMON] = "SUMMON"
+EVENTS[EVENT_FLIP_SUMMON] = "FLIP_SUMMON"
+EVENTS[EVENT_SPSUMMON] = "SPSUMMON"
+EVENTS[EVENT_MSET] = "MSET"
+EVENTS[EVENT_SSET] = "SSET"
+EVENTS[EVENT_BE_MATERIAL] = "BE_MATERIAL"
+EVENTS[EVENT_BE_PRE_MATERIAL] = "BE_PRE_MATERIAL"
+EVENTS[EVENT_DRAW] = "DRAW"
+EVENTS[EVENT_DAMAGE] = "DAMAGE"
+EVENTS[EVENT_RECOVER] = "RECOVER"
+EVENTS[EVENT_PREDRAW] = "PREDRAW"
+EVENTS[EVENT_SUMMON_NEGATED] = "SUMMON_NEGATED"
+EVENTS[EVENT_FLIP_SUMMON_NEGATED] = "FLIP_SUMMON_NEGATED"
+EVENTS[EVENT_SPSUMMON_NEGATED] = "SPSUMMON_NEGATED"
+EVENTS[EVENT_CONTROL_CHANGED] = "CONTROL_CHANGED"
+EVENTS[EVENT_EQUIP] = "EQUIP"
+EVENTS[EVENT_ATTACK_ANNOUNCE] = "ATTACK_ANNOUNCE"
+EVENTS[EVENT_BE_BATTLE_TARGET] = "BE_BATTLE_TARGET"
+EVENTS[EVENT_BATTLE_START] = "BATTLE_START"
+EVENTS[EVENT_BATTLE_CONFIRM] = "BATTLE_CONFIRM"
+EVENTS[EVENT_PRE_DAMAGE_CALCULATE] = "PRE_DAMAGE_CALCULATE"
+EVENTS[EVENT_DAMAGE_CALCULATING] = "DAMAGE_CALCULATING"
+EVENTS[EVENT_PRE_BATTLE_DAMAGE] = "PRE_BATTLE_DAMAGE"
+EVENTS[EVENT_BATTLE_END] = "BATTLE_END"
+EVENTS[EVENT_BATTLED] = "BATTLED"
+EVENTS[EVENT_BATTLE_DESTROYING] = "BATTLE_DESTROYING"
+EVENTS[EVENT_BATTLE_DESTROYED] = "BATTLE_DESTROYED"
+EVENTS[EVENT_DAMAGE_STEP_END] = "DAMAGE_STEP_END"
+EVENTS[EVENT_ATTACK_DISABLED] = "ATTACK_DISABLED"
+EVENTS[EVENT_BATTLE_DAMAGE] = "BATTLE_DAMAGE"
+EVENTS[EVENT_TOSS_DICE] = "TOSS_DICE"
+EVENTS[EVENT_TOSS_COIN] = "TOSS_COIN"
+EVENTS[EVENT_TOSS_COIN_NEGATE] = "TOSS_COIN_NEGATE"
+EVENTS[EVENT_TOSS_DICE_NEGATE] = "TOSS_DICE_NEGATE"
+EVENTS[EVENT_LEVEL_UP] = "LEVEL_UP"
+EVENTS[EVENT_PAY_LPCOST] = "PAY_LPCOST"
+EVENTS[EVENT_DETACH_MATERIAL] = "DETACH_MATERIAL"
+EVENTS[EVENT_TURN_END] = "TURN_END"
+EVENTS[EVENT_PHASE] = "PHASE"
+EVENTS[EVENT_PHASE_START] = "PHASE_START"
+EVENTS[EVENT_ADD_COUNTER] = "ADD_COUNTER"
+EVENTS[EVENT_REMOVE_COUNTER] = "REMOVE_COUNTER"
+EVENTS[EVENT_CUSTOM] = "CUSTOM"
+EVENTS[EVENT_CONFIRM] = "CONFIRM"
+EVENTS[EVENT_TOHAND_CONFIRM] = "TOHAND_CONFIRM"
+function Auxiliary.DecodeEvent(event)
+    local out
+    for k,v in pairs(EVENTS) do
+        if event==k then
+            if out then out = out.."|"..v
+            else out = v end
+        end
+    end
+    return out or "NONE"
+end
+
+local LOCATIONS = {}
+LOCATIONS[LOCATION_DECK] = "DECK"
+LOCATIONS[LOCATION_HAND] = "HAND"
+LOCATIONS[LOCATION_MZONE] = "MZONE"
+LOCATIONS[LOCATION_SZONE] = "SZONE"
+LOCATIONS[LOCATION_GRAVE] = "GRAVE"
+LOCATIONS[LOCATION_REMOVED] = "REMOVED"
+LOCATIONS[LOCATION_EXTRA] = "EXTRA"
+LOCATIONS[LOCATION_OVERLAY] = "OVERLAY"
+LOCATIONS[LOCATION_ONFIELD] = "ONFIELD"
+LOCATIONS[LOCATION_PUBLIC] = "PUBLIC"
+function Auxiliary.DecodeLocation(location)
+    local out
+    for k,v in pairs(LOCATIONS) do
+        if k&location==k then
+            if out then out = out.."|"..v
+            else out = v end
+        end
+    end
+    return out or "NONE"
+end
+
+function Duel.RegisterFlagEffectCustom(player, code, reset_flag, property, reset_count, label)
+    if not label then label = 0 end
+    Debug.UniqueMessage(player, "Duel.RegisterFlagEffect("..code..")")
+    Duel.RegisterFlagEffect(player, code, reset_flag, property, reset_count, label)
+end
+
+function Card.RegisterFlagEffectCustom(c, code, reset_flag, property, reset_count, label, desc)
+    Debug.UniqueMessage(c:GetControler(), "Card.RegisterFlagEffect("..code..")")
+    Card.RegisterFlagEffect(c, code, reset_flag, property, reset_count, label, desc)
 end
 
 --------------------------------------------

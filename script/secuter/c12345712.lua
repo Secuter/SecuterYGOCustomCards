@@ -51,7 +51,7 @@ end
 s.listed_series={SET_ASURA}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsSummonType(SUMMON_TYPE_TRIBUTE) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsSummonType(SUMMON_TYPE_TRIBUTE) and c:IsControler(rp)
 end
 --double tribute
 function s.cond(e,c)
@@ -87,7 +87,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetTargetRange(1,0)
 	e1:SetTarget(s.splimit)
 	e1:SetReset(RESET_PHASE+PHASE_END)
-	aux.addTempLizardCheck(c,tp,s.lizfilter)
+	aux.addTempLizardCheck(e:GetHandler(),tp,s.lizfilter)
 end
 function s.splimit(e,c)
 	return not c:IsLevelAbove(7) and c:IsLocation(LOCATION_EXTRA)
@@ -101,7 +101,7 @@ function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp
 end
 function s.sumfilter(c)
-	return c:IsSetCard(SET_ASURA) and c:IsSummonable(true,nil,1)
+	return c:IsLevelAbove(7) and c:IsSummonable(true,nil,1)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end

@@ -43,7 +43,7 @@ end
 s.listed_series={SET_MORHAI,SET_MORHAI_SPAWN}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsReason(REASON_COST) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsReason(REASON_COST) and c:IsControler(rp)
 end
 
 --search
@@ -79,13 +79,13 @@ end
 --set ST
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	c:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+	c:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,0,1)
 end
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.setfilter(c)
-	return c:IsSetCard(SET_UNCHAINED) and c:IsSpellTrap() and c:IsSSetable()
+	return c:IsSetCard(SET_MORHAI) and c:IsSpellTrap() and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_GRAVE|LOCATION_DECK,0,1,nil) end

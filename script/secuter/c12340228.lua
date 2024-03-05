@@ -76,7 +76,8 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 	local g=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 	if #g>0 and Duel.SpecialSummonStep(g,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0 then
-		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
+        local spc=g:GetFirst()
+		spc:RegisterFlagEffect(spc:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
 		Duel.SpecialSummonComplete()
 		--spsummon itself
 		local tc=Duel.GetFirstTarget()

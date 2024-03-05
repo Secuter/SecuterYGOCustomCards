@@ -71,7 +71,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e0:SetType(EFFECT_TYPE_SINGLE)
 	e0:SetCode(EFFECT_CANNOT_ATTACK)
 	e0:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_OATH)
-	e0:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e0:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 	e:GetHandler():RegisterEffect(e0)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)

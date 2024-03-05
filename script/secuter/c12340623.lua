@@ -78,7 +78,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetCost(s.cost1)
 		e1:SetTarget(s.tg1)
 		e1:SetOperation(s.op1)
-		e1:SetReset(RESET_EVENT+0x1fe0000)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
 		c:RegisterEffect(e1)
 	end
 	if bit.band(att,ATTRIBUTE_DARK)~=0 then
@@ -93,7 +93,7 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetCost(s.cost2)
 		e1:SetTarget(s.tg2)
 		e1:SetOperation(s.op2)
-		e1:SetReset(RESET_EVENT+0x1fe0000)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
 		c:RegisterEffect(e1)
 	end
 end

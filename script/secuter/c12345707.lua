@@ -20,7 +20,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--mill
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetDescription(aux.Stringid(id,2))
 	e2:SetCategory(CATEGORY_DECKDES)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_F)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
@@ -32,19 +32,18 @@ function s.initial_effect(c)
 	e2:SetOperation(s.tgop)
 	c:RegisterEffect(e2)
 	--destroy replace
-	local e3=Effect.CreateEffect(c)
-	e3:SetType(EFFECT_TYPE_CONTINUOUS+EFFECT_TYPE_SINGLE)
-	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+    local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
 	e3:SetCode(EFFECT_DESTROY_REPLACE)
 	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,{id,2})
 	e3:SetTarget(s.reptg)
+	e3:SetValue(function(e,_c) return s.repfilter(_c,e:GetHandlerPlayer()) end)
 	c:RegisterEffect(e3)
 end
 s.listed_names={id}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsPreviousLocation(LOCATION_DECK) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsPreviousLocation(LOCATION_DECK) and c:IsControler(rp)
 end
 --to top deck
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
@@ -54,7 +53,7 @@ function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_DECK,0,1,nil) end
 end
 function s.tdop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,1))
 	local tc=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_DECK,0,1,1,nil):GetFirst()
 	if tc then
 		Duel.ShuffleDeck(tp)
@@ -75,7 +74,7 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.aclimit(e,re,tp)
 	local tc=e:GetLabelObject()
-	return re:GetHandler():IsCode(tc:GetCode()) and not re:IsLocation(LOCATION_GRAVE)
+	return re:GetHandler():IsCode(tc:GetCode()) and not re:GetHandler():IsLocation(LOCATION_GRAVE)
 end
 --mill
 function s.cfilter(c,tp)
@@ -93,13 +92,13 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 --destroy replace
 function s.repfilter(c,tp)
-	return c:IsControler(tp) and not c:IsReason(REASON_REPLACE)
+	return c:IsControler(tp) and c:IsOnField() and c:IsReason(REASON_BATTLE|REASON_EFFECT) and not c:IsReason(REASON_REPLACE)
 end
 function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if chk==0 then return c:GetCardTarget():IsExists(s.repfilter,1,nil,tp) and Duel.IsPlayerCanDiscardDeck(tp,2) end
-	if Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,2)) then
-        Duel.DiscardDeck(tp,2,REASON_EFFECT)
+	if chk==0 then return eg:IsExists(s.repfilter,1,nil,tp) and Duel.IsPlayerCanDiscardDeck(tp,2) end
+	if Duel.SelectEffectYesNo(tp,c,96) then
+		c:RemoveOverlayCard(tp,1,1,REASON_EFFECT)
 		return true
 	else return false end
 end

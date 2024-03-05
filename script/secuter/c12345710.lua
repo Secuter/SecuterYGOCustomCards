@@ -43,7 +43,7 @@ end
 s.listed_series={SET_DARK_KING_SERVANT}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsSummonType(SUMMON_TYPE_RITUAL) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsSummonType(SUMMON_TYPE_RITUAL) and c:IsControler(rp)
 end
 
 --atk/def
@@ -56,7 +56,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.tgfilter(c,e,tp)
-    return c:IsLevel(9) and c:IsSetCard(SET_DARK_KING_SERVANT) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
+    return c:IsSetCard(SET_DARK_KING_SERVANT) and c:IsMonster() and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -80,5 +80,5 @@ end
 
 --ritual summon
 function s.matfilter(c)
-	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsLocation(LOCATION_HAND|LOCATION_MZONE) and c:IsReleasable()
+	return c:IsAttribute(ATTRIBUTE_DARK) --and c:IsLocation(LOCATION_HAND|LOCATION_MZONE) and c:IsReleasable()
 end

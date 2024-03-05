@@ -6,7 +6,8 @@ s.Wandering=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
-    Wandering.AddProcedure(c,s,id,4,EVENT_REMOVE,s.check)
+    --Wandering.AddProcedure(c,s,id,4,EVENT_REMOVE,s.check)
+    Wandering.AddProcedure({handler=c,script=s,id=id,ct=4,ev=EVENT_REMOVE,filter=s.check})
 	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -35,7 +36,7 @@ function s.initial_effect(c)
 end
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsFaceup() and c:IsControler(re:GetHandlerPlayer())
+    return c:IsFaceup() and c:IsControler(rp)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

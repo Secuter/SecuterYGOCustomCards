@@ -14,7 +14,8 @@ function s.initial_effect(c)
 	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e1:SetCode(EVENT_TO_HAND)
 	e1:SetRange(LOCATION_MZONE)
-	e1:SetCountLimit(1,0,EFFECT_COUNT_CODE_CHAIN)
+	-- e1:SetCountLimit(1,0,EFFECT_COUNT_CODE_CHAIN)
+	e1:SetCountLimit(2)
 	e1:SetCondition(s.tgcon)
 	e1:SetTarget(s.tgtg)
 	e1:SetOperation(s.tgop)
@@ -121,9 +122,10 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsAbleToGrave() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,nil) and not e:GetHandler():HasFlagEffect(id) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,1,nil)
+	e:GetHandler():RegisterFlagEffect(id,RESET_CHAIN,0,1)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)

@@ -53,7 +53,7 @@ end
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
     return c:IsSummonType(SUMMON_TYPE_REUNION)
 end
-function s.wcon(c,e,tp,eg,ep,ev,re,r,rp,ct)
+function s.wcon(c,e,tp,eg,ep,ev,re,r,rp,ct,req)
     return ct==10 or ct==11
 end
 

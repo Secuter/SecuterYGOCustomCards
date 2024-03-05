@@ -99,7 +99,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
 		e1:SetCode(EFFECT_UPDATE_LEVEL)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		if e:GetLabel()==1 and tc:IsAttribute(ATTRIBUTE_DARK) then
 			e1:SetValue(-1)
 		elseif e:GetLabel()==2 and tc:IsAttribute(ATTRIBUTE_LIGHT) then

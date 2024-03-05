@@ -7,13 +7,13 @@ function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
     Wandering.AddProcedure(c,s,id,4,EVENT_SPSUMMON_SUCCESS,s.check)
-	--summon
+	--to hand
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_TOHAND+CATEGORY_LVCHANGE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
+	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.thcon)
 	e1:SetTarget(s.thtg)
@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e2:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
 	e2:SetCode(EVENT_BE_MATERIAL)
-	e2:SetCountLimit(1,id)
+	e2:SetCountLimit(1,{id,1})
 	e2:SetCondition(s.discon)
 	e2:SetTarget(s.distg)
 	e2:SetOperation(s.disop)
@@ -34,27 +34,24 @@ function s.initial_effect(c)
 end
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsSummonType(SUMMON_TYPE_PENDULUM) and c:IsControler(rp)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
 function s.thfilter(c)
-	return c:IsType(TYPE_PENDULUM) and c:IsFaceup() and c:IsAbleToHand()
+    return c:IsType(TYPE_PENDULUM) and c:IsFaceup() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	local c=e:GetHandler()
-	if chkc then return chkc:IsLocation(LOCATION_REMOVED|LOCATION_DECK) and chkc:IsControler(tp) and s.thfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(s.thfilter,tp,LOCATION_REMOVED|LOCATION_DECK,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
-	local g=Duel.SelectTarget(tp,s.thfilter,tp,LOCATION_REMOVED|LOCATION_DECK,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_REMOVED|LOCATION_EXTRA,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_REMOVED|LOCATION_EXTRA)
 end
 function s.thop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND) and c:IsRelateToEffect(e) then
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local tc=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_REMOVED|LOCATION_EXTRA,0,1,1,nil):GetFirst()
+	if tc and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND) and c:IsRelateToEffect(e) then
         if c:IsFaceup() and c:HasLevel() and c:GetLevel()>tc:GetLevel() and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 			local e1=Effect.CreateEffect(c)
 			e1:SetType(EFFECT_TYPE_SINGLE)

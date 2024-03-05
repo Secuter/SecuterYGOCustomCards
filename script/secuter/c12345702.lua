@@ -6,7 +6,7 @@ s.Wandering=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
-    Wandering.AddProcedure(c,s,id,4,EVENT_SPSUMMON_SUCCESS,s.check)
+    Wandering.AddProcedure(c,s,id,3,EVENT_SPSUMMON_SUCCESS,s.check)
 	--spsummon
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -36,7 +36,7 @@ end
 s.listed_series={SET_FLUID}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
-    return c:IsPreviousLocation(LOCATION_DECK) and c:IsControler(re:GetHandlerPlayer())
+    return c:IsPreviousLocation(LOCATION_DECK) and c:IsControler(rp)
 end
 --spsummon
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
@@ -48,7 +48,7 @@ function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,1,nil)
-	Duel.spOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,1,0,0)
 end
 function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
