@@ -6,7 +6,7 @@ s.Wandering=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
-    Wandering.AddProcedure(c,s,id,4,EVENT_CHAINING,s.check,nil,nil,true)
+    Wandering.AddProcedure(c,s,id,4,EVENT_CHAINING,s.check,nil,nil,nil,true)
     --to deck
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))

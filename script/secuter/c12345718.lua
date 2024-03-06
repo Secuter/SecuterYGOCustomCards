@@ -6,7 +6,7 @@ s.Wandering=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
-    Wandering.AddProcedure(c,s,id,5,EVENT_SPSUMMON_SUCCESS,s.check,nil,nil,true)
+    Wandering.AddProcedure(c,s,id,5,EVENT_SPSUMMON_SUCCESS,s.check,nil,nil,nil,true)
     --to grave
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -46,7 +46,7 @@ function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
-	local og=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsCanBeDisabledByEffect),tp,0,LOCATION_ONFIELD,nil)
+	local og=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
 	Duel.SetPossibleOperationInfo(0,CATEGORY_DISABLE,og,#og,0,0)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
@@ -54,7 +54,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.SendtoGrave(tc,REASON_EFFECT)>0 then
         --check negatable cards
-	    local g=Duel.GetMatchingGroup(aux.FaceupFilter(Card.IsCanBeDisabledByEffect),tp,0,LOCATION_ONFIELD,nil)
+	    local g=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
         local ct=#g
         --send cards to gy
         Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)

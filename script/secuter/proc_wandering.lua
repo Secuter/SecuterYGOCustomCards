@@ -45,7 +45,7 @@ function (c,s,id,ct,ev,f,ct_event,value,cond,opp,duel,force)
 	if c.wandering_type==nil then
 		local mt=c:GetMetatable()
 		mt.wandering_type=1
-		mt.wandering_parameters={c,s,id,ct,ev,f,ct_event,value,cond,duel,force}
+		mt.wandering_parameters={c,s,id,ct,ev,f,ct_event,value,cond,opp,duel,force}
 	end
     local id_counter=aux.GetSubId(id, 0)
     local id_limit_chain=aux.GetSubId(id, 1)
