@@ -21,7 +21,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--banish itself
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetDescription(aux.Stringid(id,2))
 	e2:SetCategory(CATEGORY_REMOVE)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
 	e2:SetCode(EVENT_FREE_CHAIN)
@@ -56,18 +56,20 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
         --check negatable cards
 	    local g=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
         local ct=#g
-        --send cards to gy
-        Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-        local sg=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_HAND,0,1,ct,nil)
-        if Duel.SendtoGrave(sg,REASON_EFFECT)>0 then
-            ct=sg:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)
-            if ct>0 then
-                --disable cards
-                Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
-                local tg=g:Select(tp,ct,ct,nil)
-                local turn=Duel.GetTurnPlayer()==tp and 1 or 2
-                for tc1 in aux.Next(tg) do
-                    tc1:NegateEffects(c,RESET_PHASE+PHASE_END,true,turn)
+	    if ct>0 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
+            --send cards to gy
+            Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
+            local sg=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_HAND,0,1,ct,nil)
+            if Duel.SendtoGrave(sg,REASON_EFFECT)>0 then
+                ct=sg:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)
+                if ct>0 then
+                    --disable cards
+                    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
+                    local tg=g:Select(tp,ct,ct,nil)
+                    local turn=Duel.GetTurnPlayer()==tp and 1 or 2
+                    for tc1 in aux.Next(tg) do
+                        tc1:NegateEffects(c,RESET_PHASE+PHASE_END,true,turn)
+                    end
                 end
             end
         end

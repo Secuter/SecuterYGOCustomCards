@@ -1,4 +1,4 @@
---Aetherock Silicon Pilgrim
+--Aetherock Mineral Conjurer
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
@@ -46,6 +46,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp):GetFirst()
 	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE) then
 		tc:NegateEffects(e:GetHandler())
+		Duel.SpecialSummonComplete()
 	end
 	local e1=Effect.CreateEffect(e:GetHandler())
 	e1:SetDescription(aux.Stringid(id,1))

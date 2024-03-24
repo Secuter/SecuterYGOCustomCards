@@ -1,6 +1,6 @@
 WANDERING_IMPORTED = true
 
-local DEBUG = true
+local DEBUG = false
 local SKIP = false
 local ONLY_ID = nil
 local function Debugging(id)
