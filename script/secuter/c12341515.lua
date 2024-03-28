@@ -57,7 +57,7 @@ function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.filter(c)
 	return c:IsArmor() and c:IsAbleToDeck()

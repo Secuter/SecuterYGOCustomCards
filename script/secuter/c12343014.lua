@@ -75,7 +75,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp)
 end
 --add counter
 function s.ctfilter(c,tp)
-	return c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE and c:IsControler(tp) and c:IsFaceup()
+	return c:IsSummonType(SUMMON_TYPE_EXCHANGE) and c:IsControler(tp) and c:IsFaceup()
 end
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.ctfilter,1,nil,tp)

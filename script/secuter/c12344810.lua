@@ -40,7 +40,7 @@ function s.hfilter(c,sc,sumtype,tp)
 end
 --add
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.tgfilter(c)
 	return c:IsRace(RACE_ZOMBIE+RACE_WINGEDBEAST) and c:IsAbleToGrave()
@@ -59,7 +59,7 @@ end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsAbleToHand() end

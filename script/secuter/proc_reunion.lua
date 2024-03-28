@@ -1,25 +1,15 @@
-EFFECT_HAND_REUNION	= 601
-REASON_REUNION		= 0x20000000
-SUMMON_TYPE_REUNION	= 0x10
-HINTMSG_RMATERIAL	= 600
-REUNION_MAT_TOGRAVE	= 1
-REUNION_MAT_REMOVE	= 2
-REUNION_MAT_REMOVE_FACEDOWN	= 3
-REUNION_MAT_TOHAND	= 4
-REUNION_MAT_TODECK	= 5
-REUNION_MAT_DESTROY	= 6
+REUNION_IMPORTED		= true
 REUNION_TYPE_NONE		= 0x0
 REUNION_TYPE_CHECK		= 0x1
 REUNION_TYPE_INCLUDE	= 0x2
 REUNION_TYPE_MAXSEND	= 0x4
 REUNION_TYPE_LOCATION	= 0X8
 REUNION_TYPES_MAIN		= REUNION_TYPE_CHECK+REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND
-REUNION_IMPORTED		= true
 
 --[[
 add at the start of the script to add Reunion procedure
 condition if Reunion summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 ]]
 
 if not aux.ReunionProcedure then
@@ -29,9 +19,9 @@ end
 if not Reunion then
 	Reunion = aux.ReunionProcedure
 end
-DEBUG=false
-COUNT_R1=0
-COUNT_R2=0
+local DEBUG=false
+local COUNT_R1=0
+local COUNT_R2=0
 
 -- utility functions
 function Card.IsReunion(c)
@@ -48,14 +38,14 @@ end
 -- opp: optional, flag if you can use opponent monsters as material (Default = false)
 -- loc: optional, material location (Default = LOCATION_MZONE, if setted replaces the default)
 -- send: optional, where the materials are sent
--- REUNION_MAT_REMOVE			or 1 >> sent to grave (Default)
--- REUNION_MAT_REMOVE			or 2 >> removed face-up
--- REUNION_MAT_REMOVE_FACEDOWN	or 3 >> removed face-down
--- REUNION_MAT_TOHAND			or 4 >> returned to the hand
--- REUNION_MAT_TODECK			or 5 >> shuffled into the deck
--- REUNION_MAT_DESTROY			or 6 >> destroyed
+-- MATERIAL_REMOVE			or 1 >> sent to grave (Default)
+-- MATERIAL_REMOVE			or 2 >> removed face-up
+-- MATERIAL_REMOVE_FACEDOWN	or 3 >> removed face-down
+-- MATERIAL_TOHAND			or 4 >> returned to the hand
+-- MATERIAL_TODECK			or 5 >> shuffled into the deck
+-- MATERIAL_DESTROY			or 6 >> destroyed
 -- locsend: optional, if set limits the application of the 'send' paramter only to these location, those not included use the default send (sent to the grave).
---			Eg: if loc = LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE, send=REUNION_MAT_REMOVE, locsend=LOCATION_GRAVE => only materials in the grave are banished, those on the field or in the hand are sent to the grave
+--			Eg: if loc = LOCATION_MZONE+LOCATION_HAND+LOCATION_GRAVE, send=MATERIAL_REMOVE, locsend=LOCATION_GRAVE => only materials in the grave are banished, those on the field or in the hand are sent to the grave
 -- maxsend: optional, flag if you can use only 1 material from locations different from the MZONE
 -- inclf: optional, filter for material required at least at 1, faster than using specialchk
 function Reunion.AddProcedure(c,f,min,max,specialchk,opp,loc,send,locsend,maxsend,inclf)
@@ -126,7 +116,7 @@ function Reunion.Remove(c,g)
 	return g:IsContains(c)
 end
 function Reunion.SendFilter(c,send,locsend)
-	if send and (not locsend or c:IsLocation(locsend)) and (send==REUNION_MAT_REMOVE or send==REUNION_MAT_REMOVE_FACEDOWN) then
+	if send and (not locsend or c:IsLocation(locsend)) and (send==MATERIAL_REMOVE or send==MATERIAL_REMOVE_FACEDOWN) then
 		return c:IsAbleToRemoveAsCost() and (c:IsLocation(LOCATION_SZONE) or aux.SpElimFilter(c,false,true))
 	end
 	return true
@@ -692,18 +682,18 @@ function Reunion.Operation(f,minc,maxc,specialchk,opp,loc,send,locsend,maxsend,i
 					g=g:Filter(Card.IsLocation,nil,locsend)
 					if #g2>0 then Duel.SendtoGrave(g2,REASON_MATERIAL+REASON_REUNION) end
 					g2:DeleteGroup()
-				end					
-				if send==REUNION_MAT_TOGRAVE then
+				end
+				if send==MATERIAL_TOGRAVE then
 					Duel.SendtoGrave(g,REASON_MATERIAL+REASON_REUNION)
-				elseif send==REUNION_MAT_REMOVE then
+				elseif send==MATERIAL_REMOVE then
 					Duel.Remove(g,POS_FACEUP,REASON_MATERIAL+REASON_REUNION)
-				elseif send==REUNION_MAT_REMOVE_FACEDOWN then
+				elseif send==MATERIAL_REMOVE_FACEDOWN then
 					Duel.Remove(g,POS_FACEDOWN,REASON_MATERIAL+REASON_REUNION)
-				elseif send==REUNION_MAT_TOHAND then
+				elseif send==MATERIAL_TOHAND then
 					Duel.SendtoHand(g,nil,REASON_MATERIAL+REASON_REUNION)
-				elseif send==REUNION_MAT_TODECK then
+				elseif send==MATERIAL_TODECK then
 					Duel.SendtoDeck(g,nil,SEQ_DECKSHUFFLE,REASON_MATERIAL+REASON_REUNION)
-				elseif send==REUNION_MAT_DESTROY then
+				elseif send==MATERIAL_DESTROY then
 					Duel.Destroy(g,REASON_MATERIAL+REASON_REUNION)
 				else
 					Duel.SendtoGrave(g,REASON_MATERIAL+REASON_REUNION)
@@ -900,17 +890,17 @@ function Duel.ReunionSummon(tp,c,mustg,g,minc,maxc)
 			if #sg2>0 then Duel.SendtoGrave(sg2,REASON_MATERIAL+REASON_REUNION) end
 			sg2:DeleteGroup()
 		end		
-		if send==REUNION_MAT_TOGRAVE then
+		if send==MATERIAL_TOGRAVE then
 			Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_REUNION)
-		elseif send==REUNION_MAT_REMOVE then
+		elseif send==MATERIAL_REMOVE then
 			Duel.Remove(sg,POS_FACEUP,REASON_MATERIAL+REASON_REUNION)
-		elseif send==REUNION_MAT_REMOVE_FACEDOWN then
+		elseif send==MATERIAL_REMOVE_FACEDOWN then
 			Duel.Remove(sg,POS_FACEDOWN,REASON_MATERIAL+REASON_REUNION)
-		elseif send==REUNION_MAT_TOHAND then
+		elseif send==MATERIAL_TOHAND then
 			Duel.SendtoHand(sg,nil,REASON_MATERIAL+REASON_REUNION)
-		elseif send==REUNION_MAT_TODECK then
+		elseif send==MATERIAL_TODECK then
 			Duel.SendtoDeck(sg,nil,SEQ_DECKSHUFFLE,REASON_MATERIAL+REASON_REUNION)
-		elseif send==REUNION_MAT_DESTROY then
+		elseif send==MATERIAL_DESTROY then
 			Duel.Destroy(sg,REASON_MATERIAL+REASON_REUNION)
 		else
 			Duel.SendtoGrave(sg,REASON_MATERIAL+REASON_REUNION)

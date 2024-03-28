@@ -79,7 +79,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.thfilter(c)
 	return c:IsSetCard(SET_CREARMOR) and not c:IsCode(id) and c:IsAbleToHand()

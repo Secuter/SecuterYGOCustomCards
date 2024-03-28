@@ -46,7 +46,7 @@ function s.upactivate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.SelectMatchingCard(tp,s.upfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,1,nil,e,tp,lv):GetFirst()
 	if tc and Duel.SpecialSummonStep(tc,0,tp,tp,true,true,POS_FACEUP) then
 		--Duel.SpecialSummon(tc,0,tp,tp,true,true,POS_FACEUP)
-		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+0x16e0000,0,0)
+		tc:RegisterFlagEffect(tc:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
         Duel.SpecialSummonComplete()
 	end
 end
@@ -76,7 +76,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
         Duel.SendtoDeck(sg,nil,0,REASON_COST)
         
         if g and Duel.SpecialSummonStep(g,0,tp,tp,true,true,POS_FACEUP) then
-            g:RegisterFlagEffect(g:GetCode(),RESET_EVENT+0x16e0000,0,0)
+            g:RegisterFlagEffect(g:GetCode(),RESET_EVENT+RESETS_STANDARD,0,0)
             Duel.SpecialSummonComplete()
 		end
 	end

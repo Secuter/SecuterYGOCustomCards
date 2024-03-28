@@ -1,11 +1,9 @@
-SUMMON_TYPE_EXCHANGE= 0x80
-HINTMSG_EXSUMMON	= 607
 EXCHANGE_IMPORTED	= true
 
 --[[
 add at the start of the script to add Exchange procedure
 condition if Exchange summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 ]]
 
 if not aux.ExchangeProcedure then
@@ -66,7 +64,7 @@ function Exchange.SumCheck(e,tp,eg,ep,ev,re,r,rp)
 	local code=e:GetLabel()
 	for tc in aux.Next(eg) do
 		if tc:GetOriginalCode()==code then
-			return tc:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+			return tc:IsSummonType(SUMMON_TYPE_EXCHANGE)
 		end
 	end
 	return false

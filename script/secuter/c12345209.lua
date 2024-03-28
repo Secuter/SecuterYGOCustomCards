@@ -90,7 +90,7 @@ end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(1-tp) and chkc:IsAbleToHand() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToHand,tp,0,LOCATION_MZONE,1,nil)
-		and (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or e:GetHandler():IsInMainMZone())
+		and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
 		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,1500,1500,1,RACE_CYBERSE,ATTRIBUTE_DARK) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=Duel.SelectTarget(tp,Card.IsAbleToHand,tp,0,LOCATION_MZONE,1,1,nil)
@@ -115,11 +115,11 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 		e1:SetRange(LOCATION_MZONE)
 		e1:SetTargetRange(1,0)
-		e1:SetTarget(s.splimit)
+		e1:SetTarget(s.splimit2)
 		token:RegisterEffect(e1,true)
 	end
 	Duel.SpecialSummonComplete()
 end
-function s.splimit(e,c)
-	return c:IsCode(s.TOKEN_ID)
+function s.splimit2(e,c)
+	return not c:IsSetCard(SET_EXOHEART) or c:IsCode(s.TOKEN_ID)
 end

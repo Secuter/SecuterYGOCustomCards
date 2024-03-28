@@ -46,7 +46,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --negate
 function s.filter(c,tp,sc)
-	return c:IsControler(tp) and c~=sc and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_EXCHANGE
+	return c:IsControler(tp) and c~=sc and c:IsSummonType(SUMMON_TYPE_EXCHANGE)
 end
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.filter,1,nil,tp,e:GetHandler())

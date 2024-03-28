@@ -124,11 +124,11 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 		e1:SetRange(LOCATION_MZONE)
 		e1:SetTargetRange(1,0)
-		e1:SetTarget(s.splimit)
+		e1:SetTarget(s.splimit2)
 		token:RegisterEffect(e1,true)
 	end
 	Duel.SpecialSummonComplete()
 end
-function s.splimit(e,c)
-	return c:IsCode(s.TOKEN_ID)
+function s.splimit2(e,c)
+	return not c:IsSetCard(SET_EXOHEART) or c:IsCode(s.TOKEN_ID)
 end

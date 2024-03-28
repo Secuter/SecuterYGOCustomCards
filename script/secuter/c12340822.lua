@@ -76,11 +76,11 @@ function s.ignfilter(c)
 end
 --cannot negate summon
 function s.effcon(e)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 --cannot target
 function s.ctcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.ctval(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
@@ -88,7 +88,7 @@ end
 --to deck
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,nil) end

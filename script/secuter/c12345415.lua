@@ -46,7 +46,7 @@ end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:GetReasonPlayer()~=tp and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION and c:GetPreviousControler()==tp
+	return c:GetReasonPlayer()~=tp and c:IsSummonType(SUMMON_TYPE_REUNION) and c:GetPreviousControler()==tp
 end
 function s.spfilter(c,e,tp)
 	return c:IsRace(RACE_DRAGON) and c:GetOriginalLevel()==8 and not c:IsCode(id)

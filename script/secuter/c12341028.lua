@@ -107,7 +107,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --cannot negate sp
 function s.effcon(e)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 --immune
 function s.efilter(e,te)

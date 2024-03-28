@@ -94,7 +94,7 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.atcon2(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.atfilter2(c,tc)
 	return c:IsSetCard(SET_BULWARK_CHAMPION) and Armor.AttachCheck(c,tc)
@@ -154,11 +154,11 @@ end
 
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	--Debug.Message(c:GetCode().." leave field : GetSummonType="..tostring(e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING)..
+	--Debug.Message(c:GetCode().." leave field : GetSummonType="..tostring(e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING))..
 	--			  " IsReason="..tostring(c:IsReason(REASON_EFFECT)).." rp="..rp.." tp="..tp.." IsPreviousControler="..tostring(c:IsPreviousControler(tp))..
 	--			  " IsPreviousPosition="..tostring(c:IsPreviousPosition(POS_FACEUP))
 	--			 )
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 		and c:IsReason(REASON_EFFECT) and rp~=tp and c:IsPreviousControler(tp)
 		and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsPreviousPosition(POS_FACEUP)
 end

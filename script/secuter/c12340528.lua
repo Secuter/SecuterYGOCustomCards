@@ -33,7 +33,7 @@ s.listed_series={SET_FIRE_CORE_MAGIC}
 function s.matfilter(c,scard,sumtype,tp)
 	return c:IsType(TYPE_EFFECT,scard,sumtype,tp) and c:IsAttribute(ATTRIBUTE_FIRE,scard,sumtype,tp)
 end
-
+--draw
 function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(aux.TRUE,tp,LOCATION_HAND,0,1,nil)
 		and Duel.IsPlayerCanDraw(tp,1) end
@@ -41,14 +41,13 @@ function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
 function s.drop(e,tp,eg,ep,ev,re,r,rp)
-	if not e:GetHandler():IsRelateToEffect(e) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,LOCATION_HAND,0,1,1,nil)
 	if #g>0 and Duel.Destroy(g,REASON_EFFECT)~=0 then
 		Duel.Draw(tp,1,REASON_EFFECT)
 	end
 end
-
+--search
 function s.thfilter(c,e,tp)
 	return c:IsSetCard(SET_FIRE_CORE_MAGIC) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()
 end

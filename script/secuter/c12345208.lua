@@ -59,7 +59,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return (Duel.GetLocationCount(tp,LOCATION_MZONE)>0 or e:GetHandler():IsInMainMZone())
-		and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
+        and Duel.IsPlayerCanSpecialSummonMonster(tp,s.TOKEN_ID,SET_EXOHEART,TYPES_TOKEN,500,500,1,RACE_CYBERSE,ATTRIBUTE_LIGHT) end
 	Duel.SetOperationInfo(0,CATEGORY_TOKEN,nil,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,0)
 end
@@ -76,11 +76,11 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetProperty(EFFECT_FLAG_PLAYER_TARGET)
 		e1:SetRange(LOCATION_MZONE)
 		e1:SetTargetRange(1,0)
-		e1:SetTarget(s.splimit)
+		e1:SetTarget(s.splimit2)
 		token:RegisterEffect(e1,true)
 	end
 	Duel.SpecialSummonComplete()
 end
-function s.splimit(e,c)
-	return c:IsCode(s.TOKEN_ID)
+function s.splimit2(e,c)
+	return not c:IsSetCard(SET_EXOHEART) or c:IsCode(s.TOKEN_ID)
 end

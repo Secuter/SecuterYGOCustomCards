@@ -41,7 +41,7 @@ function s.hfilter(c,sc,sumtype,tp)
 end
 --add
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.thfilter(c)
 	return c:IsRace(RACE_ZOMBIE+RACE_WINGEDBEAST) and not c:IsCode(id) and c:IsAbleToHand()
@@ -62,7 +62,7 @@ end
 --draw
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+	return c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end

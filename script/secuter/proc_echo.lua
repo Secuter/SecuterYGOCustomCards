@@ -1,13 +1,9 @@
-REASON_ECHO			= 0x40000000
-SUMMON_TYPE_ECHO	= 0x40
-HINTMSG_EMATERIAL	= 602
-EFFECT_ECHO_EQUIPPED= 12349900
 ECHO_IMPORTED		= true
 
 --[[
  - Add at the start of the script to add Echo procedure
  - Condition if Echo summoned
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
  - Example for the 'op' to pass in input to gain atk equal to the equipped monster
 function s.eop(c,e,tp,tc)
 	if tc:GetTextAttack()>0 then
@@ -131,7 +127,7 @@ function Echo.Operation(op)
 end
 function Echo.EquipCon(eff)
 	return	function(e,tp,eg,ep,ev,re,r,rp)
-				return re==eff and e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
+				return re==eff and e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
 			end
 end
 function Echo.EquipVal(ec,c,tp)

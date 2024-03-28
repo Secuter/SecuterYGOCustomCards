@@ -98,7 +98,7 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.spfilter(c,e,tp)
 	return c:IsCracking() and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

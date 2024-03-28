@@ -69,7 +69,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
         e1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
         e1:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
         e1:SetValue(aux.tgoval)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		tc:RegisterEffect(e1)
         local e2=e1:Clone()
         e2:SetCode(EFFECT_INDESTRUCTABLE_EFFECT)
@@ -79,7 +79,7 @@ end
 
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return rp~=tp and c:IsPreviousControler(tp) and c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+	return rp~=tp and c:IsPreviousControler(tp) and c:IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.spfilter(c,e,tp)
 	return c:IsSetCard(SET_ANUAK) and c:IsAttribute(ATTRIBUTE_LIGHT) and c:GetCode()~=id and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

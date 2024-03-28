@@ -51,7 +51,7 @@ end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.cfilter(c)
 	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_MONSTER) and c:IsLevelAbove(7) and c:IsAbleToGraveAsCost()
@@ -98,7 +98,7 @@ end
 
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	c:RegisterFlagEffect(id,RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END,0,1)
+	c:RegisterFlagEffect(id,RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END,0,1)
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0

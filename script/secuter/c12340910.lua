@@ -99,7 +99,7 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 	e1:SetCode(EFFECT_ATTACK_ALL)
 	e1:SetValue(s.atkfilter)
 	e1:SetLabel(e:GetLabel())
-	e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+	e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 	c:RegisterEffect(e1,true)
 end
 function s.atkfilter(e,c)

@@ -31,7 +31,7 @@ function s.matfilter(c,sc,sumtype,tp)
 end
 
 function s.tdcon(e,c)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ECHO
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
 end
 function s.tdfilter(c)
 	return c:IsFacedown() and c:IsAbleToDeck()
@@ -55,7 +55,7 @@ function s.attime(e,tp,eg,ep,ev,re,r,rp)
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_EXTRA_ATTACK)
 		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-		e1:SetReset(RESET_EVENT+0x1fe0000+RESET_PHASE+PHASE_END)
+		e1:SetReset(RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		e1:SetValue(ct-1)
 		c:RegisterEffect(e1)
     end]]

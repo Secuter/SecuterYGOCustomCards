@@ -30,9 +30,6 @@ function s.initial_effect(c)
 end
 s.listed_names={id}
 s.listed_series={SET_SAVAGE_BEAST}
-function s.filter(c)
-	return c:IsFaceup() and c:IsRace(RACE_BEAST)
-end
 function s.hspcon(e)
 	local tp=e:GetHandlerPlayer()
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0

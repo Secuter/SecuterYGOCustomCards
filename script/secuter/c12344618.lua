@@ -6,7 +6,7 @@ s.Reunion=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
 	--reunion summon
-	Reunion.AddProcedure(c,s.mfilter,2,99,nil,nil,LOCATION_MZONE+LOCATION_GRAVE,REUNION_MAT_REMOVE,LOCATION_GRAVE,false,s.mfilter)
+	Reunion.AddProcedure(c,s.mfilter,2,99,nil,nil,LOCATION_MZONE+LOCATION_GRAVE,MATERIAL_REMOVE,LOCATION_GRAVE,false,s.mfilter)
 	--gain attributes
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
@@ -96,7 +96,7 @@ end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-    return c:GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_REUNION
+    return c:IsSummonType(SUMMON_TYPE_REUNION)
 	  and c:IsPreviousLocation(LOCATION_MZONE) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,e,tp)

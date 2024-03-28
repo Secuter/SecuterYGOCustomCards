@@ -68,7 +68,7 @@ function s.valcheck(e,c)
 	e:SetLabel(atk)
 end
 function s.atkcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.atkop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -89,7 +89,7 @@ function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(rg,REASON_COST)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsOnField() and chkc:IsController(1-tp) end
+	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) end
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_ONFIELD,1,1,nil)
@@ -103,7 +103,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 --set
 function s.setcon(e,tp,eg,ep,ev,re,r,rp)
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.setfilter(c)
 	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()

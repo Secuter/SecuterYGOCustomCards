@@ -47,7 +47,7 @@ function s.raval(e,c)
 end
 --banish
 function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_ARMORIZING
+	return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.rmfilter(c)
 	return c:IsSpellTrap() and c:IsAbleToRemove()

@@ -36,7 +36,7 @@ s.listed_series={SET_ANCIENT_ORACLE}
 --des
 function s.drcon(e,tp,eg,ep,ev,re,r,rp)
     local c=e:GetHandler()
-    return e:GetHandler():GetSummonType()==SUMMON_TYPE_SPECIAL+SUMMON_TYPE_IGNITION
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.drtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanDraw(tp,1) end
