@@ -162,6 +162,7 @@ Download the [replay.zip](https://github.com/Secuter/SecuterYGOCustomCards-Repla
 ## Custom MSE
 
 Custom MSE with my custom card types: https://drive.google.com/file/d/1Ud7nordPqC3zbp7vqgUKH45VW-HymRzm/view?usp=sharing
+<br>:warning: 2023 version without Wandering Monsters, I still have to add a way to generate the zip automatically.
 
 :warning: If you import a set created with a different version of MSE, some text on the card might be blank.<br>
 Unfortunately, this is not fixable, as it happens because in different custom version of MSE some fields are named differently.<br>
