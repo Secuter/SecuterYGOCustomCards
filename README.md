@@ -18,7 +18,7 @@ If you can't see custom cards in Edopro you have to check 'Alternate formats', t
 ---
 
 ## Original summoning mechanics
-![customtypes](https://imgur.com/YBo3tZU.png)
+![customtypes](https://i.imgur.com/xd0QGqu.png)
 - **Reverse-Xyz**: similar to Xyz Monster but uses subtraction between the monster levels.
 - **Reunion**: Extra Deck monsters that are Special Summoned using monsters with a sum of Levels/Ranks/Links equal to its Level x2.
 usually use monsters from your field but there are some that can use monsters from the GY or opponent monsters.
@@ -30,6 +30,11 @@ This summon method is unique to Morhais, but they could teach it to others as we
 - **Armorizing**: Extra Deck monsters related with armor cards, they are summoned using 1 monster that has X or more armors, eg. 1 Dragon monsters with 3+ armors
 The minimum number of armors the material must have are also the number of 'Shield' stars in the monster level. (A monster that require 2 armors as material will be Shell Rank 2, the yellow shields in the Level. They have both a Shell Rank and a Level, the level is the sum of shields and stars.). Armorizing monsters can be also Armor monsters.
 - **Exarmorizing**: Extra Deck monsters that share the same Summoning Type as Armorizing, the only difference is that they uses 2 or more monsters as material. There are both Exrmorizing Armor Monsters and non-Armor ones.
+- **Wandering**: Extra Deck monsters that are Summoned when a specific condition is met, with the peculiarity of not requiring any monsters as material. The condition is usually when you or your opponent do a specific action a X number of times in a single turn. (Such as sending cards from the deck to the GY, destroying cards, a specific Summoning, etc.).
+    - Each player can only Wandering Summon once per turn. (There are effects that enable multiple Summons.)
+    - Their summon is a Trigger Effect, not a Summon Procedure, so it can be negated with cards that negate monster effects but not with cards that negate a Summon.
+    They also can only be Summoned in the exact moment when the condition is met. So, if you choose to not Summon it in that chain, you cannot Wandering Summon it for the rest of the turn, but you can Wandering Summon a different monster when the condition is met. (This is also because the condition says for example 'When you activate your 4th Spell this turn', that is not 4 or more Spells, so if you miss the chance the condition is not met again when you activate your 5th or 6th Spell.)
+
 ### Other mechanics without a new card type
 - **Exchange**: They are effect monsters similar to Spirit, they return to the hand during the End Phase and the Exchange Summon and then you can Exchange Summon a monster from hand that meets certain conditions depending on the card, eg. it could be a WATER monster, a Level 4 or a specific archetype. (They don't return to the hand if Exchange Summoned this turn.) Most Echange Monsters have an effect when Exchange Summoned or related to it.
 - **Runic**: Runic cards are Runic Monsters and Runic Spells/Traps.
@@ -63,7 +68,7 @@ Here is a list of archetypes supported on the server in addition to mine.
 | Archetype/s | Developer | Repository | Preview webite |
 | :-------: | :-------: | ---------- | :----------- |
 | All | Secuter (owner) | [Secuter/SecuterYGOCustomCards](https://github.com/Secuter/SecuterYGOCustomCards) | https://secuter.github.io/SecuterYGOCustomCards-search/ |
-| FNO, Azteca, Alebrije | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/KSB-Archetypes/ |
+| FNO, Azteca, Alebrije, WildRuin | keenon | [KSB-Custom/KSB-CCG](https://github.com/KSB-Custom/KSB-CCG) | https://ksb-custom.github.io/KSB-Archetypes/ |
 
 ### Manual configuration
 * repos
