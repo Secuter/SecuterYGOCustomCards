@@ -98,7 +98,7 @@ function s.reptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	if chk==0 then return eg:IsExists(s.repfilter,1,nil,tp) and Duel.IsPlayerCanDiscardDeck(tp,2) end
 	if Duel.SelectEffectYesNo(tp,c,96) then
-		c:RemoveOverlayCard(tp,1,1,REASON_EFFECT)
+        Duel.DiscardDeck(tp,2,REASON_EFFECT)
 		return true
 	else return false end
 end
