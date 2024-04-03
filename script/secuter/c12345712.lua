@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_DOUBLE_TRIBUTE)
-	e1:SetValue(s.cond)
+	e1:SetValue(1)
 	c:RegisterEffect(e1)
 	--atk
 	local e2=Effect.CreateEffect(c)
@@ -52,10 +52,6 @@ s.listed_series={SET_ASURA}
 --check
 function s.check(c,e,tp,eg,ep,ev,re,r,rp)
     return c:IsSummonType(SUMMON_TYPE_TRIBUTE) and c:IsControler(rp)
-end
---double tribute
-function s.cond(e,c)
-	return c:IsSetCard(SET_ASURA)
 end
 --atk
 function s.filter(e,c)
