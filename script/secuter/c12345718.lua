@@ -54,12 +54,13 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc:IsRelateToEffect(e) and Duel.SendtoGrave(tc,REASON_EFFECT)>0 then
         --check negatable cards
-	    local g=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
-        local ct=#g
-	    if ct>0 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
+	    local g1=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
+	    local g2=Duel.GetMatchingGroup(Card.IsAbleToGrave,tp,LOCATION_HAND,0,nil)
+        local ct=#g1
+	    if ct>0 and #g2>0 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
             --send cards to gy
             Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-            local sg=Duel.SelectMatchingCard(tp,Card.IsAbleToGrave,tp,LOCATION_HAND,0,1,ct,nil)
+            local sg=g2:Select(tp,1,ct,nil)
             if Duel.SendtoGrave(sg,REASON_EFFECT)>0 then
                 ct=sg:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)
                 if ct>0 then

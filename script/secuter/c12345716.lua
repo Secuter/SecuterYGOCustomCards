@@ -6,7 +6,7 @@ s.Wandering=true
 function s.initial_effect(c)
 	c:EnableReviveLimit()
     --wandering summon
-    Wandering.AddProcedure({handler=c,script=s,id=id,ct=4,ev={EVENT_RELEASE,EVENT_DISCARD,EVENT_REMOVE},filter=aux.TRUE,opp=true})
+    Wandering.AddProcedure({handler=c,script=s,id=id,ct=4,ev={EVENT_RELEASE,EVENT_DISCARD,EVENT_REMOVE},filter=s.check,opp=true})
     --to grave redirect
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
@@ -37,6 +37,10 @@ function s.initial_effect(c)
     local e4=e2:Clone()
 	e4:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e4)
+end
+--check
+function s.check(c,e,tp,eg,ep,ev,re,r,rp)
+    return c:IsControler(rp)
 end
 
 --to grave redirect
