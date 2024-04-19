@@ -104,7 +104,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.ShuffleHand(tp)
 		db=1
 	end
-	local ac=ct-db
+	local ac=#g-db
 	if ac>0 then
 		Duel.MoveToDeckBottom(ac,tp)
 		Duel.SortDeckbottom(tp,tp,ac)
