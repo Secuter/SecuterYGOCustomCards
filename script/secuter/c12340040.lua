@@ -99,7 +99,6 @@ function s.tpop(e,tp,eg,ep,ev,re,r,rp)
 	local sg=aux.SelectUnselectGroup(g,e,tp,2,2,s.rescon,1,tp,HINTMSG_SELECT)
 	if #sg>=2 then
 		Duel.ConfirmCards(1-tp,sg)
-		Duel.ShuffleDeck(tp)
 		Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TOFIELD)
 		local cg=sg:Select(1-tp,1,1,nil)
 		local tc=cg:GetFirst()

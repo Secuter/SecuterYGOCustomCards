@@ -58,6 +58,7 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
         e1:SetType(EFFECT_TYPE_FIELD)
         e1:SetCode(EFFECT_SET_ATTACK)
         e1:SetTargetRange(LOCATION_MZONE,0)
+        e1:SetTarget(function(e,c) return c~=e:GetHandler() end)
         e1:SetValue(tc:GetAttack())
         e1:SetReset(RESET_PHASE|PHASE_END)
         Duel.RegisterEffect(e1,tp)
@@ -66,6 +67,9 @@ function s.atkop(e,tp,eg,ep,ev,re,r,rp)
         e2:SetValue(tc:GetDefense())
         Duel.RegisterEffect(e2,tp)
 	end
+end
+function s.filter(e,c)
+	return c:GetPreviousLocation()==LOCATION_REMOVED and c:IsSetCard(SET_EXTERNAL_WORLDS)
 end
 
 --negate spsummon
