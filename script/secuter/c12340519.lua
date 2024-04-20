@@ -18,7 +18,7 @@ function s.initial_effect(c)
 	e1:SetTarget(s.sptg)
 	e1:SetOperation(s.spop)
 	c:RegisterEffect(e1)
-	--add
+	--search
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -26,7 +26,7 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
     e2:SetCode(EVENT_DESTROYED)
 	e2:SetRange(LOCATION_MZONE)
-	e2:SetCountLimit(1)
+	e2:SetCountLimit(1,{id,1})
 	e2:SetCost(s.thcost)
 	e2:SetCondition(s.thcon)
 	e2:SetTarget(s.thtg)
@@ -35,6 +35,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_FIRE_CORE}
 
+--sp summon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
 end
@@ -73,19 +74,21 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
+--search
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return e:GetHandler():CheckRemoveOverlayCard(tp,1,REASON_COST) end
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
-function s.resfilter(c)
-	return c:GetPreviousControler()==tp and c:GetControler()==tp
-      and c:IsAttribute(ATTRIBUTE_FIRE) and bit.band(c:GetReason(),REASON_DESTROY|REASON_EFFECT)==REASON_DESTROY|REASON_EFFECT
+function s.resfilter(c,tp)
+	return c:IsReason(REASON_EFFECT) and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsPreviousControler(tp)
+		and (c:IsPreviousPosition(POS_FACEUP) or not c:IsPreviousLocation(LOCATION_MZONE))
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.resfilter,1,nil)
+	return eg:IsExists(s.resfilter,1,nil,tp)
+        and not (re and re:GetHandler():IsCode(id))
 end
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_FIRE_CORE) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end
