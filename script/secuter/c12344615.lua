@@ -40,11 +40,17 @@ end
 --spsummon token
 function s.checkattr(tp)
 	local attr_all=0
-	for i=0,10 do
-		local attr = 2^i
-		if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
+    local i=0
+    local attr=2^i
+	while attr < ATTRIBUTE_ALL do
+        local token_id = math.max(12344699-i-1, 12344691) -- specific attribute token or default one
+        Debug.UniqueMessage(tp, aux.DecodeAttribute(attr))
+		if Duel.IsPlayerCanSpecialSummonMonster(tp,token_id,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
 			attr_all=attr_all | attr
 		end
+        -- next attribute
+        i=i+1
+		attr=2^i
 	end
 	return attr_all
 end
@@ -58,20 +64,23 @@ function s.tktg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.tkop(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.GetLocationCount(tp,LOCATION_MZONE)<=0 then return end
-	if Duel.IsPlayerCanSpecialSummonMonster(tp,12344699,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,e:GetLabel()) then
-		-- change attribute both before and after summon to work with Gozen Match
-		local token=Duel.CreateToken(tp,12344699)
+    local attr=e:GetLabel()
+    local i=math.log(attr, 2)
+    local token_id = math.max(12344699-i-1, 12344691) -- specific attribute token or default one
+	if Duel.IsPlayerCanSpecialSummonMonster(tp,token_id,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
+		-- I'm changing the attribute both before and after summon to work properly with Gozen Match
+		local token=Duel.CreateToken(tp,token_id)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CHANGE_ATTRIBUTE)
-		e1:SetValue(e:GetLabel())
+		e1:SetValue(attr)
 		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
 		token:RegisterEffect(e1)
 		Duel.SpecialSummonStep(token,0,tp,tp,false,false,POS_FACEUP)
 		local e1=Effect.CreateEffect(e:GetHandler())
 		e1:SetType(EFFECT_TYPE_SINGLE)
 		e1:SetCode(EFFECT_CHANGE_ATTRIBUTE)
-		e1:SetValue(e:GetLabel())
+		e1:SetValue(attr)
 		e1:SetReset(RESET_EVENT+RESETS_STANDARD)
 		token:RegisterEffect(e1)
 		Duel.SpecialSummonComplete()

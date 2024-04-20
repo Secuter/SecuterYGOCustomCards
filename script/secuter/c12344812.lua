@@ -54,11 +54,14 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if not (tc and tc:IsRelateToEffect(e)) then return end
-	aux.ToHandOrElse(tc,tp,function(c)
-						return tc:IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end,
-						function(c)
-						Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP) end,
-						aux.Stringid(id,1))
+	aux.ToHandOrElse(tc,tp,
+        function(c)
+			return tc:IsCanBeSpecialSummoned(e,0,tp,false,false) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+        end,
+		function(c)
+			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
+        end,
+		aux.Stringid(id,1))
 end
 --banish
 function s.cfilter(c)

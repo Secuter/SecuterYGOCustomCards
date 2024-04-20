@@ -41,7 +41,7 @@ end
 function s.valcheck(e,c)
 	local g=c:GetMaterial():Filter(Card.IsType,nil,TYPE_XYZ)
 	if #g>0 then
-		e:GetLabelObject():SetLabel(1) 
+		e:GetLabelObject():SetLabel(1)
 	end
 end
 --spsummon
@@ -65,11 +65,14 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
 	local tc=Duel.GetFirstTarget()
 	if not (tc and tc:IsRelateToEffect(e)) then return end
-	aux.ToHandOrElse(tc,tp,function(c)
-						return tc:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 end,
-						function(c)
-						Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE) end,
-						aux.Stringid(id,0))
+	aux.ToHandOrElse(tc,tp,
+        function(c)
+			return tc:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0
+        end,
+		function(c)
+			Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP_DEFENSE)
+        end,
+		aux.Stringid(id,0))
 end
 --switch locations
 function s.mvfilter(c,lg)
