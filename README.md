@@ -154,7 +154,6 @@ Unfortunately, decks and replays are not downloaded automatically in Edopro, so 
 #### Example decklists
 https://github.com/Secuter/SecuterYGOCustomCards-Decks<br>
 Download the [deck.zip](https://github.com/Secuter/SecuterYGOCustomCards-Decks/releases/latest/download/deck.zip).
-PS: Most of them still contains Baronne de Fleur and Borreload Savage Dragon.
 
 #### Example combo replays
 https://github.com/Secuter/SecuterYGOCustomCards-Replays<br>
