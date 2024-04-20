@@ -82,7 +82,6 @@ function s.checkattr(tp)
     local attr=2^i
 	while attr < ATTRIBUTE_ALL do
         local token_id = math.max(12344699-i-1, 12344691) -- specific attribute token or default one
-        Debug.UniqueMessage(tp, aux.DecodeAttribute(attr))
 		if Duel.IsPlayerCanSpecialSummonMonster(tp,token_id,SET_EXTERNAL_WORLDS,TYPES_TOKEN,0,0,1,RACE_FIEND,attr) then
 			attr_all=attr_all | attr
 		end

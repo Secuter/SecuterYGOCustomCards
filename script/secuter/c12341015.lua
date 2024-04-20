@@ -14,11 +14,14 @@ function s.initial_effect(c)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
 end
+function s.filter(c)
+    return c:IsNegatableSpellTrap() and c:IsType(TYPE_CONTINUOUS+TYPE_FIELD)
+end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsNegatableSpellTrap() and chkc:IsControler(1-tp) end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsNegatableSpellTrap,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chkc then return chkc:filter() and chkc:IsControler(1-tp) end
+	if chk==0 then return Duel.IsExistingTarget(s.filter,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
-	local g=Duel.SelectTarget(tp,Card.IsNegatableSpellTrap,tp,0,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,s.filter,tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,1,0,0)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
