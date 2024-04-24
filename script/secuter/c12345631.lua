@@ -62,16 +62,16 @@ function s.initial_effect(c)
 	c:RegisterEffect(e6)
 end
 --spsummon procedure
-function s.cfilter(c)
-    return c:IsFaceup() and c:IsType(TYPE_EQUIP) and c:IsAbleToRemoveAsCost()
+function s.cfilter(c,e)
+    return c:IsFaceup() and c:IsType(TYPE_EQUIP) and c:IsDestructable(e)
 end
 function s.hspcon(e,c)
 	if c==nil then return true end
 	local tp=c:GetControler()
-    return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,3,nil)
+    return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,3,nil,e)
 end
 function s.hsptg(e,tp,eg,ep,ev,re,r,rp,chk,c)
-    local sg=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_SZONE,0,3,3,nil)
+    local sg=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_SZONE,0,3,3,nil,e)
 	if #sg>0 then
 		sg:KeepAlive()
 		e:SetLabelObject(sg)
@@ -82,7 +82,7 @@ function s.hsptg(e,tp,eg,ep,ev,re,r,rp,chk,c)
 end
 function s.hspop(e,tp,eg,ep,ev,re,r,rp,c)
 	local sg=e:GetLabelObject()
-	Duel.Remove(sg,POS_FACEUP,REASON_COST)
+	Duel.Destroy(sg,REASON_COST)
 	c:SetMaterial(sg)
 	sg:DeleteGroup()
 end
