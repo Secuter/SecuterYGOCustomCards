@@ -11,7 +11,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)
 	e1:SetCode(EFFECT_SUMMON_PROC)
 	e1:SetCondition(s.ntcon)
-	c:RegisterEffect(e1)    
+	c:RegisterEffect(e1)
 	--des
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
@@ -48,7 +48,7 @@ function s.atfilter(c)
 end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil)
-	  and not Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler())
+	  and not Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_ONFIELD,0,1,e:GetHandler())
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc~=e:GetHandler() end

@@ -50,22 +50,34 @@ function s.ctval(e,re,rp)
 	return rp~=e:GetHandlerPlayer()
 end
 
+function s.cfilter(c)
+    return c:IsAbleToHand() or c:IsAbleToExtra()
+end
 function s.spfilter(c,e,tp)
 	return c:IsLevelBelow(4) and c:IsSetCard(SET_EAGLE_OVERSEER)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return false end
-	if chk==0 then return e:GetHandler():GetLinkedGroup():Filter(Card.IsAbleToHand,nil):GetCount()>0
+	if chk==0 then return e:GetHandler():GetLinkedGroup():Filter(s.cfilter,nil):GetCount()>0
 		and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
 	local g=e:GetHandler():GetLinkedGroup()
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
+    local g1=g:Filter(Card.IsAbleToExtra,nil)
+    local g2=g:Filter(aux.NOT(Card.IsAbleToExtra),nil)
+    if #g1>0 then
+	    Duel.SetOperationInfo(0,CATEGORY_TOEXTRA,g1,#g1,0,0)
+    end
+    if #g2>0 then
+	    Duel.SetOperationInfo(0,CATEGORY_TOHAND,g2,#g2,0,0)
+    end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_DECK)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
-	local g=e:GetHandler():GetLinkedGroup():Filter(Card.IsAbleToHand,nil)
-	if #g>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)>0 and g:Filter(Card.IsLocation,nil,LOCATION_HAND):GetCount()>0 then
+	local g=e:GetHandler():GetLinkedGroup()
+    local ct=#g
+    g=g:Filter(s.cfilter,nil)
+	if #g>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)>0 and #g:Filter(Card.IsLocation,nil,LOCATION_HAND|LOCATION_EXTRA)==ct then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tc=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 		if tc then

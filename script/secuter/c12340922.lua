@@ -51,7 +51,7 @@ function s.condition(e,c)
 end
 --normal summon itself
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
+	return Duel.IsMainPhase() and Duel.GetFieldGroupCount(tp,LOCATION_MZONE,0)==0
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

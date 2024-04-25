@@ -48,7 +48,7 @@ function s.atfilter(c)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil)
-	  and not Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_ONFIELD,LOCATION_ONFIELD,1,e:GetHandler())
+	  and not Duel.IsExistingMatchingCard(s.atfilter,tp,LOCATION_ONFIELD,0,1,e:GetHandler())
 end
 function s.thfilter(c)
 	return c:IsSetCard(SET_ASURA) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsAbleToHand()

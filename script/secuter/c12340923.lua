@@ -52,7 +52,7 @@ function s.condition(e,c)
 end
 --normal summon itself
 function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ASURA),tp,LOCATION_MZONE,0,1,nil)
+	return Duel.IsMainPhase() and Duel.IsExistingMatchingCard(aux.FaceupFilter(Card.IsSetCard,SET_ASURA),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
