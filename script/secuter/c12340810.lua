@@ -65,7 +65,7 @@ function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local g=e:GetHandler():GetLinkedGroup():Filter(Card.IsAbleToHand,nil)
-	if #g>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)>0 and g:Filter(Card.IsLocation,1,LOCATION_HAND,nil):GetCount()>0 then
+	if #g>0 and Duel.SendtoHand(g,nil,REASON_EFFECT)>0 and g:Filter(Card.IsLocation,nil,LOCATION_HAND):GetCount()>0 then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
 		local tc=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_DECK,0,1,1,nil,e,tp)
 		if tc then

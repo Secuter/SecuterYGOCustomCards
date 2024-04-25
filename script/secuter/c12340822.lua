@@ -107,14 +107,15 @@ function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.filter(c)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
+	return c:IsFaceup() and (c:IsAbleToHand() or c:IsAbleToExtra()) and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(tp) and s.filter(chkc) end
 	if chk==0 then return Duel.IsExistingTarget(s.filter,tp,LOCATION_ONFIELD,0,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-	local g=Duel.SelectTarget(tp,s.filter,tp,LOCATION_ONFIELD,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+	Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,3))
+	local tc=Duel.SelectTarget(tp,s.filter,tp,LOCATION_ONFIELD,0,1,1,nil):GetFirst()
+	local category=tc:IsAbleToExtra() and CATEGORY_TOEXTRA or CATEGORY_TOHAND
+	Duel.SetOperationInfo(0,category,tc,1,tp,0)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 	if re:GetHandler():IsDestructable() and re:GetHandler():IsRelateToEffect(re) then
 		Duel.SetOperationInfo(0,CATEGORY_DESTROY,eg,1,0,0)
@@ -122,12 +123,11 @@ function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.negop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) then
-		Duel.SendtoHand(tc,nil,REASON_EFFECT)
-	end
-	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
-		Duel.Destroy(eg,REASON_EFFECT)
-	end
+    if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND|LOCATION_EXTRA) then
+	    if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then
+	    	Duel.Destroy(eg,REASON_EFFECT)
+        end
+    end
 end
 --add from gy
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

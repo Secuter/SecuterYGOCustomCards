@@ -62,20 +62,21 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --to deck
 function s.filter(c)
-	return c:IsFaceup() and c:IsAbleToHand() and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
+	return c:IsFaceup() and (c:IsAbleToHand() or c:IsAbleToExtra()) and ((c:IsAttribute(ATTRIBUTE_WIND) and c:IsRace(RACE_WINGEDBEAST)) or c:IsSetCard(SET_EAGLE_OVERSEER))
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end
 	if chk==0 then return Duel.IsExistingTarget(s.filter,tp,LOCATION_ONFIELD,0,1,e:GetHandler())
 		and Duel.IsExistingMatchingCard(Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-	local g1=Duel.SelectTarget(tp,s.filter,tp,LOCATION_ONFIELD,0,1,1,e:GetHandler())
-	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g1,1,0,0)
+    Duel.Hint(HINT_SELECTMSG,tp,aux.Stringid(id,2))
+	local tc=Duel.SelectTarget(tp,s.filter,tp,LOCATION_ONFIELD,0,1,1,e:GetHandler()):GetFirst()
+	local category=tc:IsAbleToExtra() and CATEGORY_TOEXTRA or CATEGORY_TOHAND
+	Duel.SetOperationInfo(0,category,tc,1,tp,0)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,nil,1,1-tp,LOCATION_ONFIELD)
 end
 function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND) then
+    if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND|LOCATION_EXTRA) then
 		if Duel.IsExistingMatchingCard(Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,nil) then
             Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TODECK)
             local g=Duel.SelectMatchingCard(tp,Card.IsAbleToDeck,tp,0,LOCATION_ONFIELD,1,1,nil)
