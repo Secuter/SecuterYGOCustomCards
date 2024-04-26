@@ -4,7 +4,7 @@ if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsRace,RACE_WINGEDBEAST),4,2)
+	Xyz.AddProcedure(c,nil,4,2)
 	c:EnableReviveLimit()
 	--Change name to "Harpie Lady"
 	local e1=Effect.CreateEffect(c)
