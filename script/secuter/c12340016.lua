@@ -1,4 +1,4 @@
----External Worlds Counter
+---External Worlds Storm
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
@@ -47,19 +47,20 @@ function s.effect(e,tp,eg,ep,ev,re,r,rp)
 		Duel.Destroy(eg,REASON_EFFECT)
 	end
 end
-function s.tgfilter(c)
-	return c:IsAbleToRemoveAsCost() and c:IsType(TYPE_SPELL+TYPE_TRAP)
+--search
+function s.rmfilter(c)
+	return c:IsAbleToRemoveAsCost() and c:IsSpellTrap()
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
     local c=e:GetHandler()
 	if chk==0 then return c:IsAbleToRemoveAsCost()
-        and Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_GRAVE,0,1,c) end
-	Duel.Remove(c,POS_FACEUP,REASON_COST)
-    local g=Duel.SelectMatchingCard(tp,s.tgfilter,tp,LOCATION_GRAVE,0,1,1,c):GetFirst()
+        and Duel.IsExistingMatchingCard(s.rmfilter,tp,LOCATION_GRAVE,0,1,c) end
+    local g=Duel.SelectMatchingCard(tp,s.rmfilter,tp,LOCATION_GRAVE,0,1,1,c)
+    g:AddCard(c)
 	Duel.Remove(g,POS_FACEUP,REASON_COST)
 end
 function s.thfilter(c)
-	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_TUNER) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
