@@ -1,4 +1,4 @@
---Harpie Pet Dragon Chaos Xyz
+--CXyz Harpie's Pet Fiery Dragon
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
@@ -28,12 +28,12 @@ function s.initial_effect(c)
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,0))
 	e3:SetCategory(CATEGORY_TOHAND)
-	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e3:SetType(EFFECT_TYPE_QUICK_O)
-	e3:SetRange(LOCATION_MZONE)
-	e3:SetCountLimit(1,id)
 	e3:SetCode(EVENT_FREE_CHAIN)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET)
+	e3:SetRange(LOCATION_MZONE)
 	e3:SetHintTiming(0,TIMINGS_CHECK_MONSTER_E)
+	e3:SetCountLimit(1,id)
 	e3:SetCost(aux.dxmcostgen(1,1,nil))
 	e3:SetTarget(s.thtg)
 	e3:SetOperation(s.thop)
@@ -52,7 +52,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e4)
 end
 s.listed_series={SET_HARPIE}
-s.listed_names={12345662}
+s.listed_names={CARD_HARPIES_PET_FIERY_DRAGON}
 function s.tgtg(e,c)
 	return c:IsSetCard(SET_HARPIE) and c~=e:GetHandler()
 end
@@ -77,16 +77,14 @@ end
 
 --attach
 function s.atcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ) and e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,12345662)
+    return e:GetHandler():IsSummonType(SUMMON_TYPE_XYZ)
+        and e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,CARD_HARPIES_PET_FIERY_DRAGON)
 end
 function s.atfilter(c,tp)
 	return c:IsAbleToChangeControler() and not c:IsType(TYPE_TOKEN)
 end
 function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.atfilter,tp,0,LOCATION_ONFIELD,1,nil) end
-end
-function s.chlimit(e,ep,tp)
-	return tp==ep
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

@@ -42,19 +42,19 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
     end
 end
 
-function s.rfilter(c)
+function s.rfilter(c,tp)
 	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and c:IsAbleToRemove()
         and Duel.IsExistingMatchingCard(s.psfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.psfilter(c,code)
 	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_PENDULUM) and not c:IsCode(code) and not c:IsForbidden()
 end
-function s.pstg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chkc then return chkc:IsLocation(LOCATION_PZONE) and chkc:IsControler(tp) and s.rmfilter(chkc) end
-	if chk==0 then return Duel.IsExistingTarget(s.rmfilter,tp,LOCATION_PZONE,0,1,nil) end
+function s.pstg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+	if chkc then return chkc:IsLocation(LOCATION_PZONE) and chkc:IsControler(tp) and s.rfilter(chkc,tp) end
+	if chk==0 then return Duel.IsExistingTarget(s.rfilter,tp,LOCATION_PZONE,0,1,nil,tp) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectTarget(tp,s.rmfilter,tp,LOCATION_PZONE,0,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)    
+	local g=Duel.SelectTarget(tp,s.rfilter,tp,LOCATION_PZONE,0,1,1,nil,tp)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,1,0,0)
 end
 function s.psop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()

@@ -1,4 +1,4 @@
---Harpie Pet Dragon Xyz
+--Harpie's Pet Fiery Dragon
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
@@ -23,7 +23,7 @@ function s.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_IGNITION)
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCountLimit(1,id)
-	e3:SetCost(aux.dxmcostgen(1,1,nil))
+	e3:SetCost(aux.dxmcostgen(2,2,nil))
 	e3:SetTarget(s.tftg)
 	e3:SetOperation(s.tfop)
 	c:RegisterEffect(e3,false,REGISTER_FLAG_DETACH_XMAT)
@@ -33,7 +33,7 @@ function s.initial_effect(c)
 	e4:SetType(EFFECT_TYPE_IGNITION)
 	e4:SetRange(LOCATION_MZONE)
 	e4:SetCountLimit(1,id)
-	e4:SetCost(aux.dxmcostgen(1,1,nil))
+	e4:SetCost(aux.dxmcostgen(2,2,nil))
 	e4:SetTarget(s.settg)
 	e4:SetOperation(s.setop)
 	c:RegisterEffect(e4,false,REGISTER_FLAG_DETACH_XMAT)
@@ -43,7 +43,7 @@ function s.initial_effect(c)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCountLimit(1,id)
-	e5:SetCost(aux.dxmcostgen(1,1,nil))
+	e5:SetCost(aux.dxmcostgen(2,2,nil))
 	e5:SetTarget(s.tdtg)
 	e5:SetOperation(s.tdop)
 	c:RegisterEffect(e5,false,REGISTER_FLAG_DETACH_XMAT)
@@ -55,16 +55,16 @@ function s.initial_effect(c)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
 	e2:SetCode(EVENT_DESTROYED)
 	e2:SetCountLimit(1,id)
-	e2:SetCondition(s.spcon)
-	e2:SetTarget(s.sptg)
-	e2:SetOperation(s.spop)
+	e2:SetCondition(s.xyzcon)
+	e2:SetTarget(s.xyztg)
+	e2:SetOperation(s.xyzop)
 	c:RegisterEffect(e2)
 	local e3=e2:Clone()
 	e3:SetCode(EVENT_REMOVE)
 	c:RegisterEffect(e3)
 end
 s.listed_series={SET_HARPIE}
-s.listed_names={CARD_HARPIES_HUNTING_GROUND,CARD_HISTERIC_SIGN}
+s.listed_names={CARD_HARPIES_HUNTING_GROUND,CARD_HISTERIC_SIGN,CARD_CXYZ_HARPIES_PET_FIERY_DRAGON}
 --atk
 function s.atkfilter(c)
     return c:IsCode(CARD_HARPIE_LADY) or c:IsCode(CARD_HARPIE_LADY_SISTERS)
@@ -115,28 +115,29 @@ function s.tdop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 --xyz summon
-function s.spcon(e,tp,eg,ep,ev,re,r,rp)
+function s.xyzcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return Duel.IsMainPhase() and c:IsReason(REASON_EFFECT) and rp==1-tp and c:IsPreviousControler(tp)
-		and c:IsPreviousLocation(LOCATION_ONFIELD) and c:IsSummonType(SUMMON_TYPE_XYZ)
+	return rp==1-tp and c:IsPreviousControler(tp) and c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_XYZ)
 end
-function s.spfilter(c,e,tp,rp)
-	return c:IsCode(12345663) and Duel.GetLocationCountFromEx(tp,rp,nil,c)>0 and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,true)
+function s.spfilter(c,e,tp,mc)
+	return c:IsCode(CARD_CXYZ_HARPIES_PET_FIERY_DRAGON)
+		and Duel.GetLocationCountFromEx(tp,tp,mc,c)>0
+		and mc:IsCanBeXyzMaterial(c,tp) and c:IsCanBeSpecialSummoned(e,SUMMON_TYPE_XYZ,tp,false,false)
 end
-function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,rp) end
+function s.xyztg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_EXTRA,0,1,nil,e,tp,e:GetHandler()) end
 	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_EXTRA)
 end
-function s.spop(e,tp,eg,ep,ev,re,r,rp)
+function s.xyzop(e,tp,eg,ep,ev,re,r,rp)
+    local c=e:GetHandler()
+	local pg=aux.GetMustBeMaterialGroup(tp,Group.FromCards(c),tp,nil,nil,REASON_XYZ)
+	if c:IsFacedown() or not c:IsRelateToEffect(e) or #pg>1 or (#pg==1 and not pg:IsContains(c)) then return end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
-	local tc=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,rp):GetFirst()
+	local tc=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_EXTRA,0,1,1,nil,e,tp,c):GetFirst()
 	if tc then
-		Duel.SpecialSummon(tc,SUMMON_TYPE_XYZ,tp,tp,false,true,POS_FACEUP)
+		tc:SetMaterial(c)
+		Duel.Overlay(tc,c)
+		Duel.SpecialSummon(tc,SUMMON_TYPE_XYZ,tp,tp,false,false,POS_FACEUP)
 		tc:CompleteProcedure()
-        --attach
-        local c=e:GetHandler()
-        if c:IsRelateToEffect(e) then
-            Duel.Overlay(tc,c)
-        end
 	end
 end
