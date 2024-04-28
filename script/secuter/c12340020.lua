@@ -5,7 +5,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--synchro summon
 	c:EnableReviveLimit()
-	Synchro.AddProcedure(c,s.matfilter1,2,2,s.matfilter2,1,1)
+	Synchro.AddProcedure(c,s.matfilter1,2,2,s.matfilter2,1,99)
     --Destroy all
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
