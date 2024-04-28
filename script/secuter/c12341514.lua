@@ -13,8 +13,10 @@ function s.initial_effect(c)
 	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetCategory(CATEGORY_DAMAGE)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
-	e1:SetCode(EVENT_FREE_CHAIN+EFFECT_FLAG_CARD_TARGET)
+	e1:SetCode(EVENT_FREE_CHAIN)
+	e1:SetProperty(EFFECT_FLAG_CARD_TARGET)
 	e1:SetRange(LOCATION_MZONE)
+    e1:SetHintTiming(TIMING_END_PHASE)
 	e1:SetCountLimit(1,id)
 	e1:SetTarget(s.damtg)
 	e1:SetOperation(s.damop)
@@ -30,11 +32,12 @@ function s.initial_effect(c)
 end
 
 function s.damtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and Armor.AttachCheck(chkc,e:GetHandler()) end
-	if chk==0 then return Duel.IsExistingTarget(Armor.AttachCheck,tp,LOCATION_GRAVE,0,1,nil,e:GetHandler()) end
+    local c=e:GetHandler()
+	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and Armor.AttachCheck(chkc,c) end
+	if chk==0 then return Duel.IsExistingTarget(Armor.AttachCheck,tp,LOCATION_GRAVE,0,1,nil,c) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATTACHARMOR)
-	local g=Duel.SelectTarget(tp,Armor.AttachCheck,tp,LOCATION_GRAVE,0,1,1,nil,e:GetHandler())
-	local dmg=(e:GetHandler():GetOverlayCount()+1)*300
+	local g=Duel.SelectTarget(tp,Armor.AttachCheck,tp,LOCATION_GRAVE,0,1,1,nil,c)
+	local dmg=(c:GetOverlayCount()+1)*300
 	Duel.SetOperationInfo(0,CATEGORY_ATTACH_ARMOR,g,1,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DAMAGE,nil,0,1-tp,dmg)
 end
@@ -42,7 +45,7 @@ function s.damop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	local tc=Duel.GetFirstTarget()
 	if c:IsRelateToEffect(e) and tc:IsRelateToEffect(e) and Armor.Attach(c,tc,e) then
-        local dmg=(e:GetHandler():GetOverlayCount()+1)*300
+        local dmg=c:GetOverlayCount()*300
 		Duel.Damage(1-tp,dmg,REASON_EFFECT)
 	end
 end
