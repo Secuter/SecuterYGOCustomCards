@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetTarget(Ritual.Target({lvtype=RITPROC_GREATER,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),forcedselection=function(e,tp,g,sc)return g:IsContains(e:GetHandler()) end}))
 	e2:SetOperation(s.spop(Ritual.Operation({lvtype=RITPROC_GREATER,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),forcedselection=function(e,tp,g,sc)return g:IsContains(e:GetHandler()) end})))
 	c:RegisterEffect(e2)
-	--negate
+	--to hand
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_TOHAND)

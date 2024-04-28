@@ -25,7 +25,7 @@ function s.initial_effect(c)
 	e2:SetTarget(Ritual.Target({lvtype=RITPROC_GREATER,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),forcedselection=function(e,tp,g,sc)return g:IsContains(e:GetHandler()) end}))
 	e2:SetOperation(s.spop(Ritual.Operation({lvtype=RITPROC_GREATER,filter=aux.FilterBoolFunction(Card.IsSetCard,SET_DARK_KING),forcedselection=function(e,tp,g,sc)return g:IsContains(e:GetHandler()) end})))
 	c:RegisterEffect(e2)
-	--to hand
+	--negate
 	local e3=Effect.CreateEffect(c)
 	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_NEGATE)
@@ -80,7 +80,7 @@ end
 --to hand
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
-		and ep~=tp and re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
+		and ep~=tp and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
