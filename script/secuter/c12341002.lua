@@ -9,7 +9,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_QUICK_O)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetRange(LOCATION_HAND)
-	e1:SetHintTiming(0,TIMING_MAIN_END+TIMING_SUMMON+TIMING_SPSUMMON)
+	e1:SetHintTiming(TIMING_END_PHASE)
 	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.condition)
 	e1:SetTarget(s.target)
@@ -26,17 +26,17 @@ function s.initial_effect(c)
 	end)
 end
 -- check
-function s.cfilter(c,tp)
-	return c:IsControler(tp) and c:IsPreviousLocation(LOCATION_DECK) and c:IsReason(REASON_EFFECT)
+function s.cfilter(c,tp,rp)
+	return tp==rp and c:IsControler(tp) and c:IsPreviousLocation(LOCATION_DECK) and c:IsReason(REASON_EFFECT)
 end
 function s.regcon(e,tp,eg,ep,ev,re,r,rp)
-	return eg:IsExists(s.cfilter,1,nil,tp) or eg:IsExists(s.cfilter,1,nil,1-tp)
+	return eg:IsExists(s.cfilter,1,nil,tp,rp) or eg:IsExists(s.cfilter,1,nil,1-tp,rp)
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=eg:GetFirst()
 	for tc in aux.Next(eg) do
-		if s.cfilter(tc,tp) then Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1) end
-		if s.cfilter(tc,1-tp) then Duel.RegisterFlagEffect(1-tp,id,RESET_PHASE+PHASE_END,0,1) end
+		if s.cfilter(tc,tp,rp) then Duel.RegisterFlagEffect(tp,id,RESET_PHASE+PHASE_END,0,1) end
+		if s.cfilter(tc,1-tp,rp) then Duel.RegisterFlagEffect(1-tp,id,RESET_PHASE+PHASE_END,0,1) end
 	end
 end
 -- spsummon
