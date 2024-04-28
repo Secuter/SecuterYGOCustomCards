@@ -67,9 +67,9 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
                     --disable cards
                     Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
                     local tg=g1:Select(tp,ct,ct,nil)
-                    local turn=Duel.GetTurnPlayer()==tp and 1 or 2
+                    -- local turn=Duel.GetTurnPlayer()==tp and 1 or 2
                     for tc1 in aux.Next(tg) do
-                        tc1:NegateEffects(c,RESET_PHASE+PHASE_END,true,turn)
+                        tc1:NegateEffects(c,RESET_PHASE+PHASE_END,true)
                     end
                 end
             end

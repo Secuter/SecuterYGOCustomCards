@@ -9,6 +9,7 @@ function s.initial_effect(c)
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
+	e1:SetCondition(s.cond)
 	e1:SetTarget(s.target)
 	c:RegisterEffect(e1)
 	--search if negated
@@ -28,6 +29,9 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_DARK_KING}
 --activate
+function s.cond(e,tp,eg,ep,ev,re,r,rp)
+	return tp==Duel.GetTurnPlayer() and Duel.IsMainPhase()
+end
 function s.cfilter(c)
 	return c:IsRitualMonster() and not c:IsPublic()
 end
