@@ -62,17 +62,17 @@ function s.attg(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	if c:IsFaceup() and c:IsType(TYPE_XYZ)
-    and Duel.IsExistingMatchingCard(s.atfilter,tp,0,LOCATION_ONFIELD,1,nil)
-    and Duel.IsExistingMatchingCard(aux.NecroValleyFilter(Card.IsAbleToChangeControler),tp,LOCATION_GRAVE,LOCATION_GRAVE,1,nil) then
+	if c:IsFaceup() and c:IsType(TYPE_XYZ) and c:IsLocation(LOCATION_MZONE)
+    and Duel.IsExistingMatchingCard(s.atfilter,tp,0,LOCATION_ONFIELD,1,nil) then
         Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
 		local g=Duel.SelectMatchingCard(tp,s.atfilter,tp,0,LOCATION_ONFIELD,1,1,nil)
         if g:GetFirst():IsImmuneToEffect(e) then return end
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_XMATERIAL)
-		local g2=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(s.atfilter),tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,nil)
+		local g2=Duel.SelectMatchingCard(tp,aux.NecroValleyFilter(Card.IsAbleToChangeControler),tp,LOCATION_GRAVE,LOCATION_GRAVE,1,1,nil)
         g:Merge(g2)
 		for tc in aux.Next(g) do
             local og=tc:GetOverlayGroup()
+            tc:CancelToGrave()
             if #og>0 then
                 Duel.SendtoGrave(og,REASON_RULE)
             end
