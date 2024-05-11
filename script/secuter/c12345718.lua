@@ -10,10 +10,10 @@ function s.initial_effect(c)
     --to grave
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,0))
-	e1:SetCategory(CATEGORY_TOGRAVE+CATEGORY_DISABLE)
+	e1:SetCategory(CATEGORY_TOGRAVE)
 	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
 	e1:SetCode(EVENT_SPSUMMON_SUCCESS)
-	e1:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
+	e1:SetProperty(EFFECT_FLAG_DELAY)
 	e1:SetCountLimit(1,id)
 	e1:SetCondition(s.tgcon)
 	e1:SetTarget(s.tgtg)
@@ -21,14 +21,16 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--banish itself
 	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,2))
-	e2:SetCategory(CATEGORY_REMOVE)
+	e2:SetDescription(aux.Stringid(id,1))
+	e2:SetCategory(CATEGORY_DISABLE)
 	e2:SetType(EFFECT_TYPE_QUICK_O)
-	e2:SetCode(EVENT_FREE_CHAIN)
+	e2:SetCode(EVENT_CHAINING)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCountLimit(1,{id,1})
-	e2:SetTarget(s.rmtg)
-	e2:SetOperation(s.rmop)
+	e2:SetCondition(s.discon)
+	e2:SetCost(s.discost)
+	e2:SetTarget(s.distg)
+	e2:SetOperation(s.disop)
 	c:RegisterEffect(e2)
 end
 --check
@@ -40,61 +42,38 @@ end
 function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 end
-function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsControler(1-tp) and chkc:IsOnField() and chkc:IsAbleToGrave() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,nil) end
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-	local g=Duel.SelectTarget(tp,Card.IsAbleToGrave,tp,0,LOCATION_ONFIELD,1,1,nil)
-	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,g,1,0,0)
-	local og=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
-	Duel.SetPossibleOperationInfo(0,CATEGORY_DISABLE,og,#og,0,0)
+function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.GetFieldGroupCount(tp,0,LOCATION_MZONE)>0 end
+	Duel.SetOperationInfo(0,CATEGORY_TOGRAVE,nil,1,0,LOCATION_MZONE)
 end
 function s.tgop(e,tp,eg,ep,ev,re,r,rp)
-    local c=e:GetHandler()
-	local tc=Duel.GetFirstTarget()
-	if tc:IsRelateToEffect(e) and Duel.SendtoGrave(tc,REASON_EFFECT)>0 then
-        --check negatable cards
-	    local g1=Duel.GetMatchingGroup(Card.IsNegatable,tp,0,LOCATION_ONFIELD,nil)
-	    local g2=Duel.GetMatchingGroup(Card.IsAbleToGrave,tp,LOCATION_HAND,0,nil)
-        local ct=#g1
-	    if ct>0 and #g2>0 and Duel.SelectEffectYesNo(tp,c,aux.Stringid(id,1)) then
-            --send cards to gy
-            Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
-            local sg=g2:Select(tp,1,ct,nil)
-            if Duel.SendtoGrave(sg,REASON_EFFECT)>0 then
-                ct=sg:FilterCount(Card.IsLocation,nil,LOCATION_GRAVE)
-                if ct>0 then
-                    --disable cards
-                    Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
-                    local tg=g1:Select(tp,ct,ct,nil)
-                    -- local turn=Duel.GetTurnPlayer()==tp and 1 or 2
-                    for tc1 in aux.Next(tg) do
-                        tc1:NegateEffects(c,RESET_PHASE+PHASE_END,true)
-                    end
-                end
-            end
-        end
+	local g=Duel.GetMatchingGroup(nil,1-tp,LOCATION_MZONE,0,nil)
+	if #g>0 then
+		Duel.Hint(HINT_SELECTMSG,1-tp,HINTMSG_TOGRAVE)
+		local sg=g:Select(1-tp,1,1,nil)
+		Duel.HintSelection(sg)
+		Duel.SendtoGrave(sg,REASON_RULE,PLAYER_NONE,1-tp)
 	end
 end
 
---banish itself
-function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chk==0 then return e:GetHandler():IsAbleToRemove() end
+--disable
+function s.discon(e,tp,eg,ep,ev,re,r,rp)
+	return rp==1-tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
 end
-function s.rmop(e,tp,eg,ep,ev,re,r,rp)
+function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
-	if c:IsFaceup() and c:IsRelateToEffect(e) then
-		Duel.Remove(c,POS_FACEUP,REASON_EFFECT+REASON_TEMPORARY)
-		local e1=Effect.CreateEffect(c)
-		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PHASE+PHASE_END)
-		e1:SetReset(RESET_PHASE|PHASE_END)
-		e1:SetLabelObject(c)
-		e1:SetCountLimit(1)
-		e1:SetOperation(s.retop)
-		Duel.RegisterEffect(e1,tp)
-	end
+	if chk==0 then return c:IsAbleToExtraAsCost() end
+	Duel.SendtoDeck(c,nil,0,REASON_COST)
 end
-function s.retop(e,tp,eg,ep,ev,re,r,rp)
-	Duel.ReturnToField(e:GetLabelObject())
+function s.distg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsNegatableMonster,tp,0,LOCATION_MZONE,1,nil) end
+		Duel.SetOperationInfo(0,CATEGORY_DISABLE,nil,1,tp,LOCATION_MZONE)
+end
+function s.disop(e,tp,eg,ep,ev,re,r,rp)
+	local sg=Duel.GetMatchingGroup(Card.IsNegatableMonster,tp,0,LOCATION_MZONE,nil)
+	if #sg>0 then
+		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_FACEUP)
+		local tc=sg:Select(tp,1,1,nil):GetFirst()
+		tc:NegateEffects(e:GetHandler(),RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
+	end
 end
