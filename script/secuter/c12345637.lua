@@ -53,5 +53,5 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	aux.RegisterClientHint(e:GetHandler(),nil,tp,1,0,aux.Stringid(id,1),nil)
 end
 function s.splimit(e,c)
-	return not c:IsAttribute(ATTRIBUTE_LIGHT|ATTRIBUTE_DARK) or not (c:IsRace(RACE_WARRIOR) or c:IsType(TYPE_UNION))
+	return not ((c:IsAttribute(ATTRIBUTE_LIGHT|ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)) or c:IsType(TYPE_UNION))
 end
