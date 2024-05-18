@@ -49,12 +49,12 @@ end
 function Ignition.FilterEx(c,f,sc,tp,mg,loc)
     local g=mg
     g:AddCard(c)
-	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp))
+	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp,mg))
         and (not loc or c:IsLocation(loc))
         and Duel.GetLocationCountFromEx(tp,tp,g,sc)>0
 end
 function Ignition.Filter(c,f,sc,tp)
-	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp)) 
+	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp))
 end
 function Ignition.Check(tp,sg,sc,f1,f2,min)
 	return sg:IsExists(Ignition.FilterEx,1,nil,f1,sc,tp,sg,LOCATION_MZONE)
@@ -68,13 +68,16 @@ function Ignition.Condition(f1,f2,min,max)
 				if c==nil then return true end
 				if c:IsType(TYPE_PENDULUM) and c:IsFaceup() then return false end
 				local tp=c:GetControler()
-                
+				local dg
+
                 if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,1,nil,f1,c,tp)
                     or not Duel.IsExistingMatchingCard(Ignition.Filter,tp,LOCATION_HAND,0,min,nil,f2,c,tp) then return false end
-                
+
                 local mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
                 local mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
-                
+				local emt,etg=aux.GetExtraMaterials(tp,dg,c,SUMMON_TYPE_IGNITION)
+				mg2:Merge(etg)
+
                 if #mg1<=0 or #mg2<=0 then return false end
                 return mg1:IsExists(Ignition.FilterEx,1,nil,f1,c,tp,mg2)
                     and mg2:IsExists(Ignition.FilterEx,min,nil,f2,c,tp,mg1)
@@ -82,14 +85,17 @@ function Ignition.Condition(f1,f2,min,max)
 end
 function Ignition.Target(f1,f2,min,max)
 	return function(e,tp,eg,ep,ev,re,r,rp,chk,c,must,mg1,mg2)
+                local dg
                 if not mg1 then
                     mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
                 end
                 if not mg2 then
                     mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
                 end
+				local emt,etg=aux.GetExtraMaterials(tp,dg,c,SUMMON_TYPE_IGNITION)
+				mg2:Merge(etg)
 				local mustg=Auxiliary.GetMustBeMaterialGroup(tp,mg1+mg2,tp,c,mg1+mg2,REASON_IGNITION)
-				if must then mustg:Merge(must) end                
+				if must then mustg:Merge(must) end
 				local sg=Group.CreateGroup()
 				local finish=false
 				local cancel=false
@@ -115,7 +121,7 @@ function Ignition.Target(f1,f2,min,max)
 						sg:RemoveCard(tc)
 					end
 				end
-				
+
 				if #sg>0 then
 					sg:KeepAlive()
 					e:SetLabelObject(sg)
