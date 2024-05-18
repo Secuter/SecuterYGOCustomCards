@@ -23,11 +23,11 @@ function s.initial_effect(c)
 	e3:SetType(EFFECT_TYPE_EQUIP)
 	e3:SetCode(EFFECT_SET_BASE_ATTACK)
 	e3:SetCondition(s.discon)
-    e3:SetValue(function(e) return e:GetHandler():GetTextAttack() end)
+    e3:SetValue(function(e) return e:GetHandler():GetEquipTarget():GetTextAttack()/2 end)
     c:RegisterEffect(e3)
     local e4=e3:Clone()
 	e4:SetCode(EFFECT_SET_BASE_DEFENSE)
-    e4:SetValue(function(e) return e:GetHandler():GetTextDefense() end)
+    e4:SetValue(function(e) return e:GetHandler():GetEquipTarget():GetTextDefense()/2 end)
     c:RegisterEffect(e4)
     --double dmg
     local e5=Effect.CreateEffect(c)
@@ -40,7 +40,7 @@ function s.initial_effect(c)
 	local e6=Effect.CreateEffect(c)
 	e6:SetDescription(aux.Stringid(id,0))
 	e6:SetType(EFFECT_TYPE_IGNITION)
-	e1:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
+	e6:SetProperty(EFFECT_FLAG_NO_TURN_RESET)
 	e6:SetRange(LOCATION_SZONE)
 	e6:SetCountLimit(1,id)
 	e6:SetCondition(s.setcon)
@@ -58,8 +58,8 @@ end
 
 --double dmg
 function s.damcon(e)
-	local c=e:GetHandler()
-	return c:GetBattleTarget():IsSetCard(SET_PHANTOM_RIDERS)
+	local tc=e:GetHandler():GetEquipTarget():GetBattleTarget()
+	return tc and tc:IsSetCard(SET_PHANTOM_RIDERS)
 end
 
 --set
@@ -67,7 +67,7 @@ function s.setcon(e,c)
 	return e:GetHandler():GetEquipTarget():IsControler(e:GetHandlerPlayer())
 end
 function s.setfilter(c)
-	return (c:IsSetCard(SET_FREEFLAME) or c:IsSetCard(SET_FLAMVELL)) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_PHANTOM_RIDERS) and c:IsTrap() and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

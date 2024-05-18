@@ -46,19 +46,27 @@ function Ignition.AddProcedure(c,f1,f2,min,max)
 	e0:SetValue(TYPE_FUSION)
 	c:RegisterEffect(e0)
 end
-function Ignition.FilterEx(c,f,sc,tp,mg,loc)
+function Ignition.FilterEx(c,f,sc,tp,sg,mg)
     local g=mg
     g:AddCard(c)
-	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp,mg))
-        and (not loc or c:IsLocation(loc))
+	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp,sg))
         and Duel.GetLocationCountFromEx(tp,tp,g,sc)>0
+end
+function Ignition.FilterMain(c,f1,f2,min,sc,tp,sg,mg,etg)
+	return c:IsLocation(LOCATION_MZONE)
+        and Ignition.FilterEx(c,f1,sc,tp,sg,mg)
+        and mg:IsExists(Ignition.FilterSub,min,nil,f2,c,tp,Group.FromCards(c),mg,etg)
+end
+function Ignition.FilterSub(c,f,sc,tp,sg,mg,etg)
+	return (c:IsLocation(LOCATION_HAND) or (etg and etg:Includes(Group.FromCards(c))))
+        and Ignition.FilterEx(c,f,sc,tp,sg,mg)
 end
 function Ignition.Filter(c,f,sc,tp)
 	return (not f or f(c,sc,SUMMON_TYPE_SPECIAL,tp))
 end
-function Ignition.Check(tp,sg,sc,f1,f2,min)
-	return sg:IsExists(Ignition.FilterEx,1,nil,f1,sc,tp,sg,LOCATION_MZONE)
-		and sg:IsExists(Ignition.FilterEx,min,nil,f2,sc,tp,sg,LOCATION_HAND)
+function Ignition.Check(tp,sg,sc,f1,f2,min,etg)
+	return sg:IsExists(Ignition.FilterMain,1,nil,f1,f2,min,sc,tp,sg,sg,etg)
+		and sg:IsExists(Ignition.FilterSub,min,nil,f2,sc,tp,sg,sg,etg)
 end
 function Ignition.Remove(c,g)
 	return g:IsContains(c)
@@ -70,17 +78,14 @@ function Ignition.Condition(f1,f2,min,max)
 				local tp=c:GetControler()
 				local dg
 
-                if not Duel.IsExistingMatchingCard(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,1,nil,f1,c,tp)
-                    or not Duel.IsExistingMatchingCard(Ignition.Filter,tp,LOCATION_HAND,0,min,nil,f2,c,tp) then return false end
-
                 local mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
                 local mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
 				local emt,etg=aux.GetExtraMaterials(tp,dg,c,SUMMON_TYPE_IGNITION)
 				mg2:Merge(etg)
 
                 if #mg1<=0 or #mg2<=0 then return false end
-                return mg1:IsExists(Ignition.FilterEx,1,nil,f1,c,tp,mg2)
-                    and mg2:IsExists(Ignition.FilterEx,min,nil,f2,c,tp,mg1)
+                return mg1:IsExists(Ignition.FilterMain,1,nil,f1,f2,min,c,tp,mg2,mg2,etg)
+                    -- and mg2:IsExists(Ignition.FilterSub,min,nil,f2,c,tp,mg1,mg1,etg)
             end
 end
 function Ignition.Target(f1,f2,min,max)
@@ -102,15 +107,16 @@ function Ignition.Target(f1,f2,min,max)
 				sg:Merge(mustg)
 				while #sg<(max+1) do
 					local cg=Group.CreateGroup()
-                    if not sg:IsExists(Ignition.FilterEx,1,nil,f1,c,tp,mg2,LOCATION_MZONE) then
-                        cg:Merge(mg1:Filter(Ignition.FilterEx,nil,f1,c,tp,mg2,LOCATION_MZONE))
+                    if not sg:IsExists(Ignition.FilterMain,1,nil,f1,f2,min,c,tp,sg,mg2,etg) then
+                        cg:Merge(mg1:Filter(Ignition.FilterMain,nil,f1,f2,min,c,tp,sg,mg2,etg))
 					end
-                    if not sg:IsExists(Ignition.FilterEx,max,nil,f2,c,tp,mg1,LOCATION_HAND) then
-                        cg:Merge(mg2:Filter(Ignition.FilterEx,nil,f2,c,tp,mg1,LOCATION_HAND))
+                    if not sg:IsExists(Ignition.FilterSub,max,nil,f2,c,tp,sg,mg1,etg) then
+                        cg:Merge(mg2:Filter(Ignition.FilterSub,nil,f2,c,tp,sg,mg1,etg))
                     end
 					cg:Remove(Ignition.Remove,nil,sg)
 					if #cg==0 then break end
-					finish=#sg>=(min+1) and Ignition.Check(tp,sg,c,f1,f2,min)
+					-- finish=#sg>=(min+1) and Ignition.Check(tp,sg,c,f1,f2,min,etg)
+					finish=#sg>=(min+1) and sg:IsExists(Ignition.FilterMain,1,nil,f1,f2,min,c,tp,sg,sg,etg)
 					cancel=Duel.GetCurrentChain()<=0 and #sg==0
 					Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_IMATERIAL)
 					local tc=Group.SelectUnselect(cg,sg,tp,finish,cancel,min+1,max+1)

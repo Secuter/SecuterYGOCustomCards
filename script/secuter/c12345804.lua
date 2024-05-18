@@ -4,7 +4,7 @@ if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	-- ignition summon
-	Ignition.AddProcedure(c,s.matfilter1,s.matfilter2,1,99)
+	Ignition.AddProcedure(c,s.matfilter1,s.matfilter2,1,1)
 	c:EnableReviveLimit()
     -- extra mat
 	local e0=Effect.CreateEffect(c)
@@ -61,10 +61,11 @@ function s.matfilter1(c,sc,st,tp,mg)
 	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR) and c:IsLevelAbove(5)
 end
 function s.matfilter2(c,sc,st,tp,mg)
-    if not c:IsEquipSpell() then return false end
-    if c:IsLocation(LOCATION_HAND) then return true end
-    local tc=mg:Filter(Card.IsLocation,nil,LOCATION_MZONE):GetFirst()
-	return c:IsLocation(LOCATION_SZONE) and tc and tc:GetEquipGroup():Includes(c)
+    return c:IsEquipSpell() and (c:IsLocation(LOCATION_HAND)
+        or c:IsLocation(LOCATION_SZONE) and mg and mg:Filter(Card.IsLocation,nil,LOCATION_MZONE):IsExists(s.eqmatfilter,1,nil,c))
+end
+function s.eqmatfilter(c,ec)
+	return c:GetEquipGroup():Includes(Group.FromCards(ec))
 end
 -- extra mat
 function s.extraval(chk,summon_type,e,...)
@@ -85,13 +86,13 @@ end
 
 -- equip
 function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():IsPreviousLocation(LOCATION_ONFIELD)
+	return Duel.IsMainPhase() or Duel.IsBattlePhase()
 end
 function s.eqfilter(c,tc)
 	return c:IsSetCard(SET_PHANTOM_RIDERS) and c:IsType(TYPE_EQUIP) and c:CheckEquipTarget(tc) and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.tgfilter(c,tp)
-    return c:IsFaceup() and Duel.IsExistingMatchingCard(s.eqfilter,tp,LOCATION_DECK|LOCATION_HAND|LOCATION_GRAVE|LOCATION_REMOVED,0,1,nil,c)
+    return c:IsFaceup() and Duel.IsExistingMatchingCard(s.eqfilter,tp,LOCATION_GRAVE|LOCATION_REMOVED,0,1,nil,c)
 end
 function s.eqtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

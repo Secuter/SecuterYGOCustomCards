@@ -36,7 +36,7 @@ function s.initial_effect(c)
 	e5:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
 	e5:SetRange(LOCATION_SZONE)
 	e5:SetTargetRange(LOCATION_HAND|LOCATION_MZONE,0)
-	e5:SetTarget(aux.TargetBoolFunction(Card.IsSetCard,SET_PHANTOM_RIDERS))
+	e5:SetTarget(s.sfilter)
 	c:RegisterEffect(e5)
 	--equip
 	local e6=Effect.CreateEffect(c)
@@ -45,7 +45,7 @@ function s.initial_effect(c)
 	e6:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e6:SetProperty(EFFECT_FLAG_DELAY)
 	e6:SetCode(EVENT_SUMMON_SUCCESS)
-	e6:SetRange(LOCATION_MZONE)
+	e6:SetRange(LOCATION_FZONE)
 	e6:SetCountLimit(1,id)
 	e6:SetCondition(s.eqcon)
 	e6:SetTarget(s.eqtg)
@@ -57,9 +57,14 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_PHANTOM_RIDERS}
 
+--extra summon
+function s.sfilter(e,c)
+    return c:IsAttribute(ATTRIBUTE_LIGHT|ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR)
+end
+
 --equip
 function s.cfilter(c,tp)
-	return c:IsFaceup() and c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR) and c:IsLevelAbove(5) and c:IsSummonPlayer(tp)
+	return c:IsFaceup() and c:IsSetCard(SET_PHANTOM_RIDERS) and c:IsSummonPlayer(tp)
 end
 function s.eqcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.cfilter,1,nil,tp)
