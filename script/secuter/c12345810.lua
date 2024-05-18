@@ -22,14 +22,12 @@ function s.filter(c)
 	return c:IsFaceup() and c:IsRace(RACE_WARRIOR) and c:IsLevelAbove(5)
 end
 function s.condition(e,tp,eg,ep,ev,re,r,rp)
-    Debug.UniqueMessage(tp,Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil))
 	return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil)
 end
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsEquipCard() and c:IsAbleToGraveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
-    Debug.UniqueMessage(tp,Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,1,nil))
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_SZONE,0,1,1,nil)
@@ -37,7 +35,6 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsControler(1-tp) end
-    Debug.UniqueMessage(tp,Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil))
 	if chk==0 then return Duel.IsExistingTarget(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
 	local g=Duel.SelectTarget(tp,aux.TRUE,tp,0,LOCATION_ONFIELD,1,2,nil)

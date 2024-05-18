@@ -27,7 +27,6 @@ function s.initial_effect(c)
     local e2=Effect.CreateEffect(c)
     e2:SetType(EFFECT_TYPE_SINGLE)
     e2:SetCode(EFFECT_PIERCE)
-    e2:SetReset(RESET_EVENT+RESETS_STANDARD)
     c:RegisterEffect(e2)
 	-- equip
 	local e3=Effect.CreateEffect(c)
@@ -58,7 +57,7 @@ end
 s.listed_series={SET_PHANTOM_RIDERS}
 -- mat
 function s.matfilter1(c,sc,st,tp,mg)
-	return c:IsAttribute(ATTRIBUTE_DARK) and c:IsRace(RACE_WARRIOR) and c:IsLevelAbove(5)
+	return c:IsRace(RACE_WARRIOR) and c:IsLevelAbove(5)
 end
 function s.matfilter2(c,sc,st,tp,mg)
     return c:IsEquipSpell() and (c:IsLocation(LOCATION_HAND)

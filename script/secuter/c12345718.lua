@@ -19,7 +19,7 @@ function s.initial_effect(c)
 	e1:SetTarget(s.tgtg)
 	e1:SetOperation(s.tgop)
 	c:RegisterEffect(e1)
-	--banish itself
+	--disable
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
 	e2:SetCategory(CATEGORY_DISABLE)
@@ -57,8 +57,19 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 --disable
+function s.selfspcon(e,tp,eg,ep,ev,re,r,rp)
+	local ch=ev-1
+	if ch==0 or ep==tp then return false end
+	local ch_player,ch_eff=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
+	local ch_c=ch_eff:GetHandler()
+	return ch_player==tp and ((ch_c:IsSetCard(SET_LABRYNTH) and not ch_c:IsCode(id))
+		or (ch_c:GetOriginalType()==TYPE_TRAP and ch_eff:IsTrapEffect()))
+end
 function s.discon(e,tp,eg,ep,ev,re,r,rp)
-	return rp==1-tp and not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED)
+	local ch=ev-1
+	if ch==0 or ep==tp or e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) then return false end
+	local ch_player,ch_eff=Duel.GetChainInfo(ch,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
+	return ch_player==tp
 end
 function s.discost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

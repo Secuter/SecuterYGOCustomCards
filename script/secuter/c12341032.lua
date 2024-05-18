@@ -45,11 +45,9 @@ end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()
 	local ct=Duel.GetFlagEffectLabel(tp,id) or 0
-    Debug.UniqueMessage(tp,ct)
 	if chk==0 then return ct==0 or (ct<2 and c:IsSummonType(SUMMON_TYPE_LINK)) end
 	if ct>0 then Duel.ResetFlagEffect(tp,id) end
 	Duel.RegisterFlagEffect(tp,id,RESET_PHASE|PHASE_END,1,0,ct+1)
-    Debug.UniqueMessage(tp,Duel.GetFlagEffectLabel(tp,id))
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and chkc:IsAbleToHand() and chkc:IsControler(1-tp) end
