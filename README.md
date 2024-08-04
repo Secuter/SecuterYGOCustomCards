@@ -50,20 +50,14 @@ The S/T Card and the Runic effect have different Once per turn clause, so I can 
 ---
 
 ## Configuration
+To add custom cards to your Edopro you have to download the [user_configs.json](etc/user_configs.json) file and place it in the "config" folder of your Edopro installation. -> MY_PATH\ProjectIgnis\config\user_configs.json<br>
+If you are using other repositories with custom cards, you need to manually edit the user_config to include both of them.<br>
+Previously, I added custom repos in the config.json, but it's more correct to use the user_config. The only difference is that the config.json gets overwritten with major Edopro updates, while the user_config does not.<br>
 
-You can either edit your configs.json to add custom cards repositories and the server, or download the [preconfigured configs.json](etc/configs.json).<br>
-Your configs.json file is located in the Edopro installation folder -> MY_PATH\ProjectIgnis\config\configs.json<br>
-Before overwriting the configuration file, check that the default repositories have not changed (the file provided here is automatically updated daily, taking changes from the official Edopro repository, but it's always good to double-check :grinning:). Usually, Edopro repositories are only changed with major releases, eg. when it went from version 39 to 40.<br>
-If you have a lot of repositories is reccomended to backup the configs.json file because when Edopro is updated this file is overwritten with the default one.
+I use two separate repositories for code and images because it syncs faster, and on the first startup, it doesn't download all 1000+ images at once, but only when needed. (The script repo is less than 10 MB, while the images are over 1 GB.)<br>
+The only drawback of this approach is that the image is not updated if it's modified; you have to manually delete the card(s) from the "pics" folder to download the new one.<br>
+If the effect text is changed, you shouldn't even notice the discrepancy in text and image; the text in the pic is usually too small to be readable. However, for Attribute, Level, and ATK/DEF, I try not to change them because they are more visible on the card.<br>
 
-I use two separate repositories so that the automatic update doesn't download all the images every time but only the repository containing scripts and the database, which are much lighter. This way, I don't have to wait during the simulator's startup."
- 
-I have 2 separate repos for card pics and scripts/databases because this way, only the lighter repository containing scripts and databases are synced eyery time you start Edopro. (It's around 7 MB while the size of all images are 1 GB.)<br>
-The card images are downloaded only once when you view the card in Edopro for the first time. (It's the same with original TCG/OCG cards.)<br>
-The only drawback of this approach is that the image is not updated if it's modified on the repo; you have to manually delete the card(s) from the "pics" folder to download the new one.<br>
-For changes in the card's effect, you won't even notice the difference. Personally, I mostly read the text beneath the card, which is bigger :smile:. That's why I avoid making changes to card materials, level, or ATK/DEF. If it's absolutely necessary, I notify the cards with these changes in the releases on GitHub.<br>
-
-:warning: Other developers' repositories contained in the configs file may also have additional archetypes not present on the server.<br>
 Here is a list of archetypes supported on the server in addition to mine.
 | Archetype/s | Developer | Repository | Preview webite |
 | :-------: | :-------: | ---------- | :----------- |

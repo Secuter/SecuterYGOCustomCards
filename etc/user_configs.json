@@ -1,0 +1,37 @@
+{
+    "repos": [
+        {
+            "data_path": "expansions",
+            "repo_name": "Secuter Custom Cards",
+            "repo_path": "./repositories/secuter-custom-cards",
+            "script_path": "script",
+            "should_read": true,
+            "should_update": true,
+            "url": "https://github.com/Secuter/SecuterYGOCustomCards"
+        }
+    ],
+    "servers": [
+        {
+            "address": "duel.secutertools.win",
+            "duelport": 7820,
+            "name": "Secuter Custom Cards",
+            "roomaddress": "duel.secutertools.win",
+            "roomlistport": 7810,
+            "roomlistprotocol": "http"
+        }
+    ],
+    "urls": [
+        {
+            "type": "pic",
+            "url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/main/{}.png"
+        },
+        {
+            "type": "field",
+            "url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/main/field/{}.png"
+        },
+        {
+            "type": "field",
+            "url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/main/field/{}.jpg"
+        }
+    ]
+}
