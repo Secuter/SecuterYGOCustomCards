@@ -19,20 +19,36 @@ function s.initial_effect(c)
 	e1:SetTarget(s.attg)
 	e1:SetOperation(s.atop)
 	c:RegisterEffect(e1)
-	--Unaffected
+	--Intarget
 	local e2=Effect.CreateEffect(c)
 	e2:SetType(EFFECT_TYPE_SINGLE)
 	e2:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
-	e2:SetCode(EFFECT_IMMUNE_EFFECT)
+	e2:SetCode(EFFECT_CANNOT_BE_EFFECT_TARGET)
 	e2:SetRange(LOCATION_MZONE)
 	e2:SetCondition(s.econ)
-	e2:SetValue(s.efilter)
+	e2:SetValue(aux.tgoval)
 	c:RegisterEffect(e2)
-	--ATK
-	local e3=e2:Clone()
-	e3:SetCode(EFFECT_UPDATE_ATTACK)
-	e3:SetValue(s.atkval)
+	--Cannot be negated
+	local e3=Effect.CreateEffect(c)
+	e3:SetType(EFFECT_TYPE_SINGLE)
+	e3:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e3:SetCode(EFFECT_CANNOT_DISABLE)
+	e3:SetRange(LOCATION_MZONE)
+	e3:SetCondition(s.econ)
 	c:RegisterEffect(e3)
+	local e4=Effect.CreateEffect(c)
+	e4:SetType(EFFECT_TYPE_FIELD)
+	e4:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	e4:SetCode(EFFECT_CANNOT_DISEFFECT)
+	e4:SetRange(LOCATION_MZONE)
+	e4:SetCondition(s.econ)
+	e4:SetValue(s.efilter)
+	c:RegisterEffect(e4,true)
+	--ATK
+	local e5=e2:Clone()
+	e5:SetCode(EFFECT_UPDATE_ATTACK)
+	e5:SetValue(s.atkval)
+	c:RegisterEffect(e5)
 end
 s.xyz_number=100
 s.listed_names={57314798}
@@ -81,12 +97,13 @@ function s.atop(e,tp,eg,ep,ev,re,r,rp)
 	end
 end
 
---uneffected
+--protection
 function s.econ(e)
 	return e:GetHandler():GetOverlayGroup():IsExists(Card.IsCode,1,nil,57314798)
 end
-function s.efilter(e,te)
-	return te:GetOwnerPlayer()==1-e:GetHandlerPlayer()
+function s.efilter(e,ct)
+	local te=Duel.GetChainInfo(ct,CHAININFO_TRIGGERING_EFFECT)
+	return te:GetHandler()==e:GetHandler()
 end
 --atk
 function s.atkval(e,c)
