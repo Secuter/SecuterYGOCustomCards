@@ -47,7 +47,6 @@ function s.spfilter(c,e,tp)
 	return c:IsSetCard(SET_STAR_SERAPH) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and not s.name_list[tp][c:GetCode()]
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-    for _,v in ipairs(s.name_list[tp]) do Debug.UniqueMessage(tp,v) end
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
         and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_HAND,0,1,nil,e,tp)
         and Duel.IsPlayerCanDraw(tp,1) end
