@@ -8,6 +8,17 @@ s.Armor=true
 function s.initial_effect(c)
 	--Armor
 	Armor.AddProcedure(c,s)
+	--ATK/DEF
+	local a1=Effect.CreateEffect(c)
+	a1:SetType(EFFECT_TYPE_XMATERIAL)
+	a1:SetProperty(EFFECT_FLAG_SINGLE_RANGE)
+	a1:SetCode(EFFECT_UPDATE_ATTACK)
+	a1:SetCondition(Armor.Condition)
+	a1:SetValue(s.atkvalue)
+	c:RegisterEffect(a1)
+    local a2=a1:Clone()
+	a2:SetCode(EFFECT_UPDATE_DEFENSE)
+	c:RegisterEffect(a2)
 	--Activate
 	local e1=Effect.CreateEffect(c)
 	e1:SetDescription(aux.Stringid(id,1))
@@ -33,7 +44,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e2)
 end
 s.listed_names={id}
-function s.armor_value(e,c)
+function s.atkvalue(e,c)
 	return e:GetHandler():GetOverlayCount()*100
 end
 

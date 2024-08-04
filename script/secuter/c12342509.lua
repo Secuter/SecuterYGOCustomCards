@@ -90,14 +90,18 @@ function s.banop(e,tp,eg,ep,ev,re,r,rp)
 	if c:IsFaceup() and c:IsRelateToEffect(e) and Duel.Remove(c,POS_FACEUP,REASON_EFFECT+REASON_TEMPORARY)~=0 then
 		local e1=Effect.CreateEffect(c)
 		e1:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_CONTINUOUS)
-		e1:SetCode(EVENT_PHASE+PHASE_END+RESET_OPPO_TURN)
-		e1:SetReset(RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
+		e1:SetCode(EVENT_PHASE+PHASE_END)
 		e1:SetLabelObject(c)
 		e1:SetCountLimit(1)
+		e1:SetCondition(s.retcon)
 		e1:SetOperation(s.retop)
+		e1:SetReset(RESET_PHASE+PHASE_END+RESET_OPPO_TURN)
 		Duel.RegisterEffect(e1,tp)
 		Duel.Recover(tp,2500,REASON_EFFECT)
 	end
+end
+function s.retcon(e,tp,eg,ep,ev,re,r,rp)
+	return Duel.IsTurnPlayer(1-tp)
 end
 function s.retop(e,tp,eg,ep,ev,re,r,rp)
     Duel.ReturnToField(e:GetLabelObject())
