@@ -77,7 +77,7 @@ end
 function s.splimit(e,c)
 	return not c:IsAttribute(ATTRIBUTE_DARK)
 end
---negate
+--to hand
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL) and ep~=tp
 end

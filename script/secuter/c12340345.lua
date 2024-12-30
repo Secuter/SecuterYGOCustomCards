@@ -77,10 +77,10 @@ end
 function s.splimit(e,c)
 	return not c:IsAttribute(ATTRIBUTE_DARK)
 end
---to hand
+--negate
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)
 	return not e:GetHandler():IsStatus(STATUS_BATTLE_DESTROYED) and e:GetHandler():IsSummonType(SUMMON_TYPE_RITUAL)
-		and ep~=tp and re:IsActiveType(TYPE_SPELL|TYPE_TRAP) and Duel.IsChainNegatable(ev)
+		and ep~=tp and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainNegatable(ev)
 end
 function s.negtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
