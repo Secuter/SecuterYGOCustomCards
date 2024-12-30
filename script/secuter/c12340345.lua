@@ -45,7 +45,7 @@ function s.filter(c)
 	return (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE)) and c:IsAttribute(ATTRIBUTE_DARK)
 end
 function s.atkval(e,c)
-	return Duel.GetMatchingGroupCount(s.filter,c:GetControler(),LOCATION_GRAVE|LOCATION_REMOVED,0,nil)*300
+	return Duel.GetMatchingGroupCount(s.filter,c:GetControler(),LOCATION_GRAVE|LOCATION_REMOVED,0,nil)*100
 end
 --ritual summon
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
