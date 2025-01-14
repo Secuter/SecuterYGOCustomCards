@@ -46,7 +46,7 @@ s.listed_names={id}
 s.listed_series={SET_PRIMEVAL_FOREST}
 --spsummon
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_DEFENSE)
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.spfilter(chkc,e,tp) end

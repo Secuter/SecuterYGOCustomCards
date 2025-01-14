@@ -164,8 +164,10 @@ function Card.IgnitionRule(c,e,tp,mustg,mg)
 	end
     if #mg1<=0 or #mg2<=0 then return false end
 	if mustg and not Ignition.FilterMustBeMat(mg1,mg2,mustg) then return false end
-    return mg1:IsExists(Ignition.FilterEx,1,nil,f1,c,tp,mg2)
-        and mg2:IsExists(Ignition.FilterEx,min,nil,f2,c,tp,mg1)
+    local emt,etg=aux.GetExtraMaterials(tp,dg,c,SUMMON_TYPE_IGNITION)
+    return mg1:IsExists(Ignition.FilterMain,1,nil,f1,f2,min,c,tp,mg2,mg2,etg)
+--     return mg1:IsExists(Ignition.FilterEx,1,nil,f1,c,tp,mg2,mg2)
+--         and mg2:IsExists(Ignition.FilterEx,min,nil,f2,c,tp,mg1,mg1)
 end
 function Ignition.FilterMustBeMat(mg1,mg2,mustg)
 	local tc=mustg:GetFirst()
@@ -190,17 +192,19 @@ function Duel.IgnitionSummon(tp,c,mustg,mg)
 		mg1=Duel.GetMatchingGroup(aux.FaceupFilter(Ignition.Filter),tp,LOCATION_MZONE,0,nil,f1,c,tp)
 		mg2=Duel.GetMatchingGroup(Ignition.Filter,tp,LOCATION_HAND,0,nil,f2,c,tp)
 	end
-	
+
 	local sg=Group.CreateGroup()
 	local finish=false
 	local cancel=false
 	if mustg then sg:Merge(mustg) end
 	while #sg<(max+1) do
 		local cg=Group.CreateGroup()
-        if not sg:IsExists(Ignition.FilterEx,1,nil,f1,c,tp,mg2,LOCATION_MZONE) then
-        cg=mg1:Filter(Ignition.FilterEx,nil,f1,c,tp,mg2,LOCATION_MZONE)
-        elseif not sg:IsExists(Ignition.FilterEx,max,nil,f2,c,tp,mg1,LOCATION_HAND) then
-            cg=mg2:Filter(Ignition.FilterEx,nil,f2,c,tp,mg1,LOCATION_HAND)
+        local emt,etg=aux.GetExtraMaterials(tp,dg,c,SUMMON_TYPE_IGNITION)
+        if not sg:IsExists(Ignition.FilterMain,1,nil,f1,f2,min,c,tp,mg2,mg2,etg) then
+            cg=mg1:Filter(Ignition.FilterMain,nil,f1,f2,min,c,tp,mg2,mg2,etg)
+        end
+        if not sg:IsExists(Ignition.FilterSub,max,nil,f2,c,tp,mg1,mg1,etg) then
+            cg=mg2:Filter(Ignition.FilterSub,nil,f2,c,tp,mg1,mg1,etg)
         end
 		cg:Remove(Ignition.Remove,nil,sg)
 		if #cg==0 then break end
