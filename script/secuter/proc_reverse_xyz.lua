@@ -123,7 +123,7 @@ function ReverseXyz.Target(lv,f1,f2)
 				local finish=false
 				local cancel=false
 				sg:Merge(mustg)
-				while #sg<2 do                    
+				while #sg<2 do
 					local cg=Group.CreateGroup()
 					if lv then
 						if not sg:IsExists(ReverseXyz.FilterEx,1,nil,f1,c,tp,lv,mg2) then

@@ -40,6 +40,7 @@ function s.initial_effect(c)
     --to deck
 	local e5=Effect.CreateEffect(c)
 	e5:SetDescription(aux.Stringid(id,2))
+	e5:SetCategory(CATEGORY_TODECK)
 	e5:SetType(EFFECT_TYPE_IGNITION)
 	e5:SetRange(LOCATION_MZONE)
 	e5:SetCountLimit(1,id)

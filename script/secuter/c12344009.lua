@@ -46,11 +46,11 @@ end
 function s.spop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)>0
-	and Duel.IsExistingMatchingCard(aux.TRUE,tp,o,LOCATION_ONFIELD,1,nil)
+	and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil)
 	and Duel.SelectYesNo(tp,aux.Stringid(id,1)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)
-		local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,o,LOCATION_ONFIELD,1,1,nil)
+		local g=Duel.SelectMatchingCard(tp,aux.TRUE,tp,0,LOCATION_ONFIELD,1,1,nil)
 		Duel.HintSelection(g)
 		Duel.Destroy(g,REASON_EFFECT)
 	end
