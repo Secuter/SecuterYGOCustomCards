@@ -85,7 +85,7 @@ function s.resfilter(c,tp)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return eg:IsExists(s.resfilter,1,nil,tp)
-        and not (re and re:GetHandler():IsCode(id))
+        -- and not (re and re:GetHandler():IsCode(id))
 end
 function s.thfilter(c,e,tp)
 	return c:IsSetCard(SET_FIRE_CORE) and c:IsMonster() and c:IsAbleToHand()
