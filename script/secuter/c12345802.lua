@@ -31,8 +31,8 @@ function s.initial_effect(c)
 	e3:SetCountLimit(1,{id,1})
 	e3:SetRange(LOCATION_MZONE)
 	e3:SetCondition(s.effcon1)
-	e3:SetTarget(s.destg)
-	e3:SetOperation(s.desop)
+	e3:SetTarget(s.distg)
+	e3:SetOperation(s.disop)
 	c:RegisterEffect(e3)
 	local e4=e3:Clone()
 	e4:SetType(EFFECT_TYPE_QUICK_O)
@@ -87,14 +87,14 @@ end
 function s.effcon2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetEquipCount()>0
 end
-function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsNegatableCard() end
 	if chk==0 then return Duel.IsExistingTarget(Card.IsNegatableCard,tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
 	local g=Duel.SelectTarget(tp,Card.IsNegatableCard,tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,1,0,0)
 end
-function s.desop(e,tp,eg,ep,ev,re,r,rp)
+function s.disop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
 	if tc and tc:IsRelateToEffect(e) and tc:IsFaceup() and not tc:IsDisabled() then
         tc:NegateEffects(e:GetHandler(),RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)

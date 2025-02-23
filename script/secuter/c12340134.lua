@@ -59,7 +59,6 @@ function s.immtg(e,c)
 end
 --search
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-    local c=e:GetHandler()
     return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.thfilter(c)
