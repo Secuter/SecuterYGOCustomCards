@@ -46,8 +46,8 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if #g>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)
-		if #g>0 and Duel.SendtoHand(sg,nil,REASON_EFFECT) and g:GetFirst():IsLocation(LOCATION_HAND) then
-            Duel.ConfirmCards(1-tp,g)
+		if #sg>0 and Duel.SendtoHand(sg,nil,REASON_EFFECT) and sg:GetFirst():IsLocation(LOCATION_HAND) then
+            Duel.ConfirmCards(1-tp,sg)
             Duel.ShuffleHand(tp)
             Duel.BreakEffect()
             Duel.DiscardHand(tp,nil,1,1,REASON_EFFECT+REASON_DISCARD,nil)

@@ -4,7 +4,6 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--Activate
 	local e1=Effect.CreateEffect(c)
-	e1:SetDescription(aux.Stringid(id,0))
 	e1:SetType(EFFECT_TYPE_ACTIVATE)
 	e1:SetCode(EVENT_FREE_CHAIN)
 	e1:SetCountLimit(1,id,EFFECT_COUNT_CODE_OATH)
@@ -35,15 +34,15 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	--search
 	local b1=Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)
 	--exchange summon
-	local b2=Duel.IsExistingTarget(s.filter,tp,LOCATION_MZONE,0,1,nil,e,tp)
+	local b2=Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_MZONE,0,1,nil,e,tp)
 	--shuffle & draw
 	local b3=Duel.IsPlayerCanDraw(tp,1)
         and Duel.IsExistingTarget(s.tdfilter,tp,LOCATION_GRAVE,0,3,nil)
 	if chk==0 then return b1 or b2 or b3 end
 	local op=Duel.SelectEffect(tp,
-		{b1,aux.Stringid(id,1)},
-		{b2,aux.Stringid(id,2)},
-		{b3,aux.Stringid(id,3)})
+		{b1,aux.Stringid(id,0)},
+		{b2,aux.Stringid(id,1)},
+		{b3,aux.Stringid(id,2)})
 	e:SetLabel(op)
 	if op==1 then
 		e:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
@@ -51,9 +50,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 		Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
 	elseif op==2 then
 		e:SetCategory(CATEGORY_TOHAND+CATEGORY_SPECIAL_SUMMON)
-        Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
-        local g=Duel.SelectTarget(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil)
-        Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,1,0,0)
+        Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_MZONE)
         Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,nil,1,tp,LOCATION_HAND)
 	elseif op==3 then
 		e:SetCategory(CATEGORY_DRAW)
@@ -75,10 +72,13 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 		end
 	elseif op==2 then
         --exchange summon
-        local tc=Duel.GetFirstTarget()
-        if tc:IsRelateToEffect(e) and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND)
-        and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_HAND,0,1,nil,e,tp,tc:GetCode()) then
-            local g=Duel.SelectMatchingCard(tp,s.spfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp,tc:GetCode())
+        Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_RTOHAND)
+        local g=Duel.SelectMatchingCard(tp,s.filter,tp,LOCATION_MZONE,0,1,1,nil,e,tp)
+        local tc=g:GetFirst()
+        if tc and Duel.SendtoHand(tc,nil,REASON_EFFECT)>0 and tc:IsLocation(LOCATION_HAND) then
+            local sg=Duel.GetMatchingGroup(s.spfilter,tp,LOCATION_HAND,0,nil,e,tp,tc:GetCode())
+			Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_SPSUMMON)
+			local g=sg:Select(tp,1,1,nil)
             if #g>0 then
                 Duel.SpecialSummon(g,SUMMON_TYPE_EXCHANGE,tp,tp,false,false,POS_FACEUP)
             end
