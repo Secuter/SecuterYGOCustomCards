@@ -28,10 +28,10 @@ function s.filter(c)
 end
 --disable
 function s.distg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
-	if chkc then return chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsNegatableCard() end
-	if chk==0 then return Duel.IsExistingTarget(Card.IsNegatableCard,tp,0,LOCATION_ONFIELD,1,nil) end
+	if chkc then return chkc:IsFaceup() and chkc:IsLocation(LOCATION_ONFIELD) and chkc:IsControler(1-tp) and chkc:IsNegatable() end
+	if chk==0 then return Duel.IsExistingTarget(aux.FaceupFilter(Card.IsNegatable),tp,0,LOCATION_ONFIELD,1,nil) end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_NEGATE)
-	local g=Duel.SelectTarget(tp,Card.IsNegatableCard,tp,0,LOCATION_ONFIELD,1,1,nil)
+	local g=Duel.SelectTarget(tp,aux.FaceupFilter(Card.IsNegatable),tp,0,LOCATION_ONFIELD,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,g,1,0,0)
 end
 function s.disop(e,tp,eg,ep,ev,re,r,rp)

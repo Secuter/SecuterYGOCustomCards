@@ -39,7 +39,7 @@ function s.thfilter(c,ft)
 	return c:IsSetCard(SET_DARK_KING) and c:IsRitualSpell() and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
-	local b1=Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,nil) and Duel.IsExistingMatchingCard(Card.IsNegatableCard,tp,0,LOCATION_ONFIELD,1,nil)
+	local b1=Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_HAND,0,1,nil) and Duel.IsExistingMatchingCard(Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,nil)
 	local b2=Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK|LOCATION_GRAVE,0,1,nil)
 	if chk==0 then return b1 or b2 end
 	local op=Duel.SelectEffect(tp,
@@ -62,7 +62,7 @@ function s.disop(e,tp,eg,ep,ev,re,r,rp)
 		if #g>0 then
 		Duel.ConfirmCards(1-tp,g)
 		Duel.ShuffleHand(tp)
-		local tc=Duel.SelectMatchingCard(tp,Card.IsNegatableCard,tp,0,LOCATION_ONFIELD,1,1,nil):GetFirst()
+		local tc=Duel.SelectMatchingCard(tp,Card.IsNegatable,tp,0,LOCATION_ONFIELD,1,1,nil):GetFirst()
 		if tc then
 			tc:NegateEffects(e:GetHandler(),RESET_EVENT+RESETS_STANDARD+RESET_PHASE+PHASE_END)
 		end

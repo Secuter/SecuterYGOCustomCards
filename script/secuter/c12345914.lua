@@ -13,7 +13,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 	--additional Normal Summon
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,0))
+	e3:SetDescription(aux.Stringid(id,1))
 	e3:SetType(EFFECT_TYPE_FIELD)
 	e3:SetCode(EFFECT_EXTRA_SUMMON_COUNT)
 	e3:SetRange(LOCATION_FZONE)
@@ -22,12 +22,12 @@ function s.initial_effect(c)
 	c:RegisterEffect(e3)
 	--set
 	local e3=Effect.CreateEffect(c)
-	e3:SetDescription(aux.Stringid(id,1))
+	e3:SetDescription(aux.Stringid(id,2))
 	e3:SetCategory(CATEGORY_TOHAND)
 	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e3:SetProperty(EFFECT_FLAG_DELAY+EFFECT_FLAG_CARD_TARGET)
-	e3:SetRange(LOCATION_MZONE)
+	e3:SetRange(LOCATION_FZONE)
 	e3:SetCountLimit(1,{id,1})
 	e3:SetCondition(s.setcon)
 	e3:SetTarget(s.settg)
@@ -37,12 +37,12 @@ end
 s.listed_names={id}
 s.listed_series={SET_ARCANEBLADE,SET_ARCANEBLADE_MYSTIC}
 --search
-function s.filter(c)
-	return c:IsSetCard(SET_ARCANEBLADE_MYSTIC) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+function s.thfilter(c)
+	return c:IsSetCard(SET_ARCANEBLADE_MYSTIC) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
-	local g=Duel.GetMatchingGroup(s.filter,tp,LOCATION_DECK,0,nil)
+	local g=Duel.GetMatchingGroup(s.thfilter,tp,LOCATION_DECK,0,nil)
 	if #g>0 and Duel.SelectYesNo(tp,aux.Stringid(id,0)) then
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 		local sg=g:Select(tp,1,1,nil)

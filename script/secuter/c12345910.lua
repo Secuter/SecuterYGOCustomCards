@@ -24,7 +24,7 @@ function s.initial_effect(c)
 	--spsummon itself
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,1))
-	e2:SetCategory(CATEGORY_SPECIAL_SUMMON)
+	e2:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_DESTROY)
 	e2:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e2:SetCode(EVENT_SPSUMMON_SUCCESS)
 	e2:SetProperty(EFFECT_FLAG_DELAY)
@@ -49,10 +49,10 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 end
 function s.thfilter(c,e,tp)
 	return c:IsFaceup() and c:IsExchange() and c:IsAbleToHand()
-	    and Duel.IsExistingTarget(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetAttribute())
+	    and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp,c:GetAttribute())
 end
 function s.spfilter(c,e,tp,attr)
-	return c:IsSetCard(SET_ARCANEBLADE) and c:IsExchange() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+    return c:IsSetCard(SET_ARCANEBLADE) and c:IsExchange() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
         and ((attr&(ATTRIBUTE_WIND|ATTRIBUTE_EARTH)>0 and c:IsAttribute(ATTRIBUTE_FIRE|ATTRIBUTE_WATER))
             or (attr&(ATTRIBUTE_FIRE|ATTRIBUTE_WATER)>0 and c:IsAttribute(ATTRIBUTE_WIND|ATTRIBUTE_EARTH)))
 end
@@ -87,14 +87,16 @@ end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)
     local c=e:GetHandler()
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-        and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
+    Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,c,1,0,0)
+    local g=Duel.GetMatchingGroup(aux.TRUE,tp,0,LOCATION_ONFIELD,nil)
+    Duel.SetPossibleOperationInfo(0,CATEGORY_DESTROY,g,1,0,0)
 end
 function s.spop2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
 	if c:IsRelateToEffect(e)
     and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP_DEFENSE)>0
+	and Duel.IsExistingMatchingCard(aux.TRUE,tp,0,LOCATION_ONFIELD,1,nil)
 	and Duel.SelectYesNo(tp,aux.Stringid(id,2)) then
 		Duel.BreakEffect()
 		Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_DESTROY)

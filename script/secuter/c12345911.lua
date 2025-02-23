@@ -5,7 +5,7 @@ local s,id=GetID()
 s.Ignition=true
 function s.initial_effect(c)
 	--ignition summon
-	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)
+	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,2,2)
 	c:EnableReviveLimit()
     --remove
 	local e1=Effect.CreateEffect(c)
@@ -52,11 +52,11 @@ end
 function s.rmtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE) and chkc:IsControler(tp) and s.thfilter(chkc) end
 	local g=Duel.GetMatchingGroup(Card.IsAbleToRemove,tp,0,LOCATION_ONFIELD,nil)
-	if chk==0 then return Duel.IsExistingTarget(s.thfilter,tp,LOCATION_MZONE,0,1,nil) and #g>=2 end
+	if chk==0 then return Duel.IsExistingTarget(s.thfilter,tp,LOCATION_MZONE,0,1,nil) and #g>0 end
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
 	local tg=Duel.SelectTarget(tp,s.thfilter,tp,LOCATION_MZONE,0,1,1,nil)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,tg,1,0,0)
-	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,#g,0,0)
+	Duel.SetOperationInfo(0,CATEGORY_REMOVE,g,2,0,0)
 end
 function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()
@@ -69,7 +69,7 @@ end
 --spsummon
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
-	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_EXCHANGE) and rp==1-tp and c:IsPreviousControler(tp)
+	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_IGNITION) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,e,tp)
 	return c:IsSetCard(SET_ARCANEBLADE) and c:IsExchange() and c:IsCanBeSpecialSummoned(e,0,tp,false,false)

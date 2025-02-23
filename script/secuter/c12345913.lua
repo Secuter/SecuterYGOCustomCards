@@ -37,6 +37,7 @@ function s.cond(e,tp,eg,ep,ev,re,r,rp)
 	local chainlink=Duel.GetCurrentChain(true)-1
 	if not (chainlink>0 and Duel.IsChainDisablable(ev) and ep==1-tp) then return false end
 	local trig_p,trig_e=Duel.GetChainInfo(chainlink,CHAININFO_TRIGGERING_PLAYER,CHAININFO_TRIGGERING_EFFECT)
+    Debug.UniqueMessage(tp, trig_e:GetHandler():GetCode())
     return trig_p==tp and trig_e:GetHandler():IsExchange()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)

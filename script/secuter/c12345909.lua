@@ -5,7 +5,7 @@ local s,id=GetID()
 s.Ignition=true
 function s.initial_effect(c)
 	--ignition summon
-	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,2,2)
+	Ignition.AddProcedure(c,s.ignfilter1,s.ignfilter2,1,1)
 	c:EnableReviveLimit()
 	--spsummon
 	local e1=Effect.CreateEffect(c)
