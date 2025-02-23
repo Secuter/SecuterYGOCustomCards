@@ -8,7 +8,6 @@ local function Debugging(id)
 end
 
 --[[
-Add at the start of the script to add Wandering Procedure.
 Condition if Wandering Summoned:
     return e:GetHandler():IsSummonType(SUMMON_TYPE_WANDERING)
 ]]

@@ -1,7 +1,6 @@
 IGNITION_IMPORTED    = true
 
 --[[
-add at the start of the script to add Ignition procedure
 condition if Ignition summoned
     return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 ]]

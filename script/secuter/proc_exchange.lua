@@ -1,7 +1,6 @@
 EXCHANGE_IMPORTED	= true
 
 --[[
-add at the start of the script to add Exchange procedure
 condition if Exchange summoned
     return e:GetHandler():IsSummonType(SUMMON_TYPE_EXCHANGE)
 ]]
@@ -89,7 +88,7 @@ function Exchange.Target(c,f,sp,location,extrainfo)
 		if extrainfo then extrainfo(e,tp,eg,ep,ev,re,r,rp,chk) end
 	end
 end
-function Exchange.Operation(c,f,sp,location,extraop)	
+function Exchange.Operation(c,f,sp,location,extraop)
 	return function(e,tp,eg,ep,ev,re,r,rp)
 		local c=e:GetHandler()
 		if c:IsRelateToEffect(e) and Duel.SendtoHand(c,nil,REASON_EFFECT)~=0 and c:IsLocation(LOCATION_HAND) then

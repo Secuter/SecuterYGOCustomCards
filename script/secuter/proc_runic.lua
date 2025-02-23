@@ -1,7 +1,6 @@
 RUNIC_IMPORTED		= true
 
 --[[
- - Add at the start of the script to add Runic procedure
 ]]
 
 -- utility functions

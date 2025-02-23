@@ -7,7 +7,6 @@ REUNION_TYPE_LOCATION	= 0X8
 REUNION_TYPES_MAIN		= REUNION_TYPE_CHECK+REUNION_TYPE_INCLUDE+REUNION_TYPE_MAXSEND
 
 --[[
-add at the start of the script to add Reunion procedure
 condition if Reunion summoned
     return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 ]]

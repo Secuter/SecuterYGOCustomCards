@@ -4,7 +4,6 @@ local armor_log_only_once = true
 local attach_log_only_once= true
 
 --[[
-Add this at the start of the card script to add Armor/Armorizing procedure and constants
 Condition if Armorizing summoned
     return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 Condition if card is related with an effect triggered by EVENT_ATTACH_ARMOR

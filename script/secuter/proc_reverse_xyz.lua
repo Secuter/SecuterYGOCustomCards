@@ -1,7 +1,6 @@
 REVERSE_XYZ_IMPORTED=true
 
 --[[
-add at the start of the script to add Ingition procedure
 ]]
 
 if not aux.ReverseXyzProcedure then

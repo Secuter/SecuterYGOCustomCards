@@ -1,7 +1,6 @@
 ECHO_IMPORTED		= true
 
 --[[
- - Add at the start of the script to add Echo procedure
  - Condition if Echo summoned
     return e:GetHandler():IsSummonType(SUMMON_TYPE_ECHO)
  - Example for the 'op' to pass in input to gain atk equal to the equipped monster
