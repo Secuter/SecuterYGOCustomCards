@@ -46,8 +46,8 @@ function s.regcon(e,tp,eg,ep,ev,re,r,rp)
 	return re and eg and eg:IsExists(s.cfilter,1,nil,re:GetHandler())
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
-	e:GetHandler():RegisterFlagEffect(id,RESET_CHAIN,0,1)
-	e:GetLabelObject():SetLabelObject(re)
+    re:GetHandler():RegisterFlagEffect(id,RESET_CHAIN,0,1)
+    e:GetLabelObject():SetLabelObject(re)
 end
 --activate from hand
 function s.handcon(e)
@@ -55,12 +55,9 @@ function s.handcon(e)
 end
 --activate
 function s.con(e,tp,eg,ep,ev,re,r,rp)
-	return e:GetHandler():GetFlagEffect(id)>0 and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainDisablable(ev) and re==e:GetLabelObject()
+	return re:GetHandler():GetFlagEffect(id)>0 and re:IsActiveType(TYPE_MONSTER) and Duel.IsChainDisablable(ev)-- and re==e:GetLabelObject()
 end
-function s.filter(c)
-	return c:IsMonster() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
-end
-function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
+function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end
 	Duel.SetOperationInfo(0,CATEGORY_DISABLE,eg:GetFirst(),1,1-tp,LOCATION_MZONE)
 end

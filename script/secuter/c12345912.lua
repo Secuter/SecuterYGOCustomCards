@@ -12,14 +12,6 @@ function s.initial_effect(c)
 	e1:SetTarget(s.target)
 	e1:SetOperation(s.activate)
 	c:RegisterEffect(e1)
-	--can be activated the turn it was Set
-	local e2=Effect.CreateEffect(c)
-	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetType(EFFECT_TYPE_SINGLE)
-	e2:SetCode(EFFECT_TRAP_ACT_IN_SET_TURN)
-	e2:SetProperty(EFFECT_FLAG_SET_AVAILABLE)
-	e2:SetCondition(s.actcon)
-	c:RegisterEffect(e2)
 end
 s.listed_series={SET_ARCANEBLADE}
 --spsummon
@@ -38,8 +30,4 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if #g>0 then
 		Duel.SpecialSummon(g,SUMMON_TYPE_EXCHANGE,tp,tp,false,false,POS_FACEUP)
 	end
-end
---activate
-function s.actcon(e)
-	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0)==0
 end
