@@ -8,13 +8,6 @@
             "should_read": true,
             "should_update": true,
             "url": "https://github.com/Secuter/SecuterYGOCustomCards"
-        },
-        {
-            "repo_name": "KSB Custom Cards",
-            "repo_path": "./repositories/KSBCustoms",
-            "should_read": true,
-            "should_update": true,
-            "url": "https://github.com/KSB-Custom/KSB-CCG"
         }
     ],
     "urls": [
