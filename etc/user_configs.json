@@ -1,44 +1,44 @@
 {
     "repos": [
         {
-			"url": "https://github.com/Secuter/SecuterYGOCustomCards",
-			"repo_name": "Secuter Custom Cards",
-			"repo_path": "./repositories/secuter-custom-cards",
-			"data_path": "expansions",
-			"script_path": "script",
-			"should_update": true,
-			"should_read": true
-		},
-		{
-			"url": "https://github.com/KSB-Custom/KSB-CCG",
-			"repo_name": "KSB Custom Cards",
-			"repo_path": "./repositories/KSBCustoms",
-			"should_update": true,
-			"should_read": true
-		}
+		"url": "https://github.com/Secuter/SecuterYGOCustomCards",
+		"repo_name": "Secuter Custom Cards",
+		"repo_path": "./repositories/secuter-custom-cards",
+		"data_path": "expansions",
+		"script_path": "script",
+		"should_update": true,
+		"should_read": true
+	},
+	{
+		"url": "https://github.com/KSB-Custom/KSB-CCG",
+		"repo_name": "KSB Custom Cards",
+		"repo_path": "./repositories/KSBCustoms",
+		"should_update": true,
+		"should_read": true
+	}
     ],
     "urls": [
         {
-			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/{}.png",
-			"type": "pic"
-		},
-		{
-			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.png",
-			"type": "field"
-		},
-		{
-			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.jpg",
-			"type": "field"
-		}
+		"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/{}.png",
+		"type": "pic"
+	},
+	{
+		"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.png",
+		"type": "field"
+	},
+	{
+		"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.jpg",
+		"type": "field"
+	}
     ],
     "servers": [
         {
-			"name": "Secuter Custom Cards",
-			"address": "duel.secutertools.win",
-			"duelport": 7820,
-			"roomaddress": "duel.secutertools.win",
-			"roomlistprotocol": "http",
-			"roomlistport": 7810
-		}
+		"name": "Secuter Custom Cards",
+		"address": "duel.secutertools.win",
+		"duelport": 7820,
+		"roomaddress": "duel.secutertools.win",
+		"roomlistprotocol": "http",
+		"roomlistport": 7810
+	}
     ]
 }
