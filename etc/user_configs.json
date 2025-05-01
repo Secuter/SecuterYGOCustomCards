@@ -1,37 +1,44 @@
 {
     "repos": [
         {
-            "data_path": "expansions",
-            "repo_name": "Secuter Custom Cards",
-            "repo_path": "./repositories/secuter-custom-cards",
-            "script_path": "script",
-            "should_read": true,
-            "should_update": true,
-            "url": "https://github.com/Secuter/SecuterYGOCustomCards"
-        }
-    ],
-    "servers": [
-        {
-            "address": "duel.secutertools.win",
-            "duelport": 7820,
-            "name": "Secuter Custom Cards",
-            "roomaddress": "duel.secutertools.win",
-            "roomlistport": 7810,
-            "roomlistprotocol": "http"
-        }
+			"url": "https://github.com/Secuter/SecuterYGOCustomCards",
+			"repo_name": "Secuter Custom Cards",
+			"repo_path": "./repositories/secuter-custom-cards",
+			"data_path": "expansions",
+			"script_path": "script",
+			"should_update": true,
+			"should_read": true
+		},
+		{
+			"url": "https://github.com/KSB-Custom/KSB-CCG",
+			"repo_name": "KSB Custom Cards",
+			"repo_path": "./repositories/KSBCustoms",
+			"should_update": true,
+			"should_read": true
+		}
     ],
     "urls": [
         {
-            "type": "pic",
-            "url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/main/{}.png"
-        },
+			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/{}.png",
+			"type": "pic"
+		},
+		{
+			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.png",
+			"type": "field"
+		},
+		{
+			"url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/master/field/{}.jpg",
+			"type": "field"
+		}
+    ],
+    "servers": [
         {
-            "type": "field",
-            "url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/main/field/{}.png"
-        },
-        {
-            "type": "field",
-            "url": "https://raw.githubusercontent.com/Secuter/SecuterYGOCustomCards-pics/main/field/{}.jpg"
-        }
+			"name": "Secuter Custom Cards",
+			"address": "duel.secutertools.win",
+			"duelport": 7820,
+			"roomaddress": "duel.secutertools.win",
+			"roomlistprotocol": "http",
+			"roomlistport": 7810
+		}
     ]
 }
