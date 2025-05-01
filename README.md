@@ -76,13 +76,6 @@ Here is a list of archetypes supported on the server in addition to mine.
 			"should_update": true,
 			"should_read": true
 		},
-		{
-			"url": "https://github.com/KSB-Custom/KSB-CCG",
-			"repo_name": "KSB Custom Cards",
-			"repo_path": "./repositories/KSBCustoms",
-			"should_update": true,
-			"should_read": true
-		}
 ```
 * urls
 ```json
@@ -122,11 +115,13 @@ On the server it is recommended to play with this banlist and 'Anything goes'. (
 * Hot Red Dragon Archfiend King Calamity
 * Phantom Skyblaster
 * Card of Demise
+* Triple Tactics Talent
 #### Limited
 * D.D. Invader Gargoyle
+* Bahamut Shark (from banned)
 #### Semi-Limited
 * none
-#### Unbanned cards
+#### Unlimited cards
 * Block Dragon [Errata]
 * Fishborg Blaster [Errata]
 * Union Carrier [Errata]
@@ -138,7 +133,12 @@ On the server it is recommended to play with this banlist and 'Anything goes'. (
 * Daigusto Emeral
 * Pot of Desires
 * Sekka's Light
-
+* Brilliant Fusion
+* Black Dragon Collapserpent
+* White Dragon Wyverburster
+* Unchained Soul of Sharvara
+* Bonfire
+* 
 ---
 
 ## Decks & replays showing some combos
