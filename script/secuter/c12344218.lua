@@ -1,21 +1,23 @@
---Dark Sovereign Berserker
+--Dark Sovereign Gatekeeper
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 s.Runic=true
 function s.initial_effect(c)
 	--atk
-	local e2=Effect.CreateEffect(c)
-	e2:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
-	e2:SetCode(EVENT_SUMMON_SUCCESS)
-	e2:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
-	e2:SetOperation(s.regop)
-	c:RegisterEffect(e2)
+	local e1=Effect.CreateEffect(c)
+	e1:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_CONTINUOUS)
+	e1:SetCode(EVENT_SUMMON_SUCCESS)
+	e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE)
+	e1:SetOperation(s.regop)
+	c:RegisterEffect(e1)
 	--runic effect
 	local e2=Effect.CreateEffect(c)
 	e2:SetDescription(aux.Stringid(id,0))
-	e2:SetType(EFFECT_TYPE_IGNITION)
+	e2:SetType(EFFECT_TYPE_QUICK_O)
+	e2:SetCode(EVENT_FREE_CHAIN)
 	e2:SetProperty(EFFECT_FLAG2_RUNIC)
+	e2:SetHintTiming(0,TIMING_END_PHASE)
 	e2:SetRange(LOCATION_HAND)
 	e2:SetCountLimit(1,id)
 	e2:SetCondition(s.rcon)
@@ -23,21 +25,28 @@ function s.initial_effect(c)
 	e2:SetTarget(s.rtg)
 	e2:SetOperation(s.rop)
 	c:RegisterEffect(e2)
-	--sp summon itself
-	local e3=Effect.CreateEffect(c)
+	local e3=e2:Clone()
 	e3:SetDescription(aux.Stringid(id,1))
-	e3:SetCategory(CATEGORY_SPECIAL_SUMMON)
-	e3:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
 	e3:SetCode(EVENT_CHAINING)
-	e3:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
-	e3:SetRange(LOCATION_HAND+LOCATION_GRAVE)
-	e3:SetCountLimit(1,{id,1})
-	e3:SetCondition(s.spcon)
-	e3:SetTarget(s.sptg)
-	e3:SetOperation(s.spop)
 	c:RegisterEffect(e3)
+	--search
+	local e4=Effect.CreateEffect(c)
+	e4:SetDescription(aux.Stringid(id,2))
+	e4:SetCategory(CATEGORY_TOHAND+CATEGORY_SEARCH)
+	e4:SetType(EFFECT_TYPE_FIELD+EFFECT_TYPE_TRIGGER_O)
+	e4:SetCode(EVENT_CHAINING)
+	e4:SetProperty(EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e4:SetRange(LOCATION_GRAVE)
+	e4:SetCountLimit(1,{id,1})
+	e4:SetCondition(s.thcon)
+	e4:SetCost(Cost.SelfBanish)
+	e4:SetTarget(s.thtg)
+	e4:SetOperation(s.thop)
+	c:RegisterEffect(e4)
 end
+s.listed_names={id}
 s.listed_series={SET_DARK_SOVEREIGN}
+
 --atk
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()
@@ -48,19 +57,20 @@ function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	e2:SetReset(RESET_EVENT+RESETS_STANDARD_DISABLE)
 	c:RegisterEffect(e2)
 end
+
 --runic effect
 function s.cfilter(c)
 	return c:IsFaceup() and c:IsSetCard(SET_DARK_SOVEREIGN)
 end
 function s.rcon(e,tp,eg,ep,ev,re,r,rp)
-	return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil)
+	return Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_ONFIELD,0)==0
 end
 function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(1)
 	return true
 end
 function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
-	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() and c:IsAbleToRemoveAsCost() then
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() then
 		local te=c.RunicEffect
 		if te then
 			local condition=c.RunicEffect:GetCondition()
@@ -76,15 +86,16 @@ function s.rtg(e,tp,eg,ep,ev,re,r,rp,chk)
 		if e:GetLabel()==0 then return false end
 		e:SetLabel(0)
 		return c:IsDiscardable() and c:IsAbleToGraveAsCost()
-			and Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,nil,e,tp,eg,ep,ev,re,r,rp)
+			and Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_HAND,0,1,nil,e,tp,eg,ep,ev,re,r,rp)
 	end
 	e:SetLabel(0)
 	--cost
-	Duel.SendtoGrave(c,REASON_DISCARD+REASON_COST)	
-	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_REMOVE)
-	local g=Duel.SelectMatchingCard(tp,s.rfilter,tp,LOCATION_HAND+LOCATION_GRAVE,0,1,1,nil,e,tp,eg,ep,ev,re,r,rp)
+	Duel.SendtoGrave(c,REASON_DISCARD+REASON_COST)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+	local g=Duel.SelectMatchingCard(tp,s.rfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp,eg,ep,ev,re,r,rp)
 	local te=g:GetFirst().RunicEffect
-	Duel.Remove(g,POS_FACEUP,REASON_COST)
+	Duel.ConfirmCards(1-tp,g)
+	Duel.ShuffleHand(tp)
 	--copy effect
 	e:SetProperty(EFFECT_FLAG2_RUNIC | te:GetProperty())
 	local tg=te:GetTarget()
@@ -100,26 +111,23 @@ function s.rop(e,tp,eg,ep,ev,re,r,rp)
 	local op=te:GetOperation()
 	if op then op(e,tp,eg,ep,ev,re,r,rp) end
 end
---spsummon
-function s.spcon(e,tp,eg,ep,ev,re,r,rp)
+
+--search
+function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return rp==tp and re and re:IsHasProperty(EFFECT_FLAG2_RUNIC) and not re:GetHandler():IsCode(id)
 end
-function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
-	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_MZONE)>0
-		and e:GetHandler():IsCanBeSpecialSummoned(e,0,tp,false,false) end
-	Duel.SetOperationInfo(0,CATEGORY_SPECIAL_SUMMON,e:GetHandler(),1,0,0)
+function s.thfilter(c)
+	return c:IsMonster() and c:IsSetCard(SET_DARK_SOVEREIGN) and c:GetCode()~=id and c:IsAbleToHand()
 end
-function s.spop(e,tp,eg,ep,ev,re,r,rp)
-	local c=e:GetHandler()
-	if c:IsRelateToEffect(e) and Duel.SpecialSummon(c,0,tp,tp,false,false,POS_FACEUP)~=0 then
-		--Banish it if it leaves the field
-		local e1=Effect.CreateEffect(c)
-		e1:SetDescription(3300)
-		e1:SetType(EFFECT_TYPE_SINGLE)
-		e1:SetProperty(EFFECT_FLAG_CANNOT_DISABLE+EFFECT_FLAG_CLIENT_HINT)
-		e1:SetCode(EFFECT_LEAVE_FIELD_REDIRECT)
-		e1:SetValue(LOCATION_REMOVED)
-		e1:SetReset(RESET_EVENT+RESETS_REDIRECT)
-		c:RegisterEffect(e1,true)
+function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
+	Duel.SetOperationInfo(0,CATEGORY_TOHAND,nil,1,tp,LOCATION_DECK)
+end
+function s.thop(e,tp,eg,ep,ev,re,r,rp)
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_ATOHAND)
+	local g=Duel.SelectMatchingCard(tp,s.thfilter,tp,LOCATION_DECK,0,1,1,nil)
+	if #g>0 then
+		Duel.SendtoHand(g,nil,REASON_EFFECT)
+		Duel.ConfirmCards(1-tp,g)
 	end
 end
