@@ -103,7 +103,7 @@ end
 
 --add or set
 function s.thfilter(c)
-	return c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsRunic() and (not c:IsLocation(LOCATION_REMOVED) or c:IsFaceup())
+	return c:IsSetCard(SET_DARK_SOVEREIGN) and c:IsSpellTrap() and c:IsRunic() and (not c:IsLocation(LOCATION_REMOVED) or c:IsFaceup())
         and (c:IsAbleToHand() or c:IsSSetable())
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
