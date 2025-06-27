@@ -2,6 +2,7 @@
 --Scripted by Secuter
 if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
+s.Runic=true
 function s.initial_effect(c)
 	--spsummon itself
 	local e1=Effect.CreateEffect(c)
@@ -28,6 +29,18 @@ function s.initial_effect(c)
 	e2:SetTarget(s.thtg)
 	e2:SetOperation(s.thop)
 	c:RegisterEffect(e2)
+    --runic effect
+	local e3=Effect.CreateEffect(c)
+	e3:SetDescription(aux.Stringid(id,2))
+	e3:SetCategory(CATEGORY_SPECIAL_SUMMON+CATEGORY_TODECK)
+	e3:SetType(EFFECT_TYPE_SINGLE+EFFECT_TYPE_TRIGGER_O)
+	e3:SetProperty(EFFECT_FLAG_CARD_TARGET+EFFECT_FLAG_DAMAGE_STEP+EFFECT_FLAG_DELAY)
+	e3:SetCode(EVENT_TO_GRAVE)
+	e3:SetCountLimit(1,id)
+	e3:SetCondition(s.rcon)
+	e3:SetTarget(s.rtg)
+	e3:SetOperation(s.rop)
+	c:RegisterEffect(e3)
 end
 s.listed_names={id}
 s.listed_series={SET_DARK_SOVEREIGN}
@@ -84,4 +97,52 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 		Duel.SendtoHand(g,nil,REASON_EFFECT)
 		Duel.ConfirmCards(1-tp,g)
 	end
+end
+
+--runic effect
+function s.rcon(e,tp,eg,ep,ev,re,r,rp)
+	return e:GetHandler():IsPreviousLocation(LOCATION_HAND)
+end
+function s.rcost(e,tp,eg,ep,ev,re,r,rp,chk)
+	e:SetLabel(1)
+	return true
+end
+function s.rfilter(c,e,tp,eg,ep,ev,re,r,rp)
+	if c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsRunic() then
+		local te=c.RunicEffect
+		if te then
+			local condition=c.RunicEffect:GetCondition()
+			local target=c.RunicEffect:GetTarget()
+			return (not condition or condition(e,tp,eg,ep,ev,re,r,rp)) and (not target or target(e,tp,eg,ep,ev,re,r,rp,0))
+		end
+	end
+	return false
+end
+function s.rtg(e,tp,eg,ep,ev,re,r,rp,chk)
+	if chk==0 then
+		if e:GetLabel()==0 then return false end
+		e:SetLabel(0)
+		return Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_HAND,0,1,nil,e,tp,eg,ep,ev,re,r,rp)
+	end
+	e:SetLabel(0)
+	--cost
+	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_CONFIRM)
+	local g=Duel.SelectMatchingCard(tp,s.rfilter,tp,LOCATION_HAND,0,1,1,nil,e,tp,eg,ep,ev,re,r,rp)
+	local te=g:GetFirst().RunicEffect
+	Duel.ConfirmCards(1-tp,g)
+	Duel.ShuffleHand(tp)
+	--copy effect
+	e:SetProperty(EFFECT_FLAG2_RUNIC | te:GetProperty())
+	local tg=te:GetTarget()
+	if tg then tg(e,tp,eg,ep,ev,re,r,rp,1) end
+	te:SetLabelObject(e:GetLabelObject())
+	e:SetLabelObject(te)
+	Duel.ClearOperationInfo(0)
+end
+function s.rop(e,tp,eg,ep,ev,re,r,rp)
+	local te=e:GetLabelObject()
+	if not te then return end
+	e:SetLabelObject(te:GetLabelObject())
+	local op=te:GetOperation()
+	if op then op(e,tp,eg,ep,ev,re,r,rp) end
 end
