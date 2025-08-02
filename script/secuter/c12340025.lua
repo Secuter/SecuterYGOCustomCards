@@ -136,7 +136,7 @@ function s.syncon(e,c,tuner,mg)
 	local tp=c:GetControler()
 	local pe=Duel.IsPlayerAffectedByEffect(tp,EFFECT_MUST_BE_MATERIAL)
 	local tng=Duel.GetMatchingGroup(s.tmatfilter,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c)
-	local ntng=Duel.GetMatchingGroup(s.ntmatfilter,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c,tp)    
+	local ntng=Duel.GetMatchingGroup(s.ntmatfilter,tp,LOCATION_MZONE+LOCATION_HAND,LOCATION_MZONE,nil,c,tp)
 	return ntng:IsExists(s.synfilter1,1,nil,lvsyn,tng,c,pe,tuner)
 end
 function s.synop(e,tp,eg,ep,ev,re,r,rp,c,tuner,mg)
