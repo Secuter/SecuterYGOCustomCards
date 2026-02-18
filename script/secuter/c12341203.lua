@@ -5,7 +5,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	c:SetUniqueOnField(1,0,id)
 	c:EnableReviveLimit()
-	Xyz.AddProcedure(c,nil,3,3,nil,nil,99)
+	Xyz.AddProcedure(c,nil,3,3,nil,nil,Xyz.InfiniteMats)
 	--atk/def up
 	local e1=Effect.CreateEffect(c)
 	e1:SetType(EFFECT_TYPE_SINGLE)

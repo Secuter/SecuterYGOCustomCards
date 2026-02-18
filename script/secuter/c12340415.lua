@@ -4,7 +4,7 @@ if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_REPTILE),6,3,nil,nil,99)
+	Xyz.AddProcedure(c,aux.FilterBoolFunction(Card.IsRace,RACE_REPTILE),6,3,nil,nil,Xyz.InfiniteMats)
 	c:EnableReviveLimit()
 	--to deck
 	local e1=Effect.CreateEffect(c)

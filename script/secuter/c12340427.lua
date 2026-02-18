@@ -5,7 +5,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
-	Xyz.AddProcedure(c,s.xyzfilter,nil,2,s.ovfilter,aux.Stringid(id,0),99,s.xyzop,false,s.xyzcheck)
+	Xyz.AddProcedure(c,s.xyzfilter,nil,2,s.ovfilter,aux.Stringid(id,0),Xyz.InfiniteMats,s.xyzop,false,s.xyzcheck)
 	--add xyz materials
 	local exyz=Effect.CreateEffect(c)
 	exyz:SetDescription(aux.Stringid(id,1))

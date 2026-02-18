@@ -5,7 +5,7 @@ local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
 	c:EnableReviveLimit()
-	Xyz.AddProcedure(c,nil,3,2,nil,nil,99)
+	Xyz.AddProcedure(c,nil,3,2,nil,nil,Xyz.InfiniteMats)
 	--double tribute
 	local e0=Effect.CreateEffect(c)
 	e0:SetType(EFFECT_TYPE_SINGLE)

@@ -4,7 +4,7 @@ if not SECUTER_IMPORTED then Duel.LoadScript("secuter_utility.lua") end
 local s,id=GetID()
 function s.initial_effect(c)
 	--xyz summon
-	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANCIENT_ORACLE),6,2,nil,nil,99)
+	Xyz.AddProcedure(c,aux.FilterBoolFunctionEx(Card.IsSetCard,SET_ANCIENT_ORACLE),6,2,nil,nil,Xyz.InfiniteMats)
 	c:EnableReviveLimit()
 	--remove + disable
 	local e1=Effect.CreateEffect(c)
