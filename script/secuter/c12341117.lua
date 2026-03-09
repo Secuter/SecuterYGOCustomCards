@@ -76,9 +76,9 @@ function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TODECK,g,#g,0,0)
 	Duel.SetOperationInfo(0,CATEGORY_DRAW,nil,0,tp,1)
 end
-function s.tdop(e,tp,eg,ep,ev,re,r,rp)
-    local tg=Duel.GetTargetCards(e)
-	if not tg or tg:FilterCount(Card.IsRelateToEffect,nil,e)>0 then return end
+function s.tdop(e,tp,eg,ep,ev,re,r,rp)   
+ local tg=Duel.GetTargetCards(e)
+	if not tg or tg:FilterCount(Card.IsRelateToEffect,nil,e)==0 then return end
 	Duel.SendtoDeck(tg,nil,0,REASON_EFFECT)
 	local og=Duel.GetOperatedGroup()
 	if og:IsExists(Card.IsLocation,1,nil,LOCATION_DECK) then Duel.ShuffleDeck(tp) end

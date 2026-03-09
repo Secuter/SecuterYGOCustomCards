@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        "deck": true,
+        "replay": true
+    },
+    "search.exclude": {
+        "deck": true,
+        "replay": true
+    },
+    "git.ignoredRepositories": [
+        "deck",
+        "replay"
+    ]
+}
