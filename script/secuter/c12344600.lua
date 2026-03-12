@@ -36,7 +36,7 @@ s.listed_names={id}
 s.listed_series={SET_ANUAK}
 --act field
 function s.acfilter(c,tp)
-	return c:IsType(TYPE_FIELD) and c:IsSetCard(SET_ANUAK) and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
+	return c:IsFieldSpell() and c:IsSetCard(SET_ANUAK) and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
 end
 function s.actg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.acfilter,tp,LOCATION_DECK,0,1,nil,tp) end

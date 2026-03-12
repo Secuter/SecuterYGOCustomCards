@@ -59,7 +59,7 @@ function s.tgoval(e,re,rp,c)
 end
 
 function s.thfilter(c,e,tp)
-	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsType(TYPE_SPELL) and c:IsType(TYPE_FIELD)
+	return (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup()) and c:IsFieldSpell()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED+LOCATION_GRAVE) and s.thfilter(chkc) end

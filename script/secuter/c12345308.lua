@@ -48,7 +48,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_ARMORIZING)
 end
 function s.setfilter(c)
-	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsSpellTrap() and not c:IsType(TYPE_FIELD) and c:IsSSetable() and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
+	return c:IsSetCard(SET_ARMOR_MAGICIAN) and c:IsSpellTrap() and not c:IsFieldSpell() and c:IsSSetable() and (c:IsFaceup() or c:IsLocation(LOCATION_GRAVE))
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_GRAVE+LOCATION_REMOVED,0,1,nil) end

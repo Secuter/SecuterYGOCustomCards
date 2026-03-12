@@ -84,7 +84,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 	return c:IsSummonLocation(LOCATION_EXTRA)
 end
 function s.actfilter(c,tp)
-	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_SPELL) and c:IsType(TYPE_FIELD+TYPE_CONTINUOUS)
+	return c:IsSetCard(SET_DARK_KING) and (c:IsFieldSpell() and c:IsContinuousSpell())
 		and c:GetActivateEffect() and c:GetActivateEffect():IsActivatable(tp,true,true)
 end
 function s.acttg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -94,7 +94,7 @@ function s.actop(e,tp,eg,ep,ev,re,r,rp)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOFIELD)
 	local tc=Duel.SelectMatchingCard(tp,s.actfilter,tp,LOCATION_DECK,0,1,1,nil,tp):GetFirst()
 	if tc then
-		if tc:IsType(TYPE_FIELD) then
+		if tc:IsFieldSpell() then
 			Duel.ActivateFieldSpell(tc,e,tp,eg,ep,ev,re,r,rp)
 			--local fc=Duel.GetFieldCard(tp,LOCATION_SZONE,5)
 			--if fc then
