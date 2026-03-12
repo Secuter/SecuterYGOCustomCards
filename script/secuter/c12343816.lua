@@ -35,7 +35,7 @@ s.listed_names={id}
 s.listed_series={SET_CREARMOR}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_CREARMOR) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local g=Duel.GetMatchingGroup(s.thfilter,tp,LOCATION_DECK,0,nil)

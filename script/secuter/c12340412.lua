@@ -22,10 +22,10 @@ function s.ovfilter(c)
 end
 
 function s.filter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsRace(RACE_REPTILE)
+	return c:IsMonster() and c:IsRace(RACE_REPTILE)
 end
 function s.nfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:GetRace()~=RACE_REPTILE
+	return c:IsMonster() and c:GetRace()~=RACE_REPTILE
 end
 function s.cond(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetOverlayCount()>0

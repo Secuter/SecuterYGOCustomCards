@@ -16,7 +16,7 @@ end
 s.listed_series={SET_PRIMEVAL_FOREST}
 --change position + search
 function s.thfilter(c,cid)
-	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsType(TYPE_MONSTER) and not c:IsCode(cid) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsMonster() and not c:IsCode(cid) and c:IsAbleToHand()
 end
 function s.filter(c,tp)
 	return c:IsSetCard(SET_PRIMEVAL_FOREST) and c:IsCanTurnSet()

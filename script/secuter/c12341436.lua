@@ -66,7 +66,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and c:IsMonster() and c:IsAbleToGrave() and not c:IsCode(id)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

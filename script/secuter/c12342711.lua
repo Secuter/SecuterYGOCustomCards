@@ -53,7 +53,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --return to hand
 function s.tdfilter(c,e)
-	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsType(TYPE_RITUAL+TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck()
+	return c:IsSetCard(SET_YOCCOL) and c:IsMonster() and c:IsType(TYPE_RITUAL+TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck()
 end
 function s.rescon(sg,e,tp,mg)
 	local ct=0

@@ -58,7 +58,7 @@ function s.atkfilter(e,c)
     return c:IsRace(RACE_DRAGON)
 end
 function s.efilter(c)
-	return c:IsRace(RACE_DRAGON) and (c:GetLevel()==7 or c:GetLevel()==8) and c:IsType(TYPE_MONSTER)
+	return c:IsRace(RACE_DRAGON) and (c:GetLevel()==7 or c:GetLevel()==8) and c:IsMonster()
 end
 function s.filter(e,c)
     return c:GetEquipGroup():IsExists(s.efilter,1,nil)

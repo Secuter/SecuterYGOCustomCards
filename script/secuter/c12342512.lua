@@ -42,7 +42,7 @@ function s.exfilter(c)
 	return c:IsCode(12342503)
 end
 function s.ignfilter(c)
-	return c:IsType(TYPE_MONSTER)
+	return c:IsMonster()
 end
 
 function s.negcon(e,tp,eg,ep,ev,re,r,rp)

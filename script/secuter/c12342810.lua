@@ -27,7 +27,7 @@ end
 s.listed_series={SET_WYRMWIND}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(SET_WYRMWIND) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_WYRMWIND) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -49,7 +49,7 @@ function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsExistingMatchingCard(aux.FaceupFilter(s.cfilter),tp,LOCATION_MZONE,0,1,nil)
 end
 function s.tdfilter(c)
-	return  c:IsSetCard(SET_WYRMWIND) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeck()
+	return  c:IsSetCard(SET_WYRMWIND) and c:IsMonster() and c:IsAbleToDeck()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE+LOCATION_REMOVED) and chkc:IsControler(tp) and s.tdfilter(chkc) end

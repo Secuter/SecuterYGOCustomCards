@@ -43,7 +43,7 @@ function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetCurrentPhase()==PHASE_MAIN1 or Duel.GetCurrentPhase()==PHASE_MAIN2
 end
 function s.cfilter(c,tp)
-	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_MONSTER) and (c:IsControler(tp) or c:IsFaceup())
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsMonster() and (c:IsControler(tp) or c:IsFaceup())
 end
 function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

@@ -49,7 +49,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp,chk)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsType(TYPE_MONSTER) and not c:IsCode(id)
+	return c:IsFaceup() and c:IsSetCard(SET_DIVINE_DISCIPLE) and c:IsMonster() and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

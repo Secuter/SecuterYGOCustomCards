@@ -49,10 +49,10 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.filter(c,e,tp)
-	return c:IsSetCard(SET_FIRE_CORE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and not c:IsCode(id)
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsMonster() and c:IsAbleToHand() and not c:IsCode(id)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,LOCATION_HAND+LOCATION_MZONE,0,1,nil)

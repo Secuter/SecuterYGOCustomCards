@@ -37,7 +37,7 @@ s.listed_series={SET_PYROCLAST}
 s.listed_names={id,CARD_POLYMERIZATION}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

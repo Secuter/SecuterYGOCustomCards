@@ -17,7 +17,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_LV}
 function s.filter(c)
-	return c:IsSetCard(SET_LV) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_LV) and c:IsMonster() and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_HAND,0,1,nil) end

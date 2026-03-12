@@ -41,7 +41,7 @@ function s.rmcond(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetSummonType()==SUMMON_TYPE_SYNCHRO
 end
 function s.rmfilter(c)
-	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAbleToRemoveAsCost() and c:IsFaceup() and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsAbleToRemoveAsCost() and c:IsFaceup() and c:IsMonster()
 end
 function s.rmcost(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_MZONE+LOCATION_EXTRA) and chkc:IsControler(1-tp) and s.rmfilter(chkc) end

@@ -107,7 +107,7 @@ function s.tgfilter(c,e,tp,chk)
 		and (chk or Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_DECK,0,1,nil,c))
 end
 function s.cfilter(c,tc)
-	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsType(TYPE_MONSTER) and Armor.AttachCheck(c,tc)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsMonster() and Armor.AttachCheck(c,tc)
 end
 function s.regop(e,tp,eg,ep,ev,re,r,rp)
 	local tg=eg:Filter(s.tgfilter,nil,e,tp,false)

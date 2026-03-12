@@ -35,7 +35,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_GEARTRON}
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(SET_GEARTRON) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and c:GetCode()~=id
+	return c:IsSetCard(SET_GEARTRON) and c:IsMonster() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE) and c:GetCode()~=id
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc,e,tp) end

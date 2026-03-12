@@ -69,7 +69,7 @@ function s.sumcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.IsPlayerCanAdditionalSummon(tp)
 end
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_RASCAL_ACE) and c:IsAbleToGraveAsCost()
+	return c:IsMonster() and c:IsSetCard(SET_RASCAL_ACE) and c:IsAbleToGraveAsCost()
 end
 function s.sumcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

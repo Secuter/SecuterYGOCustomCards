@@ -31,7 +31,7 @@ function s.excon(e)
 end
 
 function s.sprfilter(c)
-	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_DARK_KING) and c:IsMonster() and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.sprcon(e,c)
 	if c==nil then return true end

@@ -75,7 +75,7 @@ function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_FZONE) and c:GetPreviousSequence()==5 and c:IsPreviousPosition(POS_FACEUP) and c:IsReason(REASON_DESTROY)
 end
 function s.filter(c)
-	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.filter(chkc) end

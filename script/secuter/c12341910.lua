@@ -39,7 +39,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Release(g,REASON_COST)
 end
 function s.spfilter(c,e,tp,code)
-	return c:IsSetCard(SET_GEARTRON) and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=code
+	return c:IsSetCard(SET_GEARTRON) and c:IsMonster() and c:IsCanBeSpecialSummoned(e,0,tp,false,false) and c:GetCode()~=code
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

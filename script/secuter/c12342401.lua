@@ -38,7 +38,7 @@ function s.spcon(e)
 end
 
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)
-	return ep==1-tp and Duel.GetCurrentChain()>1 and cplayer==tp and ceff:GetHandler():IsRace(RACE_BEAST) and ceff:GetHandler():IsType(TYPE_MONSTER)
+	return ep==1-tp and Duel.GetCurrentChain()>1 and cplayer==tp and ceff:GetHandler():IsRace(RACE_BEAST) and ceff:GetHandler():IsMonster()
 end
 function s.thfilter(c)
 	return cc:IsSetCard(SET_SAVAGE_BEAST) and c:IsType_(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()

@@ -29,7 +29,7 @@ end
 s.listed_series={SET_UNDEAD}
 
 function s.spfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsRace(RACE_ZOMBIE) and c:IsDiscardable()
+	return c:IsMonster() and c:IsRace(RACE_ZOMBIE) and c:IsDiscardable()
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_HAND,0,1,e:GetHandler()) end

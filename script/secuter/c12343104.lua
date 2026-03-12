@@ -41,7 +41,7 @@ end
 s.listed_series={SET_MAGIC_TOWER}
 --spsummon
 function s.spfilter1(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsSetCard(SET_MAGIC_TOWER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
+	return c:IsMonster() and c:IsLevelBelow(4) and c:IsSetCard(SET_MAGIC_TOWER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.sptg1(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

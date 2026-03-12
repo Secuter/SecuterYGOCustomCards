@@ -17,7 +17,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_ASURA}
 function s.cfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsLevelAbove(7) and c:IsAbleToRemoveAsCost()
+	return c:IsMonster() and c:IsLevelAbove(7) and c:IsAbleToRemoveAsCost()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) end

@@ -52,7 +52,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_DD_INVADER}
 function s.rmfilter(c,e,tp)
-	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToRemove()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsMonster() and c:IsAbleToRemove()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -88,7 +88,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter2(c,e,tp)
-	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil) end

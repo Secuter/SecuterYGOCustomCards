@@ -33,7 +33,7 @@ function s.cond2(e)
 	return Duel.GetFlagEffect(e:GetHandlerPlayer(),id)==0 and Duel.GetFieldGroupCount(e:GetHandlerPlayer(),LOCATION_MZONE,0)==0
 end
 function s.cfilter(c)
-	return c:IsSetCard(SET_HAILSHIFT) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
+	return c:IsSetCard(SET_HAILSHIFT) and c:IsMonster() and not c:IsPublic()
 end
 function s.cost1(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

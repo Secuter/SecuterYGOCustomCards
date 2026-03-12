@@ -120,7 +120,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search mon
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsMonster() and c:GetCode()~=id and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

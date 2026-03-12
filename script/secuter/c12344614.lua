@@ -29,7 +29,7 @@ function s.cfilter(c)
 	return c:IsCode(12344600) and c:IsFaceup()
 end
 function s.thfilter(c)
-	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and not c:IsCode(12344600) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANUAK) and c:IsMonster() and not c:IsCode(12344600) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

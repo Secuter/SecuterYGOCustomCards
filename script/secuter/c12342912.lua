@@ -15,7 +15,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_ETERNAL_STORM}
 function s.thfilter(c)
-	return c:IsSetCard(SET_ETERNAL_STORM) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ETERNAL_STORM) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return not Duel.IsPlayerAffectedByEffect(tp,CARD_BLUEEYES_SPIRIT) and Duel.GetLocationCount(1-tp,LOCATION_MZONE,tp)>1

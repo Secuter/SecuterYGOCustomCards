@@ -33,7 +33,7 @@ function s.rfilter(c,e,tp)
 	return aux.SelectUnselectGroup(g,e,tp,2,2,aux.dncheck,0) end
 	
 function s.thfilter(c,code)
-	return c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_DD_INVADER) and c:IsMonster() and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.rfilter,tp,LOCATION_HAND,0,1,e:GetHandler(),e,tp) end

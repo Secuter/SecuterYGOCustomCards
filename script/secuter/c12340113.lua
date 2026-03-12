@@ -28,7 +28,7 @@ end
 s.listed_series={SET_UNDEAD}
 
 function s.costfilter(c)
-	return (c:IsAttackBelow(0) or c:IsDefenseBelow(0)) and c:IsType(TYPE_MONSTER) and c:IsDiscardable()
+	return (c:IsAttackBelow(0) or c:IsDefenseBelow(0)) and c:IsMonster() and c:IsDiscardable()
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.costfilter,tp,LOCATION_HAND,0,1,nil) end
@@ -46,7 +46,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:IsAbleToDeckOrExtraAsCost()
+	return c:IsSetCard(SET_UNDEAD) and c:IsMonster() and c:IsAbleToDeckOrExtraAsCost()
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,2,nil) end

@@ -29,7 +29,7 @@ end
 s.listed_series={SET_FIRE_CORE_MAGIC}
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return rp~=tp and Duel.IsChainNegatable(ev) and (re:IsActiveType(TYPE_MONSTER) or re:IsHasType(EFFECT_TYPE_ACTIVATE))

@@ -53,7 +53,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.SetOperationInfo(0,CATEGORY_NEGATE,eg,1,0,0)
 end
 function s.thfilter(c,cid)
-	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_MONSTER) and not c:IsCode(cid) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsMonster() and not c:IsCode(cid) and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if Duel.NegateActivation(ev) and re:GetHandler():IsRelateToEffect(re) then

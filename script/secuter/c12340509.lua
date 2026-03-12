@@ -30,7 +30,7 @@ s.listed_names={id}
 s.listed_series={SET_FIRE_CORE}
 
 function s.spfilter(c)
-	return c:IsSetCard(SET_FIRE_CORE) and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(SET_FIRE_CORE) and c:IsMonster()
 end
 function s.spcon(e,c)
 	if c==nil then return true end
@@ -41,7 +41,7 @@ function s.spcon(e,c)
 end
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE) and not c:IsCode(id)
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE) and not c:IsCode(id)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

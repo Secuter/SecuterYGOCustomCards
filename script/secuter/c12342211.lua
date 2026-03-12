@@ -34,7 +34,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_BULWARK_CHAMPION}
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsArmor() and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_LINK) --and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsArmor() and c:IsMonster() and not c:IsType(TYPE_LINK) --and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.filter(c,e,tp)
 	local og=c:GetOverlayGroup()
@@ -116,7 +116,7 @@ function s.tgcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:GetHandler():RemoveOverlayCard(tp,1,1,REASON_COST)
 end
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsAbleToGrave()
+	return c:IsMonster() and c:IsSetCard(SET_BULWARK_CHAMPION) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

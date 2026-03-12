@@ -25,7 +25,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_MACHINE_FORCE}
 function s.thfilter(c)
-	return c:IsSetCard(SET_MACHINE_FORCE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MACHINE_FORCE) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

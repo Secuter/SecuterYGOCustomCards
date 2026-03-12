@@ -48,7 +48,7 @@ function s.op(e,tp,eg,ep,ev,re,r,rp)
 	local g=Duel.GetDecktopGroup(tp,1)
 	local tc=g:GetFirst()
 	local ac=Duel.GetChainInfo(0,CHAININFO_TARGET_PARAM)
-	if tc:IsType(TYPE_MONSTER) and tc:IsLevelBelow(4) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and tc:IsCanBeSpecialSummoned(e,0,tp,false,false) then
+	if tc:IsMonster() and tc:IsLevelBelow(4) and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and tc:IsCanBeSpecialSummoned(e,0,tp,false,false) then
 		Duel.DisableShuffleCheck()
 		Duel.SpecialSummon(tc,0,tp,tp,false,false,POS_FACEUP)
 	else
@@ -60,7 +60,7 @@ function s.con2(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetPreviousLocation()==LOCATION_DECK
 end
 function s.thfilter(c)
-	return c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsCode(id) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_ANCIENT_ORACLE) and not c:IsCode(id) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.thfilter(chkc) end

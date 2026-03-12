@@ -51,11 +51,11 @@ function s.operation(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.cnfilter(c,code)
-	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsFaceup()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsMonster() and c:IsFaceup()
 		and c:IsCanBeEffectTarget() and not c:IsCode(code)
 end
 function s.cfilter(c,tp)	
-	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsMonster() and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(s.cnfilter,tp,LOCATION_MZONE,0,1,nil,c:GetOriginalCode())
 end
 function s.cncost(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -68,7 +68,7 @@ function s.cncost(e,tp,eg,ep,ev,re,r,rp,chk)
 	e:SetLabel(cg:GetFirst():GetCode())
 end
 function s.cnfilter2(c,code)
-	return c:IsSetCard(SET_RASCAL_ACE) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and not c:IsCode(code)
+	return c:IsSetCard(SET_RASCAL_ACE) and c:IsMonster() and c:IsFaceup() and not c:IsCode(code)
 end
 function s.cntg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

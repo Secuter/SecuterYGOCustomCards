@@ -57,7 +57,7 @@ function s.splimit(e,c,sump,sumtype,sumpos,targetp,se)
 end
 -- send to gy
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_PELAGIC) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsMonster() and c:IsSetCard(SET_PELAGIC) and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

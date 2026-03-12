@@ -100,7 +100,7 @@ function s.thop(e,tp,eg,ep,ev,re,r,rp)
 end
 --search 2
 function s.thfilter2(c)
-	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	local c=e:GetHandler()

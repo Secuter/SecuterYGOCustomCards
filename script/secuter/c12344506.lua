@@ -28,7 +28,7 @@ s.listed_names={id}
 s.listed_series={SET_GHOOST}
 --copy level
 function s.costfilter(c,lvl)
-	return c:IsSetCard(SET_GHOOST) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost() and c:GetLevel()>0 and not c:IsLevel(lvl)
+	return c:IsSetCard(SET_GHOOST) and c:IsMonster() and c:IsAbleToGraveAsCost() and c:GetLevel()>0 and not c:IsLevel(lvl)
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	local c=e:GetHandler()

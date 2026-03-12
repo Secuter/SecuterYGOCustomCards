@@ -59,7 +59,7 @@ function s.immcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end
 	local g=Duel.SelectMatchingCard(tp,Card.IsDiscardable,tp,LOCATION_HAND,0,1,1,nil)
 	local ct=0
-	if g:GetFirst():IsType(TYPE_MONSTER) then ct=TYPE_MONSTER
+	if g:GetFirst():IsMonster() then ct=TYPE_MONSTER
 	elseif g:GetFirst():IsType(TYPE_SPELL) then ct=TYPE_SPELL
 	elseif g:GetFirst():IsType(TYPE_TRAP) then ct=TYPE_TRAP end
 	e:SetLabel(ct)

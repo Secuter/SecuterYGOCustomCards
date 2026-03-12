@@ -45,7 +45,7 @@ s.listed_names={id}
 s.listed_series={SET_CREARMOR}
 --send to gy
 function s.tgfilter(c)
-	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() 
+	return c:IsSetCard(SET_CREARMOR) and c:IsMonster() and c:IsAbleToGrave() 
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return true end

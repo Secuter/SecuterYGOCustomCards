@@ -31,7 +31,7 @@ end
 s.listed_series={SET_FLUIDSPHERE}
 --search
 function s.thfilter(c)
-	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.tgfilter(c)
 	return c:IsFaceup() and c:IsContinuousSpellTrap() and c:IsAbleToGrave()

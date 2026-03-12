@@ -84,7 +84,7 @@ function s.activate2(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.tgfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAbleToGrave()
+	return c:IsMonster() and c:IsSetCard(SET_MORHAI) and c:IsAbleToGrave()
 end
 function s.target3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

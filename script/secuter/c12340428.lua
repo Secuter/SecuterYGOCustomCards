@@ -49,7 +49,7 @@ s.listed_names={id}
 s.listed_series={SET_HYDRA}
 
 function s.spfilter1(c,e,tp)
-	return c:IsSetCard(SET_HYDRA) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:GetLevel()<=4
+	return c:IsSetCard(SET_HYDRA) and c:IsMonster() and not c:IsCode(id) and c:GetLevel()<=4
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)

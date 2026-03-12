@@ -27,7 +27,7 @@ function s.initial_effect(c)
 end
 
 function s.desfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
+	return c:IsFaceup() and c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,LOCATION_MZONE,0,1,nil)

@@ -66,7 +66,7 @@ function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.DiscardHand(tp,Card.IsDiscardable,1,1,REASON_COST+REASON_DISCARD)
 end
 function s.hfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_HYDRA) and c:IsAbleToHand() 
+	return c:IsMonster() and c:IsSetCard(SET_HYDRA) and c:IsAbleToHand() 
 end
 function s.addtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.hfilter,tp,LOCATION_DECK,0,1,nil) end

@@ -16,7 +16,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_MORHAI}
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_MONSTER) and c:IsLevelAbove(7) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsMonster() and c:IsLevelAbove(7) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsPlayerCanSpecialSummonMonster(tp,id+1,0xfe,TYPES_TOKEN,0,0,1,RACE_FIEND,ATTRIBUTE_DARK,POS_FACEUP_DEFENSE,1-tp)

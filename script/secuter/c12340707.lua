@@ -86,7 +86,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.filter(c,e,sp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsMonster() and c:IsSetCard(SET_MORHAI) and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.con(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetTurnPlayer()~=tp

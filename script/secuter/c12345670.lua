@@ -63,7 +63,7 @@ end
 
 --spsummon
 function s.spfilter(c,e,tp)
-    return c:IsSetCard(SET_STAR_SERAPH) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and not c:IsCode(id)
+    return c:IsSetCard(SET_STAR_SERAPH) and c:IsMonster() and c:IsLevelBelow(4) and not c:IsCode(id)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

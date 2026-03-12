@@ -27,10 +27,10 @@ function s.initial_effect(c)
 end
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE) and (c:IsLocation(LOCATION_HAND) or c:IsFaceup())
 end
 function s.desfilter2(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsFaceup() and c:GetSequence()<5
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE) and c:IsFaceup() and c:GetSequence()<5
 end
 function s.mzfilter(c)
 	return c:IsLocation(LOCATION_MZONE) and c:GetSequence()<5
@@ -83,7 +83,7 @@ function s.descon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsReason(REASON_EFFECT)
 end
 function s.spfilter(c,e,tp)
-    return c:IsAttribute(ATTRIBUTE_FIRE) and c:IsType(TYPE_MONSTER) and c:GetLevel()<=4
+    return c:IsAttribute(ATTRIBUTE_FIRE) and c:IsMonster() and c:GetLevel()<=4
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk)

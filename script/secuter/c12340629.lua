@@ -44,7 +44,7 @@ function s.rmcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_FUSION)
 end
 function s.GetCardType(c)
-	if c:IsType(TYPE_MONSTER) then
+	if c:IsMonster() then
 		return TYPE_MONSTER
 	elseif c:IsType(TYPE_SPELL) then
 		return TYPE_SPELL

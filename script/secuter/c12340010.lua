@@ -39,7 +39,7 @@ function s.cond(e,c)
 end
 
 function s.indtg(e,c)
-	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c~=e:GetHandler() and c:IsType(TYPE_MONSTER)
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c~=e:GetHandler() and c:IsMonster()
 end
 function s.efilter(e,re,rp,c)
 	return re:GetOwner()~=c

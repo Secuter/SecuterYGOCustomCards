@@ -30,7 +30,7 @@ end
 s.listed_series={SET_GEARTRON}
 
 function s.filter(c)
-	return c:IsSetCard(SET_GEARTRON) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_GEARTRON) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.filter(chkc) end
@@ -40,7 +40,7 @@ function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	Duel.SetOperationInfo(0,CATEGORY_TOHAND,g,g:GetCount(),0,0)
 end
 function s.filter2(c)
-	return c:IsType(TYPE_MONSTER) and c:IsRace(RACE_MACHINE) and c:IsSummonable(true,nil)
+	return c:IsMonster() and c:IsRace(RACE_MACHINE) and c:IsSummonable(true,nil)
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	local tc=Duel.GetFirstTarget()

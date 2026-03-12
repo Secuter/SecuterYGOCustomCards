@@ -51,7 +51,7 @@ function s.desfilter(c,ct)
 end
 function s.cfilter(c,tp)
 	local ct=0
-	if c:IsType(TYPE_MONSTER) then ct=TYPE_MONSTER
+	if c:IsMonster() then ct=TYPE_MONSTER
 	elseif c:IsType(TYPE_SPELL) then ct=TYPE_SPELL
 	elseif c:IsType(TYPE_TRAP) then ct=TYPE_TRAP end
 	return c:IsSetCard(SET_MORHAI) and c:IsAbleToGraveAsCost() and (c:IsLocation(LOCATION_HAND) or c:IsFaceup()) and ct>0
@@ -62,7 +62,7 @@ function s.descost(e,tp,eg,ep,ev,re,r,rp,chk)
 	Duel.Hint(HINT_SELECTMSG,tp,HINTMSG_TOGRAVE)
 	local g=Duel.SelectMatchingCard(tp,s.cfilter,tp,LOCATION_HAND+LOCATION_ONFIELD,0,1,1,e:GetHandler(),e:GetHandlerPlayer())
 	local ct=0
-	if g:GetFirst():IsType(TYPE_MONSTER) then ct=TYPE_MONSTER
+	if g:GetFirst():IsMonster() then ct=TYPE_MONSTER
 	elseif g:GetFirst():IsType(TYPE_SPELL) then ct=TYPE_SPELL
 	elseif g:GetFirst():IsType(TYPE_TRAP) then ct=TYPE_TRAP end
 	e:SetLabel(ct)
@@ -92,7 +92,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():GetFlagEffect(id)>0
 end
 function s.thfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+	return c:IsMonster() and c:IsSetCard(SET_MORHAI) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_GRAVE,0,1,nil,e,tp)

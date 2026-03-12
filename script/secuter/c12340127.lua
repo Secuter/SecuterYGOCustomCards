@@ -29,7 +29,7 @@ end
 s.listed_series={SET_UNDEAD,SET_FUSION}
 
 function s.spfilter(c,e,tp)
-	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:GetAttack()==0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
+	return c:IsSetCard(SET_UNDEAD) and c:IsMonster() and c:GetAttack()==0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(Card.IsDiscardable,tp,LOCATION_HAND,0,1,nil) end

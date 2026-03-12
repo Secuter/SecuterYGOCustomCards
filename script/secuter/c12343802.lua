@@ -40,7 +40,7 @@ s.listed_names={id}
 s.listed_series={SET_CREARMOR}
 --spsummon & attach
 function s.spfilter(c,e,tp,ar)
-	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and Armor.AttachCheck(ar,c)
+	return c:IsSetCard(SET_CREARMOR) and c:IsMonster() and not c:IsCode(id) and Armor.AttachCheck(ar,c)
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
@@ -68,7 +68,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsLocation(LOCATION_GRAVE) and (r&REASON_ARMORIZING)==REASON_ARMORIZING
 end
 function s.thfilter(c)
-	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToHand()
+	return c:IsSetCard(SET_CREARMOR) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

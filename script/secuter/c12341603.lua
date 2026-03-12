@@ -48,7 +48,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_DEMON_RIVAL}
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsType(TYPE_MONSTER) and c:GetCode()~=id and c:IsAbleToHand()
+	return c:IsSetCard(SET_DEMON_RIVAL) and c:IsMonster() and c:GetCode()~=id and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -67,7 +67,7 @@ function s.descon(e,tp,eg,ep,ev,re,r,rp)
     return not (re and re:GetHandler():IsCode(id))
 end
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER)
+	return c:IsMonster()
 end
 function s.destg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsOnField() and s.desfilter(chkc) end

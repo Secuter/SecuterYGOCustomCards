@@ -84,7 +84,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 	  and c:IsPreviousLocation(LOCATION_MZONE) and rp==1-tp and c:IsPreviousControler(tp)
 end
 function s.spfilter(c,ft,e,tp)
-	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and not c:IsReunion() and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
+	return c:IsSetCard(SET_ANUAK) and c:IsMonster() and not c:IsReunion() and (c:IsLocation(LOCATION_GRAVE) or c:IsFaceup())
 		and ((ft>0 and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP)) or c:IsAbleToHand())
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)

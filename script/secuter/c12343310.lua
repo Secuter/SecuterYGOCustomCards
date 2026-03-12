@@ -89,7 +89,7 @@ function s.thcon2(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_MZONE) and c:IsSummonType(SUMMON_TYPE_FUSION)
 end
 function s.thfilter2(c)
-	return c:IsSetCard(SET_PYROCLAST) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_FUSION) and c:IsAbleToHand()
+	return c:IsSetCard(SET_PYROCLAST) and c:IsMonster() and not c:IsType(TYPE_FUSION) and c:IsAbleToHand()
 end
 function s.thtg2(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.thfilter2(chkc) end

@@ -53,7 +53,7 @@ function s.thfilter1(c,tp)
 	return c:IsSetCard(SET_MORHAI) and c:IsAbleToHand() and Duel.IsExistingMatchingCard(s.thfilter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter2(c,code)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI_CULTIST) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsMonster() and c:IsSetCard(SET_MORHAI_CULTIST) and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter1,tp,LOCATION_DECK,0,1,nil,tp) end

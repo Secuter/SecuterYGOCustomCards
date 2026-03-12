@@ -27,7 +27,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_EXCHANGE_DAEMON}
 function s.thfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_EXCHANGE_DAEMON) and c:IsAbleToHand()
+	return c:IsMonster() and c:IsSetCard(SET_EXCHANGE_DAEMON) and c:IsAbleToHand()
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

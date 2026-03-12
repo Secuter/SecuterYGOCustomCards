@@ -55,7 +55,7 @@ function s.rmop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon itself
 function s.cfilter(c,ft,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsType(TYPE_FLIP)
+	return c:IsMonster() and c:IsType(TYPE_FLIP)
 		and (ft>0 or (c:IsControler(tp) and c:GetSequence()<5)) and (c:IsControler(tp) or c:IsFaceup())
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)

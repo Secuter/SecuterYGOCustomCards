@@ -55,7 +55,7 @@ function s.tgfilter(c)
 	return c:IsRace(RACE_ZOMBIE) and c:IsAbleToGrave()
 end
 function s.thfilter(c)
-	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_MONSTER) and c:IsLevelBelow(4) and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and c:IsMonster() and c:IsLevelBelow(4) and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_HAND,0,1,e:GetHandler())

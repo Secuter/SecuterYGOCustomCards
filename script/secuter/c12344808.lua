@@ -79,7 +79,7 @@ function s.tgop(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.cfilter(c)
-	return (c:IsPreviousLocation(LOCATION_GRAVE) and c:IsType(TYPE_MONSTER))
+	return (c:IsPreviousLocation(LOCATION_GRAVE) and c:IsMonster())
 		or (c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousTypeOnField()&TYPE_MONSTER>0)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)

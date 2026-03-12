@@ -42,10 +42,10 @@ function s.initial_effect(c)
 end
 
 function s.filter0(c)
-	return c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
+	return c:IsMonster() and c:IsCanBeFusionMaterial() and c:IsAbleToGrave()
 end
 function s.filter1(c,e)
-	return c:IsType(TYPE_MONSTER) and c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
+	return c:IsMonster() and c:IsCanBeFusionMaterial() and c:IsAbleToGrave() and not c:IsImmuneToEffect(e)
 end
 function s.filter2(c,e,tp,m,f)
 	return c:IsType(TYPE_FUSION) and not c:IsType(TYPE_EFFECT) and (not f or f(c))

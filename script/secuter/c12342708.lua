@@ -20,7 +20,7 @@ end
 s.listed_names={12342704}
 s.listed_series={SET_YOCCOL}
 function s.thfilter(c)
-	return c:IsSetCard(SET_YOCCOL) and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_YOCCOL) and c:IsMonster() and not c:IsType(TYPE_RITUAL) and c:IsAbleToHand()
 end
 function s.tdfilter(c)
 	return c:IsType(TYPE_FUSION+TYPE_SYNCHRO+TYPE_XYZ) and c:IsAbleToExtra()

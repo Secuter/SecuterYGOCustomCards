@@ -42,7 +42,7 @@ function s.cond(e,c)
 end
 
 function s.costfilter(c)
-	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_MONSTER)  and c:IsAbleToRemoveAsCost()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsMonster()  and c:IsAbleToRemoveAsCost()
         and (aux.SpElimFilter(c,true) or (c:IsLocation(LOCATION_EXTRA) and c:IsFaceup()))
 end
 function s.cost(e,tp,eg,ep,ev,re,r,rp,chk)

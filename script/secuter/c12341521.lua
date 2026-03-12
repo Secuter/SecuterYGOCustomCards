@@ -49,7 +49,7 @@ function s.atkvalue(e,c)
 end
 
 function s.tfilter(c,tp)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and not c:IsType(TYPE_XYZ)
+	return c:IsFaceup() and c:IsMonster() and not c:IsType(TYPE_XYZ)
 		and Duel.IsExistingTarget(s.afilter,tp,LOCATION_GRAVE,0,1,nil,c) 
 end
 function s.afilter(c,tc)

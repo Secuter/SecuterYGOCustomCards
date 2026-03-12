@@ -31,7 +31,7 @@ end
 s.listed_series={SET_SOULBOUND}
 --to hand/deck
 function s.thfilter(c,e,tp)
-	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return false end

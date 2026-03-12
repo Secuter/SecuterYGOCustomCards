@@ -37,7 +37,7 @@ s.listed_series={SET_PYROCLAST}
 s.listed_names={id}
 --to grave
 function s.tgfilter(c)
-	return c:IsRace(RACE_PYRO) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsRace(RACE_PYRO) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

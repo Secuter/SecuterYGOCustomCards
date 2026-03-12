@@ -38,7 +38,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp,c)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(SET_GEARTRON) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetCode()~=id
+	return c:IsSetCard(SET_GEARTRON) and c:IsMonster() and c:IsAbleToHand() and c:GetCode()~=id
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end

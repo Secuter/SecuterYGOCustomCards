@@ -55,7 +55,7 @@ end
 
 --to deck
 function s.tdfilter(c,e)
-	return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsType(TYPE_MONSTER) and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
+	return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsMonster() and c:IsCanBeEffectTarget(e) and c:IsAbleToDeck() and (c:IsFaceup() or not c:IsLocation(LOCATION_REMOVED))
 end
 function s.tdtg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:IsLocation(LOCATION_GRAVE) and chkc:IsControler(tp) and s.tdfilter(chkc,e) end

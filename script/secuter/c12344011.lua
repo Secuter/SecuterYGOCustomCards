@@ -27,7 +27,7 @@ function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	return true
 end
 function s.cfilter(c)
-	return c:IsType(TYPE_NORMAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToGraveAsCost()
+	return c:IsType(TYPE_NORMAL) and c:IsMonster() and c:IsAbleToGraveAsCost()
 end
 function s.spfilter(c,e,tp,lv)
 	return c:IsLevelAbove(3) and c:IsLevelBelow(lv) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)

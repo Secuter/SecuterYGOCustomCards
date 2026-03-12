@@ -46,7 +46,7 @@ s.listed_names={id}
 s.listed_series={SET_CREARMOR}
 --to grave
 function s.tgfilter(c)
-	return c:IsSetCard(SET_CREARMOR) and c:IsType(TYPE_MONSTER) and not c:IsCode(id) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_CREARMOR) and c:IsMonster() and not c:IsCode(id) and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

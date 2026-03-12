@@ -68,10 +68,10 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return e:GetHandler():IsSummonType(SUMMON_TYPE_LINK)
 end
 function s.thfilter(c,attr)
-	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:GetAttribute()~=attr
+	return c:IsSetCard(SET_ANUAK) and c:IsMonster() and c:IsAbleToHand() and c:GetAttribute()~=attr
 end
 function s.cfilter(c,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and c:IsDiscardable()
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_LIGHT+ATTRIBUTE_DARK) and c:IsDiscardable()
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetAttribute()) 
 end
 function s.thcost(e,tp,eg,ep,ev,re,r,rp,chk)

@@ -16,7 +16,7 @@ end
 s.listed_series={SET_AQUARAID}
 -- search
 function s.thfilter(c)
-	return c:IsSetCard(SET_AQUARAID) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_AQUARAID) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.tgfilter(c)
 	return c:IsAttribute(ATTRIBUTE_WATER) and c:IsType(TYPE_NORMAL) and c:IsAbleToGrave()

@@ -15,7 +15,7 @@ function s.cfilter(c)
 	return c:IsSummonType(SUMMON_TYPE_TRIBUTE) and c:IsLevelAbove(7)
 end
 function s.mfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_ASURA) and c:IsAbleToGrave()
+	return c:IsMonster() and c:IsSetCard(SET_ASURA) and c:IsAbleToGrave()
 end
 function s.fextra(e,tp,mg)
 	if Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_MZONE,0,1,nil) then

@@ -64,7 +64,7 @@ function s.gycon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsPreviousLocation(LOCATION_ONFIELD) and bit.band(c:GetSummonType(),SUMMON_TYPE_FUSION)==SUMMON_TYPE_FUSION
 end
 function s.spfilter(c,e,tp,atk)
-	return c:IsRace(RACE_ZOMBIE) and c:IsType(TYPE_MONSTER) and c:GetAttack()<=atk
+	return c:IsRace(RACE_ZOMBIE) and c:IsMonster() and c:GetAttack()<=atk
 		and not c:IsCode(id) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
 end
 function s.gytg(e,tp,eg,ep,ev,re,r,rp,chk)

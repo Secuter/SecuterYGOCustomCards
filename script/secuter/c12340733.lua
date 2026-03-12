@@ -56,7 +56,7 @@ function s.tgcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsReason(REASON_COST) and re and re:IsActivated() and re:GetHandler():IsSetCard(SET_MORHAI)
 end
 function s.tgfilter(c)
-	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return c:IsSetCard(SET_MORHAI_SPAWN) and c:IsMonster() and c:IsAbleToGrave()
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

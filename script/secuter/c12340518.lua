@@ -60,7 +60,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 		if #g>0 then
             Duel.Destroy(g,REASON_EFFECT)
             local tc=g:GetFirst()
-            if tc:IsType(TYPE_MONSTER) then
+            if tc:IsMonster() then
                 Duel.Damage(1-tp,tc:GetLevel()*200,REASON_EFFECT)
             end
 		end
@@ -68,7 +68,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE) and c:GetCode()~=id
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE) and c:GetCode()~=id
         and c:IsCanBeSpecialSummoned(e,0,tp,false,false)
 end
 function s.thcon(e,tp,eg,ep,ev,re,r,rp)

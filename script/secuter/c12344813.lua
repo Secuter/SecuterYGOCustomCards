@@ -31,7 +31,7 @@ end
 s.listed_series={SET_UNDEAD,SET_EAGLE_OVERSEER}
 --search
 function s.tgfilter(c)
-	return (c:IsSetCard(SET_UNDEAD) or c:IsSetCard(SET_EAGLE_OVERSEER)) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave()
+	return (c:IsSetCard(SET_UNDEAD) or c:IsSetCard(SET_EAGLE_OVERSEER)) and c:IsMonster() and c:IsAbleToGrave()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end
@@ -44,7 +44,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 --spsummon
 function s.cfilter(c)
-	return (c:IsPreviousLocation(LOCATION_GRAVE) and c:IsType(TYPE_MONSTER))
+	return (c:IsPreviousLocation(LOCATION_GRAVE) and c:IsMonster())
 		or (c:IsPreviousLocation(LOCATION_ONFIELD) and c:GetPreviousTypeOnField()&TYPE_MONSTER>0)
 end
 function s.spcon(e,tp,eg,ep,ev,re,r,rp)

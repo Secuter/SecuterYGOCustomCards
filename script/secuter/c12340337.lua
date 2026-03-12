@@ -21,7 +21,7 @@ end
 s.listed_names={id}
 s.listed_series={SET_DARK_KING}
 function s.thfilter(c)
-	return c:IsSetCard(SET_DARK_KING) and c:IsType(TYPE_MONSTER) and c:IsFaceup() and c:IsAbleToHand()
+	return c:IsSetCard(SET_DARK_KING) and c:IsMonster() and c:IsFaceup() and c:IsAbleToHand()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_REMOVED) and s.thfilter(chkc) end

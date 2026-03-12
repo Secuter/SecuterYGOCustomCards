@@ -39,7 +39,7 @@ end
 s.listed_series={SET_FIRE_CORE_MAGIC}
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return true end

@@ -66,7 +66,7 @@ function s.op1(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.thfilter(c)
-	return c:IsSetCard(SET_MORHAI) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return c:IsSetCard(SET_MORHAI) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.tg2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil) end
@@ -82,7 +82,7 @@ function s.op2(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.spfilter(c,e,sp)
-	return c:IsType(TYPE_MONSTER) and c:IsSetCard(SET_MORHAI) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
+	return c:IsMonster() and c:IsSetCard(SET_MORHAI) and c:IsAttackBelow(3000) and c:IsCanBeSpecialSummoned(e,0,sp,false,false)
 end
 function s.tg3(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.GetLocationCountFromEx(tp)>0

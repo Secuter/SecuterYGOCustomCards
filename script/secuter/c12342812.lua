@@ -16,7 +16,7 @@ function s.initial_effect(c)
 end
 s.listed_series={SET_WYRMWIND}
 function s.spfilter(c,e,tp)
-	return c:IsType(TYPE_MONSTER)
+	return c:IsMonster()
 	--return c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.filter(c,e,tp)

@@ -27,7 +27,7 @@ end
 s.listed_series={SET_DARK_KING,SET_DARK_SOVEREIGN}
 --search
 function s.filter(c)
-	return (c:IsSetCard(SET_DARK_KING) or c:IsSetCard(SET_DARK_SOVEREIGN)) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
+	return (c:IsSetCard(SET_DARK_KING) or c:IsSetCard(SET_DARK_SOVEREIGN)) and c:IsMonster() and c:IsAbleToHand()
 end
 function s.activate(e,tp,eg,ep,ev,re,r,rp)
 	if not e:GetHandler():IsRelateToEffect(e) then return end

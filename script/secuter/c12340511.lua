@@ -29,7 +29,7 @@ end
 s.listed_series={SET_FIRE_CORE,SET_FIRE_CORE_MAGIC}
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.filter(c)
 	return c:IsSetCard(SET_FIRE_CORE) and c:IsAbleToHand()

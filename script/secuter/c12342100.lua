@@ -66,7 +66,7 @@ end
 --boost + indes
 function s.rmfilter(c)
 	return c:IsSetCard(SET_INVOKED) and c:IsAbleToRemoveAsCost()
-        and ((c:IsLocation(LOCATION_GRAVE) and c:IsType(TYPE_MONSTER))
+        and ((c:IsLocation(LOCATION_GRAVE) and c:IsMonster())
             or (c:IsLocation(LOCATION_STZONE) and c:IsFaceup() and c:IsOriginalType(TYPE_MONSTER)))
 end
 function s.adcon(e,tp,eg,ep,ev,re,r,rp)

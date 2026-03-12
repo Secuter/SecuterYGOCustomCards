@@ -49,7 +49,7 @@ function s.desop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.desfilter(c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttribute(ATTRIBUTE_FIRE)
+	return c:IsMonster() and c:IsAttribute(ATTRIBUTE_FIRE)
 end
 function s.filter(c,e,tp)
 	return c:IsSetCard(SET_FIRE_CORE_MAGIC) and (c:IsType(TYPE_SPELL) or c:IsType(TYPE_TRAP)) and c:IsAbleToHand()

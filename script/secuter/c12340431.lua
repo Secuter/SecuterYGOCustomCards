@@ -58,7 +58,7 @@ function s.spcon2(e,tp,eg,ep,ev,re,r,rp)
 		and c:IsPreviousLocation(LOCATION_OVERLAY)
 end
 function s.spfilter2(c,e,tp)
-	return c:IsSetCard(SET_HYDRA) and c:IsType(TYPE_MONSTER) and c:GetLevel()<=4
+	return c:IsSetCard(SET_HYDRA) and c:IsMonster() and c:GetLevel()<=4
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.sptg2(e,tp,eg,ep,ev,re,r,rp,chk)

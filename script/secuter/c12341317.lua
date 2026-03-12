@@ -20,12 +20,12 @@ function s.filter(c)
 	return c:IsAttackPos() and c:IsAbleToHand()
 end
 function s.spfilter1(c,e,tp)
-	return c:IsType(TYPE_NORMAL) and c:IsType(TYPE_MONSTER)
+	return c:IsType(TYPE_NORMAL) and c:IsMonster()
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
 		and Duel.IsExistingMatchingCard(s.spfilter2,tp,LOCATION_DECK,0,1,c,e,tp,c:GetLevel())
 end
 function s.spfilter2(c,e,tp,lv)
-	return c:IsType(TYPE_NORMAL) and c:IsType(TYPE_MONSTER) and c:GetLevel()~=lv
+	return c:IsType(TYPE_NORMAL) and c:IsMonster() and c:GetLevel()~=lv
 		and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_ATTACK)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)

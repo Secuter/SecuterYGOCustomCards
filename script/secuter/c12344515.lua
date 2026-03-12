@@ -17,7 +17,7 @@ end
 s.listed_series={SET_GHOOST}
 
 function s.thfilter(c,e,tp,code)
-	return c:IsSetCard(SET_GHOOST) and c:IsType(TYPE_MONSTER) and not c:IsCode(code) and c:IsAbleToHand()
+	return c:IsSetCard(SET_GHOOST) and c:IsMonster() and not c:IsCode(code) and c:IsAbleToHand()
 end
 function s.filter(c,e,tp)
 	return c:IsFaceup() and c:IsSetCard(SET_GHOOST)

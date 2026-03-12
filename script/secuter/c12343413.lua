@@ -30,7 +30,7 @@ function s.condition(e,tp,eg,ep,ev,re,r,rp)
 	return re:IsActiveType(TYPE_SPELL+TYPE_TRAP) and Duel.IsChainNegatable(ev)
 end
 function s.desfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_MONSTER) and c:IsRace(RACE_INSECT)
+	return c:IsFaceup() and c:IsMonster() and c:IsRace(RACE_INSECT)
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,LOCATION_MZONE,0,1,nil) end

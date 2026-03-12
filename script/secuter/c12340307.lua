@@ -32,7 +32,7 @@ function s.excon(e)
 end
 
 function s.filter(c)
-	return c:IsType(TYPE_RITUAL) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand() and c:IsSetCard(SET_DARK_KING)
+	return c:IsType(TYPE_RITUAL) and c:IsMonster() and c:IsAbleToHand() and c:IsSetCard(SET_DARK_KING)
 end
 function s.tg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK+LOCATION_GRAVE,0,1,nil) end

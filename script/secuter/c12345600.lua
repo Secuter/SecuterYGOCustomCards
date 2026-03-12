@@ -67,7 +67,7 @@ end
 
 --to grave
 function s.tgfilter(c,e,tp)
-    return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsType(TYPE_MONSTER) and c:IsAbleToGrave() and not c:IsCode(id)
+    return c:IsLevel(9) and c:IsSetCard(SET_GENERAIDER) and c:IsMonster() and c:IsAbleToGrave() and not c:IsCode(id)
 end
 function s.tgtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.tgfilter,tp,LOCATION_DECK,0,1,nil) end

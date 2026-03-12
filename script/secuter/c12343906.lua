@@ -64,7 +64,7 @@ function s.thcon(e,tp,eg,ep,ev,re,r,rp)
 	return c:IsLocation(LOCATION_GRAVE) and r==REASON_LINK and c:GetReasonCard():IsSetCard(SET_IRRADIANCE)
 end
 function s.cfilter2(c,tp)
-	return c:IsSetCard(SET_IRRADIANCE) and c:IsType(TYPE_MONSTER) and not c:IsPublic()
+	return c:IsSetCard(SET_IRRADIANCE) and c:IsMonster() and not c:IsPublic()
 		and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.thfilter(c,code)

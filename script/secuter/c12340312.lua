@@ -30,5 +30,5 @@ function s.atkval(e,c)
 end
 
 function s.distg(e,c)
-	return c:IsType(TYPE_MONSTER) and c:IsAttackBelow(e:GetHandler():GetAttack()-1)
+	return c:IsMonster() and c:IsAttackBelow(e:GetHandler():GetAttack()-1)
 end

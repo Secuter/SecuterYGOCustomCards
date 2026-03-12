@@ -152,7 +152,7 @@ end
 
 function s.dfilter(c,e,tp)
 	return c:IsLocation(LOCATION_GRAVE) and c:IsPreviousLocation(LOCATION_DECK) and c:GetPreviousControler()==tp and aux.SpElimFilter(c,true)
-		and c:IsType(TYPE_MONSTER) and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
+		and c:IsMonster() and c:IsCanBeSpecialSummoned(e,0,tp,false,false,POS_FACEUP_DEFENSE)
 end
 function s.tdcon(e,tp,eg,ep,ev,re,r,rp)
 	return Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and eg:IsExists(s.dfilter,1,nil,e,tp)
