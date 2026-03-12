@@ -73,7 +73,7 @@ function s.gycond(e,tp,eg,ep,ev,re,r,rp,chk)
 	return e:GetHandler():IsPreviousLocation(LOCATION_HAND+LOCATION_ONFIELD)
 end
 function s.filter(c)
-	return c:IsSetCard(SET_UNDEAD) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_UNDEAD) and c:IsSpellTrap() and c:IsAbleToHand()
 end
 function s.gytg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter,tp,LOCATION_DECK,0,1,nil) end

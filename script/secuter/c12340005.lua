@@ -90,7 +90,7 @@ function s.reto(e,tp,eg,ep,ev,re,r,rp)
 	Duel.ReturnToField(e:GetLabelObject())
 end
 function s.filter2(c)
-	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsAbleToHand()
+	return c:IsSetCard(SET_EXTERNAL_WORLDS) and c:IsSpellTrap() and c:IsAbleToHand()
 end
 function s.target2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.filter2,tp,LOCATION_DECK,0,1,nil) end

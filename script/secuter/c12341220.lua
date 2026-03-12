@@ -52,7 +52,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.stfilter(c,e,tp)
-	return c:IsFaceup() and c:IsSetCard(SET_DD_INVADER) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()
+	return c:IsFaceup() and c:IsSetCard(SET_DD_INVADER) and c:IsSpellTrap() and c:IsSSetable()
 end
 function s.sttg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.stfilter,tp,LOCATION_REMOVED,0,1,e:GetHandler()) end

@@ -106,7 +106,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.setfilter(c)
-	return c:IsSetCard(SET_SOULBOUND) and c:IsType(TYPE_TRAP+TYPE_SPELL) and c:IsSSetable()
+	return c:IsSetCard(SET_SOULBOUND) and c:IsSpellTrap() and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.setfilter,tp,LOCATION_DECK,0,1,nil) end
