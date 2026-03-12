@@ -68,7 +68,7 @@ function s.setcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_IGNITION)
 end
 function s.filter(c)
-	return c:IsSetCard(SET_AMORPHIEND) and c:IsType(TYPE_QUICKPLAY+TYPE_TRAP) and c:IsSSetable()
+	return c:IsSetCard(SET_AMORPHIEND) and c:IsSpellTrap() and c:IsSSetable()
 end
 function s.settg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

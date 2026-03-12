@@ -75,7 +75,7 @@ function s.spcon(e,tp,eg,ep,ev,re,r,rp)
 		and e:GetHandler():IsPreviousPosition(POS_FACEUP)
 end
 function s.desfilter(c,e,tp)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP)
+	return c:IsSpellTrap()
 end
 function s.sptg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.desfilter,tp,0,LOCATION_ONFIELD,1,nil) end
