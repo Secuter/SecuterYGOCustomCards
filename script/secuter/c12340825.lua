@@ -87,7 +87,7 @@ function s.tfcon(e,tp,eg,ep,ev,re,r,rp)
 		and not re:GetHandler():IsCode(id)
 end
 function s.tffilter(c,tp)
-	return c:IsSpellTrap() and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_EAGLE_OVERSEER) and not c:IsForbidden() and c:CheckUniqueOnField(tp)
+	return c:IsContinuousSpellTrap() and c:IsSetCard(SET_EAGLE_OVERSEER) and not c:IsForbidden() and c:CheckUniqueOnField(tp)
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

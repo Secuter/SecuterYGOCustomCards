@@ -30,7 +30,7 @@ end
 s.listed_series={SET_FLUIDSPHERE}
 --place
 function s.tffilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and not c:IsCode(id) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
+	return c:IsContinuousSpellTrap() and not c:IsCode(id) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

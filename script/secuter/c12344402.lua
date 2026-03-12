@@ -34,7 +34,7 @@ end
 s.listed_series={SET_FLUIDSPHERE}
 --spsummon
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsContinuousSpellTrap() and c:IsAbleToGraveAsCost()
 end
 function s.spcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,1,nil) end
@@ -55,7 +55,7 @@ function s.spop(e,tp,eg,ep,ev,re,r,rp)
 end
 --place
 function s.tffilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
+	return c:IsContinuousSpellTrap() and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.GetLocationCount(tp,LOCATION_SZONE)>0

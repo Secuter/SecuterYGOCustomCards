@@ -34,7 +34,7 @@ function s.thfilter(c)
 	return c:IsSetCard(SET_FLUIDSPHERE) and c:IsType(TYPE_MONSTER) and c:IsAbleToHand()
 end
 function s.tgfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToGrave()
+	return c:IsFaceup() and c:IsContinuousSpellTrap() and c:IsAbleToGrave()
 end
 function s.thtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil)

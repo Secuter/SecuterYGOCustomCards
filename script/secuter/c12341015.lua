@@ -15,7 +15,7 @@ function s.initial_effect(c)
 	c:RegisterEffect(e1)
 end
 function s.filter(c)
-    return c:IsNegatableSpellTrap() and c:IsType(TYPE_CONTINUOUS+TYPE_FIELD)
+    return c:IsNegatableSpellTrap() and (c:IsContinuousSpell() or c:IsFieldSpell())
 end
 function s.target(e,tp,eg,ep,ev,re,r,rp,chk,chkc)
 	if chkc then return chkc:filter() and chkc:IsControler(1-tp) end

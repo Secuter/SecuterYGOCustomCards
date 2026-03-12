@@ -72,7 +72,7 @@ function s.drop(e,tp,eg,ep,ev,re,r,rp)
 end
 
 function s.acfilter(c,tp)
-	return c:IsSetCard(SET_ANUAK) and c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:GetActivateEffect():IsActivatable(tp,true)
+	return c:IsSetCard(SET_ANUAK) and c:IsContinuousSpellTrap() and c:GetActivateEffect():IsActivatable(tp,true)
 end
 function s.actg(e,tp,eg,ep,ev,re,r,rp,chk)
 	return Duel.IsExistingMatchingCard(s.acfilter,tp,LOCATION_HAND+LOCATION_DECK,0,1,nil,tp)

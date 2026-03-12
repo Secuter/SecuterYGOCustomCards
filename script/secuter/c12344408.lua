@@ -16,7 +16,7 @@ end
 s.listed_series={SET_FLUIDSPHERE}
 --place
 function s.tffilter(c,tp)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden() and c:CheckUniqueOnField(tp)
+	return c:IsContinuousSpellTrap() and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden() and c:CheckUniqueOnField(tp)
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	local ft=Duel.GetLocationCount(tp,LOCATION_SZONE)

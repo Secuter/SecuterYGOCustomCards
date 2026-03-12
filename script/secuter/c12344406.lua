@@ -39,7 +39,7 @@ function s.xyzop(e,tp,chk)
 end
 --banish
 function s.cfilter(c)
-	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsContinuousSpellTrap() and c:IsAbleToGraveAsCost()
 end
 function s.rmcost(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,1,nil) end

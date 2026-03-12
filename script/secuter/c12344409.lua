@@ -74,7 +74,7 @@ function s.con(ct)
 end
 --indes
 function s.indtg(e,c)
-	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS)
+	return c:IsFaceup() and c:IsContinuousSpellTrap()
 end
 --intarget
 function s.immtg(e,c)

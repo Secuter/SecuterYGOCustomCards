@@ -43,7 +43,7 @@ function s.tfcon(e,tp,eg,ep,ev,re,r,rp)
     return e:GetHandler():IsSummonType(SUMMON_TYPE_REUNION)
 end
 function s.tffilter(c)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
+	return c:IsContinuousSpellTrap() and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsForbidden()
 end
 function s.tftg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chkc then return chkc:IsControler(tp) and chkc:IsLocation(LOCATION_GRAVE) and s.tffilter(chkc) end
@@ -62,11 +62,11 @@ function s.tfop(e,tp,eg,ep,ev,re,r,rp)
 end
 --place
 function s.cfilter(c,tp)
-	return c:IsFaceup() and c:IsType(TYPE_CONTINUOUS) and c:IsAbleToGraveAsCost()
+	return c:IsFaceup() and c:IsContinuousSpellTrap() and c:IsAbleToGraveAsCost()
 		and Duel.IsExistingMatchingCard(s.tffilter2,tp,LOCATION_DECK,0,1,nil,c:GetCode())
 end
 function s.tffilter2(c,cid)
-	return c:IsType(TYPE_SPELL+TYPE_TRAP) and c:IsType(TYPE_CONTINUOUS) and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsCode(cid) and not c:IsForbidden()
+	return c:IsContinuousSpellTrap() and c:IsSetCard(SET_FLUIDSPHERE) and not c:IsCode(cid) and not c:IsForbidden()
 end
 function s.tfcost2(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.cfilter,tp,LOCATION_SZONE,0,1,nil,tp) end

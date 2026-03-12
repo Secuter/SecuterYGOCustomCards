@@ -25,7 +25,7 @@ function s.spfilter(c,e,tp)
 end
 function s.cfilter(c,e,tp)
 	return ((c:IsSetCard(SET_LV) and c:IsMonster() and Duel.IsExistingMatchingCard(s.thfilter,tp,LOCATION_DECK,0,1,nil))
-			or (c:IsSetCard(SET_FLUIDSPHERE) and c:IsSpellTrap() and c:IsType(TYPE_CONTINUOUS)
+			or (c:IsSetCard(SET_FLUIDSPHERE) and c:IsContinuousSpellTrap()
                 and Duel.GetLocationCount(tp,LOCATION_MZONE)>0 and Duel.IsExistingMatchingCard(s.spfilter,tp,LOCATION_DECK,0,1,nil,e,tp))
 		) and not c:IsPublic()
 end
