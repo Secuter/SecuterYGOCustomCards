@@ -43,7 +43,7 @@ function s.activate(e,tp,eg,ep,ev,re,r,rp)
 			local tc=sg:Select(tp,1,1,nil):GetFirst()
 			g:AddCard(tc)
 			sg:Remove(Card.IsCode,nil,tc:GetCode())
-		until #sg==0 or dt==#g or not Duel.SelectYesNo(tp,210)	
+		until #sg==0 or dt==#g or not Duel.SelectYesNo(tp,210)
 		Duel.ConfirmCards(1-tp,g)
 		Duel.ShuffleHand(tp)
 		local ct=#g
@@ -61,7 +61,7 @@ function s.chainlm(e,rp,tp)
 end
 --extra summon
 function s.sumfilter(c)
-	return c:IsRace(RACE_DIVINE) and c:IsLevel(12)
+	return c:IsMonster() and c:IsSummonableCard() and c:IsRace(RACE_DIVINE) and c:IsLevel(12)
 end
 function s.sumtg(e,tp,eg,ep,ev,re,r,rp,chk)
 	if chk==0 then return Duel.IsExistingMatchingCard(s.sumfilter,tp,LOCATION_HAND,0,1,nil) end
